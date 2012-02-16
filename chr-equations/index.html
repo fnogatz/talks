@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Linear Equation Solving with Constraint Handling Rules</title>
+
+	<link href="assets/presentation.css" media="screen" rel="stylesheet" type="text/css" />
+	<script src='assets/jquery.js'></script>
+	<script src='assets/presentation.js'></script>
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title" style="margin-left: -60px;">Linear Equation Solving</h1>
+				<h2 id="author">
+					Falco Nogatz<br> February 2012
+				</h2>
+				<h2 id="subtitle" style="margin-left: -60px;">
+					with Constraint Handling Rules<br />&nbsp;
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/header.jpg'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+
+			<article>
+				<h3>Background</h3>
+				<p>
+					<span class="med-color" style="font-weight:bold;">Falco Nogatz</span><br />
+					Student @ Ulm University<br />Computer Science
+				</p>
+				<p><span style="font-weight:bold;">Interests:</span> web technologies and programming paradigms</p>
+				<p>
+					<span style="font-weight:bold;">Contact:</span><br />
+					www: <a href="http://nogatz.net/">nogatz.net</a> / <a href="http://ioexception.de/">ioexception.de</a><br />
+					twitter: <a href="http://twitter.com/ulmerleben">@ulmerleben</a><br />
+					github: <a href="https://github.com/fnogatz">fnogatz</a>
+				</p>
+			</article>
+		
+			<article>
+				<h3>Contents</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Motivation</header>
+
+			<article>
+				<h2>Linear Equations are everywhere!</h2>
+			</article>
+
+			<article class='fill'>
+				<h3>Example I: Planes in Mathematics</h3>
+				<p>
+					<img src='assets/images/example_ebenen.jpg'>
+				</p>
+				<div class='source white'>Source: <a href="http://www.flickr.com/photos/fdecomite/3937488976/">fdecomite</a> <small>(CC-BY 2.0)</small></div>
+			</article>
+
+			<article class='fill'>
+				<h3>Example II: Radiosity in Computer Graphics</h3>
+				<p>
+					<img src='assets/images/example_radiosity.jpg'>
+				</p>
+				<div class='source white'>Source: <a href="http://de.wikipedia.org/w/index.php?title=Datei:Radiosity-yes.jpg&filetimestamp=20091103183506">Jakob Richter</a> <small>(GNU FDL)</small></div>
+			</article>
+
+			<article>
+				<h3>Example III: Error-detecting Reed-Solomon-Code</h3>
+				<p>
+					<img src='assets/images/example_chrcode.png' style="height:500px;width:500px;margin-left:110px;">
+				</p>
+			</article>
+
+			<article class="fill">
+				<q style="font-size:140%; line-height:175%">If A is a success in life, then A equals X plus Y plus Z. Work is X; Y is play; and Z is keeping your mouth shut.</q>
+					<div class='author'>Albert Einstein</div>
+			</article>
+		</section>
+	
+		<section>
+			<header>Linear Equations in CHR</header>
+
+			<article class="fill">
+				<h1>Linear Equations in CHR</h1>
+				<h3><br/>It computes it by itself, doesn't it?</h3>
+			</article>
+
+			<article class="fill">
+				<q style="font-size:140%; line-height:175%">If A is a success in life, then <span class="mawi-color" style="font-weight:bold;">A</span> equals <span class="mawi-color" style="font-weight:bold;">X</span> plus <span class="mawi-color" style="font-weight:bold;">Y</span> plus <span class="mawi-color" style="font-weight:bold;">Z</span>. Work is X; Y is play; and Z is keeping your mouth shut.</q>
+					<div class="author">Albert Einstein</div>
+			</article>
+
+			<article>
+				<h3>Representing Equations with Constraints (I)</h3>
+				<q class="small">If A is a success in life, then <span class="mawi-color" style="font-weight:bold;">A</span> equals <span class="mawi-color" style="font-weight:bold;">X</span> plus <span class="mawi-color" style="font-weight:bold;">Y</span> plus <span class="mawi-color" style="font-weight:bold;">Z</span>. Work is X; Y is play; and Z is keeping your mouth shut.</q>
+
+				<dl class="build">
+					<dt class="med-color" id="equation_examples1">An Equation</dt>
+					<dd>is sth. like A = X + Y + Z and is represented by <pre style="margin-top:5px;">eq(A, X+Y+Z).</pre></dd>
+
+					<dt class="med-color" style="margin-top:10px;">A Set of Equations</dt>
+					<dd>is a number of equations, for example<pre style="margin-top:5px;">eq(A, X+Y+Z),<br/>eq(10*Z, X+Y),<br/>eq(Y, 0.5*A).</pre>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Representing Equations with Constraints (II)</h3>
+
+				<dl class="build">
+					<dt class="med-color">eq/2</dt>
+					<dd>represents a linear equation in <i>normal representation</i>, e.g.<pre style="margin-top:5px;">eq(A, X+Y+Z).</pre></dd>
+
+					<dt class="med-color">eqz/2</dt>
+					<dd>holds a linear equation in <i>list representation</i>, e.g.<pre style="margin-top:5px;">eqz([[A,1],[X,-1],[Y,-1],[Z,-1]], 0).</pre></dd>
+				</dl>
+			</article>
+
+			<article class="fill">
+				<h1>Isn't this enough to solve it?</h1>
+				<h3><br/>Yes, but only for a single equation.</h3>
+			</article>
+
+			<article>
+				<h3>Resolving a single Equation</h3>
+
+				<dl class="build">
+					<dt class="med-color">If the variables list is empty</dt>
+					<dd><pre style="margin-top:10px;">eqz([], 0) <=> true.<br/>eqz([], _) <=> false.</pre></dd>
+
+					<dt class="med-color">There is just a single variable</dt>
+					<dd><pre style="margin-top:10px;">eqz([[Var, Coeff]], Abs) <=> Var is -1*(Abs/Coeff).</pre></dt>
+
+					<dt class="med-color">There are more variables</dt>
+					<dd>That's the point!</dd>
+				</dl>
+			</article>
+
+		</section>
+
+		<section>
+			<header>General Solving Ideas</header>
+
+			<article class="fill">
+				<h1>General Ideas</h1>
+				<h3><br/>How to solve a Set of Equations?</h3>
+			</article>
+
+			<article>
+				<h3>General Ideas on Equation Sets (I)</h3>
+
+				<ul class="build">
+					<li>Once a variable has been bound, it should be handled as a constant</li>
+					<li>Example:<pre style="margin-top:10px;">eqz([[A,1],[X,-1],[Y,-1],[Z,-1]], 0),<br/>X is 1,<br/>Y is 2,<br/>Z is 3.<br/><span color="grey">% A-1-2-3 = 0  ->  A = 6</span></pre></li>
+				</ul>
+			</article>
+
+			<article>
+				<h3>General Ideas on Equation Sets (II)</h3>
+
+				<dl class="build">
+					<dt class="med-color">Eliminate bound variables</dt>
+					<dd>
+<pre style="margin-top:10px;">
+eqz(Vars, Abs) <=> member([V, C], Vars), 
+                   number(V), number(C) 
+                   | 
+                   stringify(Vars, Abs, R), eq(R, 0).</pre></dd>
+
+					<dt class="med-color">stringify/3</dt>
+					<dd>brings an equation given in list representation into normal representation</dd>
+
+					<dt class="med-color" style="margin-top:30px;">normalize/2 and normalize/3</dt>
+					<dd>normalizes and simplifies an equation</dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>General Ideas on Equation Sets (III)</h3>
+
+				<dl class="build">
+					<dt class="med-color">General steps</dt>
+					<dd>
+						<ol class="build">
+							<li>
+								<span style="width:35%;float:left;">Set up the equations</span><pre style="padding:0 5px; margin:0;">eq(A, X+Y+Z),<br/>eq(10*Z, X+Y),<br/>eq(Y, 0.5*A).</pre>
+							</li>
+							<li>
+								<span style="width:35%;float:left;">Normalize them</span><pre style="padding:0 5px; margin:0;">eq(A-X-Y-Z, 0),<br/>eq(10*Z-X-Y, 0),<br/>eq(Y-0.5*A, 0).</pre>
+							</li>
+							<li>
+								<span style="width:35%;float:left;">Make eqz's</span><pre style="padding:0 5px; margin:0;">eqz([[A,1],[X,-1],[Y,-1],[Z,-1]], 0),<br/>eqz([[Z,10],[X,-1],[Y,-1]], 0),<br/>eqz([[Y,1],[A,-0.5]], 0).</pre>
+							</li>
+							<li>
+								<span>And now?</span>
+							</li>
+						</ol>
+					<dd>
+				</dl>
+			</article>
+
+		</section>
+
+
+
+
+		<section>
+			<header>Solution I: Variable Substitution</header>
+
+			<article class="fill">
+				<h1>What about "real" sets?</h1>
+				<h3><br/>Solution I: Variable Substitution</h3>
+			</article>
+
+			<article>
+				<h3>Variabe Substitution: Idea (I)</h3>
+
+				<dl class="build">
+					<dt class="med-color">Approach</dt>
+					<dd>Make a variable explicit and replace it in all other equations</dd>
+
+					<dt class="med-color" style="margin-top:30px;">How to do</dt>
+					<dd>Introduce a new <i>var_is</i> constraint which holds the explicit variable</dd>
+
+					<dt class="med-color" style="margin-top:30px;">var_is/3</dt>
+					<dd><pre style="margin-top:10px;margin-bottom:5px;">var_is(Var, VarsList, Absolute)</pre>
+						behaves just as <i>eqz</i>, i.e. eliminates bound variables etc.</dd>
+				</dl>
+			</article>
+
+			<article class="smaller">
+				<h3>Variable Substitution: Idea (II)</h3>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Step</th>
+							<th>Change</th>
+						</tr>
+					</thead>
+					<tbody class="build">
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">0</td>
+						<td><pre>eqz([[A,1],[X,-1],[Y,-1],[Z,-1]], 0),<br/>eqz([[Z,10],[X,-1],[Y,-1]], 0),<br/>eqz([[Y,1],[A,-0.5]], 0).</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">1</td>
+						<td><pre><span class="mawi-color">var_is(A, [[X,1],[Y,1],[Z,1]], 0),</span><br/>eqz([[Z,10],[X,-1],[Y,-1]], 0),<br/>eqz([[Y,1],[A,-0.5]], 0).</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">2</td>
+						<td><pre>var_is(A, [[X,1],[Y,1],[Z,1]], 0),<br/>eqz([[Z,10],[X,-1],[Y,-1]], 0),<br/><span class="mawi-color">eqz([[Y, 0.5],[X,-0.5],[Z,-0.5]], 0)</span>.</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">3</td>
+						<td><pre>var_is(A, [[X,1],[Y,1],[Z,1]], 0),<br/><span class="mawi-color">var_is(Z, [[X,0.1],[Y,0.1]], 0)</span>,<br/>eqz([[Y, 0.5],[X,-0.5],[Z,-0.5]], 0).</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">4</td>
+						<td><pre>var_is(A, [[X,1],[Y,1],[Z,1]], 0),<br/>var_is(Z, [[X,0.1],[Y,0.1]], 0),<br/><span class="mawi-color">eqz([[Y, 0.49],[X,-0.55]], 0)</span>.</pre></td>
+					</tr>
+					</tbody>
+				</table>				
+			</article>
+
+			<article>
+				<h3>Variable Substitution: Implementation</h3>
+
+<pre class="build">
+<span>substitute @ var_is(X, XVars, XAbs) \ eqz(Vars, Abs)
+                   <=> member([X2, _], Vars), X2 == X
+                       |
+                       stringify(XVars, XAbs, Replaced),
+                       replace_var(Vars, Abs, X, Replaced, [], R),
+                       normalize(R, VarsN, AbsN),
+                       simplify(VarsN, VarsNs),
+                       eqz(VarsNs, AbsN).</span>
+
+<span>explicit   @ eqz([[Var, Coeff]|Rest], Abs)
+                   <=> Cinv is -1/Coeff,
+                       mult_vars(Rest, Cinv, VarsN),
+                       AbsN is Abs*Cinv,
+                       var_is(Var, VarsN, AbsN).</span>
+</pre>
+			</article>
+
+			<article>
+				<h3>Variable Substitution: Termination</h3>
+
+				<dl class="build">
+					<dt class="med-color">substitute rule</dt>
+					<dd><ul class="build"><li>replaces an already existing equation with a new one</li><li>stops if there are no occurences of the explicit variable</li></ul></dd>
+
+					<dt class="med-color" style="margin-top:30px;">explicit rule</dt>
+					<dd><ul class="build"><li>takes only equations with variables not already made explicit</li><li>applies until all variables has been made explicit</li></ul></dd>
+				</dl>
+			</article>
+		</section>
+
+		<section>
+			<header>Solution II: Eliminating variables by simple row operations</header>
+
+			<article class="fill">
+				<h1>Why do I need an extra <i>var_is</i> constraint?</h1>
+				<h3><br/>Solution II: Eliminating variables by simple row operations</h3>
+			</article>
+
+			<article>
+				<h3>Elimination by row operations: Idea (I)</h3>
+
+				<dl class="build">
+					<dt class="med-color">Approach</dt>
+					<dd>If the variables in the equations are totally ordered, we can imitate the Gaussian elimination</dd>
+
+					<dt class="med-color" style="margin-top:30px;">How to do</dt>
+					<dd>Compare coefficients for equations with the same left-most variable</dd>
+				</dl>
+			</article>
+
+			<article class="smaller">
+				<h3>Elimination by row operations: Idea (II)</h3>
+
+				<table>
+					<thead>
+						<tr>
+							<th>Step</th>
+							<th>Change</th>
+						</tr>
+					</thead>
+					<tbody class="build">
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">0</td>
+						<td><pre>eqz([[A,1],[X,-1],[Y,-1],[Z,-1]], 0),<br/>eqz([[X,-1],[Y,-1],[Z,10]], 0),<br/>eqz([[A,-0.5],[Y,1]], 0)</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">1</td>
+						<td><pre><span class="mawi-color">eqz([[X,-1],[Y,1],[Z,-1]], 0)</span>,<br/>eqz([[X,-1],[Y,-1],[Z,10]], 0),<br/>eqz([[A,-0.5],[Y,1]], 0)</pre></td>
+					</tr>
+					<tr>
+						<td style="vertical-align:middle; text-align:center;">2</td>
+						<td><pre>eqz([[X,-1],[Y,1],[Z,-1]], 0),<br/><span class="mawi-color">eqz([[Y,2],[Z,-11]], 0)</span>,<br/>eqz([[A,-0.5],[Y,1]], 0)</pre></td>
+					</tr>
+					</tbody>
+				</table>					
+			</article>
+
+			<article>
+				<h3>Elimination by row operations: Implementation (I)</h3>
+
+				<dl class="build">
+					<dt class="med-color">lico/4</dt>
+					<dd>calculates the linear combination of two variables list by a given factor
+
+					<dt class="med-color" style="margin-top:30px;">Example</dt><dd>
+<pre style="margin-top:10px;">lico([[A,2],[B,1]], [[A,1],[C,-1]], -2, LicoN).
+% LicoN = [[B,1],[C,2]].</pre>
+					</dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Elimination by row operations: Implementation (II)</h3>
+
+<pre class="build">
+<span>eliminate @ eqz([[Var1, Coeff1]|Rest1], Abs1)
+                  \ eqz([[Var2, Coeff2]|Rest2], Abs2)
+                  <=> Var1 == Var2
+                      |
+                      Cinv is -1*(Coeff2/Coeff1),
+                      AbsN is Abs1+Cinv*Abs2,
+                      lico(
+                        [[Var1, Coeff1]|Rest1], 
+                        [[Var2, Coeff2]|Rest2], 
+                        Cinv, 
+                        LicoN
+                      ),
+                      simplify(LicoN, Lico),
+                      eqz(Lico, AbsN).</span>
+</pre>
+			</article>
+
+			<article>
+				<h3>Elimination by row operations: Termination</h3>
+
+				<dl class="build">
+					<dt class="med-color">eliminate rule</dt>
+					<dd><ul class="build"><li>removes the left-most variable of the second equation</li><li>can not introduce a new left-most variable which has already been removed as variables are totally ordered</li><li>terminates if all left-most variables are different</li></ul></dd>
+				</dl>
+			</article>
+
+		</section>
+
+		<section>
+			<header>Conclusion</header>
+
+			<article class="fill">
+				<h1>Conclusion</h1>
+			</article>
+	
+			<article>
+				<h3>Conclusion</h3>
+
+				<div>
+					<table class="conclusion">
+						<thead>
+							<tr>
+								<th style="width:50%;">Variable Substitution</th>
+								<th style="width:50%;">Row Operations</th>
+							</tr>
+						</thead>
+						<tbody class="build">
+							<tr>
+								<td class="minus">additional <i>var_is</i></td>
+								<td class="plus">single rule</td>
+							</tr>
+							<tr>
+								<td class="plus">unordered variables</td>
+								<td class="minus">totally ordered</td>
+							</tr>
+							<tr>
+								<td>O(c² · v²)</td>
+								<td>O(c · v³)</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</article>
+		</section>
+
+		<section>
+			<article>
+				<h3>Interesting stuff. And now?</h3>
+				<p>Take a view in the source files on Github: <a href="https://github.com/fnogatz/CHR-Linear-Equation-Solver">https://github.com/fnogatz/CHR-Linear-Equation-Solver</a><br/>It's open-source!</p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title photo: <a href="http://www.flickr.com/photos/timypenburg/5328226108/">Tim Geers</a> under CC-BY 2.0</p>
+			</article>
+
+			<article class="fill">
+				<h1>Thank you!</h1>
+				<h2>Questions?</h2>
+			</article>
+		</section>
+
+		<section>
+			<article>
+				<h3>Contents</h3>
+				<nav class="toc" />
+			</article>
+
+			<!-- <article class="fill">
+				<h2>Backup Slides [nicht beigefügt]</h2>
+			</article>
+
+			<article>
+				<h3>Contents</h3>
+				<nav class="toc" />
+			</article> -->
+		</section>
+
+	</div>
+
+</body>
+</html>

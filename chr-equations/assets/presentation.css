@@ -1,0 +1,36 @@
+.smaller q.small, q.small {
+	font-size:100%; line-height:110%; margin: 30px 40px 0 40px; color: #888888;
+}
+.smaller q.small::before, .smaller q.small::after, q.small::after, q.small::before {
+	font-size:35px;
+}
+
+.smaller td pre, pre.nostyle {
+	margin: 0;
+	padding: 0;
+	background: none; border: none; box-shadow: none; font-size: 18px; color: #666; line-height:24px;
+}
+pre.nostyleNormal {
+	margin: 0;
+	padding: 0;
+	background: none; border: none; box-shadow: none; font-size: 30px; color: #666; line-height:36px;
+}
+
+table .build > tr.to-build > td {
+	border: none;
+}
+
+.inbg {
+	opacity: 0.4;
+}
+
+
+.conclusion td.plus, .conclusion td.minus {
+	padding-left: 48px;
+}
+.conclusion td.plus {
+	background: rgba(169, 162, 141, 0.4) url(images/plus.png) no-repeat 15px center;
+}
+.conclusion td.minus {
+	background: rgba(169, 162, 141, 0.4) url(images/minus.png) no-repeat 15px center;
+}
