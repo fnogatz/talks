@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/presentation.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Repetitorium: R-Programmierung für Molekularmediziner (Übungen)</title>
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+
+		<section>
+			<article class='title-slide'>
+				<h1 id="title" style="margin-left:-50px;">Programmieren mit R</h1>
+				<h2 id="author">
+					Falco Nogatz<br> März 2012
+				</h2>
+				<h2 id="subtitle" style="margin-left:-50px;">
+					Übungen<br/>für Molekularmediziner
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/header.jpg'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+		</section>
+
+		<section>
+			<header>Primitive Datentypen & Ausdrücke</header>
+
+			<article class="fill">
+				<h1>Aufgabe 1</h1>
+				<h3><br/>Arithmetische Ausdrücke</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 1</h3>
+
+				<p>Speichern Sie die Werte <i>x = 4</i>, <i>y = 3</i> und <i>z = -2,5</i>. Berechnen Sie die folgenden Ausdrücke und speichern Sie die Ergebnisse in einem Vektor ab: <ul>
+					<li>x + y</li>
+					<li>(x + 2)³</li>
+					<li>y/z</li>
+					<li>x² - 2xy + y²</li>
+					<li>e³</li>
+					<li>(y*16) mod 13</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 1</h3>
+
+<pre>
+x <- 4
+y <- 3
+z <- -2.5
+vektor <- c(
+  x+y, 
+  (x+2)^3,
+  y/z,
+  x^2-2*x*y+y^2,
+  exp(3),
+  (y*16)%%13
+)
+
+# [1]   7.00000 216.00000  -1.20000   1.00000  20.08554   9.00000</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 2</h1>
+				<h3><br/>Vektorerzeugung</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 2</h3>
+
+				<p>Erzeugen Sie ohne Verwendung von Schleifen oder des c()-Befehls folgende Vektoren:<ul>
+					<li>Ganze Zahlen von 1 bis 10</li>
+					<li>Ganze Zahlen von 10 bis 1</li>
+					<li>Ungerade Zahlen von 1 bis 11</li>
+					<li>8, 8, 8, 8, 8</li>
+					<li>0, 4, 8, 12, 16, 20, 24</li>
+					<li>Quadratzahlen von 1 bis 100</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 2</h3>
+
+<pre>
+# Ganze Zahlen von 1 bis 10
+1:10
+
+# Ganze Zahlen von 10 bis 1
+10:1
+
+# Ungerade Zahlen von 1 bis 11
+seq(1, 11, 2)
+
+# 8, 8, 8, 8, 8
+rep(8, 5)
+
+# 0, 4, 8, 12, 16, 20, 24
+seq(0, 24, 4)
+
+# Quadratzahlen von 1 bis 100
+1:10*1:10</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 3</h1>
+				<h3><br/>Erstellen von Matrizen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (a)</h3>
+				
+				<p>Erstellen Sie folgende Matrix unter Verwendung einer Schleife:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]    0    1    0    1    0
+[2,]    1    0    1    0    1
+[3,]    0    1    0    1    0
+[4,]    1    0    1    0    1
+[5,]    0    1    0    1    0</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (a)</h3>
+
+<pre>
+x <- 5
+m <- matrix(0,x,x)
+
+for (i in 1:(x^2)) {
+  if (i%%2 == 0) {
+    m[i] <- 1
+  }
+}</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (b)</h3>
+				
+				<p>Erstellen Sie folgende Matrix:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    6   11   16   21
+[2,]    2    7   12   17   22
+[3,]    3    8   13   18   23
+[4,]    4    9   14   19   24
+[5,]    5   10   15   20   25</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (b)</h3>
+
+<pre>
+x <- 5
+m <- matrix(1:(x^2),x,x)</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (c)</h3>
+				
+				<p>Erstellen Sie folgende Matrix:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]    6    7    8    9   10
+[3,]   11   12   13   14   15
+[4,]   16   17   18   19   20
+[5,]   21   22   23   24   25</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (c)</h3>
+
+<pre>
+x <- 5
+m <- matrix(1:(x^2),x,x)
+m <- t(m)</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (d)</h3>
+				
+				<p>Erstellen Sie folgende Matrix:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]   25   24   23   22   21
+[2,]   20   19   18   17   16
+[3,]   15   14   13   12   11
+[4,]   10    9    8    7    6
+[5,]    5    4    3    2    1</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (d)</h3>
+
+<pre>
+x <- 5
+m <- matrix((x^2):1,x,x)
+m <- t(m)</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (e)</h3>
+				
+				<p>Erstellen Sie folgende Matrix:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    2    3    4    5
+[2,]   10    9    8    7    6
+[3,]   11   12   13   14   15
+[4,]   20   19   18   17   16
+[5,]   21   22   23   24   25</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (e)</h3>
+
+<pre>
+x <- 5
+m <- matrix(,x,x)
+
+p <- 1
+for (i in 1:x) {
+  for (j in 1:x) {
+    if (i%%2 == 1) {                 
+      m[i, j] <- p             
+    } else {                         
+      m[i, (x+1-j)] <- p       
+    }
+    p <- p+1                         
+  }
+}</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (f)</h3>
+				
+				<p>Erstellen Sie folgende Matrix:</p>
+				<pre>     [,1] [,2] [,3] [,4] [,5]
+[1,]    1    1    1    1    1
+[2,]    0    1    1    1    1
+[3,]    0    0    1    1    1
+[4,]    0    0    0    1    1
+[5,]    0    0    0    0    1</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 3 (f)</h3>
+
+<pre>
+x <- 5
+m <- matrix(1,x,x)
+
+for (i in 2:x) {
+  for (j in 1:(i-1)) {
+    m[i, j] <- 0
+  }
+}</pre>
+			</article>
+
+
+
+			<article class="fill">
+				<h1>Aufgabe 4</h1>
+				<h3><br/>Einlesen einer DNA-Sequenz</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 4</h3>
+
+				<p>Speichern Sie die DNA-Sequenz <i>TCAAGTGGTTGCGTTCGTATGCGCGTGCGTAC<br>CAGCCCAGTTCCAATGGCCTGTATTTGTCAT</i><br>als Zeichenkette in der Variable <i>dna_s</i>. Erzeugen Sie hieraus einen Vektor <i>dna</i> von Buchstaben.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 4</h3>
+
+<pre>
+dna_s <- "TCAAGTGGTTGCGTTCGTATGCGCGTGCGTACCAGCCCAGTTCCAATGGCCTGTATTTGTCAT"
+dna <- unlist(strsplit(dna_s, ""))</pre>
+		
+			</article>
+
+
+
+
+			<article class="fill">
+				<h1>Aufgabe 5</h1>
+				<h3><br/>RNA-Polymerase</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 5</h3>
+
+				<p>Entwickeln Sie eine Funktion <i>rnaP(x)</i>, das zu einer gegebenen DNA-Sequenz <i>x</i> die komplementäre mRNA-Sequenz erstellt.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 5</h3>
+
+<pre>
+rnaP <- function(dna) {
+  complement <- c("U", "G", "C", "A")
+  names(complement) <- c("A", "C", "G", "T")
+
+  mrna <- c()
+  for (i in 1:length(dna)) {
+    mrna[i] <- complement[dna[i]]
+  }
+
+  return(mrna)
+}</pre>
+			</article>
+
+
+
+			<article class="fill">
+				<h1>Aufgabe 6</h1>
+				<h3><br/>DNA-Triplets</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 6</h3>
+
+				<p>Für eine DNA-Sequenz soll eine Kennzahl erstellt werden: Die DNA wird hierfür in Triplets eingeteilt. Falls das Triplet einzig paarweise verschiedene Basen besitzt, wird die Kennzahl um eins erhöht.<br />
+Implementieren Sie die Funktion <i>kennzahl(x)</i>, die die so definierte Kennzahl für eine gegebene DNA-Sequenz bestimmt.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 6 (I)</h3>
+
+<pre>
+kennzahl <- function(dna) {
+  wert <- 0
+  for (i in seq(1, length(dna), 3)) {
+    if (dna[i] != dna[i+1] && 
+        dna[i] != dna[i+2] && 
+        dna[i+1] != dna[i+2]) {
+      wert <- wert + 1
+    }
+  }
+  return(wert)
+}</pre>
+		
+			</article>
+
+			<article>
+				<h3>Lösung 6 (II)</h3>
+
+<pre>
+kennzahl <- function(dna) {
+  m <- matrix(dna, 3,)
+  ungleichheit <- function(v) {
+    return(v[1] != v[2] && v[1] != v[3] && v[2] != v[3])
+  }
+  bool <- apply(m, 2, ungleichheit)
+  return(sum(bool))
+}</pre>
+		
+			</article>
+
+
+
+			<article class="fill">
+				<h1>Aufgabe 7</h1>
+				<h3><br/>Funktionskomposition</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 7</h3>
+
+				<p>Erstellen Sie für folgende Sachverhalte Funktionen mit Eingabeparameter <i>x <= 100</i> und Vektor <i>y</i>:<ul>
+					<li>Ausgabe aller Quadratzahlen kleiner <i>x</i> als Vektor</li>
+					<li>Wahrheitswert, ob <i>x</i> eine Primzahl ist</li>
+					<li>Verkettung von <i>x</i>-mal Vektor <i>y</i></li>
+					<li>Anzahl der Elemente in <i>y</i>, die größer als das Mittel von <i>y</i> sind</li>
+					<li>Berechnung der Fakultät von <i>x</i></li>
+					<li>Ausgabe der Fibonacci-Zahlen kleiner <i>x</i> als Vektor, mit Fib(0) = 0 und Fib(1) = 1</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 7 (I)</h3>
+
+<pre>
+quadrat <- function(x) {
+  quadratzahlen <- (1:10)^2
+  quadratzahlen[which(quadratzahlen<=x)]
+}
+
+istPrim <- function(x) {
+  primzahlen <- c(2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97)
+  return(any(primzahlen == x))
+}
+
+verkette <- function(y, x=1) {
+  rep(y,x)
+}</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 7</h3>
+
+				<p>Erstellen Sie für folgende Sachverhalte Funktionen mit Eingabeparameter <i>x <= 100</i> und Vektor <i>y</i>:<ul>
+					<li>Ausgabe aller Quadratzahlen kleiner <i>x</i> als Vektor</li>
+					<li>Wahrheitswert, ob <i>x</i> eine Primzahl ist</li>
+					<li>Verkettung von <i>x</i>-mal Vektor <i>y</i></li>
+					<li style="font-weight:bold;">Anzahl der Elemente in <i>y</i>, die größer als das Mittel von <i>y</i> sind</li>
+					<li style="font-weight:bold;">Berechnung der Fakultät von <i>x</i></li>
+					<li>Ausgabe der Fibonacci-Zahlen kleiner <i>x</i> als Vektor, mit Fib(0) = 0 und Fib(1) = 1</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 7 (II)</h3>
+
+<pre>
+groesserAlsMittel <- function(y) {
+  mittel <- mean(y)
+  groesser <- which(y > mittel)
+  return(length(groesser))
+}
+
+fak <- function(x) {
+  if (x == 0) {
+    return(1)
+  }
+  return(x*fak(x-1))
+}</pre>
+			</article>
+
+
+			<article>
+				<h3>Aufgabe 7</h3>
+
+				<p>Erstellen Sie für folgende Sachverhalte Funktionen mit Eingabeparameter <i>x <= 100</i> und Vektor <i>y</i>:<ul>
+					<li>Ausgabe aller Quadratzahlen kleiner <i>x</i> als Vektor</li>
+					<li>Wahrheitswert, ob <i>x</i> eine Primzahl ist</li>
+					<li>Verkettung von <i>x</i>-mal Vektor <i>y</i></li>
+					<li>Anzahl der Elemente in <i>y</i>, die größer als das Mittel von <i>y</i> sind</li>
+					<li>Berechnung der Fakultät von <i>x</i></li>
+					<li style="font-weight:bold;">Ausgabe der Fibonacci-Zahlen kleiner <i>x</i> als Vektor, mit Fib(0) = 0 und Fib(1) = 1</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 7 (III)</h3>
+
+<pre>
+nextFib <- function(vektor) {
+  l <- length(vektor)
+  return(vektor[l-1]+vektor[l])
+}
+
+fibonacciVektor <- function(x) {
+  vektor <- c(0,1)
+  neueZahl <- nextFib(vektor)
+  while (neueZahl < x) {
+    vektor <- append(vektor, neueZahl)
+    neueZahl <- nextFib(vektor)
+  }
+  return(vektor)  
+}
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 8</h1>
+				<h3><br/>Datenbankstruktur</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 8</h3>
+
+				<p>Es sei ein DataFrame <i>database</i> gegeben. Ermitteln Sie folgende Eigenschaften:<ul>
+					<li>Anzahl der Einträge (Samples)</li>
+					<li>Anzahl der Attribute (Features)</li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 8</h3>
+
+<pre>
+# Samples:
+nrow(database)
+
+# Features:
+ncol(database)
+</pre>
+		
+			</article>
+
+			<article class="fill">
+				<h1>Aufgabe 9</h1>
+				<h3><br/>Datenbankabfragen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 9</h3>
+
+				<p>Es sei ein DataFrame <i>database</i> mit den Spaltenbezeichnern <i>Alter</i>, <i>Einkommen</i>, <i>Ort</i> und <i>PLZ</i> gegeben. Als Zeilenbezeichner dient der Vorname der Person. Ermitteln Sie folgende Datensätze bzw. Angaben:<ul>
+					<li>Welche Personen kommen aus Ulm?</li>
+					<li>Welche Personen haben ein unterdurchschnittliches Einkommen?</li>
+					<li>Welche Person ist die älteste?</li>
+					<li>Wieviele Personen mittleren Alters (d.h. 30 bis 45 Jahre) sind gespeichert?</li>
+					<li>Gibt es einen "Klaus" aus dem PLZ-Gebiet "89077"?</li>
+					</ul>
+					Geben Sie ggf. zu den Datensätzen die jeweiligen Vornamen an.
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 9</h3>
+
+<pre>
+rownames(U)[which(U$Ort == "Ulm")]
+
+rownames(U)[which(U$Einkommen < mean(U$Einkommen))]
+
+rownames(U)[which(U$Alter == max(U$Alter))]
+
+length(which(U$Alter >= 30 && U$Alter <= 45))
+
+U["Klaus",]$PLZ == 89077</pre>
+		
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 10</h1>
+				<h3><br/>Dotplot</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 10 (I)</h3>
+
+				<p>Schreiben Sie eine Funktion, die für Eingabe zweier Nukleotid-Sequenzen als String einen Dotplot erzeugt.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 10 (I)</h3>
+
+<pre>
+dotplot <- function(s1, s2) {
+  s1c <- unlist(strsplit(s1, ""))
+  s2c <- unlist(strsplit(s2, ""))
+  
+  x <- c()
+  y <- c()
+  for (i in 1:length(s1c)) {
+    for (k in 1:length(s2c)) {
+      if (s1c[i] == s2c[k]) {
+        x <- c(x, i)
+        y <- c(y, k)
+      }
+    }
+  }
+
+  plot(x, y)
+}</pre>
+		
+			</article>
+
+			<article>
+				<h3>Aufgabe 10 (II)</h3>
+
+				<p>Welche Varianten des Dotplots haben Sie kennengelernt?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 10 (II)</h3>
+
+				<ul><li>k-Wortmethode</li><li>Fenstermethode</li></ul>		
+			</article>
+
+			<article>
+				<h3>Aufgabe 10 (III)</h3>
+
+				<p>Verändern Sie Ihre Funktion so, dass sie die 2-Wortmethode verwendet!</p>
+			</article>
+
+			<article class="fill">
+				<h3>Lösung 10 (III)</h3>
+
+<pre>
+dotplot <- function(s1, s2, laenge) {
+  ...
+  for (i in 1:length(s1c)) {
+    for (k in 1:length(s2c)) {
+      add <- TRUE
+      for (m in 0:(laenge-1)) {
+        if (i-m > 0 && k-m > 0 && s1c[i-m] != s2c[k-m]) {
+          add <- FALSE
+        }
+      }
+
+      if (add == TRUE) {
+        x <- c(x, i)
+        y <- c(y, k)
+      }
+    }
+  }
+
+  plot(x, y)
+}</pre>
+		
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 11</h1>
+				<h3><br/>Kostenmatrix</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 11 (I)</h3>
+
+				<p>Erstellen Sie eine Kostenmatrix über die Basen mit folgenden Einträgen: Match = 0, Mismatch = 2, Insertion = Deletion = 1.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 11 (I)</h3>
+
+<pre>
+Kostenmatrix <- matrix(,5,5)
+
+for (i in 1:4) {
+  for (j in 1:4) {
+    if (i == j) {
+      Kostenmatrix[i,j] = 0
+    } else {
+      Kostenmatrix[i,j] = 2
+    }  
+  }
+}
+Kostenmatrix[5,] = rep(1, 5)
+Kostenmatrix[,5] = rep(1, 5)
+
+rownames(Kostenmatrix) <- c("A", "C", "G", "T", "-")
+colnames(Kostenmatrix) <- c("A", "C", "G", "T", "-")
+</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 11 (I)</h3>
+
+<pre>
+> Kostenmatrix
+  A C G T -
+A 0 2 2 2 1
+C 2 0 2 2 1
+G 2 2 0 2 1
+T 2 2 2 0 1
+- 1 1 1 1 1</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 11 (II)</h3>
+
+				<p>Wie sieht die Einheitskostenmatrix aus?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 11 (I)</h3>
+
+<pre>
+> Kostenmatrix
+  A C G T -
+A 0 1 1 1 1
+C 1 0 1 1 1
+G 1 1 0 1 1
+T 1 1 1 0 1
+- 1 1 1 1</pre>
+			</article>
+
+  
+
+
+			<article class="fill">
+				<h1>Aufgabe 12</h1>
+				<h3><br/>Globales Alignment</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (I)</h3>
+
+				<p>Was bedeutet Alignment bzw. Alinieren?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (I)</h3>
+
+				<p>"Alignment bzw. Alinieren bedeutet das gegeneinander Ausrichten von zwei oder mehr Sequenzen, so dass eine große Übereinstimmung zwischen den Sequenzen gefunden wird."</p>
+
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (II)</h3>
+
+				<p>Geben Sie die Rekursionsgleichung zur berechnung eines optimalen globalen Alignments zweier Sequenzen bzgl. der Einheitskostenfunktion an.</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (II)</h3>
+
+				<dl class="build">
+					<dt class="med-color">Basisfälle</dt>
+					<dd>E(0, 0) = 0</dd><dd>E(i, 0) = i</dd><dd>E(0, j) = j</dd>
+
+					<dt class="med-color" style="margin-top:30px;">Rekursion</dt>
+					<dd>top = E(i, j-1) + 1</dd><dd>left = E(i-1, j) + 1</dd><dd>topLeft = E(i-1, j-1) + K(s1[i], s2[j])</dd>
+					<dd>E(i, j) = min(top, left, topLeft)</dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (III)</h3>
+
+				<p>Was bedeutet Editierdistanz?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (III)</h3>
+
+				<p>Die Editierdistanz ist die Anzahl der Mismatches, Deletionen und Insertionen, die für ein Alignment nötig sind. (Dies entspricht der Anzahl der Änderungen, um eine Sequenz in die andere zu überführen.)</p>
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (IV)</h3>
+
+				<p>Was bedeutet Editierdistanz?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (IV)</h3>
+
+				<p>Die Editierdistanz ist die Anzahl der Mismatches, Deletionen und Insertionen, die für ein Alignment nötig sind. (Dies entspricht der Anzahl der Änderungen, um eine Sequenz in die andere zu überführen.)</p>
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (V)</h3>
+
+				<p>Geben Sie die Kostenmatrix an, wenn Matches mit 0, Mismatches mit 2 und Deletionen und Insertionen mit 1 bewertet werden.<br />
+Bestimmen Sie für die Sequenzen S1 = "ACTGCA" und S2 = "CTGGCA" ein optimales globales Alignment (Rechenweg und Lösung). Welchen Score erzielt es?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (V-I)</h3>
+
+<pre>
+> Kostenmatrix
+  A C G T -
+A 0 2 2 2 1
+C 2 0 2 2 1
+G 2 2 0 2 1
+T 2 2 2 0 1
+- 1 1 1 1 1</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (V-II)</h3>
+
+<pre>
+  - C T G G C A
+- 0 1 2 3 4 5 6
+A 1 2 3 4 5 6 5
+C 2 1 2 3 4 5 6
+T 3 2 1 2 3 4 5
+G 4 3 2 1 2 3 4
+C 5 4 3 2 3 2 3
+A 6 5 4 3 4 3 2</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 12 (VI)</h3>
+
+				<p>Bestimmen Sie bei gleicher Kostenmatrix für die Sequenzen S1 = "ATGCTA" und S2 = "CTAGGC" ein optimales globales Alignment (Rechenweg und Lösung). Welchen Score erzielt es?</p>
+			</article>
+
+			<article>
+				<h3>Lösung 12 (V-II)</h3>
+
+<pre>
+  - C T A G G C
+- 0 1 2 3 4 5 6
+A 1 2 3 2 3 4 5
+T 2 3 2 3 4 5 6
+G 3 4 3 4 3 4 5
+C 4 3 4 5 4 5 4
+T 5 4 3 4 5 6 5
+A 6 5 4 3 4 5 6</pre>
+			</article>
+		</section>
+
+
+		<section>
+			<article>
+				<h3>Skript</h3>
+				<p>... zum Repetitorium gibt's hier: <a href="https://github.com/fnogatz/talks/r-bioinformatik">github.com/fnogatz/talks/r-bioinformatik</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title photo: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">David Goehring</a> under <a href="http://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a></p>
+			</article>
+		</section>
+
+
+	</div>
+
+</body>
+</html>

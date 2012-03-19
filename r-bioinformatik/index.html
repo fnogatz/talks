@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/presentation.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Repetitorium: R-Programmierung für Molekularmediziner</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+
+		<section>
+			<article class='title-slide'>
+				<h1 id="title" style="margin-left:-50px;">Programmieren mit R</h1>
+				<h2 id="author">
+					Falco Nogatz<br> März 2012
+				</h2>
+				<h2 id="subtitle" style="margin-left:-50px;">
+					Mini-Repetitorium<br/>für Molekularmediziner
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/header.jpg'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+		
+			<article>
+				<h3>Gliederung</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Primitive Datentypen & Ausdrücke</header>
+
+			<article class="fill">
+				<h1>Am Anfang stand das Wort</h1>
+				<h3><br/>Primitive Datentypen und Ausdrücke</h3>
+			</article>
+
+			<article>
+				<h3>Primitive Datentypen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Zeichenketten ("character")</dt>
+					<dd><pre>"Hello World!"</pre></dd>
+
+					<dt class="med-color">Numerische Zahlen ("numeric")</dt>
+					<dd><pre>3.5 # Nachkommastellen durch Punkt trennen</pre></dd>
+
+					<dt class="med-color">Wahrheitswerte ("logical")</dt>
+					<dd><pre>TRUE
+FALSE</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Arithmetische Ausdrücke (I): Übersicht</h3>
+
+				<dl class="build">
+					<dt class="med-color">Grundrechenarten</dt>
+					<dd><pre>+, -, *, /</pre></dd>
+
+					<dt class="med-color">Exponentiation</dt>
+					<dd><pre>2^3
+2**3.5</pre></dd>
+
+					<dt class="med-color">Klammerung</dt>
+					<dd><pre>2*((3+4)*5+6)</pre></dd>
+
+					<dt class="med-color">Vordefinierte Funktionen</dt>
+					<dd><pre>exp(), log(), sin(), cos(), ...</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Arithmetische Ausdrücke (II): Beispiele</h3>
+
+				<pre>
+1+2*3          # 7 (Punkt vor Strich!)
+(1+2)*3        # 9
+(1+2)^3        # 27
+log(2.71)      # 0.9969486
+(1+2)**exp(3)  # sehr gross: 3**(e**3)
+</pre>
+			</article>
+
+			<article>
+				<h3>Arithmetische Ausdrücke (III): Weitere Operatoren</h3>
+
+				<dl class="build">
+					<dt class="med-color">Ganzzahlige Division: %/%</dt>
+					<dd><pre>
+# Normale Division:
+7/3   # 2.333333
+
+# Ganzzahlige Division:
+7%/%3 # 2, da 7 = 2*3+1</pre></dd>
+
+					<dt class="med-color">Division mit Rest / Modulo-Operator: %%</dt>
+					<dd><pre>
+# 7 mod 3:
+7%%3  # 1, lässt bei Division mit 3 Rest 1</pre></dd>
+
+					<dt class="med-color">Nützlich z.B. in Schleifen!</dt>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Arithmetische Ausdrücke (IV): Weitere Operatoren</h3>
+
+				<dl class="build">
+					<dt class="med-color">Rundung:</dt>
+					<dd><pre>
+# Mathematisches Runden
+round(1.5)   # 2
+
+# Aufrunden
+ceiling(1.3) # 2
+
+# Abrunden
+floor(1.5)   # 1</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vergleichsoperatoren</h3>
+
+				<dl class="build">
+					<dt class="med-color">Arithmetische Vergleiche</dt>
+					<dd><pre>
+1 > 2  # FALSE
+1 < 2  # TRUE
+1 == 2 # FALSE
+1 != 2 # TRUE
+1 <= 2 # TRUE
+2 >= 2 # TRUE
+</pre></dd>
+				</dl>					
+			</article>
+
+		</section>
+
+		<section>
+			<header>Zuweisungen</header>
+
+			<article class="fill">
+				<h1>Let's hack!</h1>
+				<h3><br/>Zuweisungen</h3>
+			</article>
+
+			<article>
+				<h3>Variablenzuweisungen (I)</h3>
+
+				<p>Eine Variable ist ein unter einem Namen ansprechbares Objekt.</p>
+
+				<dl class="build">
+					<dt class="med-color">Syntax</dt>
+					<dd><pre>
+x <- 0 # x ist jetzt 0
+x = 1  # und jetzt 1
+# "=" geht auch, sollte aber nicht mit "==" verwechselt werden</pre></dd>
+
+					<dt class="med-color">Eigenschaften</dt>
+					<dd><ul>
+						<li>Objekte jeden Typs können Variablen zugewiesen werden</li>
+						<li>R unterscheidet Groß- und Kleinschreibung</li>
+						<li>"c" und "t" sind reservierte Namen</li>
+					</ul></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Variablenzuweisungen (II)</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Beispiel</dt>
+					<dd><pre>
+a <- 1
+A <- 2
+a == A # FALSE</pre></dd>
+				</dl>
+			</article>
+		</section>
+
+
+		<section>
+			<header>Komplexe Datenstrukturen</header>
+
+			<article class="fill">
+				<h1>Objekte von Objekten</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Objekte in R - Übersicht</h3>
+
+				<dl class="build">
+					<dt class="med-color">Vektor</dt>
+					<dd>Anordnung gleichartiger Elemente</dd>
+
+					<dt class="med-color">Matrix</dt>
+					<dd>Matrix gleichartiger Elemente</dd>
+
+					<dt class="med-color">DataFrame</dt>
+					<dd>Datentabelle verschiedener Elemente</dd>
+
+					<dt class="med-color">Liste</dt>
+					<dd>Liste verschiedener Elemente</dd>
+
+					<dt class="med-color">Funktion</dt>
+					<dd>Methode, Unterprogramm, ...</dd>
+				</dl>
+			</article>
+
+			<article class="fill">
+				<h1>Vektoren</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Vektoren (I): Erzeugung</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels Combine-Befehl</dt>
+					<dd><pre>prim <- c(2,3,5,7,11,13)
+# [1] 2 3 5 7 11 13</pre></dd>
+
+					<dt class="med-color">... mittels :-Operator</dt>
+					<dd><pre>ziffern <- 0:9
+# [1] 0 1 2 3 4 5 6 7 8 9</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (II): Erzeugung</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels rep-Befehl</dt>
+					<dd><pre>dreien <- rep(3, 5)
+# [1] 3 3 3 3 3</pre></dd>
+
+					<dt class="med-color">... mittels sequence-Befehl</dt>
+					<dd><pre>ungerade <- seq(1, 9, 2)
+# [1] 1 3 5 7 9
+
+signum <- seq(1, -1)
+# [1] 1 0 -1</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (III): Elemente auswählen</h3>
+
+				<pre>x <- 10:1</pre>
+
+				<dl class="build">
+					<dt class="med-color">... per Index</dt>
+					<dd><pre>x[3] # 8</pre></dd>
+
+					<dt class="med-color">... per Indizes</dt>
+					<dd><pre>x[c(1,3)] # 10, 8
+x[1:3] # 10, 9, 8</pre></dd>
+
+					<dt class="med-color">... mit Bedingung</dt>
+					<dd><pre>x[x>=7] # 10, 9, 8, 7</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (IV): Arithmetik</h3>
+
+				<dl class="build">
+					<dt class="med-color">Vektor und Skalar</dt>
+					<dd>... führt Rechnung für jeden Vektorwert aus
+					<dd><pre>x*2 # 20 18 16 14 12 ... 4 2</pre></dd>
+
+					<dt class="med-color">Vektor und Vektor</dt>
+					<dd>... führt Rechnung für jedes Paar gleichen Indizes aus</dd>
+					<dd><pre>x + 1:10 # 11 11 11 11 ...</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (V): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Prüfen, ob ein Wert Bedingung erfüllt</dt>
+					<dd><pre>any(x>7) # TRUE</pre></dd>
+
+					<dt class="med-color">Prüfen, ob alle Werte Bedingung erfüllen</dt>
+					<dd><pre>all(x>7) # FALSE</pre></dd>
+
+					<dt class="med-color">Indizes der Werte, die Bedingung erfüllen</dt>
+					<dd><pre>which(x%%2==0) # 1 3 5 7 9
+# Achtung: Das sind Indizes, keine Werte!</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (VI): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Verketten von Vektoren</dt>
+					<dd><pre># Syntax: append(x, werte, nachIndex)
+
+append(x, 0:-10, 10)
+# fuegt die Liste 0:-10 ans Ende (Index 10) von x
+# 10 9 8 ... 2 1 0 -1 2 ... 8 9 10
+
+append(x, c(9.7, 9.3), 1)
+# fuegt 9.7 und 9.3 zwischen 10 und 9 ein (nach Index 1)
+# 10 9.7 9.3 9 8 7 6 5 4 3 2 1</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (VII): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Anzahl der Elemente</dt>
+					<dd><pre>length(x) # 10</pre></dd>
+
+					<dt class="med-color">Summe der Elemente</dt>
+					<dd><pre>sum(x) # 55</pre></dd>
+
+					<dt class="med-color">Mittelwert der Elemente</dt>
+					<dd><pre>mean(x) # 5.5</pre></dd>
+
+					<dt class="med-color">Maximum der Elemente</dt>
+					<dd><pre>max(x) # 10</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Vektoren (VIII): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Reihenfolge umkehren</dt>
+					<dd><pre>rev(x) # 1 2 3 4 ...</pre></dd>
+
+					<dt class="med-color">Elemente sortieren</dt>
+					<dd><pre>sort(x, FALSE) # FALSE == aufsteigend, TRUE == absteigend</pre></dd>
+				</dl>
+			</article>
+
+
+			<article class="fill">
+				<h1>Matrizen</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Matrizen (I): Erzeugung</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels matrix-Befehl</dt>
+					<dd><pre># Syntax: matrix(wertevektor, zeilen, spalten)
+
+x <- matrix(1:6, 2, 3)
+#      [,1] [,2] [,3]
+# [1,]    1    3    5
+# [2,]    2    4    6</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Matrizen (II): Elemente auswählen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Einzelelement</dt>
+					<dd><pre># x[Zeile, Spalte]
+x[1,2] # 3</pre></dd>
+
+					<dt class="med-color">Zeile</dt>
+					<dd><pre># x[Zeile,]
+x[1,] # 1 3 5
+# auch Vektoren moeglich</pre></dd>
+
+					<dt class="med-color">Spalte</dt>
+					<dd><pre># x[,Spalte]
+x[,1] # 1 2</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Matrizen (III): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Spaltennamen</dt>
+					<dd><pre>colnames(x) <- c("Meine", "Spalten", "Namen")
+colnames(x)</pre></dd>
+
+					<dt class="med-color">Zeilennamen</dt>
+					<dd><pre>rownames(x) <- c("Zeilen", "Namen")
+rownames(x)</pre></dd>
+
+					<dt class="med-color">Summen</dt>
+					<dd><pre>colSums(x)
+#   Meine Spalten   Namen 
+#       3       7      11
+
+# analog: rowSums(x)</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Matrizen (IV): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Zeilen-/Spaltenanzahl</dt>
+					<dd><pre>ncol(x) # 3
+nrow(x) # 2</pre></dd>
+
+					<dt class="med-color">Anzahl der Elemente</dt>
+					<dd><pre>length(x) # 6</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Matrizen (V): Nützliche Funktionen</h3>
+
+				<dl class="build">
+					<dt class="med-color">Funktion auf alle Werte anwenden</dt>
+					<dd><pre># Syntax: apply(meineMatrix, zahl, funktion)
+
+apply(x, 2, mean)
+#   Meine Spalten   Namen 
+#     1.5     3.5     5.5
+
+# zahl = 1: Zeilen
+# zahl = 2: Spalten</pre></dd>
+				</dl>
+			</article>
+
+			<article class="fill">
+				<h1>DataFrames</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>DataFrames (I): Erzeugung</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels data.frame()-Befehl</dt>
+					
+					<dt class="med-color">... aus einer Datenquelle</dt>
+					<dd><pre>read.table()</pre></dd>					
+				</dl>
+			</article>
+
+			<article>
+				<h3>DataFrames (II): Elemente auswählen</h3>
+
+				<p>Genauso wie bei Matrizen!</p>
+			</article>
+
+
+			<article class="fill">
+				<h1>Listen</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Listen (I): Erzeugung</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels list-Befehl</dt>
+					<dd><pre># Syntax: list(wert1, wert2, wert3, ...)
+Liste1 <- list(1, 2.3, "trololo", c(1,2,3))</pre></dd>
+
+					<dt class="med-color">... und benamt</dt>
+					<dd><pre># Syntax: list(name1=wert1, name2=wert2, name3=wert3, ...)
+Liste2 <- list(eins=1, double=2.3, char="trololo", v=c(1,2,3))</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Listen (II): Elemente auswählen</h3>
+
+				<dl class="build">
+					<dt class="med-color">... mittels Index</dt>
+					<dd><pre>Liste1[[3]] # "trololo"
+Liste1[[4]] # 1 2 3</pre></dd>
+
+					<dt class="med-color">... mittels Name</dt>
+					<dd><pre>Liste2$char # trololo
+Liste2$v # 1 2 3</pre></dd>
+				</dl>
+			</article>
+
+			<article class="fill">
+				<h1>Funktionen</h1>
+				<h3><br/>Komplexe Datenstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Funktionen (I): Erzeugung</h3>
+
+				<pre>
+quadrat <- function(wert) { wert^2 }
+
+istPrim <- function(wert) {
+  prim = c(2,3,5,7,11,13,17,19,23)
+  return(any(prim==wert))
+}
+
+potenz <- function(exponent, basis=10) {
+  basis**exponent
+}</pre>
+			</article>
+
+			<article>
+				<h3>Funktionen (II): Aufruf</h3>
+
+				<pre>
+quadrat(3)   # 9
+quadrat(1:4) # 1 4 9 16
+
+istPrim(1)  # FALSE
+istPrim(17) # TRUE
+
+potenz(2, 3) # 9
+potenz(2)    # 100</pre>
+			</article>
+		</section>
+
+
+
+
+		<section>
+			<header>Kontrollstrukturen</header>
+
+			<article class="fill">
+				<h1>Wenn dies dann das!</h1>
+				<h3><br/>Kontrollstrukturen</h3>
+			</article>
+
+			<article>
+				<h3>Einschub: Logische Operatoren</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Negierung: !</dt>
+					<dd><pre>!TRUE # FALSE</pre></dd>
+
+					<dt class="med-color">Und-Verknüpfung: & bzw. &&</dt>
+					<dd><pre>c(TRUE, FALSE) & c(TRUE, TRUE) # c(TRUE, FALSE)
+c(TRUE, FALSE) && c(TRUE, TRUE) # TRUE. Achtung!
+TRUE && FALSE # FALSE</pre></dd>
+
+					<dt class="med-color">Oder-Verknüpfung: | bzw. ||</dt>
+					<dd><pre>TRUE || FALSE # TRUE</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Kontrollstrukturen (I)</h3>
+
+				<dl class="build">
+					<dt class="med-color">if-Bedingung</dt>
+					<dd><pre>if (Bedingung) {
+  statement
+}
+
+if (Bedingung1) {
+  statement1
+} else if (Bedingung2) { 
+  statement2
+} else {
+  statement3
+}</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Kontrollstrukturen (II)</h3>
+
+				<dl class="build">
+					<dt class="med-color">while-Schleife</dt>
+					<dd><pre>while (Bedingung) {
+  statement
+}
+
+x <- 1
+while (x <= 10) {
+  statement
+  x <- x+1
+}</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Kontrollstrukturen (III)</h3>
+
+				<dl class="build">
+					<dt class="med-color">for-Schleife</dt>
+					<dd><pre>for (zaehlvariable in vektor) {
+  statement
+}
+
+for (i in 1:10) {
+  print(i)
+}</pre></dd>
+				</dl>
+			</article>
+		</section>
+
+
+		<section>
+			<article>
+				<h3>Übungen</h3>
+				<p>... gibt's mit Lösungsvorschlägen hier: <a href="https://github.com/fnogatz/talks/r-bioinformatik-uebungen">github.com/fnogatz/talks/r-bioinformatik-uebungen</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title photo: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">David Goehring</a> under <a href="http://creativecommons.org/licenses/by/2.0/">CC-BY 2.0</a></p>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>
