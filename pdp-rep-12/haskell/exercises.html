@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Haskell-Übungen - PDP Repetitorium 2012</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Haskell</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 24. Juli 2012
+				</h2>
+				<h2 id="subtitle">
+					Übungen zum<br>PDP-Repetitorium
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/listmonster.png'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+		</section>
+
+		<section>
+			<article class="fill">
+				<h1>Aufgabe 1</h1>
+				<h3><br/>Typisierung einfacher Daten</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 1</h3>
+
+				<p>Geben Sie für folgende Haskell-Ausdrücke jeweils an, ob sie korrekt sind, sowie ggf. einen zugehörigen Typen:</p>
+				
+				<ul class="build">
+					<li><pre class="inline">1.1</pre></li>
+					<li><pre class="inline">(1.1)</pre></li>
+					<li><pre class="inline">(1,1)</pre></li>
+					<li><pre class="inline">true</pre></li>
+					<li><pre class="inline">'string'</pre></li>
+					<li><pre class="inline">"c"</pre></li>
+					<li><pre class="inline">['1', '2', '3', '4']</pre></li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Lösung 1</h3>
+				
+				Angabe des Typs erfolgt nach <pre class="inline">::</pre>.
+				
+				<pre class="description-w60">
+1.1 :: Float <span class="description">oder</span>
+1.1 :: Double
+(1.1) :: Float <span class="description">oder Double, ist genau das gleiche</span>
+(1,1) :: (Int, Int) <span class="description">ist Tupel, da Komma!</span>
+true <span class="description">nicht typkorrekt, da kleingeschrieben</span>
+'string' <span class="description">nicht typkorrekt, da einfache Hochkomma</span>
+"c" :: String
+['1', '2', '3', '4'] :: String <span class="description" style="width:40%;">oder</span>
+['1', '2', '3', '4'] :: [Char]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 1 - Ergänzung</h3>
+
+				<p>Geben Sie für folgende Haskell-Ausdrücke jeweils an, ob sie korrekt sind, sowie den <strong>allgemeinsten Typ</strong>:</p>
+				
+				<ul class="build">
+					<li><pre class="inline">1.1</pre></li>
+					<li><pre class="inline"><span style="text-decoration:line-through;">(1.1)</span> <i>s.o.</i></pre></li>
+					<li><pre class="inline">(1,1)</pre></li>
+					<li><pre class="inline"><span style="text-decoration:line-through;">true</span> True</pre></li>
+					<li><pre class="inline"><span style="text-decoration:line-through;">'string'</span> 's'</pre></li>
+					<li><pre class="inline">"c"</pre></li>
+					<li><pre class="inline">['1', '2', '3', '4']</pre></li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Lösung 1 mit allgemeinstem Typ</h3>
+				
+				<pre class="description-w50">
+1.1 :: (Fractional a) => a
+(1,1) :: (Num a, Num b) => (a, b) <span class="description">2 Typvariablen, da z.B. Int+Float</span>
+True :: Bool
+'s' :: Char
+"c" :: String
+['1', '2', '3', '4'] :: String
+</pre>
+			</article>
+
+
+	
+			<article class="fill">
+				<h1>Aufgabe 2</h1>
+				<h3><br/>Typisierung vordefinierter Funktionen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 2</h3>
+
+				<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Funktionen:
+					<ul class="build">
+						<li><pre class="inline">not</pre></li>
+						<li><pre class="inline">(&lt;)</pre></li>
+						<li><pre class="inline">(>=)</pre></li>
+						<li><pre class="inline">(^)</pre></li>
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 2</h3>
+
+				<pre>
+not :: Bool -> Bool
+
+(<) :: (Ord a) => a -> a -> Bool
+
+(>=) :: (Ord a) => a -> a -> Bool <span class="description">Ord impliziert bereits Eq</span>
+
+(^) :: (Num a, Integral b) => a -> b -> a
+</pre>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 3</h1>
+				<h3><br/>Typisierung partieller vordefinierter Funktionen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3</h3>
+
+				<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Ausdrücke:
+					<ul class="build">
+						<li><pre class="inline">(+1)</pre></li>
+						<li><pre class="inline">(/0)</pre></li>
+						<li><pre class="inline">((^) 3)</pre></li>
+						<li><pre class="inline">(^3)</pre></li>
+						<li><pre class="inline">2^3</pre></li>					
+					</ul>
+				</p>
+			</article>
+
+			<article>
+				<h3>Lösung 3</h3>
+
+				<pre class="description-w60">
+(+1) :: (Num a) => a -> a
+(/0) :: (Fractional a) => a -> a
+<span class="description">syntaktisch korrekt</span>
+((^) 3) :: (Integral a, Num b) => a -> b 
+<span class="description">(^)::(Integral b, Num a) => a -> b -> a</span>
+(^3) :: (Num a) => a -> a
+2^3 :: (Num a) => a
+</pre>
+			</article>
+		
+		
+		
+			<article class="fill">
+				<h1>Aufgabe 4</h1>
+				<h3><br/>Listenerzeugung</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 4 (1)</h3>
+				
+				<p>Erzeugen Sie mittels Mengenkomprehension folgende Listen:</p>
+				
+				<ul class="build" style="margin-top:20px;">
+					<li>Die unendliche Liste aller Zahlen den Form n<sup>4</sup>-2n, wobei n eine gerade, natürliche Zahl ist.</li>
+					<li>Die unendliche Liste aller natürlichen Zahlen, die bei Division mit 11 den Rest 3 
+						und bei Division mit 13 den Rest 7 lassen.</li>
+					<li>Es wird vermutet, dass jede natürliche Zahl, die selbst keine Primzahl ist, als Summe zweier Primzahlen darstellbar ist. 
+						Geben Sie für jede natürliche Zahl n alle Tupel der Form (n, (p<sub>1</sub>, p<sub>2</sub>)) an, 
+						mit p<sub>1</sub> und p<sub>2</sub> Primzahlen, und p<sub>1</sub> + p<sub>2</sub> = n.</li>			
+				</ul>
+				
+				<aside>[(4,(2,2)),(6,(3,3)),(8,(3,5)),(9,(2,7)),(10,(3,7)),(10,(5,5)),(12,(5,7)),(14,(3,11)),(14,(7,7))]</aside>
+			</article>
+		
+			<article>
+				<h3>Lösung 4 (1)</h3>
+				
+				<pre>
+[n^4-2*n | n <- [2,4..]]
+
+[n | n <- [1..], n `mod` 11 == 3, n `mod` 13 == 7]
+
+[(n, (p, (n-p))) | n <- [1..], p <- [1..(n `div` 2)], 
+	not(isPrime n), isPrime p, isPrime (n-p)]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 4 (2)</h3>
+				
+				<ul class="build">
+					<li>Die unendliche Liste der Noten, d.h. <pre class="inline">[1.0,1.3,1.7,2.0,2.3,2.7,...]</pre></li>
+					<li>Alle Werte, die sich mit bis zu drei verschiedenen Euro-Münzen darstellen lassen.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Lösung 4 (2)</h3>
+				
+				<pre>
+[z+d | z <- [1..], d <- [0,0.3,0.7]]
+
+[x+y+z | x <- [0,0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00], 
+			y <- [0,0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00], 
+			z <- [0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00],
+			(x == 0 && y == 0) || (x < y && y < z)]
+</pre>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 5 *</h1>
+				<h3><br/>Typbestimmung zusammengesetzter Ausdrücke</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 5</h3>
+				
+				<p><i>Klausuraufgabe SS11-2</i></p>
+				
+				<p>Bestimmen Sie jeweils den Typ der folgenden Haskell-Ausdrücke:</p>
+
+<pre>
+('1', '2':"3", 4 < 5)
+
+[(last, tail), (head, take 5)]
+
+[(+), (-)]
+
+[map (const True), map not]
+</pre>			
+			</article>
+			
+			<article>
+				<h3>Lösung 5</h3>
+				
+				<p><i>Klausuraufgabe SS11-2</i></p>
+				
+				<p>Bestimmen Sie jeweils den Typ der folgenden Haskell-Ausdrücke:</p>
+
+<pre>
+('1', '2':"3", 4 < 5) :: (Char, String, Bool)
+
+[(last, tail), (head, take 5)] :: [ ([a] -> a, [b] -> [b]) ]
+
+[(+), (-)] :: Num a => [a -> a -> a]
+
+[map (const True), map not] :: [ [Bool] -> [Bool] ]
+</pre>			
+			</article>
+		</section>
+		
+
+		<section>
+			<article>
+				<h3>Skript</h3>
+				<p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-12/haskell/</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>		
+	</div>
+
+</body>
+</html>

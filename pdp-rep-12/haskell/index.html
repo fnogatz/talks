@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Haskell - PDP Repetitorium 2012</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Haskell</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 24. Juli 2012
+				</h2>
+				<h2 id="subtitle">
+					PDP-Repetitorium<br>&nbsp;
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/listmonster.png'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+
+			<article id="ablauf">
+				<h3>Ablauf</h3>
+
+				<dl class="">
+					<dt class="med-color">Dienstag, 24. Juli<span>12.00 - 16.30, H21</span></dt>
+					<dd>Haskell</dd>
+					
+					<dt class="med-color">Mittwoch, 25. Juli<span>09.00 - 15.00, H21</span></dt>
+					<dd>Haskell, Prolog</dd>
+
+					<dt class="med-color">Donnerstag, 26. Juli<span>09.00 - 15.00, H7</span></dt>
+					<dd>Prolog, CHR</dd>
+
+					<dt class="med-color">Freitag, 27. Juli<span>14.00 - 15.30, H1, H4/5, H22</span></dt>
+					<dd>Klausur</dd>
+				</dl>
+			</article>
+		
+			<article>
+				<h3>Schwerpunkt Haskell</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<article>
+				<h3>Grundsätze</h3>
+
+				<ul>
+					<li>keine Variablen</li>
+					<li>Arbeit mit Funktionen</li>
+					<li>...</li>
+				</ul>
+			</article>
+			
+
+			<header>Einfache Datentypen, Typklassen und Funktionen</header>
+
+			<article class="fill">
+				<h1>Einfache Datentypen, Typklassen und Funktionen</h1>
+				<h3><br/>von Haskell vordefiniert</h3>
+			</article>
+			
+			<article>
+				<h3>Vordefinierte Datentypen</h3>
+				
+				<ul>
+					<li><strong>Bool</strong> (auch: <strong>Boolean</strong>): <i>True</i> oder <i>False</i></li>
+					<li><strong>Char</strong>: <i>'a'</i>, <i>'2'</i>, <i>'\n'</i></li>
+					<li><strong>String</strong> (ist: <strong>[Char]</strong>): <i>"Name"</i>, <i>['N','a','m','e']</i></li>
+					<li><strong>Int</strong>: best. Wertebereich</li>
+					<li><strong>Integer</strong>: beliebige Größe</li>
+					<li><strong>Float</strong></li>
+					<li><strong>Double</strong></li>
+				</ul>
+				
+				<p>... stehen auch mit Wertebereich auf dem Cheatsheet!</p>
+			</article>
+			
+			<article class="fill">
+				<h1><a href="exercises.html#2">Aufgabe 1</a></h1>
+				<h3><br/>Typisierung einfacher Werte</h3>
+			</article>
+			
+			<article>
+				<h3>Zweistellige Operatoren (1)</h3>
+				
+				<dl class="">
+					<dt class="med-color">Grundrechenarten</dt>
+					<dd><pre>+, -, *, /, div, mod</pre></dd>
+
+					<dt class="med-color">Exponentiation</dt>
+					<dd><pre>^ <small>(ganzzahliger Exponent)</small>, **</pre></dd>
+
+					<dt class="med-color">Vergleichsoperationen</dt>
+					<dd><pre>==, /=, <, >, <=, >=</pre></dd>
+
+					<dt class="med-color">Boolsche Operatoren</dt>
+					<dd><pre>&&, ||, not</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Zweistellige Operatoren (2)</h3>
+				
+				<p>Jede zweistellige Funktion kann sowohl in <i>Infix</i>- als auch mittels Klammerung in <i>Präfix</i>-Notation aufgerufen werden.</p>
+				
+				<pre style="margin-top:5px;">5 + 3
+(+) 5 3
+
+5 / 3
+(/) 5 3
+
+(&&) True False
+True && False
+
+mod 5 3
+5 `mod` 3
+
+div 5 3
+5 `div` 3</pre>
+			</article>
+			
+			<article>
+				<h3>Typangaben von Funktionen</h3>
+				
+				<p>Einfache Typangaben von Funktionen werden in folgender Form gemacht:</p>
+				<pre style="margin-top:20px;">Typ -> Typ -> ... -> Typ</pre>
+				
+				<p>Beispiele:</p>
+<pre style="margin-top:20px;">
+(+) :: Double -> Double -> Double
+(/) :: Double -> Double -> Double
+(&&) :: Bool -> Bool -> Bool
+(mod) :: Int -> Int -> Int
+(==) :: Char -> Char -> Bool
+</pre>
+			</article>
+			
+			<article>
+				<h3>Typvariablen (1)</h3>
+				
+				<p>Offensichtlich gibt es Funktionen, die für mehrere konkrete Typen anwendbar sind, z.B.:</p>
+				<ul style="margin-top:20px; padding-left:30px;">
+					<li><pre class="inline">(==)</pre> (für alle Werte, die sich vergleichen lassen)</li>
+					<li><pre class="inline">(+)</pre> (für jegliche Zahlen)</li>
+					<li><pre class="inline">(mod)</pre> (für ganze Zahlen)</li>
+				</ul>
+				
+				<p style="margin-top:40px;">Die o.g. Funktionen sind also für mehr als die dargestellten Typen definiert:</p>
+				<pre>
+(+) :: Double -> Double -> Double
+(+) :: Int -> Int -> Int
+(+) :: Float -> Float -> Float
+(+) :: Integer -> Integer -> Integer
+</pre>
+			</article>
+			
+			<article>
+				<h3>Typvariablen (2)</h3>
+				
+				<p>Unter Nutzung von Typvariablen <i>a</i>, <i>b</i>, ... kann deutlich gemacht werden, dass 
+					mehrere Typen (ggf. einer angegebenen Typklasse, siehe nächste Folie) eingesetzt werden können.</p>
+				<pre>
+(+) :: a -> a -> a
+</pre>
+
+				<ul class="build">
+					<li>Eine Typvariable steht für einen Typ.</li>
+					<li>Der Typ <pre class="inline">[a] -> Int</pre> heißt <strong>allgemeinster Typ</strong> für <pre class="inline">length</pre>.</li>
+					<li>Funktionen, deren Typ eine Typvariable enthält, heißen <strong>polymorphe Funktionen</strong>.</li> 
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Typklassen (1)</h3>
+				
+				<p>Manche Funktionen sind zwar polymorph, aber dennoch nur für bestimmte Typen anwendbar. So lässt sich
+					<i>(+)</i> eigentlich nur auf Zahlen anwenden. Es gibt daher eine Reihe von Typklassen:</p>
+					
+				<ul>
+					<li><strong>Eq</strong>: alle primitiven Datentypen</li>
+					<li><strong>Ord</strong>: Bool, Char, Int, Integer, Float, Double</li>
+					<li><strong>Num</strong>: Int, Integer, Float, Double</li>
+					<li><strong>Fractional</strong>: Float, Double</li>
+					<li><strong>Integral</strong>: Int, Integer</li>
+					<li><strong>Enum</strong>: Char, Int, Integer, Float, Double</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Typklassen (2)</h3>
+				
+				<p>Die Einschränkung von Typvariablen durch Typklassen wird wie folgt dargestellt:</p>
+				
+				<pre>(Typklasse a, Typklasse b, ...) => Typ -> Typ -> ... -> Typ</pre>
+				
+				<p style="margin-top:40px;">Für die vorangegangenen Beispiele gilt also:</p>
+				
+				<pre>
+(==) :: (Eq a) => a -> a -> Bool
+(+) :: (Num a) => a -> a -> a
+(mod) :: (Integral a) => a -> a -> a
+
+(&&) :: Bool -> Bool -> Bool <span class="description" style="">allgemeiner geht nicht</span>	
+</pre>
+			</article>
+
+		
+			<article class="fill">
+				<h1><a href="exercises.html#5">Ergänzung zu Aufgabe 1</a></h1>
+				<h3><br/>Typisierung einfacher Werte mit Typklassen</h3>
+			</article>
+			
+			<article class="fill">
+				<h1><a href="exercises.html#7">Aufgabe 2</a></h1>
+				<h3><br/>Typisierung vordefinierter Funktionen</h3>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Currying</h1>
+				<h3><br/>Prinzip der partiellen Aufrufe</h3>
+			</article>
+			
+			<article>
+				<h3>Currying (1)</h3>
+				
+				<p>Was bedeutet folgender Funktionstyp?</p>
+				<pre>(>=) :: (Ord a) => a -> a -> Bool</pre>
+				
+				<ul style="margin-left:30px; margin-bottom: 40px;">
+					<li>Zwei Parameter und ein Rückgabewert?</li>
+					<li>Ein Parameter und als Rückgabe eine Funktion? D.h. <pre class="inline">a -> (a -> a)</pre></li>
+				</ul>
+				
+				<p>In Haskell implizite Klammerung nach rechts, d.h. zweiter Fall.</p>
+			</article>
+			
+			<article>
+				<h3>Currying (2)</h3>
+				
+				<p>Jede Funktion in Haskell kann partiell aufgerufen werden. Achtung bei zweistelligen Operatoren!</p>
+				
+				<p>Beispiele:</p>
+				<pre class="description-w50">
+((+) 1) <span class="description">Nachfolger</span>
+((*) 10) <span class="description">Zehnfache einer Zahl</span>
+((^) 3) <span class="description"><strong>3 hoch Zahl</strong></span>
+((>=) 0) <span class="description">Zahl <strong>kleiner</strong> 0?</span>
+</pre>
+				<p><strong>Achtung:</strong> Haskell "verdreht" zweistellige transitive Funktionen zur natürlichsprachigen Bedeutung:</p>
+				
+				<pre class="description-w50">
+(^ 3) <span class="description">Zahl hoch 3</span>
+(>= 0) <span class="description">Zahl größer gleich 0?</span>
+</pre>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#10">Aufgabe 3</a></h1>
+				<h3><br/>Typisierung partieller vordefinierter Funktionen</h3>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Listen und Tupel</h1>
+				<h3><br/>Zusammengesetzte Datentypen</h3>
+			</article>
+			
+			<article>
+				<h3>Tupel</h3>
+				
+				<ul class="build">
+					<li>Folge von Komponenten i.A. unterschiedlichen Typs</li>
+					<li>Notation: <pre class="inline">(T<sub>1</sub>, T<sub>2</sub>, ..., T<sub>n</sub>)</pre> 
+						bezeichnet <i>n</i>-Tupel, dessen i-te Komponente vom Typ T<sub>i</sub> ist</li>
+					<li>leeres Tupel: <pre class="inline">()</pre></li>
+					<li>Tupel mit einer Komponente nicht erlaubt (Warum?)</li>
+				</ul>
+				
+				<div class="build">
+				<p style="margin-top:40px;">Beispiele:</p>
+				<pre class="description-w50">
+(True, False) :: (Bool, Bool)
+(1, 'c', "test") :: (Num a) => (a, Char, String)
+((True, False), (False, False)) :: ((Bool, Bool), (Bool, Bool))
+(1) :: (Num a) => a <span class="description">Zahl in Klammern, kein 1-Tupel!</span>
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Listen</h3>
+				
+				<ul class="build">
+					<li>Folge von Elementen <strong>gleichen</strong> Typs</li>
+					<li>Jede Liste ist entweder leer <pre class="inline">[]</pre>, oder sie besteht 
+						aus einem Element und einer Restliste <pre class="inline">(x:xs)</pre></li>
+					<li>Auflistung der Listenelemente möglich: <pre class="inline">[1,2,3,4]</pre></li>
+					<li>Auch unendliche Listen möglich</li>
+				</ul>
+				
+				<p style="margin-top:40px;">Beispiele</p>
+				<pre class="description-w50">
+[True, False, False] :: [Bool]
+[1,2,3,4] :: (Num a) => [a]
+[1,2,3,4.2] :: (Fractional a) => [a]
+[(True,0), (False,1), (True,2)] :: (Num a) => [(Bool, a)]
+[] :: [a]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenerzeugung</h3>
+				
+				<p>Komfortable Möglichkeit, Listen als arithmetische Folge zu definieren:</p>
+				
+				<ul style="margin-top:20px;padding-left:30px;">
+					<li><pre class="inline">[n..m]</pre> &rarr; <pre class="inline">[n,n+1,...,m-1,m]</pre></li>
+					<li><pre class="inline">[n,k..m]</pre> &rarr; <pre class="inline">[n,n+(k-n),n+2&ast;(k-n)...,m]</pre></li>
+				</ul>
+				
+				<p style="margin-top:40px;">Beispiele</p>
+				<pre class="description-w50">
+[1..10] &rarr; [1,2,3,4,5,6,7,8,9,10]
+[1,3..10] &rarr; [1,3,5,7,9]
+[10,7..(-3)] &rarr; [10,7,4,1,-2]
+['a'..'f'] &rarr; ['a','b','c','d','e','f']
+[1,3..] &rarr; [1,3,5,7,...] <span class="description">unendliche Liste</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (1)</h3>
+				
+				<ul>
+					<li>Beschreibung einer Liste über ihre Eigenschaften</li>
+					<li>vgl. Mathematik: { n&sup2; | n <small>&isin;</small> &Nu;, n gerade }</li>
+					<li>Haskell analog: <pre class="inline">[Resultatausdruck | Generator, Wächter]</pre></li>
+					<li>Hier konkret: <pre class="inline">[n^2 | n <- [1..], even n]</pre></pre>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (2) - Beispiele</h3>
+				
+				<pre class="build">
+-- Alle Teiler einer Zahl
+<span>divisors :: (Integral a) => a -> [a]</span>
+divisors n = [t | t <‐ [1..n], n `mod` t == 0]
+
+-- Ist Zahl Primzahl?
+<span>isPrime :: (Integral a) => a -> Bool</span>
+isPrime n = divisors n == [1,n]
+
+-- Liste aller Primzahlen bis einer Zahl
+<span>primes :: (Integral a) => a -> [a]</span>
+primes n = [p | p <‐ [2..n], isPrime p]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (3)</h3>
+				
+				<p>Eine Listenkomprehension kann mehrere Generatoren besitzen:</p>
+				
+				<pre class="build">
+[(x,y) | x <- [1..3], y <- [True, False]]
+<span>&rarr; [(1,True),(1,False),(2,True),(2,False),(3,True),(3,False)]</span>
+
+[(x,y) | x <- [1..4], y <- [True, False], y, x `mod` 2 == 0]
+<span>&rarr; [(2,True),(4,True)]</span>
+</pre>
+
+				<p>Je weiter rechts ein Generator steht, desto schneller verändert er sich, analog
+					zu verschachtelten Schleifen.</p>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#13">Aufgabe 4</a></h1>
+				<h3><br/>Listenerzeugung</h3>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (1)</h3>
+				
+				<p>... die auch auf dem Cheatsheet stehen:</p>
+				
+				<pre class="description-w50">
+head :: [a] -> a<span class="description">1. Element</span>
+tail :: [a] -> [a]<span class="description">"Restliste"</span>
+last :: [a] -> a<span class="description">letztes Element</span>
+take :: Int -> [a] -> [a]<span class="description">n-tes Element</span>
+drop :: Int -> [a] -> [a]<span class="description">entferne n Elemente am Anfang</span>
+elem :: Eq a => a -> [a] -> Bool<span class="description">ist Element enthalten?</span>
+length :: [a] -> Int<span class="description">Länge der Liste</span>
+(++) :: [a] -> [a] -> [a]<span class="description">Verknüpfung zweier Listen</span>
+reverse :: [a] -> [a]<span class="description">Liste umkehren</span>
+concat :: [[a]] -> [a]<span class="description">wendet Filterfkt auf Liste an</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (2)</h3>
+				
+				<p>... die auch auf dem Cheatsheet stehen:</p>
+				
+				<pre class="description-w60">
+filter :: (a -> Bool) -> [a] -> [a]<span class="description">wendet Filterfkt auf Liste an</span>
+
+
+sum :: Num a => [a] -> a<span class="description">Summe aller Listenelemente</span>
+product :: Num a => [a] -> a<span class="description">Produkt aller Listenelemente</span>
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1><a href="exercises.html#18">Aufgabe 5 *</a></h1>
+				<h3><br/>Typbestimmung zusammengesetzter Ausdrücke</h3>
+			</article>			
+		</section>
+		
+
+		<section>
+			<article>
+				<h3>Übungen</h3>
+				<p>... gibt's mit Lösungsvorschlägen hier:<br><a href="exercises.html" style="font-size:28px;">github.com/fnogatz/talks/pdp-rep-12/haskell/exercises.html</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>
