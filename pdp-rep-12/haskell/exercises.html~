@@ -303,7 +303,7 @@ not :: Bool -> Bool
 				
 				<p>Definieren Sie folgende Funktionen. Verwenden Sie wenn nötig explizite Rekursion.</p>
 				
-				<div class="#build">
+				<div class="build">
 					<dl class="">
 						<dt class="med-color">addPair :: (Int, Int) -> (Int, Int) -> (Int, Int)</dt>
 						<dd>Eine Funktion, die die Kompontenten zweier Tupel paarweise addiert.</dd>
@@ -323,7 +323,7 @@ addPair (a,b) (c,d) = (a+c, b+d)
 					<dd>Eine Funktion, eine übergebene Funktion auf alle Listenelemente anwendet.</dd>
 				</dl>
 
-				<div class="#build">				
+				<div class="build">				
 					<pre>
 map f (x:xs) = f x : map f xs
 map _ [] = []
@@ -339,7 +339,7 @@ map _ [] = []
 					<dd>Eine Funktion, die zwei Listen zu einer Liste von Paaren zusammensetzt.</dd>
 				</dl>
 
-				<div class="#build">				
+				<div class="build">				
 					<pre>
 zip (x:xs) (y:ys) = (x,y) : zip xs ys
 zip _ _ = []
@@ -351,7 +351,7 @@ zip _ _ = []
 					<dd>Eine Umkehrfunktion zum o.g. <i>zip</i>.</dd>
 				</dl>
 				
-				<div class="#build">
+				<div class="build">
 					<pre>
 unzip ((x,y):ls) = (x:xs, y:ys)
     where (xs, ys) = unzip ls
@@ -368,7 +368,7 @@ unzip [] = ([],[])
 					<dd>Eine Funktion, die eine Liste von Tupel erhält und deren Komponenten paarweise addiert.</dd>
 				</dl>
 
-				<div class="#build">				
+				<div class="build">				
 					<pre>
 addPairs [] = (0,0)
 addPairs ((a,b):xs) = (a+c, b+d)
@@ -382,7 +382,7 @@ addPairs ((a,b):xs) = (a+c, b+d)
 						übergebenen Funktion zu einer zusammenfügt.</dd>
 				</dl>
 				
-				<div class="#build">
+				<div class="build">
 					<pre>
 zipWith f (x:xs) (y:ys) = (f x y) : zipWith f xs ys
 zipWith _ _ _ = []
@@ -407,7 +407,7 @@ zipWith _ _ _ = []
 					<dd>Eine Funktion, die die Anzahl der Elemente einer Liste zurückgibt.</dd>
 				</dl>
 				
-				<div class="#build">
+				<div class="build">
 					<pre>
 length = foldr (\x y -> 1+y) 0
 length' = foldl (\x y -> x+1) 0
@@ -419,7 +419,7 @@ length' = foldl (\x y -> x+1) 0
 					<dd>Eine Funktion, die die Summe der Quadrate aller Zahlen von 1 bis n ausrechnet.</dd>
 				</dl>
 				
-				<div class="#build">
+				<div class="build">
 					<pre>
 quadratsumme n = foldr (\x y -> x^2 + y) 0 [1..n]
 quadratsumme' n = foldl (\x y -> x + y^2) 0 [1..n]
@@ -435,7 +435,7 @@ quadratsumme' n = foldl (\x y -> x + y^2) 0 [1..n]
 					<dd>Eine Funktion, die Reihenfolge einer Liste umkehrt.</dd>
 				</dl>
 				
-				<div class="#build" style="margin-bottom:20px;">
+				<div class="build" style="margin-bottom:20px;">
 					<pre>
 reverse = foldr (\x y -> y++[x]) []
 reverse' = foldl (\x y -> [y]++x) []
@@ -447,7 +447,7 @@ reverse' = foldl (\x y -> [y]++x) []
 					<dd>Eine Funktion, die die Fakultät der Zahl n berechnet.</dd>
 				</dl>
 				
-				<div class="#build">
+				<div class="build">
 					<pre>
 fak n = foldr (*) 1 [1..n]
 </pre>
@@ -466,7 +466,7 @@ fak n = foldr (*) 1 [1..n]
 				
 				<p>Über einen rekursiven Datentyp soll die häusliche Verkabelung von Elektro-Geräten
 					abgebildet werden. Ein Stecker führt entweder auf ein Geraet (Attribut Name) oder 
-					eine Steckdosenleiste (Attribute Plaetze).
+					eine Steckdosenleiste (Attribut Plaetze).
 					
 <pre>
               /\             Steckdosenleiste 5
@@ -503,11 +503,11 @@ steckerBeispiel = Steckdosenleiste 5
 			<article>
 				<h3>Aufgabe 8 - Ergänzung</h3>
 				
-				<p>Geben Sie eine Funktion <i>ueberbelegt :: Stecker -> Bool</i> an, True zurückgibt, falls es eine
+				<p>Geben Sie eine Funktion <i>ueberbelegt :: Stecker -> Bool</i> an, die True zurückgibt, falls es eine
 					Steckdosenleiste gibt, an die mehr Geräte oder Steckdosenleisten angeschlossen sind, als sie Plätze
 					hat.</p>
 					
-				<div class="#build">
+				<div class="build">
 					<pre>
 ueberbelegt :: Stecker -> Bool
 ueberbelegt stecker = 
@@ -587,7 +587,7 @@ huffmanBeispiel = Node (Bst 'a')
 					<i>buchstaben :: HuffmanTree -> Int</i>, die die Anzahl der im HuffmanTree hinterlegten
       			Buchstaben zurückliefert.</p>
       			
-      		<div class="#build">
+      		<div class="build">
       			<pre>
 buchstaben :: HuffmanTree -> Int
 buchstaben (Bst _)    = 1
@@ -602,8 +602,8 @@ buchstaben (Node l r) = buchstaben l + buchstaben r
 				
 				<p>Definieren Sie für diesen Datentypen eine fold-Funktion <i>foldHuffman</i>!</p>
       			
-      		<div class="#build">
-      			<pre class="#build">
+      		<div class="build">
+      			<pre class="build">
 <span>foldHuffman :: (Char -> a) -> (a -> a -> a) -> HuffmanTree -> a</span>
 <span>foldHuffman bf nf = m
     where m (Bst c) = bf c
@@ -617,7 +617,7 @@ buchstaben (Node l r) = buchstaben l + buchstaben r
 				
 				<p>Definieren Sie die o.g. <i>buchstaben</i> Funktion über <i>foldHuffman</i>!</p>
       			
-      		<div class="#build">
+      		<div class="build">
       			<pre class="">
 buchstaben :: HuffmanTree -> Integer
 buchstaben = foldHuffman (\x -> 1) (+)
@@ -631,7 +631,7 @@ buchstaben = foldHuffman (\x -> 1) (+)
 				<p>Definieren Sie über <i>foldHuffman</i> eine Funktion <i>elemHuffman :: Char -> HuffmanTree -> Bool</i>,
 					die prüft, ob ein Zeichen im HuffmanTree gespeichert ist!</p>
       			
-      		<div class="#build">
+      		<div class="build">
       			<pre class="">
 elemHuffman :: Char -> HuffmanTree -> Bool
 elemHuffman char = foldHuffman (\c -> char == c) (||)
