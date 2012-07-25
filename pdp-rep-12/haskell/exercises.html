@@ -291,6 +291,357 @@ not :: Bool -> Bool
 [map (const True), map not] :: [ [Bool] -> [Bool] ]
 </pre>			
 			</article>
+			
+
+			<article class="fill">
+				<h1>Aufgabe 6</h1>
+				<h3><br/>Komposition von Rekursionsfunktionen</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 6 (1)</h3>
+				
+				<p>Definieren Sie folgende Funktionen. Verwenden Sie wenn nötig explizite Rekursion.</p>
+				
+				<div class="build">
+					<dl class="">
+						<dt class="med-color">addPair :: (Int, Int) -> (Int, Int) -> (Int, Int)</dt>
+						<dd>Eine Funktion, die die Kompontenten zweier Tupel paarweise addiert.</dd>
+					</dl>
+				
+					<pre>
+addPair (a,b) (c,d) = (a+c, b+d)
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 6 (2)</h3>
+				
+				<dl class="">
+					<dt class="med-color">map :: (a -> b) -> [a] -> [b]<dt>
+					<dd>Eine Funktion, eine übergebene Funktion auf alle Listenelemente anwendet.</dd>
+				</dl>
+
+				<div class="build">				
+					<pre>
+map f (x:xs) = f x : map f xs
+map _ [] = []
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 6 (3)</h3>
+				
+				<dl class="">
+					<dt class="med-color">zip :: [a] -> [b] -> [(a,b)]</dt>
+					<dd>Eine Funktion, die zwei Listen zu einer Liste von Paaren zusammensetzt.</dd>
+				</dl>
+
+				<div class="build">				
+					<pre>
+zip (x:xs) (y:ys) = (x,y) : zip xs ys
+zip _ _ = []
+</pre>
+				</div>
+				
+				<dl class="">
+					<dt class="med-color">unzip :: [(a,b)] -> ([a],[b])</dt>
+					<dd>Eine Umkehrfunktion zum o.g. <i>zip</i>.</dd>
+				</dl>
+				
+				<div class="build">
+					<pre>
+unzip ((x,y):ls) = (x:xs, y:ys)
+    where (xs, ys) = unzip ls
+unzip [] = ([],[])
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 6 (4)</h3>
+				
+				<dl class="">
+					<dt class="med-color">addPairs :: [(Int, Int)] -> (Int, Int)</dt>
+					<dd>Eine Funktion, die eine Liste von Tupel erhält und deren Komponenten paarweise addiert.</dd>
+				</dl>
+
+				<div class="build">				
+					<pre>
+addPairs [] = (0,0)
+addPairs ((a,b):xs) = (a+c, b+d)
+    where (c,d) = addPairs xs
+</pre>
+				</div>
+				
+				<dl class="">
+					<dt class="med-color">zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]</dt>
+					<dd>Eine Funktion, die als Verallgemeinerung der Funktion <i>zip</i> zwei Listen mittels einer
+						übergebenen Funktion zu einer zusammenfügt.</dd>
+				</dl>
+				
+				<div class="build">
+					<pre>
+zipWith f (x:xs) (y:ys) = (f x y) : zipWith f xs ys
+zipWith _ _ _ = []
+</pre>
+				</div>
+			</article>
+
+
+
+			<article class="fill">
+				<h1>Aufgabe 7</h1>
+				<h3><br/>Faltungen auf Listen</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (1)</h3>			
+
+				<p>Definieren Sie folgende Funktionen mit Hilfe von <i>foldl</i> oder <i>foldr</i>:</p>
+
+				<dl class="">
+					<dt class="med-color">length :: [a] -> Int</dt>
+					<dd>Eine Funktion, die die Anzahl der Elemente einer Liste zurückgibt.</dd>
+				</dl>
+				
+				<div class="build">
+					<pre>
+length = foldr (\x y -> 1+y) 0
+length' = foldl (\x y -> x+1) 0
+</pre>
+				</div>
+
+				<dl class="">
+					<dt class="med-color">quadratsumme :: Integer -> Integer</dt>
+					<dd>Eine Funktion, die die Summe der Quadrate aller Zahlen von 1 bis n ausrechnet.</dd>
+				</dl>
+				
+				<div class="build">
+					<pre>
+quadratsumme n = foldr (\x y -> x^2 + y) 0 [1..n]
+quadratsumme' n = foldl (\x y -> x + y^2) 0 [1..n]
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (2)</h3>
+
+				<dl class="">
+					<dt class="med-color">reverse :: [a] -> [a]</dt>
+					<dd>Eine Funktion, die Reihenfolge einer Liste umkehrt.</dd>
+				</dl>
+				
+				<div class="build" style="margin-bottom:20px;">
+					<pre>
+reverse = foldr (\x y -> y++[x]) []
+reverse' = foldl (\x y -> [y]++x) []
+</pre>
+				</div>
+
+				<dl class="">
+					<dt class="med-color">fak :: Integer -> Integer</dt>
+					<dd>Eine Funktion, die die Fakultät der Zahl n berechnet.</dd>
+				</dl>
+				
+				<div class="build">
+					<pre>
+fak n = foldr (*) 1 [1..n]
+</pre>
+				</div>
+			</article>
+			
+			
+
+			<article class="fill">
+				<h1>Aufgabe 8</h1>
+				<h3><br/>Rekursive Datentypen</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 8</h3>
+				
+				<p>Über einen rekursiven Datentyp soll die häusliche Verkabelung von Elektro-Geräten
+					abgebildet werden. Ein Stecker führt entweder auf ein Geraet (Attribut Name) oder 
+					eine Steckdosenleiste (Attribute Plaetze).
+					
+<pre>
+              /\             Steckdosenleiste 5
+             /  \
+            /    \
+           /      \
+  Geraet "TV"    /|\         Steckdosenleiste 3
+                / | \        
+               /  |  \
+              /   |   \
+             /    |    \
+            /     |     \
+  Geraet "Hifi"   |    Geraet "Telefon"
+         Geraet "Kühlschrank"
+</pre>
+			</article>
+			
+			<article>
+				<h3>Lösung 8</h3>
+				
+				<pre>
+type Plaetze = Int
+data Stecker = Steckdosenleiste Plaetze [Stecker]
+             | Geraet String
+             
+steckerBeispiel = Steckdosenleiste 5 
+                    [Geraet "TV", Steckdosenleiste 3 
+                      [Geraet "Hifi", Geraet "Telefon", 
+                        Geraet "Kühlschrank"]
+                    ]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 8 - Ergänzung</h3>
+				
+				<p>Geben Sie eine Funktion <i>ueberbelegt :: Stecker -> Bool</i> an, True zurückgibt, falls es eine
+					Steckdosenleiste gibt, an die mehr Geräte oder Steckdosenleisten angeschlossen sind, als sie Plätze
+					hat.</p>
+					
+				<div class="build">
+					<pre>
+ueberbelegt :: Stecker -> Bool
+ueberbelegt stecker = 
+  not (foldStecker 
+        (\string -> True) 
+        (\plaetze leiste -> and leiste 
+                              && plaetze >= length leiste) 
+      stecker)
+</pre>
+				</div>
+			</article>
+			
+	
+	
+			<article class="fill">
+				<h1>Aufgabe 9</h1>
+				<h3><br/>fold auf rekursiven Datentypen</h3>
+			</article>
+					
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (1)</h3>
+				
+				<p>Bei der Huffman-Codierung handelt es sich um ein einfaches Datenkompressionsverfahren. 
+					Dabei wird ausgenutzt, dass Zeichen in einem Text unterschiedlich oft vorkommen.
+					So erhalten häufig auftretende Buchstaben kurze Codewörter und seltene Buchstaben längere.
+					Um die optimale Codelänge zu erhalten, bilden die Buchstaben anhand ihrer Häufigkeit 
+					die Blätter eines binären Entscheidungsbaums.</p>
+			</article>
+					
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (2)</h3>
+				
+				<p>Beispiel:</p>
+				<pre style="width:35%;float:left; margin-right:50px;">
+         /\
+        /  \
+   (0) /    \ (1)
+      /      \
+     a       /\
+            /  \
+       (0) /    \ (1)
+          /      \
+         /\       d
+        /  \
+   (0) /    \ (1)
+      /      \
+     b        c
+     
+</pre>
+				<p>So lässt sich 'b' durch den Code '100' darstellen, der häufigste Buchstabe 'a' wird
+  durch '0' codiert.</p>
+  
+  				<p>Erstellen Sie einen Datentyp 'HuffmanTree' und geben Sie die Definition des oben
+     				gezeigten Binärbaums an.<br>
+      			Hinweis: Gehen Sie davon aus, dass der linke Ast des Baums stets implizit durch
+        			'0' codiert wird, der rechte durch '1'.</p>
+			</article>
+			
+			<article>
+				<h3>Lösung 9: Huffman-Codierung (2)</h3>
+				
+				<pre>
+data HuffmanTree = Node HuffmanTree HuffmanTree
+                 | Bst Char
+  deriving (Eq, Ord, Show)
+
+huffmanBeispiel :: HuffmanTree
+huffmanBeispiel = Node (Bst 'a') 
+                    (Node (Node (Bst 'b') (Bst 'c')) (Bst 'd'))
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (3)</h3>
+				
+				<p>Definieren Sie für diesen Datentypen rekursiv eine Funktion
+					<i>buchstaben :: HuffmanTree -> Int</i>, die die Anzahl der im HuffmanTree hinterlegten
+      			Buchstaben zurückliefert.</p>
+      			
+      		<div class="build">
+      			<pre>
+buchstaben :: HuffmanTree -> Int
+buchstaben (Bst _)    = 1
+buchstaben (Node l r) = buchstaben l + buchstaben r
+-- buchstaben huffmanBeispiel == 4
+</pre>
+      		</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (4)</h3>
+				
+				<p>Definieren Sie für diesen Datentypen eine fold-Funktion <i>foldHuffman</i>!</p>
+      			
+      		<div class="build">
+      			<pre class="build">
+<span>foldHuffman :: (Char -> a) -> (a -> a -> a) -> HuffmanTree -> a</span>
+<span>foldHuffman bf nf = m
+    where m (Bst c) = bf c
+          m (Node left right) = nf (m left) (m right)</span>
+</pre>
+      		</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (5)</h3>
+				
+				<p>Definieren Sie die o.g. <i>buchstaben</i> Funktion über <i>foldHuffman</i>!</p>
+      			
+      		<div class="build">
+      			<pre class="">
+buchstaben :: HuffmanTree -> Integer
+buchstaben = foldHuffman (\x -> 1) (+)
+</pre>
+      		</div>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 9: Huffman-Codierung (6)</h3>
+				
+				<p>Definieren Sie über <i>foldHuffman</i> eine Funktion <i>elemHuffman :: Char -> HuffmanTree -> Bool</i>,
+					die prüft, ob ein Zeichen im HuffmanTree gespeichert ist!</p>
+      			
+      		<div class="build">
+      			<pre class="">
+elemHuffman :: Char -> HuffmanTree -> Bool
+elemHuffman char = foldHuffman (\c -> char == c) (||)
+</pre>
+      		</div>
+			</article>
+			
+			
+			
+			
 		</section>
 		
 

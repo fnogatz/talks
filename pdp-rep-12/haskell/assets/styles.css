@@ -8,14 +8,21 @@ sup small {
   font-size:65%;
 }
 
-#ablauf dd {
+.ablauf dd {
   margin-bottom: 30px;
 }
 
-#ablauf dt span {
+.ablauf dt span {
   float:right;
   color: #666;
   font-style:italic;
+}
+
+.ablauf dt.today {
+	text-decoration:underline;	
+}
+.ablauf dt.today span {
+	text-decoration: none;	
 }
 
 pre.inline {
@@ -53,4 +60,12 @@ p + pre {
 .slides.template-uulm-in h1 a:hover {
 	color: #A32638;
 	border-bottom: 1px dotted #A32638;
+}
+
+article.little-smaller dd pre {
+	margin-bottom:10px;
+}
+
+dl + div > pre {
+	margin-top:-10px;
 }
