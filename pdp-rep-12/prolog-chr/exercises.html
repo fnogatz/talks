@@ -255,7 +255,7 @@ R = [a,b,c,a,d,e].
 <span>komprimiere([],[]).
 komprimiere([A],[A]).</span>
 <span>komprimiere([A,A|Liste],Res) :- komprimiere([A|Liste],Res).</span>
-<span>komprimiere([A,B|Liste],[A|Res]) :- komprimiere([B|Liste],Res).</span>
+<span>komprimiere([A,B|Liste],[A|Res]) :- A \= B, komprimiere([B|Liste],Res).</span>
 </pre>
 			</article>
 
