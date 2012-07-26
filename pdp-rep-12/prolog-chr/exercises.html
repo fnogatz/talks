@@ -515,11 +515,81 @@ true
 			<article>
 				<h3>Aufgabe 7 (3)</h3>
 				
-				<p></p>
+				<p>Paul ist ein rauchender Schwabe: Er weiß, dass jede gerauchte Zigarette einen Stummel hinterlässt,
+					und dass er aus drei Stummeln eine neue Zigarette basteln kann.
+					Um am Ende des Tages zu wissen, wieviele Zigaretten er geraucht hat, zählt Paul über ein <i>geraucht/1</i>
+					Constraint mit.
+					<br>Schreiben Sie ein CHR-Programm, das Paul beim Rauchen hilft!
+				</p>
+				
+				<p>Beispiel:</p>
+				<pre>
+<span style="font-size:17px;">?- zigarette, zigarette, zigarette, zigarette, stummel, stummel, geraucht(0).</span>
+stummel
+stummel
+geraucht(6)
+true
+</pre>
 			</article>
 			
+			<article>
+				<h3>Lösung 7 (3)</h3>
+				
+				<pre class="build">
+<span>zigarette, geraucht(N) <=> stummel, N1 is N+1, geraucht(N1).</span>
+<span>stummel, stummel, stummel <=> zigarette.</span>
+</pre>
+			</article>
 			
+			<article>
+				<h3>Aufgabe 7 (4)</h3>
+				
+				<div class="build" style="margin-top:20px;">
+				<p>
+					Gegeben sei ein Array mit natürlichen Zahlen in der Form <i>a(I,V)</i>, mit der Bedeutung, dass 
+					an Stelle I des Arrays der Wert V steht.<br>
+					Ein Beispielarray: <pre class="inline">a(0,4), a(1,2), a(2,5), a(3,1)</pre></a>
+				</p>
+				
+				<p>Schreiben Sie eine CHR-Regel, welche ein derart gegebenes Array mittels Exchange Sort
+aufsteigend sortiert, d.h. es sollen jeweils zwei noch falsch sortierte Array-Einträge vertauscht werden.</p>
+				
+				<p>Beispiel:</p>
+				<pre>
+?- a(0,4), a(1,2), a(2,5), a(3,1).
+<i>   % a(3,5), a(2,4), a(1,2), a(0,1)</i>
+</pre>
+
+				</div>
+			</article>
 			
+			<article>
+				<h3>Lösung 7 (4)</h3>
+				
+				<pre>
+a(I,V), a(J, W) <=> I < J, V > W | a(I,W), a(J,V).
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (5)</h3>
+				
+				<p>
+					Schreiben Sie ein CHR Programm, welches die Summe aller geraden Werte im Array
+					berechnet (in vorangegangenen Beispiel also die Summe 4+2).
+				</p>
+				
+				<p>Falls ihr Programm Eingaben zusätzlich zum Array benötigt, geben Sie dies an.</p>	
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (5)</h3>
+				
+				<pre>
+a(I,V) ==> V mod 2 =:= 0 | sum(V).
+sum(V1), sum(V2) <=> V is V1+V2, sum(V).
+</pre>
+			</article>
 		</section>
 
 		
@@ -527,7 +597,7 @@ true
 		<section>
 			<article>
 				<h3>Skript</h3>
-				<p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-12/prolog/</a></p>
+				<p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-12/prolog-chr/</a></p>
 
 				<h3 style="margin-top:160px;">Credits</h3>
 				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
