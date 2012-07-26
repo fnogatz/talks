@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Prolog & CHR Übungen - PDP Repetitorium 2012</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Prolog & CHR</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 25. Juli 2012
+				</h2>
+				<h2 id="subtitle">
+					Übungen zum<br>PDP-Repetitorium
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/listmonster.png'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+			
+			<article>
+				<h3>Aufgaben</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Prolog</header>
+			
+			<article class="fill">
+				<h1>Prolog</h1>
+			</article>		
+		
+			<article class="fill">
+				<h1>Aufgabe 1</h1>
+				<h3><br/>Einfache Prädikate definieren</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 1</h3>
+				
+				<p>Stellen Sie folgende Sachverhalte über Prädikate dar:</p>
+				
+				<ul class="#build">
+					<li class="#build">Die Mutter von Paul ist Marta.
+						<pre>mutter(paul, marta)</pre>
+					</li>
+					<li>Prolog ist eine Programmiersprache
+						<pre>programmiersprache(prolog)</pre>					
+					</li>
+					<li>Das Ergebnis vom Term f(x,y) ist 5
+						<pre>ergebnis(f(X,Y), 5)</pre>					
+					</li>
+				</ul>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 2</h1>
+				<h3><br/>Unifikation</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 2 (1)</h3>
+				
+				<p><i>(Klausur SS2011-2)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+					Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+					
+				<pre class="build">
+[X,Y,a] und [Z,b,Z]
+   <span><i>Ja: Y = b, Z = a, X = Z.</i></span>
+
+[X,Y,Z|A] und [[a,b,c],d]
+   <span><i>Nein: linke Liste hat mind. 3 Elemente, rechte nur 2.</i></span>
+
+f1(f2(f3,f4),f5(f6,X,Y),g) und f1(A,f5(B,f7,f8),H)
+   <span><i>Ja: A = f2(f3,f4), B = f6, X = f7, Y = f8, H = g.</i></span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 2 (2)</h3>
+				
+				<p><i>(Klausur SS2011-1)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+					Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+					
+				<pre class="#build">
+f(X,Y,Z) und f(g(Y),g(Z),a)
+   <span><i>Ja: Z = a, Y = g(a), X = g(g(a)).</i></span>
+
+p([],X,a,[Y|Z]) und p(_,[hans],a,[hans])
+   <span><i>Ja: X = [hans], Y = hans, Z = [].</i></span>
+
+a(b,X,d(e,Y,g(i,i,Z),f(j,Z))) und a(U,c,d(V,f,g(W,i,j),f(Z,W)))
+   <span><i>Nein: W = i, Z = j und W = Z sind nicht unifizierbar.</i></span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 2 (3)</h3>
+				
+				<p><i>(Klausur SS2009)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+					Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+					
+				<pre class="#build">
+p(g(X,Y),a,f(X)) und p(g(Z,Z),Z,f(b))
+   <span><i>Nein: X=Z, Y=Z, Z=a und f(a) und f(b) sind nicht unifizierbar.</i></span>
+
+p([], X, Y) und p(S, [T|S], T)
+   <span><i>Ja: S=[], X=[T], Y=T.</i></span>
+
+q([[X|Y],f(a)]) und q([Z, f(X)|Y])
+   <span><i>Ja: Z=[a], X=a, Y=[].</i></span>
+</pre>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 3</h1>
+				<h3><br/>Backtracking</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 3</h3>
+
+				<p><i>(Klausur SS2009)</i><br>Gegeben sei folgendes Prolog-Programm:</p>			
+				
+				<pre style="width:280px;float:left;margin-right:30px;">
+(1)   p(X) :- q(X), r(X).
+(2)   p(X) :- q(X).
+(3)   q(X) :- s(X).
+(4)   q(X) :- t(X).
+(5)   r(X) :- t(X).
+(6)   r(X) :- u(X).
+(7)   s(a).
+(8)   t(b).
+(9)   u(c).
+</pre>
+
+				<div class="#build">
+					<p style="margin-top:20px;">Welche Antwort liefert die folgende Anfrage? <small>(Falls mehrere Antworten möglich sind, 
+						geben Sie nur diejenige an, die von Prolog zuerst berechnet wird.)</small></p>
+						
+					<pre>?- p(X).</pre>
+					
+					<p style="clear:both;">Erklären Sie, wie diese Antwort zustande kommt, indem Sie die Bearbeitung der 
+						Anfrage durch Angabe eines Ableitungsbaums schrittweise nachvollziehen.</p>
+				</div>
+			</article>
+			
+			<article class="fill" style="padding-top:0;">				
+				<pre style="width:280px;float:left;margin-right:30px;">
+(1)   p(X) :- q(X), r(X).
+(2)   p(X) :- q(X).
+(3)   q(X) :- s(X).
+(4)   q(X) :- t(X).
+(5)   r(X) :- t(X).
+(6)   r(X) :- u(X).
+</pre>
+
+				<pre>
+(7)   s(a).
+(8)   t(b).
+(9)   u(c).
+</pre>
+				<pre>?- p(X).</pre>
+				
+				<img src="assets/images/ss2009-backtracking.png" class="nofill" style="clear:both;width:700px; height:400px;">
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 4</h1>
+				<h3><br/>Listenprädikate (1)</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 4 (1)</h3>
+				
+				<p>
+					<i>(Klausur SS2011-2)</i><br>
+					Definieren Sie ein Prolog-Prädikat palindrom(L), welches genau dann erfüllt ist, 
+					wenn die übergebene Liste L ein Palindrom ist.
+				</p>
+			</article>
+			
+			<article>
+				<h3>Lösung 4 (1)</h3>
+				
+				<pre class="#build">
+<span>palindrom(X) :- reverse(X,Y), X=Y.</span>
+
+<span>reverse([],[]).</span>
+<span>reverse([H|T],Neu2) :- reverse(T,Neu), append(Neu,[H],Neu2).</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 4 (2)</h3>
+				
+				<p>
+					<i>(Klausur SS2011-2)</i><br>
+					Definieren Sie ein Prolog-Prädikat komprimiere/2 das aus einer Liste zusammenhängende Duplikate entfernt.
+				</p>
+				
+				<p>Beispiel:</p>
+				
+				<pre>
+?- komprimiere([a,a,a,a,b,c,c,a,a,d,e,e,e,e,e],R).
+R = [a,b,c,a,d,e].
+</pre>
+			</article>
+			
+			<article>
+				<h3>Lösung 4 (2)</h3>
+				
+				<pre class="#build">
+<span>komprimiere([],[]).
+komprimiere([A],[A]).</span>
+<span>komprimiere([A,A|Liste],Res) :- komprimiere([A|Liste],Res).</span>
+<span>komprimiere([A,B|Liste],[A|Res]) :- komprimiere([B|Liste],Res).</span>
+</pre>
+			</article>
+
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 5</h1>
+				<h3><br/>Listenprädikate (2)</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 5 (1)</h3>
+				
+				<p>
+					<i>(Klausur SS2010-1)</i><br>
+					Schreiben Sie ein Prolog-Programm für ein Prädikat count(E,L,R) mit der folgenden 
+					Bedeutung: das Element E ist in der Liste L insgesamt R-mal enthalten.
+				</p>
+				
+				<p>Beispiel:</p>
+				<pre>
+?- count(a, [a,b,c,a,a,d], R).
+R = 3
+</pre>
+			</article>
+			
+			<article>
+				<h3>Lösung 5 (1)</h3>
+				
+				<pre class="#build">
+<span>count(_, [], 0).</span>
+<span>count(X, [X|Xs], R) :- count(X, Xs, R1), R is R1+1.</span>
+<span>count(X, [Y|Xs], R) :- X \= Y, count(X, Xs, R).</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 5 (2)</h3>
+				
+				<p>
+					<i>(Klausur SS2011-1)</i><br>
+					Definieren Sie ein Prolog-Prädikat ist_menge(L), welches genau dann erfüllt ist, 
+					wenn die übergebene Liste L eine Menge ist, d .h. jedes Element genau einmal vorkommt.
+				</p>
+			</article>
+			
+			<article>
+				<h3>Lösung 5 (2)</h3>
+				
+				<pre class="#build">
+<span>ist_menge([]).</span>
+<span>ist_menge([Kopf|Rest]) :- \+(member(Kopf, Rest)), ist_menge(Rest).</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 5 (3)</h3>
+				
+				<p>
+					<i>(Klausur SS2010-1)</i><br>
+					Schreiben Sie ein Prolog-Programm für ein Prädikat dupn(L,N,X) mit der folgenden Bedeutung: 
+					X ist die Liste L, wobei alle Elemente N-fach dupliziert sind.
+				</p>
+				
+				<p>Beispiel:</p>
+				<pre>
+?- dupn([a,b], 3, X).
+X = [a, a, a, b, b, b]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Lösung 5 (3)</h3>
+
+				<pre class="#build">
+<span>dupn(X,1,X).</span>
+<span>dupn([A],Anzahl,Erg) :- AnzahlN is Anzahl-1, 
+       dupn([A], AnzahlN,ErgN), 
+       Erg = [A|ErgN].</span>
+<span>dupn([A|Liste],Anzahl,Erg) :- dupn([A],Anzahl,AErg), 
+       dupn(Liste,Anzahl,LErg), 
+       append(AErg,LErg,Erg).</span>
+</pre>
+			</article>
+		</section>
+
+		<section>
+			<header>CHR</header>
+			
+			<article class="fill">
+				<h1>CHR</h1>
+			</article>
+			
+
+			<article class="fill">
+				<h1>Aufgabe 6</h1>
+				<h3><br/>Regelanwendung</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 6</h3>
+				
+				<p>
+					<i>(Klausur SS2010-1)</i><br>
+					Gegeben sei das folgende CHR-Programm:
+				</p>
+				
+				<pre>
+r1 @ tak(X,Y,Z,A) <=> X =< Y | Z = A.
+
+r2 @ tak(X,Y,Z,A) <=> X > Y |
+        X1 is X-1, Y1 is Y-1, Z1 is Z-1,
+        tak(X1,Y,Z,A1), tak(Y1,Z,X,A2), tak(Z1,X,Y,A3),
+        tak(A1,A2,A3,A).
+</pre>
+				<p>Ergänzen Sie im Folgenden die Regelanwendungen und die dabei entfernten und erzeugten 
+					Constraints für die Eingabe tak(3,2,4,R):</p>
+					
+				<table>
+					<thead>
+						<tr>
+							<th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+						</tr>
+					</thead>
+				</table>
+			</article>
+			
+			<article class="smaller fill">
+				<h3>Lösung 6</h3>
+				
+				<pre>
+r1 @ tak(X,Y,Z,A) <=> X =< Y | Z = A.
+
+r2 @ tak(X,Y,Z,A) <=> X > Y |
+        X1 is X-1, Y1 is Y-1, Z1 is Z-1,
+        tak(X1,Y,Z,A1), tak(Y1,Z,X,A2), tak(Z1,X,Y,A3),
+        tak(A1,A2,A3,A).
+</pre>
+					
+				<table>
+					<thead>
+						<tr>
+							<th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+						</tr>
+					</thead>
+					<tbody class="#build">
+						<tr>
+							<td>r2</td><td>tak(3,2,4,R)</td><td>tak(2,2,4,A1), tak(1,4,3,A2), tak(3,3,2,A3), tak(A1,A2,A3,R)</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(2,2,4,A1)</td><td>A1 = 4</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(1,4,3,A2)</td><td>A2 = 3</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(3,3,2,A3)</td><td>A3 = 2</td>
+						</tr>
+						<tr>
+							<td>r2</td><td>tak(4,3,2,R)</td><td>tak(3,3,2,A1), tak(2,2,4,A2), tak(1,4,3,A3), tak(A1,A2,A3,R)</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(3,3,2,A1)</td><td>A1 = 2</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(2,2,4,A2)</td><td>A2 = 4</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(1,4,3,A3)</td><td>A3 = 3</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>tak(2,4,3,R)</td><td>R = 3</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Aufgabe 7</h1>
+				<h3><br/>Programmentwicklung</h3>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (1)</h3>
+				
+				<p>Definieren Sie ein CHR-Programm, dass bei Eingabe mehrerer <i>num/1</i> Constraints
+					das Maximum der übergebenen Zahlen bestimmt und in einem einzigen <i>max/1</i> vorhält.</p>
+					
+				<p>Beispiel:</p>
+				
+				<pre>
+?- num(1), num(8), num(7), num(2), num(0), num(9), num(0), num(9).
+num(9)
+num(0)
+num(9)
+num(0)
+num(2)
+num(7)
+num(8)
+num(1)
+max(9)
+true .
+</pre>
+			</article>
+			
+			<article>
+				<h3>Lösung 7 (1)</h3>
+				
+				<pre class="#build">
+<span>chr_constraint num/1, max/1.</span>
+
+<span>num(A) ==> max(A).</span>
+<span>max(A) \ max(B) <=> B <span class="dotted">=<</span> A | true.</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (2)</h3>
+				
+				<div class="#build" style="margin-top:20px;">
+				<p>Entwickeln Sie ein CHR-Programm, dass die zweistellige "kleiner-gleich" Relation als <i>leq/2</i> Constraint abbildet.
+					Implementieren Sie Regeln zur Sicherstellung der Reflexivität, Antisymmetrie und Transitivität. Doppelte <i>leq/2</i>
+					Constraints sollen
+					entfernt werden.
+				</p>
+				
+				<pre>
+?- leq(1,2), leq(3,8), leq(3,9), leq(1,9).
+leq(1,3)
+leq(1,8)
+leq(2,8)
+leq(2,9)
+leq(2,3)
+leq(1,9)
+leq(3,9)
+leq(3,8)
+leq(1,2)
+true
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Lösung 7 (2)</h3>
+				
+				<pre class="#build">
+<span>chr_constraint leq/2.</span>
+
+<span>reflexivity  @ leq(X,X) <=> true.</span>
+<span>antisymmetry @ leq(X,Y), leq(Y,X) <=> X=Y.</span>
+<span>idempotence  @ leq(X,Y) \ leq(X,Y) <=> true.</span>
+<span>transitivity @ leq(X,Y), leq(Y,Z) ==> leq(X,Z).</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Aufgabe 7 (3)</h3>
+				
+				<p></p>
+			</article>
+			
+			
+			
+		</section>
+
+		
+
+		<section>
+			<article>
+				<h3>Skript</h3>
+				<p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-12/prolog/</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>		
+	</div>
+
+</body>
+</html>

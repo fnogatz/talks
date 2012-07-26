@@ -3,6 +3,14 @@ Talks
 
 A little collection of talks I gave.
 
+## [Repetitorium Paradigmen der Programmierung: Prolog & CHR](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr)
+
+*University of Ulm, 7/26/2012.*
+
+[Skript](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr)
+
+[Übungen](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr/exercises.html)
+
 ## [Repetitorium Paradigmen der Programmierung: Haskell](http://fnogatz.github.com/talks/pdp-rep-12/haskell)
 
 *University of Ulm, 7/24/2012.*

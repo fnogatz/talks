@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="assets/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>Prolog & CHR - PDP Repetitorium 2012</title>
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Prolog & CHR</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 25. Juli 2012
+				</h2>
+				<h2 id="subtitle">
+					PDP-Repetitorium<br>&nbsp;
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/listmonster.png'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+
+			<article class="ablauf">
+				<h3>Ablauf</h3>
+
+				<dl class="">
+					<dt class="med-color">Dienstag, 24. Juli<span>12.00 - 16.30, H21</span></dt>
+					<dd>Haskell</dd>
+					
+					<dt class="med-color">Mittwoch, 25. Juli<span>09.00 - 15.00, H21</span></dt>
+					<dd>Haskell</dd>
+
+					<dt class="med-color today">Donnerstag, 26. Juli<span>09.00 - 15.00, H7 & H21</span></dt>
+					<dd>Prolog, CHR</dd>
+
+					<dt class="med-color">Freitag, 27. Juli<span>14.00 - 15.30, H1, H4/5, H22</span></dt>
+					<dd>Klausur</dd>
+				</dl>
+			</article>
+		
+			<article>
+				<h3>Schwerpunkt Logische Programmierung</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Prolog: Grundsätze</header>
+		
+			<article>
+				<h3>Anmerkungen</h3>
+
+				<ul classbuild>
+					<li>Grundbegriffe der Logik sollten bekannt sein</li>
+					<li>Theorie aus Foliensatz 8 wird wenig Bedeutung für die Klausur haben</li>
+					<li>Hauptbestandteile der Programme in Prolog und CHR: Fakten, Prädikate, Regeln</li>
+					<li>...</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Variablen in der logischen Programmierung</h3>
+				
+				<p>Anders als in imperativen Programmiersprachen stehen Variablen nicht für
+					Speicherplätze, sondern sind Platzhalter für <b>genau einen</b> Wert. Sie können,
+					einmal <b>gebunden</b>, keinen anderen Wert mehr annehmen.</p>				
+				
+				<div class="#build" style="margin-top:40px;">					
+					<p>Gebundene Variablen lassen sich nicht (ohne weiteres) vom konkreten Wert, für
+						den sie stehen, unterscheiden.</p>
+				</div>
+				
+				<aside>Unterscheidung "gebundene" und "ungebundene" Variable</aside>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1>Prolog</h1>
+				<h3><br/>Starting out!</h3>
+			</article>
+
+
+			<article>
+				<h3>Syntax (1)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Konstanten</dt>
+					<dd><pre>
+% fangen mit kleinem Buchstaben an
+   otto, karl, mensch, person_, uni_mensa
+% oder sind in Hochkommata eingeschlossen
+   'Otto', 'Karl', 'Mensch', 'Person', 'Uni-Mensa'
+% oder sind Zahlen
+   1, 2.3, -5
+</pre></dd>
+
+					<dt class="med-color">Variablen</dt>
+					<dd><pre>
+% beginnen mit einem Großbuchstaben
+   X, Y, Mensch, Hochschule, ...
+% oder beginnen mit einem Unterstrich
+   _mensch, _hochschule, ...
+% oder sind anonym (vgl. Wildcard in Haskell)
+   _
+</pre></dd>
+				</dl>			
+			</article>
+			
+			<article>
+				<h3>Syntax (2)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Strukturen</dt>
+					<dd><pre>
+% bestehen aus Funktionssymbol und Argumenten
+   name(k1, k2, ..., kn)
+% sind charakterisiert durch Namen und Anzahl der Argumente
+   name/n         % "Funktor"
+% können geschachtelt und mit unterschiedlichen Stelligkeiten
+%    definiert werden
+</pre></dd>
+
+					<dt class="med-color">Prädikate</dt>
+					<dd><ul class="#build">
+						<li>Für uns: sehr ähnlich zu Strukturen</li>
+						<li>Prädikate können nicht geschachtelt werden</li>
+					</ul></dd>
+				</dl>
+				
+				<aside>zweistellige Operatoren: auch <i>'<'(1,2)</i> möglich. Umgekehrt Infix-Notation nicht ohne weiteres für eigene Prädikate anwendbar</aside>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#4">Aufgabe 1</a></h1>
+				<h3><br/>Einfache Prädikate definieren</h3>
+			</article>
+			
+			
+			<article>
+				<h3>Typen (1)</h3>
+				
+				<p>Welche Typen werden in Prolog unterschieden?</p>
+				
+				<div class="#build">
+					<p style="margin-top:20px; margin-left:30px; font-style:italic;">Praktisch keine Typisierung in Prolog!</p>
+					
+					<dl class="#build">
+						<dt class="med-color">Listen</dt>
+						<dd>
+							<ul>
+								<li>fassen beliebige Elemente, auch Funktionen</li>
+								<li>leere Liste: <pre class="inline">[]</pre></li>
+								<li>Aufzählung: <pre class="inline">[1,2,3,4]</pre></li>
+								<li>Head-Tail-Aufspaltung: <pre class="inline">[X|Xs], [A,B|Rest]</pre></li>
+								<li>weder Listen-Komprehensionen noch Generatoren wie in Haskell</li>
+							</ul>
+						</dd>
+					</dl>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Typen (2)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Tupel</dt>
+					<dd>
+						<ul>
+							<li>Wie in Haskell: <pre class="inline">(1,2,'c')</li>
+							<li>Häufig Definition eines Tupels über neues Prädikat, z.B. <pre class="inline">zahlenpaar(1,1)</pre></li>
+							<li>n-Tupel besitzt dann schlicht einen Funktor <i>name/n</i></li>
+						</ul>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Wichtige Operatoren in Prolog</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Grundrechenarten</dt>
+					<dd><pre>+, -, *, /, //, mod</pre></dd>
+
+					<dt class="med-color">Exponentiation</dt>
+					<dd><pre>^ und **</pre></dd>
+
+					<dt class="med-color">Arithmetische Vergleiche</dt>
+					<dd><pre><span class="dotted">=:=</span>, <span class="dotted">=\=</span>, <, >, <span class="dotted">=<</span>, >=</pre></dd>
+				</dl>
+				
+				<aside>Keine Unterscheidung zwischen "^" und "**"<br><br>
+					"Arithmetische Vergleiche" -> Welche sonst? (Strukturelle!)
+				</aside>
+			</article>
+
+			<article>
+				<h3>Unifikation (1)</h3>
+				
+				<p>"Gleichmachen von Termen": Zwei Terme sind unifizierbar, wenn sie entweder gleich sind, oder durch
+					Bindung von Variablen gleich gemacht werden können.</p>
+					
+				<p style="margin-top:40px;">Dabei sind folgende Regeln zu beachten:</p>
+				
+				<ul class="#build" style="margin-top:20px;">
+					<li>Konstanten sind nur mit sich selbst unifizierbar.</li>
+					<li>Eine ungebundene Variable ist mit jedem Term unifizierbar, der die Variable selbst nicht enthält.</li>
+					<li>Strukturen sind unifizierbar, wenn sie den gleichen Funktor besitzen und die Komponenten paarweise unifizierbar sind.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Unifikation (2)</h3>
+				
+				<p>Unifikation geschieht über den "=" Operator.</p>
+				
+				<p>Beispiele:</p>
+				
+				<pre class="#build">
+[A,B] = [a,b].
+    <span><i>% bindet A=a, B=b.</i></span>
+
+[A|B] = [a,b].
+    <span><i>% bindet A=a, B=[b].</i></span>
+
+[A, f(x,y)|R] = [f(R), B].
+    <span><i>% bindet A=f(R), B=f(x,y), R=[].</i></span>
+
+sum([X,Y],R) = sum([2,f(Y)],R).
+    <span><i>% nicht unifizierbar, da Y=f(Y).</i></span>
+</pre>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#6">Aufgabe 2</a></h1>
+				<h3><br/>Unifikation</h3>
+			</article>
+			
+			<article>
+				<h3>Arithmetische Zuweisungen mit <i>is</i></h3>
+				
+				<p>Arithmetische Variablenbindungen werden in Prolog mit <i>is</i> durchgeführt statt <i>"="</i>. Warum?</p>
+				
+				<div class="#build">
+				
+				<p style="margin-top:40px;">Beispiel:</p>
+				<pre>
+X = 4/5.
+   <i>% unifiziert nur X und "4/5", berechnet aber nichts</i>
+   
+X is 4/5.
+   <i>% berechnet 4/5 und bindet X an diesen Wert</i>
+</pre>
+				</div>
+			</article>
+			
+		</section>
+		
+		<section>
+			<header>Prolog: Programmentwicklung</header>
+
+			<article class="fill">
+				<h1>Fakten und Regeln</h1>
+				<h3><br/>Mit Prolog Anfragen auflösen</h3>
+			</article>
+			
+			
+			<article>
+				<h3>Prolog-Programme</h3>
+				
+				<ul class="#build">
+					<li>Ein Prolog-Programm besteht aus einer Folge von Fakten und Regeln.</li>
+					<li>Eine Berechnung wird angestoßen durch eine Anfrage.</li>
+					<li>Die Berechnung entspricht dem Versuch, die Anfrage aus den "Programmformeln" abzuleiten.
+						Es wird versucht, eine erfüllende Variablenbelegung zu finden.</li>
+					<li>Das Ergebnis der Berechnung ist diese Variablenbelegung.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Fakten</h3>
+				
+				<ul class="#build">
+					<li>Prolog-Fakten können einfach aufgelistet werden</li>
+					<li>können neben Entitäten auch Variablen enthalten</li>
+				</ul>
+				
+				<p style="margin-top:40px;">Beispiele:</p>
+				<pre class="#build">
+<span>mensch(falco).
+mensch(markus).</span>
+
+<span>freunde(falco,markus).</span>
+<span>freunde(markus,falco).</span>
+
+<span>term(f(x,y)).</span>
+<span>leere_liste([]).</span>
+
+<span>prolog_ist_toll.</span>
+<span>element(X, [X|_]).</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Regeln (1)</h3>
+				
+				<ul class="#build">
+					<li><i>Hornklauseln</i>, d.h. im Regelkopf steht genau ein Prädikat</li>
+					<li>Allgemeiner Aufbau:
+						<pre>
+<i>kopf/n</i> :- <i>rumpf<sub>1</sub></i>, ..., <i>rumpf<sub>n</sub></i>.
+</pre>
+					</li>
+					<li>Wechselseitige Abhängigkeiten vermeiden:
+						<pre class="">elternteil(X,Y) :- kind(Y,X).
+kind(X,Y) :- elternteil (Y,X).</pre></li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Regeln (2)</h3>
+				
+				<p>Beispiele:</p>
+				
+				<pre class="#build">
+<span>freund(X,Y) :- freund(Y,X).</span>
+   <span>% wird Problem bei Abfrage von freund(A,B).</span>
+
+<span>grossvater(X,Y) :- mutter(X,M), vater(M,Y).
+grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
+
+<span>prolog_ist_toll :- sprache(prolog), toll(prolog).</span>
+<span>es_gibt_tolle_sprache :- sprache(X), toll(X).</span>
+</pre>
+			</article>
+			
+			
+			<article>
+				<h3>Auswertung von Anfragen</h3>
+				
+				<ul class="#build">
+					<li>Abarbeitung der Anfrage von links nach rechts</li>
+					<li>Versuch, das Prädikat der Anfrage mit Fakt oder Regelkopf zu unifizieren</li>
+					<li>Falls mehrere Fakten oder Regeln in Frage kommen, wird das erste (Backtracking: nächste) genommen
+						<br><span style="margin-left:30px;font-style:italic;">Folge: Basis- vor Rekursionsfällen!</span>
+					</li>
+					<li>Wird eine Regel angewandt, werden die Prädikate im Rumpf von links nach rechts ausgewertet.</li>
+					<li>Gibt es weder passenden Fakt noch Regel, schlägt die Anfrage fehl.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Auswertung von Anfragen - Beispiel (1)</h3>
+				
+				<p><i>(Übungsaufgabe 8-4)</i><br>
+					Gegeben sei folgendes Prolog-Programm:					
+				</p>
+				
+				<pre style="width:270px;float:left;margin-right:80px;">
+(1)   a(u).
+(2)   b(s).
+(3)   b(t).
+(4)   c(X) :- p(X),r(X).
+(5)   c(X) :- q(X).
+(6)   p(t).
+(7)   q(t).
+(8)   q(u).
+(9)   r(s).
+</pre>
+				<p>Anfragen:</p>
+				
+				<pre class="#build"><span>?- a(X),c(X).</span>
+
+<span>?- b(X),c(X).</span></pre>
+			</article>
+			
+			<article>
+				<h3>Auswertung von Anfragen - Beispiel (2)</h3>
+								
+				<pre style="width:270px;float:left;margin-right:20px;">
+(1)   a(u).
+(2)   b(s).
+(3)   b(t).
+(4)   c(X) :- p(X),r(X).
+(5)   c(X) :- q(X).
+(6)   p(t).
+(7)   q(t).
+(8)   q(u).
+(9)   r(s).
+</pre>
+				
+				<pre>?- a(X),c(X).</pre>
+				
+				<img src="assets/images/8-4-a.png" style="width:480px;position:absolute; left: 375px;" />
+			</article>
+			
+			<article>
+				<h3>Auswertung von Anfragen - Beispiel (3)</h3>
+				
+				<pre>?- b(X),c(X).</pre>
+				
+				<img src="assets/images/8-4-b.png" style="width:740px;" />
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#10">Aufgabe 3</a></h1>
+				<h3><br/>Backtracking</h3>
+			</article>
+
+
+			<article class="fill">
+				<h1>Prädikate für Listen</h1>
+				<h3><br/>append, element, ...</h3>
+			</article>
+			
+			
+			<article>
+				<h3>Listenprädikate (1)</h3>
+				
+				<dl>
+					<dt class="med-color">member/2</dt>
+					<dd>
+						... ist erfüllbar, wenn das erste Argument in der als zweites Argument übergebenen Liste enthalten ist.
+						<pre class="#build">
+<span>member(X,[X|_]).</span>
+<span>member(X,[_|Xs]) :- element(X,Xs).</span>
+</pre>
+					</dd>
+				</dl>
+
+				<aside>
+					In Haskell nicht möglich: "gleiche Variable" im Kopf.
+				</aside>
+			</article>
+			
+			<article>
+				<h3>Listenprädikate (2)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">append/3</dt>
+					<dd class="#build">
+						... ist erfüllbar, die beiden ersten übergebenen Listen zusammengefügt gerade die letzte ergeben.
+						<pre class="#build">
+<span>append([],L,L).</span>
+<span>append([X|L1], L2, [X|L3]) :‐ append(L1, L2, L3).</span>
+</pre>
+
+						<p>Keine Unterscheidung zwischen Eingabe- und Ausgabeparametern in Prolog:</p>
+						
+						<pre class="#build">
+<span>append([1,2],[3,4],[1,2,3,4]).   <i>% true</i></span>
+<span>append([1,2],[3,4],X).           <i>% X = [1,2,3,4]</i></span>
+<span>append([1,2],X,[1,2,3,4]).       <i>% X = [3,4]</i></span>
+<span>append(A,B,[1,2,3,4]).       <i>% 10 Lösungen über Backtracking</i></span>
+</pre>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Listenprädikate (3)</h3>
+				
+				<dl>
+					<dt class="med-color">reverse/2</dt>
+					<dd>
+						... ist erfüllbar, wenn die erste übergebene Liste die Umkehrung der zweiten ist.
+						<pre class="#build">
+<span>reverse([],[]).</span>
+<span>reverse([H|T],Neu2) :- reverse(T,Neu), append(Neu,[H],Neu2).</span>
+</pre>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Listenprädikate (4)</h3>
+				
+				<dl>
+					<dt class="med-color">lookup/3</dt>
+					<dd>
+						... steht auf dem Cheatsheet. Was macht dieses Prädikat?
+					</dd>
+					<dd style="margin-top:20px; font-style:italic; padding-left:30px;">
+						Ist erfüllt, wenn der übergebene Schlüssel in einer Liste aus Schlüssel-Wert-Paaren einen bestimmten Wert annimmt.
+					</dd>
+				</dl>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#13">Aufgabe 4</a></h1>
+				<h3><br/>Listenprädikate (1)</h3>
+			</article>	
+			
+			<article>
+				<h3>Ausgabeprädikate</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">write/1</dt>
+					<dd>
+						... schreibt übergebenen Wert in die Ausgabe.
+						<pre>write('Hello '), write(Name), write('!').</pre>
+					</dd>
+					
+					<dt class="med-color">nl/0</dt>
+					<dd>
+						... schreibt einen Zeilenumbruch in die Ausgabe.
+						<pre>write('Hello '), write(Name), write('!'), nl,
+write('Alles klar?').</pre>
+					</dd>
+				</dl>				
+			</article>
+				
+			<article>
+				<h3>Negation-as-absence</h3>
+				
+				<dl>
+					<dt class="med-color">\+(<i>Prädikat</i>)</dt>
+					<dd>
+						... ist erfüllbar, wenn <i>Prädikat</i> unerfüllbar ist.
+						<pre>\+(member([1,[2,3,4]]))   <i>% true</i></pre>
+					</dd>
+				</dl>				
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#18">Aufgabe 5</a></h1>
+				<h3><br/>Listenprädikate (2)</h3>
+			</article>
+		</section>
+			
+		
+		<section>
+			<header>CHR: Regeln</header>
+
+			<article class="fill">
+				<h1>CHR</h1>
+				<h3><br/>... doch eigentlich nur drei Regeln?</h3>
+			</article>
+			
+			<article>
+				<h3>Grundsätze</h3>
+				
+				<ul class="#build">
+					<li>Wir verwenden CHR unter der Hostsprache Prolog - somit sind alle Syntaxregeln und Prädikate aus Prolog gültig.</li>
+					<li>Statt Prädikaten arbeiten wir nun mit Constraints.</li>
+					<li>Gegensatz zu Prolog: Gleiche Constraints können mehrfach vorkommen.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Definition von CHR Constraints</h3>
+				
+				<p>Soll ein CHR Constraint benutzt werden, muss es am Anfang des Programms definiert werden:</p>
+				
+				<pre>
+% Allgemein:
+%   chr_constraint <i>Name</i>/<i>Stelligkeit</i>.
+
+chr_constraint leq/2.
+
+chr_constraint prime/1, num/1, num/2.
+</pre>
+			</article>
+			
+			<article>
+				<h3>Regelarten (1)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Propagierungsregel</dt>
+					<dd>
+						... erzeugt neue Constraints aus bestehenden Informationen.
+						<pre>
+<i>Kopf<sub>1</sub></i>, ..., <i>Kopf<sub>n</sub></i> ==> <i>Rumpf<sub>1</sub></i>, ..., <i>Rumpf<sub>n</sub></i>
+% Die Constraints aus dem Kopf verbleiben im 
+%   Constraint-Speicher, die im Rumpf kommen dazu.
+</pre>
+					</dd>
+					
+					<dd>
+						<p>Beispiel ("less-or-equal"):</p>
+						<pre>
+leq(A,B), leq(B,C) ==> leq(A,C).
+</pre>
+					</dd>
+					
+					<dd>
+						<p>&rarr; Häufige Anwendung bei der Generierung von Kandidaten. (Vgl. Primzahlsieb, Teiler)</p>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Regelarten (2)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Simplifizierungsregel</dt>
+					<dd>
+						... entfernt bestehende Constraints und fügt ggf. neue hinzu.
+						<pre>
+<i>Kopf<sub>1</sub></i>, ..., <i>Kopf<sub>n</sub></i> <=> <i>Rumpf<sub>1</sub></i>, ..., <i>Rumpf<sub>n</sub></i>
+% Die Constraints aus dem Kopf werden aus dem 
+%   Constraint-Speicher entfernt, die aus dem Rumpf
+%   hinzugefuegt.
+</pre>
+					</dd>
+					
+					<dd>
+						<p>Beispiel:</p>
+						<pre>
+nord, sued <=> true.
+</pre>
+					</dd>
+					
+					<dd>
+						<p>&rarr; Anwendung bei redundanten oder unwichtigen Informationen.</p>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Regelarten (3)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Simpagationsregel</dt>
+					<dd>
+						... ist die Mischform aus den beiden vorangegangenen Regeln.
+						<pre>
+<i>Kept<sub>1</sub></i>, ..., <i>Kept<sub>n</sub></i> \ <i>Removed<sub>1</sub></i>, ..., <i>Removed<sub>n</sub></i> 
+   <=> <i>New<sub>1</sub></i>, ..., <i>New<sub>n</sub></i>
+% Die <i>Kept</i>-Constraints aus dem Kopf werden im 
+%   Constraint-Speicher belassen, die <i>Removed</i>-Constraints
+%   entfernt, und die <i>New</i>-Constraints aus dem Rumpf
+%   neu hinzugefügt.
+</pre>
+					</dd>
+					
+					<dd>
+						<p>Beispiele:</p>
+						<pre>
+prime(N) \ prime(N) <=> true.
+
+fib(B) \ fib(A) <=> A < B | N is A+B, fib(N).
+</pre>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Regelarten (4)</h3>
+				
+				<dl class="#build">
+					<dt class="med-color">Simpagationsregel (Forts.)</dt>
+					
+					<dd style="margin-top:20px;">
+						<p>Anwendungen:</p>
+						<ul style="margin-top:10px;padding-left:30px;">
+							<li>wenn die Simplifizierung an das Vorhandensein bestehender Constraints gebunden ist,
+								die nicht entfernt werden sollen</li>
+							<li>sehr häufig: Duplikate eliminieren</li>
+						</ul>
+					</dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Regelnamen</h3>
+				
+				<div style="margin-top:20px;" class="#build">
+				
+				<p>Jede Regel kann einen optionalen Namen besitzen, der durch ein <i>@</i> abgetrennt wird:</p>
+				
+				<pre>
+name @ <i>Regel</i>...
+
+removeDuplicates @ num(A) \ num(A) <=> true.
+</pre>
+
+				<p>Ist optional und für uns unerheblich &rarr; einfach weglassen...</p>
+				
+				</div>
+			</article>
+			
+			<article>
+				<h3>Guards</h3>
+				
+				<div style="margin-top:20px;" class="#build">
+				
+				<p>Jede Regel kann einen optionalen Wächter (Guard) besitzen, der als Bedingung zur Anwendung
+					der Regel dient. Der Guard steht stets vor dem Regelrumpf.</p>
+					
+				<p>Beispiele:</p>
+				
+				<pre class="#build">
+<span>fib(B) \ fib(A) <=> A < B | N is A+B, fib(N).</span>
+
+<span>min(A) \ min(B) <=> B > A | true.</span>
+</pre>
+				<p>Achtung:</p> Im Guard dürfen nur Built-in Constraints, also keine selbst definierten, stehen!
+				
+				<p>Der Guard sollte nie eine Unfikation beinhalten.</p>
+				</div>
+			</article>
+		</section>
+
+
+
+			
+
+			
+
+			
+			
+		</section>
+
+		<section>
+			<article>
+				<h3>Übungen</h3>
+				<p>... gibt's mit Lösungsvorschlägen hier:<br><a href="exercises.html" style="font-size:28px;">github.com/fnogatz/talks/pdp-rep-12/prolog/exercises.html</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>
