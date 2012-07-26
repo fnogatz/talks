@@ -96,7 +96,7 @@
 					Speicherplätze, sondern sind Platzhalter für <b>genau einen</b> Wert. Sie können,
 					einmal <b>gebunden</b>, keinen anderen Wert mehr annehmen.</p>				
 				
-				<div class="#build" style="margin-top:40px;">					
+				<div class="build" style="margin-top:40px;">					
 					<p>Gebundene Variablen lassen sich nicht (ohne weiteres) vom konkreten Wert, für
 						den sie stehen, unterscheiden.</p>
 				</div>
@@ -115,7 +115,7 @@
 			<article>
 				<h3>Syntax (1)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Konstanten</dt>
 					<dd><pre>
 % fangen mit kleinem Buchstaben an
@@ -141,7 +141,7 @@
 			<article>
 				<h3>Syntax (2)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Strukturen</dt>
 					<dd><pre>
 % bestehen aus Funktionssymbol und Argumenten
@@ -153,7 +153,7 @@
 </pre></dd>
 
 					<dt class="med-color">Prädikate</dt>
-					<dd><ul class="#build">
+					<dd><ul class="build">
 						<li>Für uns: sehr ähnlich zu Strukturen</li>
 						<li>Prädikate können nicht geschachtelt werden</li>
 					</ul></dd>
@@ -175,10 +175,10 @@
 				
 				<p>Welche Typen werden in Prolog unterschieden?</p>
 				
-				<div class="#build">
+				<div class="build">
 					<p style="margin-top:20px; margin-left:30px; font-style:italic;">Praktisch keine Typisierung in Prolog!</p>
 					
-					<dl class="#build">
+					<dl class="build">
 						<dt class="med-color">Listen</dt>
 						<dd>
 							<ul>
@@ -196,7 +196,7 @@
 			<article>
 				<h3>Typen (2)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Tupel</dt>
 					<dd>
 						<ul>
@@ -211,7 +211,7 @@
 			<article>
 				<h3>Wichtige Operatoren in Prolog</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Grundrechenarten</dt>
 					<dd><pre>+, -, *, /, //, mod</pre></dd>
 
@@ -235,7 +235,7 @@
 					
 				<p style="margin-top:40px;">Dabei sind folgende Regeln zu beachten:</p>
 				
-				<ul class="#build" style="margin-top:20px;">
+				<ul class="build" style="margin-top:20px;">
 					<li>Konstanten sind nur mit sich selbst unifizierbar.</li>
 					<li>Eine ungebundene Variable ist mit jedem Term unifizierbar, der die Variable selbst nicht enthält.</li>
 					<li>Strukturen sind unifizierbar, wenn sie den gleichen Funktor besitzen und die Komponenten paarweise unifizierbar sind.</li>
@@ -249,7 +249,7 @@
 				
 				<p>Beispiele:</p>
 				
-				<pre class="#build">
+				<pre class="build">
 [A,B] = [a,b].
     <span><i>% bindet A=a, B=b.</i></span>
 
@@ -275,7 +275,7 @@ sum([X,Y],R) = sum([2,f(Y)],R).
 				
 				<p>Arithmetische Variablenbindungen werden in Prolog mit <i>is</i> durchgeführt statt <i>"="</i>. Warum?</p>
 				
-				<div class="#build">
+				<div class="build">
 				
 				<p style="margin-top:40px;">Beispiel:</p>
 				<pre>
@@ -302,7 +302,7 @@ X is 4/5.
 			<article>
 				<h3>Prolog-Programme</h3>
 				
-				<ul class="#build">
+				<ul class="build">
 					<li>Ein Prolog-Programm besteht aus einer Folge von Fakten und Regeln.</li>
 					<li>Eine Berechnung wird angestoßen durch eine Anfrage.</li>
 					<li>Die Berechnung entspricht dem Versuch, die Anfrage aus den "Programmformeln" abzuleiten.
@@ -314,13 +314,13 @@ X is 4/5.
 			<article>
 				<h3>Fakten</h3>
 				
-				<ul class="#build">
+				<ul class="build">
 					<li>Prolog-Fakten können einfach aufgelistet werden</li>
 					<li>können neben Entitäten auch Variablen enthalten</li>
 				</ul>
 				
 				<p style="margin-top:40px;">Beispiele:</p>
-				<pre class="#build">
+				<pre class="build">
 <span>mensch(falco).
 mensch(markus).</span>
 
@@ -338,7 +338,7 @@ mensch(markus).</span>
 			<article>
 				<h3>Regeln (1)</h3>
 				
-				<ul class="#build">
+				<ul class="build">
 					<li><i>Hornklauseln</i>, d.h. im Regelkopf steht genau ein Prädikat</li>
 					<li>Allgemeiner Aufbau:
 						<pre>
@@ -356,7 +356,7 @@ kind(X,Y) :- elternteil (Y,X).</pre></li>
 				
 				<p>Beispiele:</p>
 				
-				<pre class="#build">
+				<pre class="build">
 <span>freund(X,Y) :- freund(Y,X).</span>
    <span>% wird Problem bei Abfrage von freund(A,B).</span>
 
@@ -372,7 +372,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 			<article>
 				<h3>Auswertung von Anfragen</h3>
 				
-				<ul class="#build">
+				<ul class="build">
 					<li>Abarbeitung der Anfrage von links nach rechts</li>
 					<li>Versuch, das Prädikat der Anfrage mit Fakt oder Regelkopf zu unifizieren</li>
 					<li>Falls mehrere Fakten oder Regeln in Frage kommen, wird das erste (Backtracking: nächste) genommen
@@ -403,7 +403,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 </pre>
 				<p>Anfragen:</p>
 				
-				<pre class="#build"><span>?- a(X),c(X).</span>
+				<pre class="build"><span>?- a(X),c(X).</span>
 
 <span>?- b(X),c(X).</span></pre>
 			</article>
@@ -457,7 +457,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 					<dt class="med-color">member/2</dt>
 					<dd>
 						... ist erfüllbar, wenn das erste Argument in der als zweites Argument übergebenen Liste enthalten ist.
-						<pre class="#build">
+						<pre class="build">
 <span>member(X,[X|_]).</span>
 <span>member(X,[_|Xs]) :- element(X,Xs).</span>
 </pre>
@@ -472,18 +472,18 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 			<article>
 				<h3>Listenprädikate (2)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">append/3</dt>
-					<dd class="#build">
+					<dd class="build">
 						... ist erfüllbar, die beiden ersten übergebenen Listen zusammengefügt gerade die letzte ergeben.
-						<pre class="#build">
+						<pre class="build">
 <span>append([],L,L).</span>
 <span>append([X|L1], L2, [X|L3]) :‐ append(L1, L2, L3).</span>
 </pre>
 
 						<p>Keine Unterscheidung zwischen Eingabe- und Ausgabeparametern in Prolog:</p>
 						
-						<pre class="#build">
+						<pre class="build">
 <span>append([1,2],[3,4],[1,2,3,4]).   <i>% true</i></span>
 <span>append([1,2],[3,4],X).           <i>% X = [1,2,3,4]</i></span>
 <span>append([1,2],X,[1,2,3,4]).       <i>% X = [3,4]</i></span>
@@ -500,7 +500,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 					<dt class="med-color">reverse/2</dt>
 					<dd>
 						... ist erfüllbar, wenn die erste übergebene Liste die Umkehrung der zweiten ist.
-						<pre class="#build">
+						<pre class="build">
 <span>reverse([],[]).</span>
 <span>reverse([H|T],Neu2) :- reverse(T,Neu), append(Neu,[H],Neu2).</span>
 </pre>
@@ -531,7 +531,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
 			<article>
 				<h3>Ausgabeprädikate</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">write/1</dt>
 					<dd>
 						... schreibt übergebenen Wert in die Ausgabe.
@@ -578,7 +578,7 @@ write('Alles klar?').</pre>
 			<article>
 				<h3>Grundsätze</h3>
 				
-				<ul class="#build">
+				<ul class="build">
 					<li>Wir verwenden CHR unter der Hostsprache Prolog - somit sind alle Syntaxregeln und Prädikate aus Prolog gültig.</li>
 					<li>Statt Prädikaten arbeiten wir nun mit Constraints.</li>
 					<li>Gegensatz zu Prolog: Gleiche Constraints können mehrfach vorkommen.</li>
@@ -603,7 +603,7 @@ chr_constraint prime/1, num/1, num/2.
 			<article>
 				<h3>Regelarten (1)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Propagierungsregel</dt>
 					<dd>
 						... erzeugt neue Constraints aus bestehenden Informationen.
@@ -630,7 +630,7 @@ leq(A,B), leq(B,C) ==> leq(A,C).
 			<article>
 				<h3>Regelarten (2)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Simplifizierungsregel</dt>
 					<dd>
 						... entfernt bestehende Constraints und fügt ggf. neue hinzu.
@@ -658,7 +658,7 @@ nord, sued <=> true.
 			<article>
 				<h3>Regelarten (3)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Simpagationsregel</dt>
 					<dd>
 						... ist die Mischform aus den beiden vorangegangenen Regeln.
@@ -686,7 +686,7 @@ fib(B) \ fib(A) <=> A < B | N is A+B, fib(N).
 			<article>
 				<h3>Regelarten (4)</h3>
 				
-				<dl class="#build">
+				<dl class="build">
 					<dt class="med-color">Simpagationsregel (Forts.)</dt>
 					
 					<dd style="margin-top:20px;">
@@ -703,7 +703,7 @@ fib(B) \ fib(A) <=> A < B | N is A+B, fib(N).
 			<article>
 				<h3>Regelnamen</h3>
 				
-				<div style="margin-top:20px;" class="#build">
+				<div style="margin-top:20px;" class="build">
 				
 				<p>Jede Regel kann einen optionalen Namen besitzen, der durch ein <i>@</i> abgetrennt wird:</p>
 				
@@ -721,14 +721,14 @@ removeDuplicates @ num(A) \ num(A) <=> true.
 			<article>
 				<h3>Guards</h3>
 				
-				<div style="margin-top:20px;" class="#build">
+				<div style="margin-top:20px;" class="build">
 				
 				<p>Jede Regel kann einen optionalen Wächter (Guard) besitzen, der als Bedingung zur Anwendung
 					der Regel dient. Der Guard steht stets vor dem Regelrumpf.</p>
 					
 				<p>Beispiele:</p>
 				
-				<pre class="#build">
+				<pre class="build">
 <span>fib(B) \ fib(A) <=> A < B | N is A+B, fib(N).</span>
 
 <span>min(A) \ min(B) <=> B > A | true.</span>
