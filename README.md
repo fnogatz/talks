@@ -3,29 +3,19 @@ Talks
 
 A little collection of talks I gave.
 
-## [Repetitorium Paradigmen der Programmierung: Prolog & CHR](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr)
+## Repetitorium: Paradigmen der Programmierung
 
-*University of Ulm, 7/26/2012.*
+*University of Ulm, 7/24/2012 - 7/26/2012.*
 
-[Skript](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr)
+Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-12/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-12/haskell/exercises.html)
 
-[Übungen](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr/exercises.html)
-
-## [Repetitorium Paradigmen der Programmierung: Haskell](http://fnogatz.github.com/talks/pdp-rep-12/haskell)
-
-*University of Ulm, 7/24/2012.*
-
-[Skript](http://fnogatz.github.com/talks/pdp-rep-12/haskell)
-
-[Übungen](http://fnogatz.github.com/talks/pdp-rep-12/haskell/exercises.html)
+CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr/exercises.html)
 
 ## [Repetitorium: R-Programmierung für Molekularmediziner](http://fnogatz.github.com/talks/r-bioinformatik)
 
 *University of Ulm, 3/10/2012.*
 
-[Skript](http://fnogatz.github.com/talks/r-bioinformatik)
-
-[Übungen](http://fnogatz.github.com/talks/r-bioinformatik-uebungen)
+[Skript](http://fnogatz.github.com/talks/r-bioinformatik) | [Übungen](http://fnogatz.github.com/talks/r-bioinformatik/exercises.html)
 
 ## [Solving Linear Equation Sets with CHR](http://fnogatz.github.com/talks/chr-equations)
 
