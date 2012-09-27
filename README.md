@@ -13,7 +13,7 @@ CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr) | [Übungen
 
 [Gemischte Übungsaufgaben](http://fnogatz.github.com/talks/pdp-rep-12/exercises)
 
-## [Repetitorium: R-Programmierung für Molekularmediziner](http://fnogatz.github.com/talks/r-bioinformatik)
+## Repetitorium: R-Programmierung für Molekularmediziner
 
 *University of Ulm, 3/10/2012.*
 
