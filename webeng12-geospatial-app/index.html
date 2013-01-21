@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='lib/slides.js'></script>
+
+	<title>How to Build Your Own Foursquare - Hot Topics, Web Engineering uulm</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Build Your Own Foursquare</h1>
+				<h2 id="author">
+					Falco Nogatz<br> January 2013
+				</h2>
+				<h2 id="subtitle">
+					with MongoDB, node.js<br>(and other hipster technologies)
+				</h2>
+				<p>
+					<img id="title-header" src='assets/images/header.jpg'> 
+					<img id="uulm-logo" src='lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+
+			<article>
+				<h3>Background</h3>
+				<p>
+					<span class="med-color" style="font-weight:bold;">Falco Nogatz</span><br />
+					Student @ Ulm University<br />Computer Science
+				</p>
+				<p><span style="font-weight:bold;">Interests:</span> web technologies and programming paradigms</p>
+				<p>
+					<span style="font-weight:bold;">Contact:</span><br />
+					www: <a href="http://nogatz.net/">nogatz.net</a><br />
+					twitter: <a href="http://twitter.com/ulmerleben">@ulmerleben</a><br />
+					github: <a href="https://github.com/fnogatz">fnogatz</a>
+				</p>
+			</article>
+			
+			<article class="">
+				<h3>Shameless Self-promotion</h3>
+				<p><strong><a href="http://IOException.de">IOException.de</a></strong><br/>
+				<em>selected nerd stuff by CS students @uulm</em></p>
+
+				<p><strong><a href="http://UlmAPI.de">UlmAPI.de</a></strong><br/>
+				<em>datalove ♥ – a local group of open data enthusiasts</em></p>
+			</article>
+
+			<article class="fill">
+				<h2>The Idea</h2>
+				<p>
+					<img src="assets/images/checkin.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Build Your Own Foursquare</h3>
+
+				<p>Implement a simple location-based service:</p>
+				<ul class="build">
+					<li>Users provide their current location</li>
+					<li class="build">Service returns list of venues being near<p style="font-size:20px;">(here: venue = bus stop at City of Ulm, Germany)</p></li>
+					<li>User can check-in to that bus stop</li>
+					<li>Everyone can see it live on a map!</li>
+				</ul>
+			</article>
+
+			<article>
+				<h3 style="width:100%;">&raquo;MongoDB, node.js and other hipster technologies&laquo;</h3>
+				<ul>
+					<li><a href="http://nodejs.org">node.js</a> (General Platform)</li>
+					<li><a href="http://expressjs.com">Express</a> (Middleware Framework)</li>
+					<li><a href="http://mongodb.com">MongoDB</a> (NoSQL Database)</li>
+					<li><a href="http://socket.io">Socket.IO</a> (Messaging Library)</li>
+					<li><a href="http://leaflet.com">Leaflet</a> (JavaScript Mapping Library)</li>
+					<li><a href="http://www.w3schools.com/html/html5_geolocation.asp">HTML5 Geolocation API</a></li>
+				</ul>
+			</article>
+
+			<article>
+				<h3>Build <span style="text-decoration:line-through;">Your Own</span> Foursquare</h3>
+
+				<p>Actually Foursquare <a href="https://foursquare.com/about/">is using</a> exactly 
+					the same technologies: <a href="http://engineering.foursquare.com/2011/12/21/show-and-tell-mongodb-at-foursquare/">MongoDB</a> as their database, Leaflet for beautiful maps and HTML5 to get the user's location. (But AJAX instead of Websockets.)</p>
+
+				<p>There are frequently blogging about their used technologies at <a href="http://engineering.foursquare.com">engineering.foursquare.com</a>.</p>
+			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
+
+			<article>
+				<h3>Live-Hacking</h3>
+
+				<p>Presentation can be found under</p>
+				<p style="text-align:center; font-size:40px; width:100%;"><a href="https://github.com/fnogatz/talks">github.com/fnogatz/talks</a></p>
+				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Ftalks&chs=400x400&choe=UTF-8&chld=L|2"></p>
+			</article>
+
+			<article>
+				<h3>Live-Hacking</h3>
+
+				<p>Complete Demo App can be found under</p>
+				<p style="text-align:center; font-size:40px;"><a href="https://github.com/fnogatz/geospatial-demo">github.com/fnogatz/geospatial-demo</a></p>
+				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Fgeospatial-demo&chs=400x400&choe=UTF-8&chld=L|2"></p>
+			</article>
+		</section>
+
+		<section>
+			<header>Stage 1: Get current location</header>
+
+			<article class="fill">
+				<h2>Stage 1: Get current location</h2>
+				<p>
+					<img src="assets/images/app/checkin-simple.4.location.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Orientation: node.js</h3>
+
+				<q class="small build"><p>Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.</p><p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></q>
+				<div class="author small"><a href="http://nodejs.org">nodejs.org</a></div>
+
+				<p style="text-align:center;">
+					<img src="http://nodejs.org/images/logos/nodejs.png" alt="" style="width:350px;" />
+				</p>
+
+				<aside>
+					<p>package.json: Load dependencies; currently over 21.000 packages listed, over 20 mio. downloads per month</p>
+				</aside>
+			</article>
+
+			<article>
+				<h3>node.js - Basic HTTP server</h3>
+
+				<pre>
+var server = require('http').createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World');
+});
+
+server.listen(3000, function() {
+  console.log('Listening on port 3000');
+});</pre>
+
+				<p style="text-align:center;"><img src="assets/images/app/server.1.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>node.js - Express Middleware (1)</h3>
+
+				<p>Serve static pages:</p>
+				<pre>
+var express = require('express');
+
+var app = express();
+var server = require('http').createServer(app);
+
+app.use(express.static(__dirname + '/static'));
+
+// just an example route
+app.get('/my/resource', function(req, res) {
+  res.send('Hello World');
+});
+
+server.listen(3000, function() {
+  console.log('Listening on port 3000');
+});</pre>
+			</article>
+
+			<article>
+				<h3>node.js - Express Middleware (2)</h3>
+
+				<p>Basic HTML file:</p>
+				<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;de&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Geospatial Demo - Simple Check in&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;map&quot;&gt;Hello World from #map!&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+			</article>
+
+			<article>
+				<h3>node.js - Express Middleware (3)</h3>
+
+				<p style="text-align:center;"><img src="assets/images/app/server.2.my-resource.jpg" /></p>
+				<p style="text-align:center;"><img src="assets/images/app/server.2.checkin-simple.jpg" /></p>
+				<p style="text-align:center;"><img src="assets/images/app/server.2.anything.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Orientation: HTML5 Geolocation API</h3>
+
+
+
+				<q class="small build"><span>The Geolocation API defines a high-level interface to location information such as latitude and longitude. </span><span>The API itself is agnostic of the underlying location information sources. </span><span>Common sources of location information include GPS and location inferred from network signals such as IP address, RFID, WiFi and Bluetooth MAC addresses, and GSM/CDMA cell IDs, as well as user input. No guarantee is given that the API returns the device's actual location.</span></q>
+				<div class="author small"><a href="http://dev.w3.org/geo/api/spec-source.html">w3.org</a></div>
+
+				
+			</article>
+
+			<article>
+				<h3>HTML5 Geolocation API (2)</h3>
+
+				<pre>
+document.addEventListener('DOMContentLoaded', function() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function positionFound(position) {
+        alert("lat: "+position.coords.latitude+"; \
+          lon: "+position.coords.longitude);
+      }
+    );
+  }
+}, false);</pre>
+			</article>
+
+			<article>
+				<h3>HTML5 Geolocation API (3)</h3>
+
+				<p style="text-align:center;"><img src="assets/images/app/checkin-simple.4.location.jpg" /></p>
+			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Stage 2: Check in to current location</header>
+
+			<article class="fill">
+				<h2>Stage 2: Check in to current location</h2>
+				<p>
+					<img src="assets/images/app/checkin-simple.7.checkin-form.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Prepare HTML</h3>
+
+				<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;de&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Geospatial Demo - Simple Check in&lt;/title&gt;
+    &lt;script src=&quot;/checkin-simple.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; 
+      href=&quot;http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css&quot; /&gt;
+    &lt;script 
+      src=&quot;http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Load Map (1)</h3>
+
+				<pre>
+map = L.map('map').setView(centerOfUlm, 13);
+L.tileLayer(
+  'http://{s}.tile.cloudmade.com/bcaf462f30bd4c02a7378b1bc17dd6b6/997/256/{z}/{x}/{y}.png', 
+  {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>'
+  }
+).addTo(map);</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Load Map (2)</h3>
+
+				<p style="text-align:center;"><img src="assets/images/app/checkin-simple.5.with-map.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Mark user's position (1)</h3>
+
+				<pre>
+function setCurrentPosition(position) {
+  var coords = position.coords;
+  var msg = '&lt;b&gt;Your current position!&lt;/b&gt;';
+
+  L.marker([coords.latitude, coords.longitude])
+    .addTo(map)
+    .bindPopup(msg)
+    .openPopup();
+
+  map.setView([coords.latitude, coords.longitude], 13);
+}
+
+...
+
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(setCurrentPosition);
+}</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Mark user's position (2)</h3>
+
+				<p style="text-align:center;"><img src="assets/images/app/checkin-simple.6.current-position.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Check in from user's position (1)</h3>
+
+				<pre>
+msg += '&lt;form action=&quot;/checkin-simple.html&quot; method=&quot;post&quot;&gt;\
+  &lt;input type=&quot;hidden&quot; name=&quot;longitude&quot; 
+    value=&quot;'+coords.longitude+'&quot; /&gt;\
+  &lt;input type=&quot;hidden&quot; name=&quot;latitude&quot; 
+    value=&quot;'+coords.latitude+'&quot; /&gt;\
+  &lt;input type=&quot;text&quot; name=&quot;username&quot; 
+    placeholder=&quot;Username&quot; required=&quot;true&quot; /&gt;\
+  &lt;input type=&quot;submit&quot; value=&quot;Check in!&quot; /&gt;\
+  &lt;/form&gt;';</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Check in from user's position (2)</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/app/checkin-simple.7.checkin-form.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Express - Handle Check-in via POST</h3>
+
+				<pre>
+app.post('/checkin-simple.html', function(req, res) {
+  // do some magic here!
+  // e.g. create new database record
+  //   or simply push new check-in to all visitors
+
+  res.redirect('checkin-simple.html');
+});</pre>
+			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Stage 3: Show Check-ins live</header>
+
+			<article class="fill">
+				<h2>Stage 3: Show Check-ins live</h2>
+				<p>
+					<img src="assets/images/app/show.11.live.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (1)</h3>
+
+<pre>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;de&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;Geospatial Demo - Show&lt;/title&gt;
+    &lt;script src=&quot;/show.js&quot;&gt;&lt;/script&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/style.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; 
+      href=&quot;http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.css&quot; /&gt;
+    &lt;script 
+      src=&quot;http://cdn.leafletjs.com/leaflet-0.4.5/leaflet.js&quot;&gt;
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (2)</h3>
+
+<pre>
+var map;
+var centerOfUlm = [48.37616366164922,10.006818299883644];
+
+document.addEventListener('DOMContentLoaded', function() {
+  map = L.map('map'usgin).setView(centerOfUlm, 13);
+  L.tileLayer('http://{s}.tile.cloudmade.com/bcaf462f30bd4c02a7378b1bc17dd6b6/997/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery &#x00a9; &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;'
+  }).addTo(map);
+}, false);</pre>
+
+				<p>Simply copy &amp; paste from simple-checkin.html</p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (3)</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/app/show.9.map.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Orientation: Socket.IO</h3>
+
+				<q class="small">Socket.IO aims to make realtime apps possible in every browser and mobile device, blurring the differences between the different transport mechanisms. It's care-free realtime 100% in JavaScript.</q>
+				<div class="author small"><a href="http://socket.io/">socket.io</a></div>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Using with Express (1)</h3>
+
+				<pre>
+var express = require('express');
+var io = require('socket.io');
+
+var app = express();
+var server = require('http').createServer(app);
+io = io.listen(server);</pre>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Using with Express (2)</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/app/show.10.socketio.jpg" /></p>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Sending messages from Express</h3>
+
+				<pre>
+app.use(express.bodyParser());
+
+app.post('/checkin-simple.html', function(req, res) {
+  io.sockets.emit('checkin', req.body);
+
+  res.redirect('checkin-simple.html');
+});</pre>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Receiving messages in the client</h3>
+
+				<pre>
+  var socket = io.connect('http://localhost');
+  socket.on('checkin', function(coords) {
+    L.marker([coords.latitude, coords.longitude])
+      .addTo(map)
+      .bindPopup(coords.username);
+  });</pre>
+			</article>
+
+			<article>
+				<h3>Stage 3: Result</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/app/show.11.live.jpg" /></p>
+			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<header>Stage 4: Get near by bus stops</header>
+
+			<article class="fill">
+				<h2>Stage 4: Get near by bus stops</h2>
+				<p>
+					<img src="assets/images/mongo-geospatial-query.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB</h3>
+
+				<q class="small">MongoDB is a scalable, high-performance, open source NoSQL database.</q>
+				<div class="author small"><a href="http://mongodb.org">mongodb.org</a></div>
+
+				<p style="text-align:center;">
+					<img style="width:100%;" src="http://www.mongodb.org/download/attachments/132305/logo-mongodb-onwhite.png" alt="" />
+				</p>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB as NoSQL database</h3>
+
+				<ul class="build">
+					<li>NoSQL = <span style="color:green; font-weight:bold;">N</span>ot <span style="color:green; font-weight:bold;">o</span>nly <span style="color:green; font-weight:bold;">SQL</span></li>
+					<li>Document-oriented instead of relational database</li>
+					<li>Schema-free (simple JSON-documents)</li>
+					<li>Support of Geospatial Indexes</li>
+				</ul>
+
+				<aside>
+					<ul>
+						<li><u>not only</u> SQL</li>
+						<li>So how to save relations? (linking, nesting)</li>
+						<li>actually BSON</li>
+						<li>Yeah!</li>
+					</ul>
+				</aside>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB documents (1)</h3>
+
+				<p>Let's have a look at one bus stop document for the City of Ulm (thanks to <a href="http://ulmapi.de">UlmApi.de</a> for the <a href="http://daten.ulmapi.de/_utils/database.html?haltestellen">data</a>!)</p>
+
+				<pre>
+{
+  "_id" : "swu-9001001",
+  "type" : "haltestelle",
+  "bezeichnung" : "Steinerne Brücke",
+  "ort" : "Ulm",
+  "geometry" : { ... },
+  "license" : {
+    "id" : "cc-by-sa-3.0",
+    "author" : "SWU Verkehr GmbH",
+    "publishedDate" : "2011-11-25",
+    "name" : "Creative Commons - Namensnennung-Weitergabe unter gleichen Bedingungen 3.0 Deutschland (CC BY-SA 3.0)",
+    "link" : "http://creativecommons.org/licenses/by-sa/3.0/de/"
+  }
+}</pre>
+			</article>
+
+			<article class="smaller">
+				<h3 style="margin-top:-60px;">Orientation: MongoDB documents (2)</h3>
+
+				<pre>
+{
+  "_id" : "swu-9001001",
+  ...
+  "geometry" : {
+    "type" : "FeatureCollection",
+      "features" : [
+        {
+          "type" : "Feature",
+          "properties" : {
+            "olifid" : "100101",
+            "name" : "STEB - 01",
+            "heading" : 281
+          },
+          "geometry" : {
+            "type" : "Point",
+            "coordinates" : [
+              9.98820111111111,
+              48.3971741666667
+            ]
+          }
+        },
+        ...
+      ]
+    },
+  "license" : { ... }
+}</pre>
+			</article>
+
+			<article>
+				<h3 style="width:100%; font-size:28px;">Orientation: MongoDB - Working with the Mongo Shell (1)</h3>
+
+				<div class="build">
+					<div>
+						<q class="small">The mongo shell is an interactive JavaScript shell for MongoDB, and is part of all MongoDB distributions.</q>
+						<div class="author small" style="margin-top:-20px;"><a href="http://docs.mongodb.org/manual/mongo/">mongodb.org</a></div>
+					</div>
+
+					<pre>
+$ mongo
+MongoDB shell version: 2.2.2
+connecting to: test
+&gt;</pre>
+					<pre>&gt; show dbs;
+geospatial-demo	0.203125GB</pre>
+
+					<pre>&gt; use geospatial-demo;</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3 style="width:100%; font-size:28px;">Orientation: MongoDB - Working with the Mongo Shell (2)</h3>
+
+				<div class="build">
+				<pre>&gt; show collections;
+haltestellen
+system.indexes</pre>
+
+				<pre>&gt; db.haltestellen.findOne();
+{
+  "_id" : "swu-9001001",
+  "_rev" : "3-057933c4f16c23d416eee202cbff7c18",
+  "type" : "haltestelle",
+  "bezeichnung" : "Steinerne Brücke",
+  ...
+}</pre></div>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB - Accessing data (1)</h3>
+
+				<p>Find all bus stops whose name contains "Uni" <small>(SQL: LIKE)</small></p>
+
+				<div class="build">
+				<pre>
+&gt; db.haltestellen.find(
+  { bezeichnung: /Uni/ }
+);
+[data ...]</pre>
+
+				<pre>
+&gt; db.haltestellen.find({ bezeichnung: /Uni/ }).length();
+3</pre>
+
+				<pre>
+&gt;  db.haltestellen.find({ bezeichnung: /Uni/ }, 
+  { bezeichnung: 1 });
+{ "_id" : "swu-9001240", "bezeichnung" : "Universität Süd" }
+{ "_id" : "swu-9001246", "bezeichnung" : "Uni West" }
+{ "_id" : "swu-9001356", "bezeichnung" : "Universum Center" }</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB - Accessing data (2)</h3>
+
+				<p>Get the number of features of "Universität Süd":</p>
+				<pre style="margin-top:5px;">&gt; var uniSued = db.haltestellen.findOne(
+  { bezeichnung: "Universität Süd" }, 
+  { bezeichnung: 1, "geometry.features": 1 }
+);
+&gt; uniSued.geometry.features.length;
+3</pre>
+
+				<p>Get all bus stops with three features:</p>
+				<pre style="margin-top:5px;">
+&gt; db.haltestellen.find(
+  { "geometry.features": { $size: 3 } }, 
+  { bezeichnung: 1 }
+);
+{ "_id" : "swu-9001051", "bezeichnung" : "Staufenring" }
+{ "_id" : "swu-9001232", "bezeichnung" : "Lehrer Tal" }
+{ "_id" : "swu-9001240", "bezeichnung" : "Universität Süd" }
+...</pre>
+
+				<aside>
+					<p>Remember: If it's a common query to get the features' length, add a new field!</p>
+				</aside>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB - Geospatial Queries</h3>
+
+				<p>Query for near by bus stops:</p>
+
+				<div class="build">
+				<pre>&gt; db.haltestellen.find(
+{ 
+  "geometry.features.geometry.coordinates": { 
+    $near: [10.006818299883644,48.37616366164922] 
+  } 
+}, { bezeichnung: 1 }).limit(5)</pre>
+
+				<p>Create a Geospatial Index:</p>
+				<pre>&gt; db.haltestellen.ensureIndex(
+  { "geometry.features.geometry.coordinates": "2d" }
+);</pre>
+
+				</div>
+			</article>
+
+			<article>
+				<h3>Stage 4: Result</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/mongo-geospatial-query.jpg" style="width:100%;" /></p>
+			</article>
+
+			<article>
+				<h3>Orientation: MongoDB - Updates and Upserts</h3>
+
+				<p>Save a check-in at the first feature of "Universität Süd" into the database:</pre>
+
+				<pre>
+db.haltestellen.update({ 
+  bezeichnung: "Universität Süd"
+}, {
+  $push: {
+    checkins: {
+      feature: 0,
+      date: new Date()
+    }
+  }
+});</pre>
+			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+
+
+		<section>
+			<header>Stage 5: Check in at your closest bus stop</header>
+
+			<article class="fill">
+				<h2>Stage 5: Check in at your closest bus stop</h2>
+				<p>
+					<img src="assets/images/app/checkin.14.bus-stops.jpg">
+				</p>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (1)</h3>
+
+				<p>HTML: Simply copy &amp; paste from show.html</p>
+
+				<p>JS: Change the getCurrentPosition Handler from checkin.js:</p>
+<pre style="margin-top:5px;">
+var map;
+var centerOfUlm = [48.37616366164922,10.006818299883644];
+
+document.addEventListener('DOMContentLoaded', function() {
+  map = L.map('map').setView(centerOfUlm, 13);
+  L.tileLayer('http://{s}.tile.cloudmade.com/bcaf462f30bd4c02a7378b1bc17dd6b6/997/256/{z}/{x}/{y}.png', {
+    attribution: 'Map data &amp;copy; &lt;a href=&quot;http://openstreetmap.org&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/2.0/&quot;&gt;CC-BY-SA&lt;/a&gt;, Imagery &#x00a9; &lt;a href=&quot;http://cloudmade.com&quot;&gt;CloudMade&lt;/a&gt;'
+  }).addTo(map);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(<span style="text-decoration:line-through;">setCurrentPosition</span>);
+  }
+}, false);</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (2)</h3>
+
+				<pre>
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    map.setView([
+      position.coords.latitude,
+      position.coords.longitude
+    ], 13);
+
+    // send current location to server 
+    //   to request near by bus stops
+    var socket = io.connect('http://localhost');
+    socket.emit('coordinates', position.coords);
+  });
+}</pre>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Receive client's message</h3>
+
+				<pre>
+io.sockets.on('connection', function(socket) {
+  socket.on('coordinates', function(coords) {
+    // TODO: find near by bus stops
+    console.log(coords);
+  });
+});</pre>
+			</article>
+
+			<article>
+				<h3>MongoDB - Find near by bus stops in node.js</h3>
+
+				<pre>
+mongodb.MongoClient.connect(
+  "mongodb://localhost:27017/geospatial-demo", 
+  function(err, db) {
+    ...
+    db.collection('haltestellen').find({
+      "geometry.features.geometry.coordinates": {
+        $near: [coords.longitude, coords.latitude]
+      }
+    }).limit(5).toArray(function(err, haltestellen) {
+      // send result to client via Socket.IO!
+      socket.emit('haltestellen', haltestellen);
+    });
+  }
+);</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (3)</h3>
+
+				<pre style="width:100%;">
+socket.on('haltestellen', function(haltestellen) {
+  haltestellen.forEach(function(haltestelle) {
+    haltestelle.geometry.features.forEach(function(feature, no) {
+      var msg = '&lt;b&gt;'+haltestelle.bezeichnung+'&lt;/b&gt;&lt;br /&gt; \
+        &lt;a href=&quot;/checkin/'+haltestelle._id+'/'+no+'&quot;&gt;Check in&lt;/a&gt;';
+
+      L.marker([
+        feature.geometry.coordinates[1], 
+        feature.geometry.coordinates[0]
+      ]).addTo(map).bindPopup(msg);
+    });
+  });
+});</pre>
+			</article>
+
+			<article>
+				<h3>Leaflet - Create visitor's page (4)</h3>
+			
+				<p style="text-align:center;"><img src="assets/images/app/checkin.14.bus-stops.jpg" style="width:100%;" /></p>
+			</article>
+
+			<article>
+				<h3>MongoDB - Save check-in via node.js</h3>
+
+				<pre>
+app.get('/checkin/:haltestelle/:no', function(req, res) {    
+  res.redirect('checkin.html');
+
+  db.collection('haltestellen').update({
+    _id: req.params.haltestelle
+  }, {
+    $push: {
+      checkins: {
+        feature: req.params.no,
+        date: new Date()
+        // user: req.params.username and so on...
+      }
+    }
+  }, function() {});
+});</pre>
+			</article>
+
+			<article>
+				<h3>Socket.IO - Inform Visitors of show.html about new Check-in</h3>
+
+				<pre>
+db.collection('haltestellen').findOne({
+  _id: req.params.haltestelle
+}, function(err, haltestelle) {
+  io.sockets.emit('checkin', {
+    longitude: haltestelle.geometry.features[req.params.no]
+                 .geometry.coordinates[0],
+    latitude: haltestelle.geometry.features[req.params.no]
+                 .geometry.coordinates[1],
+    username: haltestelle.bezeichnung
+  });
+});</pre>
+			</article>
+
+			<article class="fill">
+				<h2>That's it!</h2>
+				<p>
+					<img src="assets/images/app/show.16.finish.jpg">
+				</p>
+			</article>
+		</section>
+
+		<section>
+			<article>
+				<h3>Further Resources</h3>
+
+				<ul>
+					<li><a href="http://docs.mongodb.org/manual/core/geospatial-indexes/">MongoDB: Geospatial Indexes</a></li>
+					<li><a href="http://docs.mongodb.org/manual/applications/geospatial-indexes/">MongoDB: Geospatial Queries</a></li>
+					<li><a href="http://www.10gen.com/presentations/how-foursquare-using-mongodb">Talk "How Foursquare is Using MongoDB"</a></li>
+					<li><a href="https://openshift.redhat.com/community/blogs/spatial-mongodb-in-openshift-be-the-next-foursquare-part-1">Spatial MongoDB in OpenShift, be the next FourSquare</a></li>
+					<li><a href="http://ioexception.de/2011/08/09/einfache-visualisierung-von-geodaten-%E2%80%93-teil-1-couchdbgeocouch/">IOException.de: Einfache Visualisierung von Geodaten</a> <small>(german)</small></li>
+					<li><a href="http://www.torbenleuschner.de/blog/628/html5-geolocation-api-standort-in-google-maps-anzeigen/">HTML5 Geolocation API: Standort in Google Maps anzeigen</a> <small>(german)</small></li>
+				</ul>
+			</article>
+
+			<article>
+				<h3>&raquo;Be the next Foursquare&laquo;</h3>
+
+				<p>Complete Demo App can be found under</p>
+				<p style="text-align:center; font-size:40px;"><a href="https://github.com/fnogatz/geospatial-demo">github.com/fnogatz/geospatial-demo</a></p>
+				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Fgeospatial-demo&chs=400x400&choe=UTF-8&chld=L|2"></p>
+			</article>
+		
+			<article class="fill">
+				<h1>Thank you!</h1>
+				<h2>Questions?</h2>
+			</article>
+		
+			<article>
+				<h3>Contents</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+	</div>
+
+</body>
+</html>

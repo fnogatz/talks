@@ -3,6 +3,10 @@ Talks
 
 A little collection of talks I gave.
 
+## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](http://fnogatz.github.com/talks/webeng12-geospatial-app)
+
+*University of Ulm, 1/31/2013, Web Engineering lecture.*
+
 ## Repetitorium: Paradigmen der Programmierung
 
 *University of Ulm, 7/24/2012 - 7/26/2012 and 9/25/2012 - 9/27/2012*
