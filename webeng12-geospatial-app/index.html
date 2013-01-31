@@ -80,6 +80,10 @@
 				<p>
 					<img src="assets/images/checkin.jpg">
 				</p>
+
+				<aside>
+					<p>node.js, MongoDB, HTML Geolocation API, Websockets</p>
+				</aside>
 			</article>
 
 			<article>
@@ -88,10 +92,14 @@
 				<p>Implement a simple location-based service:</p>
 				<ul class="build">
 					<li>Users provide their current location</li>
-					<li class="build">Service returns list of venues being near<p style="font-size:20px;">(here: venue = bus stop at City of Ulm, Germany)</p></li>
-					<li>User can check-in to that bus stop</li>
+					<li class="build">Web service returns list of venues being near<p style="font-size:20px;">(here: venue = bus stop at City of Ulm, Germany)</p></li>
+					<li>User can check in to that bus stop</li>
 					<li>Everyone can see it live on a map!</li>
 				</ul>
+
+				<aside>
+					<p>Beschreibung: Wie funktioniert Foursquare in Wirklichkeit?</p>
+				</aside>
 			</article>
 
 			<article>
@@ -104,6 +112,17 @@
 					<li><a href="http://leaflet.com">Leaflet</a> (JavaScript Mapping Library)</li>
 					<li><a href="http://www.w3schools.com/html/html5_geolocation.asp">HTML5 Geolocation API</a></li>
 				</ul>
+
+				<aside>
+					<ul>
+						<li>node.js: Apache</li>
+						<li>Express: Zend framework</li>
+						<li>MongoDB: SQL</li>
+						<li>Socket.IO: AJAX</li>
+						<li>Leaflet: GoogleMaps</li>
+						<li>Geolocation API: ?</li>
+					</ul>
+				</aside>
 			</article>
 
 			<article>
@@ -113,11 +132,17 @@
 					the same technologies: <a href="http://engineering.foursquare.com/2011/12/21/show-and-tell-mongodb-at-foursquare/">MongoDB</a> as their database, Leaflet for beautiful maps and HTML5 to get the user's location. (But AJAX instead of Websockets.)</p>
 
 				<p>There are frequently blogging about their used technologies at <a href="http://engineering.foursquare.com">engineering.foursquare.com</a>.</p>
-			</article>
-		
-			<article>
-				<h3>Roadmap</h3>
-				<nav class="toc" />
+
+				<aside>
+					<ul>
+						<li>MongoDB</li>
+						<li>Leaflet</li>
+						<li>HTML5</li>
+						<li><b>no</b> Websockets</li>
+						<li><b>no</b> node.js (but maybe?)</li>
+						<li>Auftretende Probleme, Lastverteilung, Replication: Blog</li>
+					</ul>
+				</aside>
 			</article>
 
 			<article>
@@ -135,6 +160,11 @@
 				<p style="text-align:center; font-size:40px;"><a href="https://github.com/fnogatz/geospatial-demo">github.com/fnogatz/geospatial-demo</a></p>
 				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Fgeospatial-demo&chs=400x400&choe=UTF-8&chld=L|2"></p>
 			</article>
+		
+			<article>
+				<h3>Roadmap</h3>
+				<nav class="toc" />
+			</article>
 		</section>
 
 		<section>
@@ -145,10 +175,14 @@
 				<p>
 					<img src="assets/images/app/checkin-simple.4.location.jpg">
 				</p>
+
+				<aside>
+					<p>Bevor anfangen: Server!</p>
+				</aside>
 			</article>
 
 			<article>
-				<h3>Orientation: node.js</h3>
+				<h3>Orientation: node.js (1)</h3>
 
 				<q class="small build"><p>Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.</p><p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></q>
 				<div class="author small"><a href="http://nodejs.org">nodejs.org</a></div>
@@ -159,6 +193,54 @@
 
 				<aside>
 					<p>package.json: Load dependencies; currently over 21.000 packages listed, over 20 mio. downloads per month</p>
+				</aside>
+			</article>
+
+			<article>
+				<h3>Orientation: node.js (2)</h3>
+
+				<p>Why using JavaScript?</p>
+				<ul class="build">
+					<li>Everyone knows it!</li>
+					<li>Extremely fast thanks to Google's V8</li>
+					<li>Runs everywhere:
+						<ul class="build">
+							<li>in the Browser</li>
+							<li>on the server</li>
+							<li>in the database backend</li>
+							<li>on an <a href="https://www.youtube.com/watch?v=o-tsZWm4Kiw">Arduino</a></li>
+							<li>even on <a href="https://www.youtube.com/watch?v=ymlbNEL5TQQ">flying drones</a>!</li>
+						</ul>
+					</li>
+				</ul>
+			</article>
+
+			<article class="fill">
+				<h2>NodeCopter Berlin <a style="font-size:26px; float:right; margin-right:100px;" href="https://plus.google.com/photos/107012710192519215701/albums/5797983156265725345/5797983531281865458">(Picture by Jan Marsch)</a></h2>
+				<img src="https://lh3.googleusercontent.com/-qdRpNJ35EeQ/UHaTTXue2vI/AAAAAAAAAIA/1i9-orm1OnE/s971/IMG_6490.JPG">
+				
+				<aside>
+					<p>Ryan Dahl, 2009: No I/O-API etc. - define a convention of non-blocking, event-driven I/O</p>
+				</aside>
+			</article>
+
+			<article>
+				<h3>Orientation: node.js (recap)</h3>
+
+				<q class="small"><p>Node.js is a platform built on Chrome's JavaScript runtime for easily building fast, scalable network applications.</p><p>Node.js uses an event-driven, non-blocking I/O model that makes it lightweight and efficient, perfect for data-intensive real-time applications that run across distributed devices.</p></q>
+				<div class="author small"><a href="http://nodejs.org">nodejs.org</a></div>
+
+				<p style="text-align:center;">
+					<img src="http://nodejs.org/images/logos/nodejs.png" alt="" style="width:350px;" />
+				</p>
+
+				<aside>
+					<p>Start with package.json and empty directory!</p>
+					<ul>
+						<li>simple server</li>
+						<li>Express: routes</li>
+						<li>Express: static content</li>
+					</ul>
 				</aside>
 			</article>
 
@@ -273,6 +355,11 @@ document.addEventListener('DOMContentLoaded', function() {
 				<p>
 					<img src="assets/images/app/checkin-simple.7.checkin-form.jpg">
 				</p>
+			</article>
+
+			<article class="fill">
+				<h2>Orientation: Leaflet</h2>
+				<iframe src="http://leafletjs.com/"></iframe>
 			</article>
 
 			<article>
@@ -910,6 +997,30 @@ db.collection('haltestellen').findOne({
 					<li><a href="http://www.torbenleuschner.de/blog/628/html5-geolocation-api-standort-in-google-maps-anzeigen/">HTML5 Geolocation API: Standort in Google Maps anzeigen</a> <small>(german)</small></li>
 				</ul>
 			</article>
+			
+			<article class="">
+				<h3>23. Februar &nbsp; ♥ &nbsp; Internationaler Open Data Day</h3>
+				<ul>
+					<li>Hackday der datalove Hochschulgruppe an der uulm</li>
+					<li>uulm, O27/341, ab 10 Uhr</li>
+					<li>Gemeinsam an aktuellen Open Data Projekten aus Ulm arbeiten</li>
+					<li>... und Essen und Trinken :)</li>
+					<li>Anmeldung erwünscht: <a href="http://wiki.opendataday.org/Ulm2013">wiki.opendataday.org/Ulm2013</a></li>
+				</ul>
+			</article>
+		
+			<article class="fill">
+				<h1>Thank you!</h1>
+				<h2>Questions?</h2>
+			</article>
+
+			<article>
+				<h3>&raquo;Be the next Foursquare&laquo;</h3>
+
+				<p>Presentation can be found under</p>
+				<p style="text-align:center; font-size:40px; width:100%;"><a href="https://github.com/fnogatz/talks">github.com/fnogatz/talks</a></p>
+				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Ftalks&chs=400x400&choe=UTF-8&chld=L|2"></p>
+			</article>
 
 			<article>
 				<h3>&raquo;Be the next Foursquare&laquo;</h3>
@@ -917,11 +1028,6 @@ db.collection('haltestellen').findOne({
 				<p>Complete Demo App can be found under</p>
 				<p style="text-align:center; font-size:40px;"><a href="https://github.com/fnogatz/geospatial-demo">github.com/fnogatz/geospatial-demo</a></p>
 				<p style="text-align:center;"><img src="https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fgithub.com%2Ffnogatz%2Fgeospatial-demo&chs=400x400&choe=UTF-8&chld=L|2"></p>
-			</article>
-		
-			<article class="fill">
-				<h1>Thank you!</h1>
-				<h2>Questions?</h2>
 			</article>
 		
 			<article>

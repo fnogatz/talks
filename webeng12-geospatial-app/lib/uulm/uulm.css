@@ -207,3 +207,13 @@ q.small {
 .author.small, q.small {
 	font-size:100%; line-height:110%;
 }
+
+
+ul li ul {
+	padding-top:20px;
+	margin-left: 80px;
+}
+ul li ul li {
+	list-style-type: square;
+	font-size:26px;
+}
