@@ -1,0 +1,72 @@
+#title-header {
+  width: 80%;
+  min-width:80%;
+  margin-left:9%;
+}
+
+sup small {
+  font-size:65%;
+}
+
+.ablauf dd {
+  margin-bottom: 30px;
+}
+
+.ablauf dt span {
+  float:right;
+  color: #666;
+  font-style:italic;
+  text-align: right;
+}
+
+.ablauf dt.today {
+	text-decoration:underline;	
+}
+.ablauf dt.today span {
+	text-decoration: none;	
+}
+
+pre.inline {
+  display:inline;
+  margin-right:10px;
+}
+
+dd > pre {
+  margin-top:15px;
+  margin-bottom:25px;
+}
+
+pre span.description {
+	float:right;
+	text-align:left;
+	font-style: italic;
+}
+pre.description-w70 span.description {
+	width:70%;	
+}
+pre.description-w60 span.description {
+	width:60%;	
+}
+pre.description-w50 span.description {
+	width:50%;	
+}
+
+p + pre {
+	margin-top:20px;	
+}
+
+.slides.template-uulm-in h1 a {
+	color: #A32638;
+}
+.slides.template-uulm-in h1 a:hover {
+	color: #A32638;
+	border-bottom: 1px dotted #A32638;
+}
+
+article.little-smaller dd pre {
+	margin-bottom:10px;
+}
+
+dl + div > pre {
+	margin-top:-10px;
+}

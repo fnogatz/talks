@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="../shared/lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../shared/lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="../shared/repetitorium.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='../shared/lib/slides.js'></script>
+
+	<title>HTML5 Slide Deck – uulm Style</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Haskell</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 19. Juli 2013
+				</h2>
+				<h2 id="subtitle">
+					PDP-Repetitorium<br>&nbsp;
+				</h2>
+				<p>
+					<img id="title-header" src='../shared/images/listmonster.png'> 
+					<img id="uulm-logo" src='../shared/lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+		
+			<article class="ablauf">
+				<h3>Ablauf</h3>
+
+				<dl class="">
+					<dt class="med-color today">Freitag, 19. Juli<span>14.00 - 18.00 Uhr<br/>H14</span></dt>
+					<dd>Haskell</dd>
+					
+					<dt class="med-color">Samstag, 20. Juli<span>10.00 - 16.00 Uhr<br/>H21</span></dt>
+					<dd>Haskell, Prolog</dd>
+
+					<dt class="med-color">Sonntag, 21. Juli<span>10.00 - 14.00 Uhr<br/>H21</span></dt>
+					<dd>Prolog, CHR</dd>
+
+					<dt class="med-color">Mittwoch, 24. Juli<span>10.00 - 12.00 Uhr<br/>H1, H4/5, H21 und H22</span></dt>
+					<dd>Klausur</dd>
+				</dl>
+			</article>
+		
+			<article>
+				<h3>Schwerpunkt Haskell</h3>
+				<nav class="toc" />
+			</article>
+		</section>
+
+		<section>
+			<article>
+				<h3>Grundsätze</h3>
+
+				<ul>
+					<li>keine Variablen</li>
+					<li>Arbeit mit Funktionen</li>
+					<li>...</li>
+				</ul>
+			</article>
+			
+
+			<header>Einfache Datentypen, Typklassen und Funktionen</header>
+
+			<article class="fill">
+				<h1>Einfache Datentypen, Typklassen und Funktionen</h1>
+				<h3><br/>von Haskell vordefiniert</h3>
+			</article>
+			
+			<article>
+				<h3>Vordefinierte Datentypen</h3>
+				
+				<ul>
+					<li><strong>Bool</strong> (auch: <strong>Boolean</strong>): <i>True</i> oder <i>False</i></li>
+					<li><strong>Char</strong>: <i>'a'</i>, <i>'2'</i>, <i>'\n'</i></li>
+					<li><strong>String</strong> (ist: <strong>[Char]</strong>): <i>"Name"</i>, <i>['N','a','m','e']</i></li>
+					<li><strong>Int</strong>: best. Wertebereich</li>
+					<li><strong>Integer</strong>: beliebige Größe</li>
+					<li><strong>Float</strong></li>
+					<li><strong>Double</strong></li>
+				</ul>
+				
+				<p>... stehen auch mit Wertebereich auf dem Cheatsheet!</p>
+			</article>
+			
+			<article class="fill">
+				<h1><a href="exercises.html#2">Aufgabe 1</a></h1>
+				<h3><br/>Typisierung einfacher Werte</h3>
+			</article>
+			
+			<article>
+				<h3>Zweistellige Operatoren (1)</h3>
+				
+				<dl class="">
+					<dt class="med-color">Grundrechenarten</dt>
+					<dd><pre>+, -, *, /, div, mod</pre></dd>
+
+					<dt class="med-color">Exponentiation</dt>
+					<dd><pre>^ <small>(ganzzahliger Exponent)</small>, **</pre></dd>
+
+					<dt class="med-color">Vergleichsoperationen</dt>
+					<dd><pre>==, /=, <, >, <=, >=</pre></dd>
+
+					<dt class="med-color">Boolsche Operatoren</dt>
+					<dd><pre>&&, ||, not</pre></dd>
+				</dl>
+			</article>
+
+			<article>
+				<h3>Zweistellige Operatoren (2)</h3>
+				
+				<p>Jede zweistellige Funktion kann sowohl in <i>Infix</i>- als auch mittels Klammerung in <i>Präfix</i>-Notation aufgerufen werden.</p>
+				
+				<pre style="margin-top:5px;">5 + 3
+(+) 5 3
+
+5 / 3
+(/) 5 3
+
+(&&) True False
+True && False
+
+mod 5 3
+5 `mod` 3
+
+div 5 3
+5 `div` 3</pre>
+			</article>
+			
+			<article>
+				<h3>Typangaben von Funktionen</h3>
+				
+				<p>Einfache Typangaben von Funktionen werden in folgender Form gemacht:</p>
+				<pre style="margin-top:20px;">Typ -> Typ -> ... -> Typ</pre>
+				
+				<p>Beispiele:</p>
+<pre style="margin-top:20px;">
+(+) :: Double -> Double -> Double
+(/) :: Double -> Double -> Double
+(&&) :: Bool -> Bool -> Bool
+(mod) :: Int -> Int -> Int
+(==) :: Char -> Char -> Bool
+</pre>
+			</article>
+			
+			<article>
+				<h3>Typvariablen (1)</h3>
+				
+				<p>Offensichtlich gibt es Funktionen, die für mehrere konkrete Typen anwendbar sind, z.B.:</p>
+				<ul style="margin-top:20px; padding-left:30px;">
+					<li><pre class="inline">(==)</pre> (für alle Werte, die sich vergleichen lassen)</li>
+					<li><pre class="inline">(+)</pre> (für jegliche Zahlen)</li>
+					<li><pre class="inline">mod</pre> (für ganze Zahlen)</li>
+				</ul>
+				
+				<p style="margin-top:40px;">Die o.g. Funktionen sind also für mehr als die dargestellten Typen definiert:</p>
+				<pre>
+(+) :: Double -> Double -> Double
+(+) :: Int -> Int -> Int
+(+) :: Float -> Float -> Float
+(+) :: Integer -> Integer -> Integer
+</pre>
+			</article>
+			
+			<article>
+				<h3>Typvariablen (2)</h3>
+				
+				<p>Unter Nutzung von Typvariablen <i>a</i>, <i>b</i>, ... kann deutlich gemacht werden, dass 
+					mehrere Typen (ggf. einer angegebenen Typklasse, siehe nächste Folie) eingesetzt werden können.</p>
+				<pre>
+(+) :: a -> a -> a
+</pre>
+
+				<ul class="build">
+					<li>Eine Typvariable steht für einen Typ.</li>
+					<li>Der Typ <pre class="inline">[a] -> Int</pre> heißt <strong>allgemeinster Typ</strong> für <pre class="inline">length</pre>.</li>
+					<li>Funktionen, deren Typ eine Typvariable enthält, heißen <strong>polymorphe Funktionen</strong>.</li> 
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Typklassen (1)</h3>
+				
+				<p>Manche Funktionen sind zwar polymorph, aber dennoch nur für bestimmte Typen anwendbar. So lässt sich
+					<code>(+)</code> eigentlich nur auf Zahlen anwenden. Es gibt daher eine Reihe von Typklassen:</p>
+					
+				<ul>
+					<li><code>Eq</code>: alle primitiven Datentypen</li>
+					<li><code>Ord</code>: Bool, Char, Int, Integer, Float, Double <small>(impliziert <code>Eq</code>)</small></li>
+					<li><code>Num</code>: Int, Integer, Float, Double</li>
+					<li><code>Fractional</code>: Float, Double <small>(impliziert <code>Num</code>)</small></li>
+					<li><code>Integral</code>: Int, Integer <small>(impliziert <code>Num</code>)</small></li>
+					<li><code>Enum</code>: Char, Int, Integer, Float, Double</li>
+				</ul>
+
+				<aside>
+					<p>"Klassendiagramm"</p>
+				</aside>
+			</article>
+			
+			<article>
+				<h3>Typklassen (2)</h3>
+				
+				<p>Die Einschränkung von Typvariablen durch Typklassen wird wie folgt dargestellt:</p>
+				
+				<pre>(Typklasse a, Typklasse b, ...) => Typ -> Typ -> ... -> Typ</pre>
+				
+				<p style="margin-top:40px;">Für die vorangegangenen Beispiele gilt also:</p>
+				
+				<pre>
+(==) :: (Eq a) => a -> a -> Bool
+(+) :: (Num a) => a -> a -> a
+mod :: (Integral a) => a -> a -> a
+
+(&&) :: Bool -> Bool -> Bool <span class="description" style="">allgemeiner geht nicht</span>	
+</pre>
+			</article>
+
+		
+			<article class="fill">
+				<h1><a href="exercises.html#5">Ergänzung zu Aufgabe 1</a></h1>
+				<h3><br/>Typisierung einfacher Werte mit Typklassen</h3>
+			</article>
+			
+			<article class="fill">
+				<h1><a href="exercises.html#7">Aufgabe 2</a></h1>
+				<h3><br/>Typisierung vordefinierter Funktionen</h3>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Currying</h1>
+				<h3><br/>Prinzip der partiellen Aufrufe</h3>
+			</article>
+			
+			<article>
+				<h3>Currying (1)</h3>
+				
+				<p>Was bedeutet folgender Funktionstyp?</p>
+				<pre>(>=) :: (Ord a) => a -> a -> Bool</pre>
+				
+				<ul style="margin-left:30px; margin-bottom: 40px;">
+					<li>Zwei Parameter und ein Rückgabewert?</li>
+					<li>Ein Parameter und als Rückgabe eine Funktion? D.h. <pre class="inline">a -> (a -> a)</pre></li>
+				</ul>
+				
+				<p>In Haskell implizite Klammerung nach rechts, d.h. zweiter Fall.</p>
+			</article>
+			
+			<article>
+				<h3>Currying (2)</h3>
+				
+				<p>Jede Funktion in Haskell kann partiell aufgerufen werden. Achtung bei zweistelligen Operatoren!</p>
+				
+				<p>Beispiele:</p>
+				<pre class="description-w50">
+((+) 1) <span class="description">Nachfolger</span>
+((*) 10) <span class="description">Zehnfache einer Zahl</span>
+((^) 3) <span class="description"><strong>3 hoch Zahl</strong></span>
+((>=) 0) <span class="description">Zahl <strong>kleiner gleich</strong> 0?</span>
+</pre>
+				<p><strong>Achtung:</strong> Haskell "verdreht" zweistellige transitive Funktionen zur natürlichsprachigen Bedeutung:</p>
+				
+				<pre class="description-w50">
+(^ 3) <span class="description">Zahl hoch 3</span>
+(>= 0) <span class="description">Zahl größer gleich 0?</span>
+</pre>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#10">Aufgabe 3</a></h1>
+				<h3><br/>Typisierung partieller vordefinierter Funktionen</h3>
+			</article>
+			
+			
+			<article class="fill">
+				<h1>Listen und Tupel</h1>
+				<h3><br/>Zusammengesetzte Datentypen</h3>
+			</article>
+			
+			<article>
+				<h3>Tupel</h3>
+				
+				<ul class="build">
+					<li>Folge von Komponenten i.A. unterschiedlichen Typs</li>
+					<li>Notation: <pre class="inline">(T<sub>1</sub>, T<sub>2</sub>, ..., T<sub>n</sub>)</pre> 
+						bezeichnet <i>n</i>-Tupel, dessen i-te Komponente vom Typ T<sub>i</sub> ist</li>
+					<li>leeres Tupel: <pre class="inline">()</pre></li>
+					<li>Tupel mit einer Komponente nicht erlaubt (Warum?)</li>
+				</ul>
+				
+				<div class="build">
+				<p style="margin-top:40px;">Beispiele:</p>
+				<pre class="description-w50">
+(True, False) :: (Bool, Bool)
+(1, 'c', "test") :: (Num a) => (a, Char, String)
+((True, False), (False, False)) :: ((Bool, Bool), (Bool, Bool))
+(1) :: (Num a) => a <span class="description">Zahl in Klammern, kein 1-Tupel!</span>
+</pre>
+				</div>
+			</article>
+			
+			<article>
+				<h3>Listen</h3>
+				
+				<ul class="build">
+					<li>Folge von Elementen <strong>gleichen</strong> Typs</li>
+					<li>Jede Liste ist entweder leer <pre class="inline">[]</pre>, oder sie besteht 
+						aus einem Element und einer Restliste <pre class="inline">(x:xs)</pre></li>
+					<li>Auflistung der Listenelemente möglich: <pre class="inline">[1,2,3,4]</pre></li>
+					<li>Auch unendliche Listen möglich</li>
+				</ul>
+				
+				<p style="margin-top:40px;">Beispiele</p>
+				<pre class="description-w50">
+[True, False, False] :: [Bool]
+[1,2,3,4] :: (Num a) => [a]
+[1,2,3,4.2] :: (Fractional a) => [a]
+[(True,0), (False,1), (True,2)] :: (Num a) => [(Bool, a)]
+[] :: [a]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenerzeugung</h3>
+				
+				<p>Komfortable Möglichkeit, Listen als arithmetische Folge zu definieren:</p>
+				
+				<ul style="margin-top:20px;padding-left:30px;">
+					<li><pre class="inline">[n..m]</pre> &rarr; <pre class="inline">[n,n+1,...,m-1,m]</pre></li>
+					<li><pre class="inline">[n,k..m]</pre> &rarr; <pre class="inline">[n,n+(k-n),n+2&ast;(k-n)...,m]</pre></li>
+				</ul>
+				
+				<p style="margin-top:40px;">Beispiele</p>
+				<pre class="description-w50">
+[1..10] &rarr; [1,2,3,4,5,6,7,8,9,10]
+[1,3..10] &rarr; [1,3,5,7,9]
+[10,7..(-3)] &rarr; [10,7,4,1,-2]
+['a'..'f'] &rarr; ['a','b','c','d','e','f']
+[1,3..] &rarr; [1,3,5,7,...] <span class="description">unendliche Liste</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (1)</h3>
+				
+				<ul>
+					<li>Beschreibung einer Liste über ihre Eigenschaften</li>
+					<li>vgl. Mathematik: { n&sup2; | n <small>&isin;</small> &Nu;, n gerade }</li>
+					<li>Haskell analog: <pre class="inline">[Resultatausdruck | Generator, Wächter]</pre></li>
+					<li>Hier konkret: <pre class="inline">[n^2 | n <- [1..], even n]</pre></pre>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (2) - Beispiele</h3>
+				
+				<pre class="build">
+-- Alle Teiler einer Zahl
+<span>divisors :: (Integral a) => a -> [a]</span>
+divisors n = [t | t <‐ [1..n], n `mod` t == 0]
+
+-- Ist Zahl Primzahl?
+<span>isPrime :: (Integral a) => a -> Bool</span>
+isPrime n = divisors n == [1,n]
+
+-- Liste aller Primzahlen bis zu einer Zahl
+<span>primes :: (Integral a) => a -> [a]</span>
+primes n = [p | p <‐ [2..n], isPrime p]
+</pre>
+			</article>
+			
+			<article>
+				<h3>Listenkomprehension (3)</h3>
+				
+				<p>Eine Listenkomprehension kann mehrere Generatoren besitzen:</p>
+				
+				<pre class="build">
+[(x,y) | x <- [1..3], y <- [True, False]]
+<span>&rarr; [(1,True),(1,False),(2,True),(2,False),(3,True),(3,False)]</span>
+
+[(x,y) | x <- [1..4], y <- [True, False], y, x `mod` 2 == 0]
+<span>&rarr; [(2,True),(4,True)]</span>
+</pre>
+
+				<p>Je weiter rechts ein Generator steht, desto schneller verändert er sich, analog
+					zu verschachtelten Schleifen.</p>
+			</article>
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#13">Aufgabe 4</a></h1>
+				<h3><br/>Listenerzeugung</h3>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (1)</h3>
+				
+				<p>... die auch auf dem Cheatsheet stehen:</p>
+				
+				<dl class="build">
+					<dt class="med-color">Erstes Element einer Liste zurückgeben</dt>
+					<dd class="">
+						<pre>head :: [a] -> a
+head [1..10] == 1</pre></dd>
+
+					<dt class="med-color">Liste ohne das erste Element</dt>
+					<dd class="">
+						<pre>tail :: [a] -> [a]
+tail [1..10] == [2..10]</pre></dd>
+
+					<dt class="med-color">Letztes Listenelement</dt>
+					<dd class="">
+						<pre>last :: [a] -> a
+last [1..10] == 10</pre></dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (2)</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Ersten <i>n</i> Elemente einer Liste</dt>
+					<dd class="">
+						<pre>take :: Int -> [a] -> [a]
+take 5 [1..10] == [1..5]</pre></dd>
+
+					<dt class="med-color">Liste ohne die ersten <i>n</i> Elemente</dt>
+					<dd class="">
+						<pre>drop :: Int -> [a] -> [a]
+drop 5 [1..10] == [6..10]</pre></dd>
+
+					<dt class="med-color">Kommt Element in Liste vor?</dt>
+					<dd class="">
+						<pre>elem :: Eq a => a -> [a] -> Bool
+elem 5 [1..10] == True</pre></dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (3)</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Länge einer Liste</dt>
+					<dd class="">
+						<pre>length :: [a] -> Int
+length [1..10] == 10</pre></dd>
+
+					<dt class="med-color">Verknüpfung zweier Listen</dt>
+					<dd class="">
+						<pre>(++) :: [a] -> [a] -> [a]
+[1..10] ++ [11..20] == [1..20]</pre></dd>
+
+					<dt class="med-color">Listenreihenfolge umkehren</dt>
+					<dd class="">
+						<pre>reverse :: [a] -> [a]
+reverse [1..10] == [10,9..1]</pre></dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (4)</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Liste von Listen zusammenfügen</dt>
+					<dd class="">
+						<pre>concat :: [[a]] -> [a]
+concat [[1..10],[11..20],[21..30]] == [1..30]</pre></dd>
+
+					<dt class="med-color">Summe aller Listenelemente (analog: <pre class="inline">product</pre>)</dt>
+					<dd class="">
+						<pre>sum :: Num a => [a] -> a
+sum [1..10] == 55</pre></dd>
+				</dl>
+			</article>
+			
+			<article>
+				<h3>Nützliche Funktionen auf Listen (5)</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Liste filtern</dt>
+					<dd class="">
+						<pre>filter :: (a -> Bool) -> [a] -> [a]
+filter even [1..10] == [2,4..10]</pre></dd>
+				</dl>
+				
+				<dl class="build">
+					<dt class="med-color">Funktion auf alle Listenelemente anwenden</dt>
+					<dd class="">
+						<pre>map :: (a -> b) -> [a] -> [b]
+map (*2) [1..10] == [2,4..20]</pre></dd>
+				</dl>
+			</article>
+			
+
+			<article class="fill">
+				<h1><a href="exercises.html#18">Aufgabe 5 *</a></h1>
+				<h3><br/>Typbestimmung zusammengesetzter Ausdrücke</h3>
+			</article>
+		</section>
+		
+		
+		<section>
+			<header>Eigene Funktionsdefinitionen</header>
+		
+			<article class="fill">
+				<h1>Let's hack!</h1>
+				<h3><br/>Eigene Funktionen definieren</h3>
+			</article>
+			
+			<article>
+				<h3>Stetige Funktionen</h3>
+				
+				<p>Einfache Funktionen können einfach aufgeschrieben werden:</p>
+				
+				<pre class="build">
+<span>muenzen :: [Int]
+muenzen = [1,2,5,10,20,50,100,200]</span>
+
+<span>average :: (Fractional a) => a -> a -> a -> a
+average a b c = (a+b+c)/3</span>
+
+<span>inc :: (Integral a) => a -> a
+inc = (+1) -- Partieller Aufruf</span>
+</pre>
+			</article>
+			
+			<article class="little-smaller">
+				<h3>Fallunterscheidungen in Haskell</h3>
+				
+				<dl class="build">
+					<dt class="med-color">Bedingte Ausdrücke</dt>
+					<dd><pre>not b = if b == True then False else True</pre></dd>
+					
+					<dt class="med-color">Guards</dt>
+					<dd><pre>
+not b | b == True = False
+      | otherwise = True
+</pre></dd>
+					
+					<dt class="med-color">Pattern Matching</dt>
+					<dd><pre>
+not True  = False
+not False = True
+</pre></dd>
+					
+					<dt class="med-color">case-Ausdrücke</dt>
+					<dd><pre>
+not b = case b of
+          True  -> False
+          False -> True
+</pre></dd>
+			</article>
+			
+			<article>
+				<h3>Bedingte Ausdrücke</h3>
+				
+				<p>Form:</p>
+				<pre>
+if <i>Bedingung::Bool</i> then <i>Ausdruck<sub>1</sub>::a</i> else <i>Ausdruck<sub>2</sub>::a</i> 
+</pre>
+
+				<div class="build">
+				<p>Kein Teil kann weggelassen werden: Da es ein <strong>Ausdruck</strong> und keine
+					Anweisung ist, gibt es kein <i>if</i> ohne <i>else</i> - irgendeinen Rückgabewert 
+					muss es geben!</p>
+					
+				<p>Beispiele:</p>
+				<pre>
+abs n = if n >= 0 then n else (-1)*n
+
+fak n = if n == 0 then 1 else n*(fak (n-1))
+</pre>
+				</div>
+				
+				<aside>
+					Schachtelung möglich, aber meist andere Fallunterscheidung besser
+				</aside>
+			</article>
+			
+			<article>
+				<h3>Guards</h3>
+				
+				<p>Statt geschachtelter bedingter Ausdrücke können Guards verwendet werden:</p>
+				
+				<pre class="build">
+<span>-- verschachtelt:
+sign n = if n < 0 then -1 else if n == 0 then 0 else 1</span>
+
+<span>-- mit Guards:
+sign' n | n < 0      = -1
+        | n == 0     = 0
+        | otherweise = 1</span>
+</pre>
+
+				<ul class="build">
+					<li>Bedingungen werden der Reihe nach angewandt</li>
+					<li>Eine Bedingung sollte erfüllt werden, daher...</li>
+					<li><pre class="inline">otherwise</pre> als letztes verwenden!</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Pattern Matching (1)</h3>
+				
+				<p>Vergleich auf Basis von Mustern, d.h. ohne Nutzung von Bedingungen.</p>
+				
+				<p>Beispiele:</p>
+				<pre class="build">
+<span>or2 :: Bool -> Bool -> Bool
+oder True  _ = True  -- Wildcard-Operator
+oder False a = a</span>
+
+<span>fak 0 = 1
+fak n = n * fak (n-1)</span>
+</pre>
+
+				<ul class="build">
+					<li>Funktionsanwendung von oben nach unten</li>
+					<li>Bei Rekursionen: Basisfälle nach oben!</li>
+					<li>Vgl. Prolog: <strong>kein</strong> Backtracking o.ä.</li>
+				</ul>
+			</article>
+			
+			<article>
+				<h3>Pattern Matching (2)</h3>
+				
+				<p>Als Muster können auch Variablen oder komplexe Muster dienen. Typisch ist dies etwa bei
+					Listen.</p>
+				<pre class="build">
+<span>length :: [a] -> Int
+length []     = 0
+length (x:xs) = 1 + length xs</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Case-Ausdrücke</h3>
+				
+				<p>Sollen mehrere Muster in einem <strong>Ausdruck</strong> dargestellt werden,
+					bietet sich ein Case-Ausdruck an:</p>
+				<pre class="build">
+<span>length l = case l of
+             []     -> 0
+             (x:xs) -> 1 + length xs</span>
+
+<span>neg b = case b of
+          True  -> False
+          False -> True</span>
+</pre>
+
+				<aside>
+					Frage: Warum ist das kein Ersatz für verschachtelte if-else? Antwort: Muster statt Bedingungen!<br><br>
+					Intern: Umwandlung stets in cases.
+				</aside>
+			</article>
+	
+	
+			<article class="fill">
+				<h1>Lokale Definitionen</h1>
+				<h3><br/><i>let</i> und <i>where</i></h3>
+			</article>
+		
+			<article>
+				<h3>Lokale Definitionen (1)</h3>
+				
+				<p>Häufig braucht man Hilfsfunktionen nur in einem konkreten Funktionsaufruf und möchte
+					sie daher nicht global definieren. Stattdessen können sie per <pre class="inline">let</pre>
+					und <pre class="inline">where</pre> lokal definiert werden.</p>
+
+				<dl class="build">
+					<dt class="med-color">let</dt>
+					<dd>
+						<pre>let <i>Bezeichner</i> = <i>Ausdruck<sub>1</sub></i> in <i>Ausdruck<sub>2</sub></i>
+						
+let 
+  m = [1,2,5,10,20,50,100,200]
+in 
+  [x+y+z | x <- m, y <- m, z <- m]
+</pre></dd>			
+			</article>
+		
+			<article>
+				<h3>Lokale Definitionen (2)</h3>
+
+				<dl class="build">
+					<dt class="med-color">where</dt>
+					<dd>
+						<pre>
+<i>Ausdruck<sub>1</sub> = Ausdruck<sub>2</sub></i>
+    where <i>Bezeichner</i> = <i>Ausdruck<sub>3</sub></i>
+
+werte = [x+y+z | x <- m, y <- m, z <- m]
+    where m = [1,2,5,10,20,50,100,200]
+</pre></dd>
+
+				<aside>where-Block ist Teil der Funktionsdefinition und kann nur am Ende stehen,<br>
+					let überall dort, wo ein Ausdruck erwartet wird.
+					<br/>Mehrere Bezeichner im where und let möglich</aside>
+			</article>
+
+
+			<article class="fill">
+				<h1><a href="exercises.html#23">Aufgabe 6</a></h1>
+				<h3><br/>Komposition von Rekursionsfunktionen</h3>
+			</article>
+			
+			<article>
+				<h3>Anonyme Funktionen (Lambda-Ausdrücke)</h3>
+				
+				<p>Ähnlich zu lokalen Funktionen: Angabe einer Funktion ohne Namen.</p>
+				
+				<pre class="build">
+-- über lokale Definition
+let myf i = i `mod` 3 == 1 && i `mod` 7 == 2 in filter myf [1..]
+-- [16,37,58,79,100,121,142,163,184,...]
+
+-- über Lambda-Ausdruck
+filter (\i -> i `mod` 3 == 1 && i `mod` 7 == 2) [1..]
+
+-- Resultat?
+(\x y -> x*y) 2 3 <span>     -- 6</span>
+<span>(\x y -> x*y) 2 </span><span>       -- (\y -> 2*y)</span>
+</pre>
+			</article>			
+		</section>
+		
+		
+		<section>
+			<header>Algebraische Datentypen und Faltungen</header>
+			
+
+			<article class="fill">
+				<h1>Algebraische Datentypen und Faltungen</h1>
+				<h3><br/>foldl, foldr und andere fold's</h3>
+			</article>
+			
+			<article>
+				<h3>Faltungen auf Listen (1)</h3>
+				
+				<pre>
+sum [] = 0
+sum (x:xs) = x + sum xs
+
+product [] = 1
+product (x:xs) = x * product xs
+
+and [] = True
+and (x:xs) = x && and xs
+</pre>
+
+				<p>Verallgemeinerung:</p>
+				
+				<pre>
+foldr f i [] = i
+foldr f i (x:xs) = f x (foldr f i xs)
+</pre>
+
+				<aside>Unterschied zu map?</aside>				
+			</article>	
+			
+			<article>
+				<h3>Faltungen auf Listen (2)</h3>
+				
+				<p>Es gibt <i>foldr</i> für rechtsassoziative und <i>foldl</i> für linksassoziative Funktionen:</p>
+				
+				<pre>
+foldr f i [] = i
+foldr f i (x:xs) = f x (foldr f i xs)
+
+foldl f i []     = i
+foldl f i (x:xs) = foldl f (f i x) xs
+</pre>
+
+				<div class="build">					
+					<p>Fazit: Nur äquivalent für assoziative Funktionen!</p>
+				</div>
+
+				<aside>Unterschied zu map?<br><br>foldr (+) [1..4]<br><br>foldl (^) [1..4]</aside>				
+			</article>
+			
+	
+			<article class="fill">
+				<h1><a href="exercises.html#26">Aufgabe 7</a></h1>
+				<h3><br/>Faltungen auf Listen</h3>
+			</article>		
+			
+			
+			<article class="fill">
+				<h1>Algebraische Datentypen & Co.</h1>
+				<h3>Aufzählungen, Bäume, Typsynonyme, ...</h3>
+			</article>
+			
+			<article>
+				<h3>Typsynonyme</h3>
+				
+				<p>Durch Typsynonyme können weitere Namen für bereits existierende Typen gesetzt werden, 
+					etwa <i>String</i> für <i>[Char]</i>.</p>
+				
+				<div class="build">
+				<pre>
+type String = [Char]
+
+type IntPaar = (Int, Int)
+</pre>
+
+				<p>... für die Klausur wenig relevant.</p></div>
+			</article>
+			
+			<article>
+				<h3>Algebraische Datentypen</h3>
+				
+				<p>... können über das Schlüsselwort <pre class="inline">data</pre> definiert werden.</p>
+				
+				<dl class="build">
+					<dt class="med-color">Aufzählungstyp</dt>
+					<dd class="">
+						<pre>
+data Programmiersprache = Haskell | Prolog | CHR | Java
+    deriving (Eq, Ord, Enum, Show)
+</pre></dd>
+
+					<dt class="med-color">Komplexer Datentyp</dt>
+					<dd class="">
+						<pre>
+data Shape = Circle Float 
+           | Rectangle Float Float 
+           | Square Float
+</pre></dd>
+				</dl>
+				
+				<p>Typdefinitionen (Programmiersprache) und Konstruktoren (Haskell) werden groß geschrieben.</p>
+			</article>
+			
+			<article>
+				<h3>Komplexe Datentypen</h3>
+				
+				<p>Den Konstruktoren können zusätzliche Informationen als Parameter übergeben werden:</p>
+				
+				<div class="">
+					<pre>
+data Shape = Circle Float
+           | Rectangle Float Float
+           | Square Float
+</pre>
+
+					<div class="build">
+					<p>Diese Konstruktoren können als Muster verwendet werden:</p>
+					
+					<pre>
+area (Circle r) = 3.14159 * r^2
+area (Rectangle a b) = a * b
+area (Square a) = a^2
+</pre>
+					</div>
+				
+				</div>
+			</article>
+			
+			<article>
+				<h3>Rekursive Datentypen (1)</h3>
+				
+				<p>Rekursive Datentypen stellen Bäume dar. Ein einfacher Binärbaum wäre:</p>
+				
+				<pre class="build">
+<span>data BinTree = Empty
+             | Node BinTree BinTree</span>
+
+<span>-- Mögliche Instanz:
+Node (Node Empty (Node Empty Empty)) Empty</span>
+</pre>
+			</article>
+			
+			<article>
+				<h3>Rekursive Datentypen (2)</h3>
+				
+				<p>Der eben gezeigte Baum ist wenig sinnvoll, da er keine Werte halten kann. Eine Alternative wäre:</p>
+				
+				<pre class="build">
+<span>data BinIntTree = Empty
+                | Node Int BinIntTree BinIntTree</span>
+				
+<span>-- Typvariable a
+data BinTree a = Empty
+               | Node a (BinTree a) (BinTree a)</span>
+
+<span>-- Mögliche Instanzen:
+type BinCharTree = BinTree Char
+Node 'c' (Node 'd' Empty (Node 'e' Empty Empty)) Empty</span>
+</pre>
+			</article>
+			
+			
+			
+			<article class="fill">
+				<h1><a href="exercises.html#31">Aufgabe 8</a></h1>
+				<h3><br/>Rekursive Datentypen</h3>
+			</article>
+			
+			<article class="fill">
+				<h1>Fold auf rekursiven Datentypen</h1>
+				<h3>foldTree usw.</h3>
+			</article>
+			
+			
+			<article>
+				<h3>Fold auf rekursiven Datentypen (1)</h3>
+				
+				<p>Gegeben sei folgender Datentyp aus Aufgabe 8:</p>
+				
+				<pre>
+type Plaetze = Int
+data Stecker = Steckdosenleiste Plaetze [Stecker]
+             | Geraet String
+</pre>
+
+				<div class="build">
+					<p>Frage: Wie sieht eine fold-Funktion, analog zu foldr und foldl, für diesen Datentypen aus?</p>
+									</div>
+			</article>
+			
+			<article>
+				<h3>Fold auf rekursiven Datentypen (2)</h3>
+				
+				<p>Allgemeines Vorgehen:</p>
+				<div class="build">
+					<ul class="build">
+						<li>am besten: erstmal Funktionstypen aufstellen</li>
+						<li>vom einfachsten (Basis-) Typen ausgehend</li>
+						<li>für jeden Konstruktur eine Funktion übergeben</li>
+					</ul>
+					
+					<pre class="build">
+<span>foldStecker :: </span>
+  <span>(String -> a) -> </span><span>(Plaetze -> [a] -> a) -> </span><span>Stecker -> </span><span>a</span>
+  
+<span>foldStecker gf sf = </span><span>m
+    where m</span><span> (Geraet string) = gf string</span><span>
+          m (Steckdosenleiste p s) =</span><span> sf p (map m s)</span>
+</pre>
+					
+				</div>	
+			</article>
+				
+			<article class="fill">
+				<h1><a href="exercises.html#32">Ergänzung zu Aufgabe 8</a></h1>
+				<h3><br/>Rekursive Datentypen</h3>
+			</article>
+				
+			<article class="fill">
+				<h1><a href="exercises.html#35">Aufgabe 9</a></h1>
+				<h3><br/>fold auf rekursiven Datentypen</h3>
+			</article>	
+		</section>
+
+		<section>
+			<article>
+				<h3>Übungen</h3>
+				<p>... gibt's mit Lösungsvorschlägen hier:<br><a href="exercises.html" style="font-size:28px;">github.com/fnogatz/talks/pdp-rep-13/haskell/exercises.html</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>
