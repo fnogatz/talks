@@ -1,8 +1,39 @@
+.segue hgroup a {
+  border-bottom:none;
+}
+
+.segue hgroup a:hover {
+  border-bottom: 1px dashed #e6e6e6;
+}
+
+.segue hgroup a, .segue hgroup a:hover {
+  color: #e6e6e6 !important;
+}
+
+.med-color {
+  color: rgb(38,84,124);
+}
+
+.segue code {
+  color: #e6e6e6 !important;  
+}
+
+div.build > pre {
+  margin-top: 20px;
+}
+
+
+
+
+
+
 #title-header {
   width: 80%;
   min-width:80%;
   margin-left:9%;
 }
+
+
 
 sup small {
   font-size:65%;
@@ -17,6 +48,7 @@ sup small {
   color: #666;
   font-style:italic;
   text-align: right;
+  font-weight: 100;
 }
 
 .ablauf dt.today {
@@ -29,6 +61,9 @@ sup small {
 pre.inline {
   display:inline;
   margin-right:10px;
+  left:0;
+  padding: 2px 4px;
+  font-size:90%;
 }
 
 dd > pre {

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+ 
+-->
+<!--
+  UUlm Style 
+
+  Author: Benjamin Erb
+
+  URL: https://github.com/berb/html5slides-uulm
+
+-->
+
+<html>
+
+<head>
+	<link href="shared/lib/styles.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="shared/lib/uulm/uulm.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="shared/repetitorium.css" media="screen" rel="stylesheet" type="text/css" />
+	<meta charset='utf-8'>
+	<script src='shared/lib/slides.js'></script>
+
+	<title>Gemischte Übungen – PDP Repetitorium 2013</title>
+
+</head>
+
+<body style='display: none'>
+
+	<div class='slides layout-normal template-uulm-in'>
+		<section>
+			<article class='title-slide'>
+				<h1 id="title">Haskell</h1>
+				<h2 id="author">
+					Falco Nogatz<br> 19.-21. Juli 2013
+				</h2>
+				<h2 id="subtitle">
+					Übungen zum<br>PDP-Repetitorium
+				</h2>
+				<p>
+					<img id="title-header" src='shared/images/listmonster.png'> 
+					<img id="uulm-logo" src='shared/lib/uulm/uulm_logo.svg'>
+				</p>
+			</article>
+		</section>
+		
+		<section>
+			<article class="fill">
+				<h1>Aufgabe 1</h1>
+				<h3><br/>Haskell: Funktionstypen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 1 (1)</h3>
+				
+				<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Ausdr&uuml;cke:</p>
+
+				<pre class="build">
+[tail,init,reverse] :: <span>[[a] -> [a]]</span>
+
+not . any (&lt;3) :: <span>(Num a, Ord a) => [a] -> Bool</span>
+
+(length "haskell", Left 4) :: <span>Num a => (Int, Either a b)</span>
+
+[map reverse, filter (=="falco")] :: <span>[[String] -> [String]]</span>
+
+let x = id in map x :: <span>[a] -> [a]</span>
+
+[even x | (x,y) <- zip [1..5] [6..10]] :: <span>[Bool]</span>
+</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 1 (2)</h3>
+				
+				<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Funktionen:</p>
+
+				<pre class="build">
+second :: <span>[a] -> a</span>
+second xs = head (tail xs)
+
+swap :: <span>(a,b) -> (b,a)</span>
+swap (x,y) = (y,x)
+
+double :: <span>(Num a) => a -> a</span>
+double x = x*2
+
+palindrome :: <span>Eq a => [a] -> Bool</span>
+palindrome xs = reverse xs == xs
+
+twice :: <span>(a -> a) -> a -> a</span>
+twice f x = f (f x)
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 2</h1>
+				<h3><br/>Haskell: Funktionskomposition</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 2 (1)</h3>
+				
+				<p>Zeigen Sie, wie die Listenkomprehension
+<pre style="margin-bottom:10px;">[f x | x <- xs, p x]</pre>
+mit Hilfe der Funktionen <code>map</code> und <code>filter</code> ausgedr&uuml;ckt werden kann. 
+Definieren Sie dazu eine entsprechende Funktion <code>mapfilter</code>, die <code>f</code>, <code>p</code> und die Liste <code>xs</code> als Argumente bekommt.
+Geben Sie auch den Typ von <code>mapfilter</code> an!
+</p>
+
+				<div class="build">
+					<pre class="build">
+mapfilter :: <span>(a -> b) -> (a -> Bool) -> [a] -> [b]</span>
+<span>mapfilter f p xs = map f (filter p xs)</span>
+</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Aufgabe 2 (2)</h3>
+				
+				<p>Dr&uuml;cken Sie die Funktionen <code>map</code> und <code>filter</code> mit Hilfe von <code>foldr</code> aus.</p>
+
+				<div class="build">
+					<pre class="build">
+<span>map f = foldr</span><span> (\x xs -> (f x):xs) []</span>
+
+<span>filter p = foldr</span><span> (\x xs -> if p x then x:xs else xs) []</span>
+</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Aufgabe 2 (3)</h3>
+				
+				<p>Definieren Sie mit Hilfe von <code>foldl</code> eine Funktion
+					<pre style="margin-top:10px;margin-bottom:10px;">pack :: [Integer] -> Integer</pre>
+					deren Argument eine Liste von Ziffern ist, d. h. die Listenelemente sind 
+					Integer-Zahlen aus dem Intervall [0..9]. Die Anwendung von <code>pack</code>
+					auf eine Liste <code>xs</code> soll die durch die Liste dargestellte Zahl berechnen.</p>
+
+				<p>Beispiel:</p>
+<pre>pack [3,1,0,7] == 3107</pre>
+			</article>
+
+			<article>
+				<h3>Lösung 2 (3)</h3>
+
+				<pre class="build">
+pack :: [Integer] -> Integer
+<span>pack = foldl (\i v -> 10*i + v)</span><span> 0</span>
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 3</h1>
+				<h3><br/>Haskell: Bäume und Faltungen</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (1)</h3>
+				
+				<p>Im Folgenden sollen KO-Turniere, wie sie etwa bei den Fußballwelt- und -europameisterschaften
+					ausgetragen werden, mit Hilfe des folgenden Haskell Datentyps modelliert werden:</p>
+
+<pre style="margin-bottom:15px;">
+type Ergebnis = (Int, Int)
+
+data KOTurnier = Team Name
+               | Match KOTurnier KOTurnier Ergebnis
+    deriving (Eq, Show)
+</pre>
+
+				<p>Das <code>Ergebnis</code> stellt das Torergebnis des Matches dar. Da es sich um ein 
+					KO-Turnier handelt, können Sie in allen folgenden Aufgaben davon ausgehen,
+					dass die Mannschaften
+					ein Spiel nie mit gleicher Torezahl beenden.</p>
+
+			</article>
+
+			<article class="smaller">
+				<h3 style="margin-top:-50px;">Aufgabe 3 (2)</h3>
+
+<pre style="margin-bottom:15px;">
+type Ergebnis = (Int, Int)
+
+data KOTurnier = Team Name
+               | Match KOTurnier KOTurnier Ergebnis
+    deriving (Eq, Show)
+</pre>
+
+				<p>Geben Sie mit Hilfe dieses Types die Paarungen und Ergebnisse der Fußball-Europameisterschaft
+					2012 an:</p>
+
+				<img style="margin-top:20px;" src="assets/images/fussball-em2012.png" />
+
+        <div class='source' style="text-align:right; width:85%;">Source: <a href="http://de.wikipedia.org/wiki/Fu%C3%9Fball-Europameisterschaft_2012">Wikipedia - Fu&szlig;ball-Europameisterschaft 2012</a></div>
+
+			</article>
+
+			<article class="smaller">
+				<h3 style="margin-top:-60px;">Lösung 3 (2)</h3>
+
+				<pre class="build" style="margin-top:10px;">
+em2012 :: KOTurnier
+em2012 =  Match
+            (Match
+              (Match
+                (Team "Tschechien")
+                (Team "Portugal")
+                (0,1)
+              )
+              (Match
+                (Team "Spanien")
+                (Team "Frankreich")
+                (2,0)
+              )
+              (2,4)
+            )
+            (Match
+              (Match
+                (Team "Deutschland")
+                (Team "Griechenland")
+                (4,2)
+              )
+              (Match
+                (Team "England")
+                (Team "Italien")
+                (2,4)
+              )
+              (1,2)
+            )
+            (4,0)
+</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (3)</h3>
+
+				<p>Definieren Sie explizit rekursiv eine Funktion <code>tore :: KOTurnier -> Int</code>,
+					die die Summe aller im Turnier geschossenen Tore zurückgibt!</p>
+
+				<div class="build">
+					<pre class="build">
+tore :: KOTurnier -> Int
+<span>tore (Match m1 m2 (t1,t2)) = </span><span>tore m1 + tore m2 + t1 + t2</span>
+<span>tore (Team _) = 0</span>
+</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (4)</h3>
+
+				<p>Definieren Sie explizit rekursiv eine Funktion <code>sieger :: KOTurnier -> String</code>,
+					die den Namen des Gesamtsiegers eines Turniers zurückgibt!</p>
+
+				<div class="build">
+					<pre class="build">
+sieger :: KOTurnier -> String
+<span>sieger (Team name) = name</span>
+<span>sieger (Match m1 m2 (t1,t2)) </span><span>| t1 > t2 </span><span>  = sieger m1</span><span>
+                             | otherwise = sieger m2</span>
+</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (5)</h3>
+
+				<p>Definieren Sie explizit rekursiv eine Funktion <code>toraermstesSpiel :: KOTurnier -> (String, String, Int)</code>,
+					die die beiden beteiligten Mannschaften des torärmsten Spiels des gesamten Turniers sowie die
+					Summe der im Spiel gefallenen Tore als Tupel zurückgibt!</p>
+
+			</article>
+
+			<article>
+				<h3>Lösung 3 (5)</h3>
+
+					<pre class="build">
+toraermstesSpiel :: KOTurnier -> (String, String, Int)
+toraermstesSpiel = tS
+
+tS :: KOTurnier -> (String, String, Int)
+<span>tS (Team _) = ("", "", 1000)</span>
+<span>tS (Match m1 m2 (t1,t2)) | t < m1t && t < m2t 
+                           = (sieger m1, sieger m2, t)</span><span>
+                         | m1t < t && m1t < m2t 
+                           = tS m1</span><span>
+                         | otherwise 
+                           = tS m2</span>
+    where t = t1+t2
+          (m1s1, m1s2, m1t) = tS m1
+          (m2s1, m2s2, m2t) = tS m2
+</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (6)</h3>
+
+				<p>Definieren Sie f&uuml;r den algebraischen Datentyp <code>KOTurnier</code> eine <code>foldKOTurnier</code>-
+					Funktion und geben Sie den Typ dieser Funktion an!</p>
+
+				<div class="build">
+					<pre class="build">
+<span>foldKOTurnier ::</span><span> (String -> a) -> 
+												           </span><span>(a -> a -> (Int,Int) -> a) -> 
+												           </span><span>KOTurnier -> </span><span>a</span>
+
+<span>foldKOTurnier tf mf = m
+  where m</span><span> (Team name) = tf name</span><span>
+        m (Match m1 m2 tore) = </span><span>mf (m m1) (m m2) tore</span>
+</pre>
+				</div>
+			</article>
+
+			<article>
+				<h3>Aufgabe 3 (7)</h3>
+
+				<p>Geben Sie die Funktionen <code>tore'</code> und <code>sieger'</code> mittels <code>foldKOTurnier</code> an!</p>
+
+				<div class="build">
+					<pre class="build">
+<span>tore' = foldKOTurnier</span><span> (\_ -> 0)</span>
+                 <span> (\l r (t1,t2) -> l + r + t1 + t2)</span><span>
+
+sieger' = foldKOTurnier</span><span> id</span>
+                 <span> (\l r (t1,t2) -> if t1 > t2 then l else r)</span>
+</pre>
+			</article>
+		
+
+			<article class="fill">
+				<h1>Aufgabe 4</h1>
+				<h3><br/>Prolog: Unifikation</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 4 (1)</h3>
+				
+				<p><i>(Klausur SS2009)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+					Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+					
+				<pre class="build">
+p(g(X,Y),a,f(X)) und p(g(Z,Z),Z,f(b))
+   <span><i>Nein: X=Z, Y=Z, Z=a und f(a) und f(b) sind nicht unifizierbar.</i></span>
+
+p([], X, Y) und p(S, [T|S], T)
+   <span><i>Ja: S=[], X=[T], Y=T.</i></span>
+
+q([[X|Y],f(a)]) und q([Z, f(X)|Y])
+   <span><i>Ja: Z=[a], X=a, Y=[].</i></span>
+</pre>
+			</article>
+
+			<article>
+				<h3>Aufgabe 4 (2)</h3>
+				
+				<p><i>(Klausur SS2010)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+					Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+					
+				<pre class="build">
+f(X,g(h)) und f(g(h),X)
+   <span><i>Ja: X=g(h).</i></span>
+
+f(f(f(a),b),X) und f(f(Y),b,X)
+   <span><i>Nein: Zweites f ist links zwei-, rechts einstellig.</i></span>
+
+f(g(X,Y)) und f(g(Y,a))
+   <span><i>Ja: X=Y, Y=a.</i></span>
+
+f(g(X,h(a)),b) und f(g(Y,X),Y)
+   <span><i>Nein: X=Y, Y=h(a) und Y=b ist ein Widerspruch.</i></span>
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 5</h1>
+				<h3><br/>Prolog: Listenprädikate</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 5 (1)</h3>
+				
+				<p><i>(Klausur SS2010-2)</i><br>Schreiben Sie ein Prolog-Programm f&uuml;r ein Pr&auml;dikat <code>flatten(L,R)</code> mit der folgenden Bedeutung: f&uuml;r eine Liste L, die eine Liste von Listen ist, enth&auml;lt die Liste R alle Elemente der Listen in L.</p>
+
+				<p>Beispiel:</p>
+<pre>?- flatten( [ [1,2], [3,4] ], R).
+R = [1,2,3,4].</pre>
+
+			</article>
+
+			<article>
+				<h3>Lösung 5 (1)</h3>
+				
+				<p>Beispiel:</p>
+<pre>?- flatten( [ [1,2], [3,4] ], R).
+R = [1,2,3,4].</pre>
+
+				<p>Lösung:</p>
+<pre class="build">
+<span>flatten([], []).</span>
+<span>flatten([[]|Ls], R) :- flatten(Ls, R).</span>
+<span>flatten([[El|L1s]|Ls], [El|R]) :- flatten([L1s|Ls], R).</span>
+</pre>
+
+			</article>
+
+			<article>
+				<h3 style="margin-top:-20px;">Aufgabe 5 (2)</h3>
+				
+				<p><i>(Klausur SS2010-2)</i><br>Schreiben Sie ein Prolog-Programm f&uuml;r ein Pr&auml;dikat 
+					<code>samesum(L1, L2, L, S)</code> mit der folgenden Bedeutung: Die Liste L ist die 
+					Konkatenation der Listen L1 und L2, so dass die Summe aller Zahlen in der Liste L1 
+					gleich der Summe aller Zahlen in der Liste L2 ist und S diese Summe ist.</p>
+
+<pre>
+?- samesum(L1, L2, [1,2,3], S).
+L1 = [1,2], L2 = [3], S = 3 ;
+false.
+
+?- samesum(L1, L2, [1,0,0,1], S).
+L1 = [1], L2 = [0, 0, 1], S = 1 ;
+L1 = [1, 0], L2 = [0, 1], S = 1 ;
+L1 = [1, 0, 0], L2 = [1], S = 1 ;
+false.</pre>
+
+			</article>
+
+			<article>
+				<h3>Lösung 5 (2)</h3>
+				
+				<p>Beispiel:</p>
+<pre>?- samesum(L1, L2, [1,2,3], S).
+L1 = [1,2], L2 = [3], S = 3 ;
+false.</pre>
+
+				<p>Lösung:</p>
+<pre class="build">
+samesum(L1, L2, L, S) :- append(L1, L2, L), 
+                           sum(L1, S1), sum(L2, S2), 
+                           S1 =:= S2, S is S1.
+
+sum([], 0).
+sum([X|Xs], R) :- sum(Xs, R1), R is R1+X.
+</pre>
+
+			</article>
+
+			<article>
+				<h3 style="margin-top:-20px;">Aufgabe 5 (3)</h3>
+				
+				<p>In dieser Aufgabe betrachten wir Listen nat&uuml;rlicher Zahlen.</p>
+
+<ol class="build"><li>Definieren Sie ein Pr&auml;dikat <code>sorted(X)</code> mit der Bedeutung: X ist eine aufsteigend sortierte Liste.</li>
+<li>Definieren Sie ein Pr&auml;dikat <code>permut(X,Y)</code> mit der Bedeutung: Y ist eine Permutation der Liste X.
+Dabei heißt Y eine Permutation von X, wenn sich Y durch Vertauschen der Reihenfolge der Elemente aus X gewinnen l&auml;sst.</li>
+<li>Definieren Sie mit Hilfe dieser Pr&auml;dikate ein Pr&auml;dikat <code>sortlist(X,Y)</code> mit der Bedeutung: Y ist die Sortierung der Liste X.</li>
+</ol>
+			</article>
+
+			<article>
+				<h3>Lösung 5 (3)</h3>
+
+<pre class="build">
+<span>sorted([]).</span>
+<span>sorted([_]).</span>
+<span>sorted([A,B|Ls]) :- A =&lt; B, sorted([B|Ls]).</span>
+
+
+<span>permut([X|Xs], Ys) :- count(X, [X|Xs], Xcount), 
+                            count(X, Ys, Ycount), 
+                            Xcount =:= Ycount.</span>
+<span>count(_, [], 0).</span>
+<span>count(X, [X|Xs], R) :- count(X, Xs, R1), R is R1+1.</span>
+<span>count(X, [Y|Ys], R) :- X \= Y, count(X, Ys, R).</span>
+
+<span>sortList(X, Y) :- permut(X, Y), sorted(Y).</span>
+</pre>
+
+			</article>
+
+
+			<article>
+				<h3>Aufgabe 5 (4)</h3>
+				
+				<p>Definieren Sie in Prolog ein Pr&auml;dikat <code>teilstueck(L,T)</code> mit der Bedeutung: Die Liste T ist 
+					ein Teilst&uuml;ck der Liste L. Dies ist genau dann der Fall, wenn alle Elemente von T in der 
+					gleichen Reihenfolge in L auftreten, ohne von anderen Elementen unterbrochen zu werden.</p>
+
+
+				<p>Beispiel: [1,2,3] ist ein Teilst&uuml;ck von [0,1,2,3,4,5], aber weder Teilst&uuml;ck von [0,1,2,77,3] 
+					noch von [1,2] oder [5,4,3,2,1].</p>
+			</article>
+
+			<article>
+				<h3>Lösung 5 (4)</h3>
+
+<pre class="build">
+<span>teilstueck(L, T) :- append(_,T, Left), append(Left, _, L).</span>
+</pre>
+			</article>
+
+
+			<article class="fill">
+				<h1>Aufgabe 6</h1>
+				<h3><br/>CHR: Regelabarbeitung</h3>
+			</article>
+
+			<article>
+				<h3>Aufgabe 6</h3>
+				
+				<p>
+					<i>(Klausur SS2010-2)</i><br>
+					Gegeben sei das folgende CHR-Programm:
+				</p>
+				
+				<pre>
+r1 @ j(X,Y) <=> X =< 1 | Y = X.
+
+r2 @ j(X,Y) <=> X > 1 | X1 is X-1, X2 is X-2, 
+                        j(X2,Y2), j(X1,Y1), 
+                        Y is Y1+2*Y2.
+</pre>
+				<p>Ergänzen Sie im Folgenden die Regelanwendungen und die dabei entfernten und erzeugten 
+					Constraints für die Eingabe <code>j(4,Z)</code> und geben Sie den Wert an, an den Z gebunden wird:</p>
+					
+				<table>
+					<thead>
+						<tr>
+							<th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+						</tr>
+					</thead>
+				</table>
+			</article>
+
+			<article class="smaller fill">
+				<h3>Lösung 6</h3>
+				
+				<pre>
+r1 @ j(X,Y) <=> X =< 1 | Y = X.
+
+r2 @ j(X,Y) <=> X > 1 | X1 is X-1, X2 is X-2, 
+                        j(X2,Y2), j(X1,Y1), 
+                        Y is Y1+2*Y2.
+</pre>
+					
+				<table>
+					<thead>
+						<tr>
+							<th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+						</tr>
+					</thead>
+					<tbody class="build">
+						<tr>
+							<td>r2</td><td>j(4,Z)</td><td>j(2,Y2), j(3,Y1)</td>
+						</tr>
+						<tr>
+							<td>r2</td><td>j(2,Y2)</td><td>j(0,Y4), j(1,Y3)</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>j(0,Y4)</td><td>Y4 = 0</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>j(1,Y3)</td><td>Y3 = 1 (→ Y2=1)</td>
+						</tr>
+						<tr>
+							<td>r2</td><td>j(3,Y1)</td><td>j(1,Y6), j(2,Y5)</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>j(1,Y6)</td><td>Y6 = 1</td>
+						</tr>
+						<tr>
+							<td>r2</td><td>j(2,Y5)</td><td>j(0,Y7), j(1,Y6)</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>j(0,Y7)</td><td>Y7 = 0</td>
+						</tr>
+						<tr>
+							<td>r1</td><td>j(1,Y6)</td><td>Y6 = 1 (→ Y5=1, Y1=3, Z=5)</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+
+		</section>
+
+		<section>
+			<article>
+				<h3>Weitere Übungen</h3>
+				<p>... gibt's mit Lösungsvorschlägen hier:<br><a style="font-size:26px;" href="prolog-chr/exercises.html" style="font-size:26px;">fnogatz.github.com/talks/pdp-rep-13/prolog-chr/exercises.html</a><br><a style="font-size:26px;" href="haskell/exercises.html" style="font-size:26px;">fnogatz.github.com/talks/pdp-rep-13/haskell/exercises.html</a></p>
+
+				<h3 style="margin-top:160px;">Credits</h3>
+				<p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+				<p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+			</article>
+		</section>
+	</div>
+
+</body>
+</html>
