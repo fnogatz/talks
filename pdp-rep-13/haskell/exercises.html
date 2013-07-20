@@ -406,7 +406,7 @@ zip _ _ = []
       <div class="build">
       <pre data-lang="haskell" style="margin-top:20px;">
 unzip ((x,y):ls) = (x:xs, y:ys)
-where (xs, ys) = unzip ls
+  where (xs, ys) = unzip ls
 unzip [] = ([],[])
 </pre>
       </div>
@@ -427,7 +427,7 @@ unzip [] = ([],[])
       <pre data-lang="haskell" style="margin-top:20px;">
 addPairs [] = (0,0)
 addPairs ((a,b):xs) = (a+c, b+d)
-where (c,d) = addPairs xs
+  where (c,d) = addPairs xs
 </pre>
       </div>
       
@@ -441,6 +441,41 @@ where (c,d) = addPairs xs
       <pre data-lang="haskell" style="margin-top:20px;">
 zipWith f (x:xs) (y:ys) = (f x y) : zipWith f xs ys
 zipWith _ _ _ = []
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (5)</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="med-color">concat :: [[a]] -> [a]</dt>
+        <dd>Eine Funktion, die eine Liste aus Listen zu einer Liste zusammenfügt.</dd>
+      </dl>
+
+      <div class="build">       
+      <pre data-lang="haskell" style="margin-top:20px;">
+concat []     = []
+concat (x:xs) = x ++ concat xs
+</pre>
+      </div>
+      
+      <dl class="">
+        <dt class="med-color">splitAt :: Int -> [a] -> ([a], [a])</dt>
+        <dd>Eine Funktion, die eine Liste nach der angegebenen Position in zwei Teillisten aufspaltet.</dd>
+      </dl>
+      
+      <div class="build">
+      <pre data-lang="haskell" style="margin-top:20px;" class="build">
+<span>splitAt n xs = (take n xs, drop n xs)</span>
+
+<span>splitAt' 0 xs     = ([], xs)
+splitAt' _ []     = ([], [])
+splitAt' n (x:xs) = (x:as, bs)
+  where (as,bs) = splitAt' (n-1) xs</span>
 </pre>
       </div>
     </article>
@@ -603,6 +638,147 @@ ueberbelegt stecker =
       <h2><a href="exercises.html#2">Aufgabe 9</a></h2>
       <h3><code>fold</code> auf rekursiven Datentypen</h3>
     </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (1)</h2>
+    </hgroup>
+    <article>     
+      <p>Gegeben sei der folgende Datentyp <code>MathExpr</code>, mit dem einfache mathematische Terme beschrieben werden können:</p>
+        
+      <div class="build">
+      <pre data-lang="haskell">
+type Value = Int
+
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+        <p>Geben Sie den Term <code>(3+4)*7!</code> als Instanz dieses Typs an!</p>
+
+        <pre data-lang="haskell">
+bsp = Mal (Plus (Value 3) (Value 4)) (Fakultaet (Value 7))
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (2)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+type Value = Int
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+      <p>Definieren Sie rekursiv eine Funktion <code>calcRec :: MathExpr -> Value</code>, die den Term evaluiert, also den berechneten Wert zurückliefert.</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 9 (2)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+calcRec :: MathExpr -> Value
+calcRec (Value v) = v
+calcRec (Plus a b) = (calcRec a) + (calcRec b)
+calcRec (Mal a b) = (calcRec a) * (calcRec b)
+calcRec (Fakultaet n) = fak m
+  where m = calcRec n
+        fak 0 = 1
+        fak n = n * fak (n-1)
+
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (3)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+type Value = Int
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+      <p>Definieren Sie die <code>fold</code>-Funktion <code>foldME</code>!</p>
+
+      <pre class="build" data-lang="haskell">
+<span>foldME :: </span><span>(Value -> a) -></span>
+              <span> (a -> a -> a) -></span><span> (a -> a -> a) -></span><span> (a -> a) -></span>
+              <span> MathExpr -> a</span>
+              
+<span>foldME vf pf mf ff = m</span>
+<span>  where m (Value v)     = vf v</span>
+<span>        m (Plus p q)    = pf (m p) (m q)</span>
+<span>        m (Mal p q)     = mf (m p) (m q)</span>
+<span>        m (Fakultaet n) = ff (m n)</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (4)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+foldME :: (Value -> a) -> 
+            (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> 
+            MathExpr -> a
+foldME vf pf mf ff = m
+  where m (Value v)     = vf v
+        m (Plus p q)    = pf (m p) (m q)
+        m (Mal p q)     = mf (m p) (m q)
+        m (Fakultaet n) = ff (m n)
+</pre>
+      <p>Definieren Sie die Function <code>values :: MathExpr -> [Value]</code> als Instanz von <code>foldME</code>, welches eine 
+        Liste aller im Termbaum enthaltenen Werte (<code>Value</code>'s) zurückliefert. Die Reihenfolge ist unerheblich.</p>
+
+        <div class="build">
+      <pre class="build" data-lang="haskell">
+values :: MathExpr -> [Value]
+values = foldME <span>(\v -> [v])</span><span> (++)</span><span> (++)</span><span> id</span>
+</pre></div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (5)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+foldME :: (Value -> a) -> 
+            (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> 
+            MathExpr -> a
+foldME vf pf mf ff = m
+  where m (Value v)     = vf v
+        m (Plus p q)    = pf (m p) (m q)
+        m (Mal p q)     = mf (m p) (m q)
+        m (Fakultaet n) = ff (m n)
+</pre>
+      <p>Definieren Sie die nicht-rekursive Function <code>calc :: MathExpr -> Value</code>, die den Wert des übergebenen Terms berechnet.</p>
+
+        <div class="build">
+      <pre class="build" data-lang="haskell">
+calc :: MathExpr -> Value
+calc = foldME <span>id</span><span> (+)</span><span> (*)</span><span> fak</span>
+<span>  where fak 0 = 1
+        fak n = n * fak (n-1)</span>
+</pre></div>
+    </article>
   </slide>
 
   <slide>

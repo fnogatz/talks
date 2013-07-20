@@ -701,9 +701,9 @@ fak n = if n == 0 then 1 else n*(fak (n-1))
 sign n = if n < 0 then -1 else if n == 0 then 0 else 1</span>
 
 <span>-- mit Guards:
-sign' n | n < 0      = -1
-        | n == 0     =  0
-        | otherweise =  1</span>
+sign' n | n < 0     = -1
+        | n == 0    =  0
+        | otherwise =  1</span>
 </pre>
 
       <ul class="build">
@@ -723,7 +723,7 @@ sign' n | n < 0      = -1
       
       <p>Beispiele:</p>
       <pre class="build" data-lang="haskell">
-<span>or2 :: Bool -> Bool -> Bool
+<span>oder :: Bool -> Bool -> Bool
 oder True  _ = True  -- Wildcard-Operator
 oder False a = a</span>
 
@@ -927,7 +927,7 @@ foldl f i (x:xs) = foldl f (f i x) xs
 
   <slide class="segue dark nobackground">
     <hgroup class="auto-fadein">
-      <h2><a href="exercises.html#28">Aufgabe 7</a></h2>
+      <h2><a href="exercises.html#29">Aufgabe 7</a></h2>
       <h3>Faltungen auf Listen</h3>
     </hgroup>
   </slide>
@@ -1055,7 +1055,7 @@ Node 'c' (Node 'd' Empty (Node 'e' Empty Empty)) Empty</span>
 
   <slide class="segue dark nobackground">
     <hgroup class="auto-fadein">
-      <h2><a href="exercises.html#31">Aufgabe 8</a></h2>
+      <h2><a href="exercises.html#32">Aufgabe 8</a></h2>
       <h3>Rekursive Datentypen</h3>
     </hgroup>
   </slide>
@@ -1121,7 +1121,7 @@ data Stecker = Steckdosenleiste Plaetze [Stecker]
 
   <slide class="segue dark nobackground">
     <hgroup class="auto-fadein">
-      <h2><a href="exercises.html#36">Aufgabe 9</a></h2>
+      <h2><a href="exercises.html#37">Aufgabe 9</a></h2>
       <h3><code>fold</code> auf rekursiven Datentypen</h3>
     </hgroup>
   </slide>
