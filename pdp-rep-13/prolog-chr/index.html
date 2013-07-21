@@ -527,7 +527,7 @@ grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
           ... ist erfüllbar, wenn das erste Argument in der als zweites Argument übergebenen Liste enthalten ist.
           <pre class="build" data-lang="prolog">
 <span>member(X,[X|_]).</span>
-<span>member(X,[_|Xs]) :- element(X,Xs).</span>
+<span>member(X,[_|Xs]) :- member(X,Xs).</span>
 </pre>
         </dd>
       </dl>
