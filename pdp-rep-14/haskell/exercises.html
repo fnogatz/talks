@@ -1,0 +1,830 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../shared/repetitorium.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <img id="title-header" src="../shared/listmonster.png">
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <p style="display:none;" data-config-title></p>
+      <h1>Übungen zu Haskell</h1>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 1</h2>
+      <h3>Typisierung einfacher Werte</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 1</h2>
+    </hgroup>
+	<article>
+		<p>Geben Sie für folgende Haskell-Ausdrücke jeweils an, ob sie korrekt sind, sowie ggf. einen zugehörigen Typen:</p>
+		
+		<ul class="build">
+			<li><pre class="inline">1.1</pre></li>
+			<li><pre class="inline">(1.1)</pre></li>
+			<li><pre class="inline">(1,1)</pre></li>
+			<li><pre class="inline">true</pre></li>
+			<li><pre class="inline">'string'</pre></li>
+			<li><pre class="inline">"c"</pre></li>
+			<li><pre class="inline">['1', '2', '3', '4']</pre></li>
+		</ul>
+	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 1</h2>
+    </hgroup>
+	<article>		
+		<p>Angabe des Typs erfolgt nach <pre class="inline">::</pre>.</p>
+		
+		<pre class="description-w60 build" data-lang="haskell">
+1.1 :: <span>Float</span> <span class="description">oder</span>
+1.1 :: <span>Double</span>
+(1.1) :: <span>Float</span> <span class="description">oder Double, ist genau das gleiche</span>
+(1,1) :: <span>(Int, Int)</span> <span class="description">ist Tupel, da Komma!</span>
+true <span class="description">nicht typkorrekt, da kleingeschrieben</span>
+'string' <span class="description">nicht typkorrekt, da einfache Hochkommata</span>
+"c" :: <span>String</span>
+['1', '2', '3', '4'] :: <span>String</span> <span class="description" style="width:40%;">oder</span>
+['1', '2', '3', '4'] :: <span>[Char]</span>
+</pre>
+	</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 1 - Ergänzung</h2>
+      <h3>Typisierung einfacher Werte mit Typklassen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 1- Ergänzung</h2>
+    </hgroup>
+	<article>
+		<p>Geben Sie für folgende Haskell-Ausdrücke jeweils an, ob sie korrekt sind, sowie den <strong>allgemeinsten Typ</strong>:</p>
+		
+		<ul class="build">
+			<li><pre class="inline">1.1</pre></li>
+			<li><pre class="inline"><span style="text-decoration:line-through;">(1.1)</span> <i>s.o.</i></pre></li>
+			<li><pre class="inline">(1,1)</pre></li>
+			<li><pre class="inline"><span style="text-decoration:line-through;">true</span> True</pre></li>
+			<li><pre class="inline"><span style="text-decoration:line-through;">'string'</span> 's'</pre></li>
+			<li><pre class="inline">"c"</pre></li>
+			<li><pre class="inline">['1', '2', '3', '4']</pre></li>
+		</ul>
+	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 1 mit allgemeinstem Typ</h2>
+    </hgroup>
+	<article>		
+		<pre class="description-w50 build" data-lang="haskell">
+1.1 :: <span>(Fractional a) => a</span>
+(1,1) :: <span>(Num a,Num b) => (a,b)</span><span class="description">2 Typvariablen, da z.B. Int+Float</span>
+True :: <span>Bool</span>
+'s' :: <span>Char</span>
+"c" :: <span>String</span>
+['1', '2', '3', '4'] :: <span>String</span>
+</pre>
+	</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 2</h2>
+      <h3>Typisierung vordefinierter Funktionen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 2</h2>
+    </hgroup>
+	<article>
+		<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Funktionen:
+			<ul class="build">
+				<li><pre class="inline">not</pre></li>
+				<li><pre class="inline">(&lt;)</pre></li>
+				<li><pre class="inline">(>=)</pre></li>
+				<li><pre class="inline">(^)</pre></li>
+				<li><pre class="inline">(**)</pre></li>
+			</ul>
+		</p>
+	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 2</h2>
+    </hgroup>
+	<article>
+		<pre class="build">
+not :: <span>Bool -> Bool</span>
+
+(<) :: <span>Ord a => a -> a -> Bool</span>
+
+(>=) :: <span>Ord a => a -> a -> Bool</span> <span class="description">Ord impliziert bereits Eq</span>
+
+(^) :: <span>(Num a, Integral b) => a -> b -> a</span>
+
+(**) :: <span>Fractional a => a -> a -> a</span>
+</pre>
+	</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 3</h2>
+      <h3>Typisierung partieller vordefinierter Funktionen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 3</h2>
+    </hgroup>
+  	<article>
+  		<p>Bestimmen Sie jeweils den allgemeinsten Typ der folgenden Haskell-Ausdrücke:
+  			<ul class="build">
+  				<li><pre class="inline">(+1)</pre></li>
+  				<li><pre class="inline">(/0)</pre></li>
+  				<li><pre class="inline">((^) 3)</pre></li>
+  				<li><pre class="inline">(^3)</pre></li>
+  				<li><pre class="inline">2^3</pre></li>					
+  			</ul>
+  		</p>
+  	</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 3</h2>
+    </hgroup>
+    <article>
+    <pre class="description-w60 build" data-lang="haskell">
+(+1) :: <span>(Num a) => a -> a</span>
+(/0) :: <span>(Fractional a) => a -> a</span>
+<span class="description">syntaktisch korrekt</span>
+((^) 3) :: <span>(Integral a, Num b) => a -> b</span>
+<span class="description">(^)::(Integral b, Num a) => a -> b -> a</span>
+(^3) :: <span>(Num a) => a -> a</span>
+2^3 :: <span>(Num a) => a</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 4</h2>
+      <h3>Listenerzeugung</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <aside class="note">
+      <p>[(4,(2,2)),(6,(3,3)),(8,(3,5)),(9,(2,7)),(10,(3,7)),(10,(5,5)),(12,(5,7)),(14,(3,11)),(14,(7,7))]</p>
+      </section>
+    </aside>
+    <hgroup>
+      <h2>Aufgabe 4 (1)</h2>
+    </hgroup>
+    <article>      
+      <p>Erzeugen Sie mittels Listenkomprehension folgende Listen:</p>
+      
+      <ul class="build" style="margin-top:20px;">
+        <li>Die unendliche Liste aller Zahlen der Form n^4-2n, wobei n eine gerade, natürliche Zahl ist.</li>
+        <li>Die unendliche Liste aller natürlichen Zahlen, die bei Division mit 11 den Rest 3 
+          und bei Division mit 13 den Rest 7 lassen.</li>
+        <li>Es wird vermutet, dass jede natürliche Zahl, die selbst keine Primzahl ist, als Summe zweier Primzahlen darstellbar ist. 
+          Geben Sie für jede natürliche Zahl n alle Tupel der Form (n, (p<sub>1</sub>, p<sub>2</sub>)) an, 
+          mit p<sub>1</sub> und p<sub>2</sub> Primzahlen, und p<sub>1</sub> + p<sub>2</sub> = n.</li>     
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 4 (1)</h2>
+    </hgroup>
+    <article>    
+    <pre data-lang="haskell" class="build">
+<span>[n^4-2*n | n <- [2,4..]]</span>
+
+<span>[n | n <- [1..], n `mod` 11 == 3, n `mod` 13 == 7]</span>
+
+<span>[(n, (p, (n-p))) | n <- [1..], p <- [1..(n `div` 2)], 
+                     not(isPrime n), isPrime p, isPrime (n-p)]</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 4 (2)</h2>
+    </hgroup>
+    <article>      
+      <ul class="build">
+        <li>Die unendliche Liste der Noten, d.h. <pre class="inline">[1.0,1.3,1.7,2.0,2.3,2.7,...]</pre></li>
+        <li>Alle Werte, die sich mit bis zu drei verschiedenen Euro-Münzen darstellen lassen.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 4 (2)</h2>
+    </hgroup>
+    <article>      
+    <pre data-lang="haskell" class="build">
+<span>[z+d | z <- [1..], d <- [0,0.3,0.7]]</span>
+
+<span>[x+y+z | x <- [0,0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00], 
+         y <- [0,0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00], 
+         z <- [0.01,0.02,0.05,0.10,0.20,0.50,1.00,2.00],
+         (x == 0 && y == 0) || (x < y && y < z)]</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 5 *</h2>
+      <h3>Typbestimmung zusammengesetzter Ausdrücke</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (1)</h2>
+    </hgroup>
+    <article>
+      <p><i>Klausuraufgabe SS11-2</i></p>
+      
+      <p>Bestimmen Sie jeweils den Typ der folgenden Haskell-Ausdrücke:</p>
+
+<pre data-lang="haskell" class="build">
+('1', '2':"3", 4 < 5) :: <span>(Char, String, Bool)</span>
+
+[(last, tail), (head, take 5)] :: <span>[ ([a] -> a, [b] -> [b]) ]</span>
+
+[(+), (-)] :: <span>Num a => [a -> a -> a]</span>
+
+[map (const True), map not] :: <span>[ [Bool] -> [Bool] ]</span>
+</pre>      
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (2)</h2>
+    </hgroup>
+    <article>      
+      <p><i>Klausuraufgabe SS12-2 und SS12-1</i></p>
+      
+      <p>Gegeben seien die folgenden Funktionsdefinitionen. Bestimmen Sie jeweils den allgemeinsten Typ der Funktionen:</p>
+
+<pre data-lang="haskell" class="build">
+f :: <span>(Eq a) => a -> [[a]] -> Bool</span>
+f x y = any (==x) (concat y)
+
+g :: <span>(Num a, Enum a) => a -> a -> [a]</span>
+g u v = map (\(x,y) -> x * y) (zip [u..v] [u..v])
+
+h :: <span>(Ord a) => a -> Maybe a -> Bool</span>
+h x (Just y) = x < y
+h x (Nothing) = False
+</pre>      
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 6</h2>
+      <h3>Komposition von Rekursionsfunktionen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (1)</h2>
+    </hgroup>
+    <article>      
+      <p>Definieren Sie folgende Funktionen. Verwenden Sie wenn nötig explizite Rekursion.</p>
+      
+      <div class="build">
+        <dl class="">
+          <dt class="med-color">addPair :: (Int, Int) -> (Int, Int) -> (Int, Int)</dt>
+          <dd>Eine Funktion, die die Kompontenten zweier Tupel paarweise addiert.</dd>
+        </dl>
+      
+      <pre data-lang="haskell" style="margin-top:20px;">
+addPair (a,b) (c,d) = (a+c, b+d)
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (2)</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="med-color">map :: (a -> b) -> [a] -> [b]<dt>
+        <dd>Eine Funktion, eine übergebene Funktion auf alle Listenelemente anwendet.</dd>
+      </dl>
+
+      <div class="build">       
+      <pre data-lang="haskell" style="margin-top:20px;">
+map f (x:xs) = f x : map f xs
+map _ [] = []
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (3)</h2>
+    </hgroup>
+    <article>    
+      <dl class="">
+        <dt class="med-color">zip :: [a] -> [b] -> [(a,b)]</dt>
+        <dd>Eine Funktion, die zwei Listen zu einer Liste von Paaren zusammensetzt.</dd>
+      </dl>
+
+      <div class="build">       
+      <pre data-lang="haskell" style="margin-top:20px;">
+zip (x:xs) (y:ys) = (x,y) : zip xs ys
+zip _ _ = []
+</pre>
+      </div>
+      
+      <dl class="">
+        <dt class="med-color">unzip :: [(a,b)] -> ([a],[b])</dt>
+        <dd>Eine Umkehrfunktion zum o.g. <i>zip</i>.</dd>
+      </dl>
+      
+      <div class="build">
+      <pre data-lang="haskell" style="margin-top:20px;">
+unzip ((x,y):ls) = (x:xs, y:ys)
+  where (xs, ys) = unzip ls
+unzip [] = ([],[])
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (4)</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="med-color">addPairs :: [(Int, Int)] -> (Int, Int)</dt>
+        <dd>Eine Funktion, die eine Liste von Tupel erhält und deren Komponenten paarweise addiert.</dd>
+      </dl>
+
+      <div class="build">       
+      <pre data-lang="haskell" style="margin-top:20px;">
+addPairs [] = (0,0)
+addPairs ((a,b):xs) = (a+c, b+d)
+  where (c,d) = addPairs xs
+</pre>
+      </div>
+      
+      <dl class="">
+        <dt class="med-color">zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]</dt>
+        <dd>Eine Funktion, die als Verallgemeinerung der Funktion <i>zip</i> zwei Listen mittels einer
+          übergebenen Funktion zu einer zusammenfügt.</dd>
+      </dl>
+      
+      <div class="build">
+      <pre data-lang="haskell" style="margin-top:20px;">
+zipWith f (x:xs) (y:ys) = (f x y) : zipWith f xs ys
+zipWith _ _ _ = []
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6 (5)</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="med-color">concat :: [[a]] -> [a]</dt>
+        <dd>Eine Funktion, die eine Liste aus Listen zu einer Liste zusammenfügt.</dd>
+      </dl>
+
+      <div class="build">       
+      <pre data-lang="haskell" style="margin-top:20px;">
+concat []     = []
+concat (x:xs) = x ++ concat xs
+</pre>
+      </div>
+      
+      <dl class="">
+        <dt class="med-color">splitAt :: Int -> [a] -> ([a], [a])</dt>
+        <dd>Eine Funktion, die eine Liste nach der angegebenen Position in zwei Teillisten aufspaltet.</dd>
+      </dl>
+      
+      <div class="build">
+      <pre data-lang="haskell" style="margin-top:20px;" class="build">
+<span>splitAt n xs = (take n xs, drop n xs)</span>
+
+<span>splitAt' 0 xs     = ([], xs)
+splitAt' _ []     = ([], [])
+splitAt' n (x:xs) = (x:as, bs)
+  where (as,bs) = splitAt' (n-1) xs</span>
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 7</h2>
+      <h3>Faltungen auf Listen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (1)</h2>
+    </hgroup>
+  <article>
+    <p>Definieren Sie folgende Funktionen mit Hilfe von <i>foldl</i> oder <i>foldr</i>:</p>
+
+    <dl class="">
+      <dt class="med-color">length :: [a] -> Int</dt>
+      <dd>Eine Funktion, die die Anzahl der Elemente einer Liste zurückgibt.</dd>
+    </dl>
+    
+    <div class="build">
+      <pre data-lang="haskell">
+length = foldr (\x y -> 1+y) 0
+length' = foldl (\x y -> x+1) 0
+</pre>
+    </div>
+
+    <dl class="">
+      <dt class="med-color">quadratsumme :: Integer -> Integer</dt>
+      <dd>Eine Funktion, die die Summe der Quadrate aller Zahlen von 1 bis n ausrechnet.</dd>
+    </dl>
+    
+    <div class="build">
+      <pre data-lang="haskell">
+quadratsumme n = foldr (\x y -> x^2 + y) 0 [1..n]
+quadratsumme' n = foldl (\x y -> x + y^2) 0 [1..n]
+</pre>
+    </div>
+  </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (2)</h2>
+    </hgroup>
+  <article>
+    <dl class="">
+      <dt class="med-color">reverse :: [a] -> [a]</dt>
+      <dd>Eine Funktion, die Reihenfolge einer Liste umkehrt.</dd>
+    </dl>
+    
+    <div class="build" style="margin-bottom:20px;">
+      <pre data-lang="haskell">
+reverse = foldr (\x y -> y++[x]) []
+reverse' = foldl (\x y -> [y]++x) []
+</pre>
+    </div>
+
+    <dl class="">
+      <dt class="med-color">fak :: Integer -> Integer</dt>
+      <dd>Eine Funktion, die die Fakultät der Zahl n berechnet.</dd>
+    </dl>
+    
+    <div class="build">
+      <pre data-lang="haskell">
+fak n = foldr (*) 1 [1..n]
+</pre>
+    </div>
+  </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 8</h2>
+      <h3>Rekursive Datentypen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 8</h2>
+    </hgroup>
+  <article>    
+    <p>
+      Bei der Huffman-Codierung handelt es sich um ein einfaches Datenkompressionsverfahren. Hierbei werden
+      Buchstaben anhand ihrer Häufigkeiten in einem Binärbaum abgespeichert, in dessen Blätter jeweils ein Buchstabe
+      und seine Häufigkeit gespeichert wird.</p>
+      
+<pre>
+                    /\                                       Node
+        ___________/  \________
+       /\                     /\                             Node
+      /  \             ______/  \_____
+     /    \           /\              \                      Node
+    / Char 651 'a'   /  \              \
+   /                /  Char 435 'u'     \
+Char 615 't'       /                 Char 978 'n'
+            Char 253 'm'
+</pre>
+  <p>Definiere einen Datentyp für diesen Huffman-Tree und gib die Beispielinstanz an!</p>
+  </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 8</h2>
+    </hgroup>
+    <article>    
+    <pre class="build" data-lang="haskell">
+<span>type Quantity = Integer
+data HuffmanTree = Node HuffmanTree HuffmanTree
+                 | Char Quantity Char
+  deriving (Eq, Ord, Show)</span>
+
+
+<span>bsp = Node
+        (Node (Char 615 ’t’) (Char 651 ’a’))
+        (Node
+          (Node (Char 253 ’m’) (Char 435 ’u’))
+          (Char 978 ’n’)
+        )</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2><a href="exercises.html#2">Ergänzung zu Aufgabe 8</a></h2>
+      <h3>Rekursive Datentypen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 8 - Ergänzung (1)</h2>
+    </hgroup>
+    <article>     
+      <p>Schreibe Funktion <code>quantitySum :: HuffmanTree -> Integer</code> als Instanz von <code>foldHuffmanTree</code>, welche die Summe aller im übergebenen Huffman-Tree gespeicherten Quantity-Werte zurückliefert.</p>
+        
+      <div class="build">
+      <pre data-lang="haskell">
+quantitySum :: HuffmanTree -> Integer
+<span>quantitySum = foldHuffmanTree const (+)</span>
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 8 - Ergänzung (2)</h2>
+    </hgroup>
+    <article>     
+      <p>Definiere eine nicht-rekursive Funktion <code>chars :: HuffmanTree -> [(Char,Float)]</code>, die eine Liste aller im übergebenen Huffman-Tree gespeicherten Buchstaben sowie ihrer absoluten Häufigkeiten zurückliefert. Die Reihenfolge ist dabei beliebig.</p>
+        
+      <div class="build">
+      <pre data-lang="haskell">
+quantitySum :: HuffmanTree -> Integer
+chars :: HuffmanTree -> [(Char,Float)]
+<span>chars = foldHuffmanTree (\q c -> [(c,q)]) (++)</span>
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2><a href="exercises.html#2">Aufgabe 9</a></h2>
+      <h3><code>fold</code> auf rekursiven Datentypen</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (1)</h2>
+    </hgroup>
+    <article>     
+      <p>Gegeben sei der folgende Datentyp <code>MathExpr</code>, mit dem einfache mathematische Terme beschrieben werden können:</p>
+        
+      <div class="build">
+      <pre data-lang="haskell">
+type Value = Int
+
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+        <p>Geben Sie den Term <code>(3+4)*7!</code> als Instanz dieses Typs an!</p>
+
+        <pre data-lang="haskell">
+bsp = Mal (Plus (Value 3) (Value 4)) (Fakultaet (Value 7))
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (2)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+type Value = Int
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+      <p>Definieren Sie rekursiv eine Funktion <code>calcRec :: MathExpr -> Value</code>, die den Term evaluiert, also den berechneten Wert zurückliefert.</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 9 (2)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+calcRec :: MathExpr -> Value
+calcRec (Value v) = v
+calcRec (Plus a b) = (calcRec a) + (calcRec b)
+calcRec (Mal a b) = (calcRec a) * (calcRec b)
+calcRec (Fakultaet n) = fak m
+  where m = calcRec n
+        fak 0 = 1
+        fak n = n * fak (n-1)
+
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (3)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+type Value = Int
+data MathExpr = Value Value
+              | Plus MathExpr MathExpr
+              | Mal MathExpr MathExpr
+              | Fakultaet MathExpr
+</pre>
+      <p>Definieren Sie die <code>fold</code>-Funktion <code>foldME</code>!</p>
+
+      <pre class="build" data-lang="haskell">
+<span>foldME :: </span><span>(Value -> a) -></span>
+              <span> (a -> a -> a) -></span><span> (a -> a -> a) -></span><span> (a -> a) -></span>
+              <span> MathExpr -> a</span>
+              
+<span>foldME vf pf mf ff = m</span>
+<span>  where m (Value v)     = vf v</span>
+<span>        m (Plus p q)    = pf (m p) (m q)</span>
+<span>        m (Mal p q)     = mf (m p) (m q)</span>
+<span>        m (Fakultaet n) = ff (m n)</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (4)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+foldME :: (Value -> a) -> 
+            (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> 
+            MathExpr -> a
+foldME vf pf mf ff = m
+  where m (Value v)     = vf v
+        m (Plus p q)    = pf (m p) (m q)
+        m (Mal p q)     = mf (m p) (m q)
+        m (Fakultaet n) = ff (m n)
+</pre>
+      <p>Definieren Sie die Function <code>values :: MathExpr -> [Value]</code> als Instanz von <code>foldME</code>, welches eine 
+        Liste aller im Termbaum enthaltenen Werte (<code>Value</code>'s) zurückliefert. Die Reihenfolge ist unerheblich.</p>
+
+        <div class="build">
+      <pre class="build" data-lang="haskell">
+values :: MathExpr -> [Value]
+values = foldME <span>(\v -> [v])</span><span> (++)</span><span> (++)</span><span> id</span>
+</pre></div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 9 (5)</h2>
+    </hgroup>
+    <article>    
+      <pre data-lang="haskell">
+foldME :: (Value -> a) -> 
+            (a -> a -> a) -> (a -> a -> a) -> (a -> a) -> 
+            MathExpr -> a
+foldME vf pf mf ff = m
+  where m (Value v)     = vf v
+        m (Plus p q)    = pf (m p) (m q)
+        m (Mal p q)     = mf (m p) (m q)
+        m (Fakultaet n) = ff (m n)
+</pre>
+      <p>Definieren Sie die nicht-rekursive Function <code>calc :: MathExpr -> Value</code>, die den Wert des übergebenen Terms berechnet.</p>
+
+        <div class="build">
+      <pre class="build" data-lang="haskell">
+calc :: MathExpr -> Value
+calc = foldME <span>id</span><span> (+)</span><span> (*)</span><span> fak</span>
+<span>  where fak 0 = 1
+        fak n = n * fak (n-1)</span>
+</pre></div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Skript</h2>
+    </hgroup>
+  <article>
+    <p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-13/haskell/</a></p>
+
+    <h3 style="margin-top:160px;">Credits</h3>
+    <p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+    <p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+  </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <link rel="stylesheet" media="all" href="../shared/repetitorium.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <img id="title-header" src="../shared/listmonster.png">
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <p style="display:none;" data-config-title></p>
+      <h1>Übungen zu Prolog &amp; CHR</h1>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 1</h2>
+      <h3>Einfache Prädikate definieren</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 1</h2>
+    </hgroup>
+		<article>			
+			<p>Stellen Sie folgende Sachverhalte über Prädikate dar:</p>
+			
+			<ul class="build">
+				<li class="build">Die Mutter von Paul ist Marta.
+					<pre data-lang="prolog">mutter(paul, marta)</pre>
+				</li>
+				<li>Prolog ist eine Programmiersprache
+					<pre data-lang="prolog">programmiersprache(prolog)</pre>					
+				</li>
+				<li>Das Ergebnis vom Term f(x,y) ist 5
+					<pre data-lang="prolog">ergebnis(f(X,Y), 5)</pre>					
+				</li>
+			</ul>
+		</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 2</h2>
+      <h3>Unifikation</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 2 (1)</h2>
+    </hgroup>
+		<article>			
+			<p><i>(Klausur SS2011-2)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+				Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+				
+			<pre class="build">
+[X,Y,a] und [Z,b,Z]
+    <span><i>Ja: Y = b, Z = a, X = Z.</i></span>
+
+[X,Y,Z|A] und [[a,b,c],d]
+    <span><i>Nein: linke Liste hat mind. 3 Elemente, rechte nur 2.</i></span>
+
+f1(f2(f3,f4),f5(f6,X,Y),g) und f1(A,f5(B,f7,f8),H)
+    <span><i>Ja: A = f2(f3,f4), B = f6, X = f7, Y = f8, H = g.</i></span>
+</pre>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 2 (2)</h2>
+    </hgroup>
+		<article>			
+			<p><i>(Klausur SS2011-1)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+				Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+				
+			<pre class="build">
+f(X,Y,Z) und f(g(Y),g(Z),a)
+    <span><i>Ja: Z = a, Y = g(a), X = g(g(a)).</i></span>
+
+p([],X,a,[Y|Z]) und p(_,[hans],a,[hans])
+    <span><i>Ja: X = [hans], Y = hans, Z = [].</i></span>
+
+a(b,X,d(e,Y,g(i,i,Z),f(j,Z))) und a(U,c,d(V,f,g(W,i,j),f(Z,W)))
+    <span><i>Nein: W = i, Z = j und W = Z sind nicht unifizierbar.</i></span>
+</pre>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 2 (3)</h2>
+    </hgroup>
+		<article>			
+			<p><i>(Klausur SS2009)</i><br>Sind folgende Prolog-Termpaare unifizierbar? Geben Sie ggf. die jeweiligen 
+				Variablenbindungen an bzw. begründen Sie, warum die Unifikation nicht erfolgreich ist.</p>
+				
+			<pre class="build">
+p(g(X,Y),a,f(X)) und p(g(Z,Z),Z,f(b))
+    <span><i>Nein: X=Z, Y=Z, Z=a und f(a) und f(b) sind nicht unifizierbar.</i></span>
+
+p([], X, Y) und p(S, [T|S], T)
+    <span><i>Ja: S=[], X=[T], Y=T.</i></span>
+
+q([[X|Y],f(a)]) und q([Z, f(X)|Y])
+    <span><i>Ja: Z=[a], X=a, Y=[].</i></span>
+</pre>
+		</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 3</h2>
+      <h3>Backtracking</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 3</h2>
+    </hgroup>
+		<article>
+			<p><i>(Klausur SS2009)</i><br>Gegeben sei folgendes Prolog-Programm:</p>			
+			
+			<pre style="width:370px;float:left;margin-right:30px;" data-lang="prolog">
+
+(1)   p(X) :- q(X), r(X).
+(2)   p(X) :- q(X).
+(3)   q(X) :- s(X).
+(4)   q(X) :- t(X).
+(5)   r(X) :- t(X).
+(6)   r(X) :- u(X).
+(7)   s(a).
+(8)   t(b).
+(9)   u(c).
+</pre>
+
+			<div class="build">
+				<p style="margin-top:20px;">Welche Antwort liefert die folgende Anfrage? <small>(Falls mehrere Antworten möglich sind, 
+					geben Sie nur diejenige an, die von Prolog zuerst berechnet wird.)</small></p>
+					
+				<code>?- p(X).</code>
+				
+				<p style="margin-top:20px;">Erklären Sie, wie diese Antwort zustande kommt, indem Sie die Bearbeitung der 
+					Anfrage durch Angabe eines Ableitungsbaums schrittweise nachvollziehen.</p>
+			</div>
+		</article>
+  </slide>
+
+  <slide class="fill nobackground">
+		<article style="padding-top:0; margin-top:-70px;">				
+			<pre style="width:370px;float:left;margin-right:100px;">
+(1)   p(X) :- q(X), r(X).
+(2)   p(X) :- q(X).
+(3)   q(X) :- s(X).
+(4)   q(X) :- t(X).
+(5)   r(X) :- t(X).
+(6)   r(X) :- u(X).
+</pre>
+
+			<pre style="z-index:-1;" data-lang="prolog">
+(7)   s(a).
+(8)   t(b).
+(9)   u(c).
+</pre>
+			<code>?- p(X).</code>
+			
+			<img src="images/ss2009-backtracking.png" class="nofill" style="clear:both;width:700px; height:400px;">
+		</article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 4</h2>
+      <h3>Listenprädikate (1)</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 4 (1)</h2>
+    </hgroup>
+		<article>		
+			<p>
+				<i>(Klausur SS2011-2)</i><br>
+				Definieren Sie ein Prolog-Prädikat <code>palindrom(L)</code>, welches genau dann erfüllt ist, 
+				wenn die übergebene Liste <code>L</code> ein Palindrom ist.
+			</p>
+			
+			<pre class="build" data-lang="prolog">
+<span>palindrom(X) :- reverse(X,Y), X=Y.</span>
+
+<span>reverse([],[]).</span>
+<span>reverse([H|T],Neu2) :- reverse(T,Neu), append(Neu,[H],Neu2).</span>
+</pre>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 4 (2)</h2>
+    </hgroup>
+    <article>     
+      <p>
+        Definieren Sie ein Prädikat <code>teilstueck(L,T)</code> mit der Bedeutung: Die Liste <code>T</code> ist ein Teilstück der Liste <code>L</code>. 
+        Dies ist genau dann der Fall, wenn alle Elemente von <code>T</code> in der gleichen Reihenfolge in <code>L</code> auftreten, ohne von anderen 
+        Elementen unterbrochen zu werden.
+      </p>
+      
+      <p>Beispiel:</p>
+      <p><code>[1,2,3]</code> ist ein Teilstück von <code>[0,1,2,3,4,5]</code>, aber weder Teilstück von <code>[0,1,2,77,3]</code> 
+        noch von <code>[1,2]</code> oder <code>[5,4,3,2,1]</code>.</p>
+
+      <pre class="build" data-lang="prolog">
+<span>teilstueck(L,T) :-</span><span> append(_,T,Left),</span><span> append(Left,_, L).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 4 (3)</h2>
+    </hgroup>
+    <article>     
+      <p>
+        <i>(Klausur SS2011-2)</i><br>
+        Definieren Sie ein Prolog-Prädikat <code>komprimiere/2</code>, das aus einer Liste zusammenhängende Duplikate entfernt.
+      </p>
+      
+      <p>Beispiel:</p>
+      
+      <pre data-lang="prolog">
+?- komprimiere([a,a,a,a,b,c,c,a,a,d,e,e,e,e,e],R).
+R = [a,b,c,a,d,e].
+</pre>
+
+      <pre class="build" data-lang="prolog">
+<span>komprimiere([],[]).
+komprimiere([A],[A]).</span>
+<span>komprimiere([A,A|Liste],Res) :- komprimiere([A|Liste],Res).</span>
+<span>komprimiere([A,B|Liste],[A|Res]) :- A \= B, komprimiere([B|Liste],Res).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 5</h2>
+      <h3>Listenprädikate (2)</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (1)</h2>
+    </hgroup>
+		<article>			
+			<p>
+				<i>(Klausur SS2010-1)</i><br>
+				Schreiben Sie ein Prolog-Programm für ein Prädikat <code>count(E,L,R)</code> mit der folgenden 
+				Bedeutung: das Element <code>E</code> ist in der Liste <code>L</code> insgesamt R-mal enthalten.
+			</p>
+			
+			<p>Beispiel:</p>
+			<pre data-lang="prolog">
+?- count(a, [a,b,c,a,a,d], R).
+R = 3
+</pre>
+
+			<pre class="build" data-lang="prolog">
+<span>count(_, [], 0).</span>
+<span>count(X, [X|Xs], R) :- count(X, Xs, R1), R is R1+1.</span>
+<span>count(X, [Y|Xs], R) :- X \= Y, count(X, Xs, R).</span>
+</pre>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (2)</h2>
+    </hgroup>
+		<article>			
+			<p>
+				<i>(Klausur SS2011-1)</i><br>
+				Definieren Sie ein Prolog-Prädikat <code>ist_menge(L)</code>, welches genau dann erfüllt ist, 
+				wenn die übergebene Liste <code>L</code> eine Menge ist, d .h. jedes Element genau einmal vorkommt.
+			</p>
+
+			<pre class="build" data-lang="prolog">
+<span>ist_menge([]).</span>
+<span>ist_menge([Kopf|Rest]) :- \+(member(Kopf, Rest)), ist_menge(Rest).</span>
+</pre>
+		</article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (3)</h2>
+    </hgroup>
+    <article>     
+      <p>
+        <i>(Klausur SS2010-1)</i><br>
+        Schreiben Sie ein Prolog-Programm für ein Prädikat <code>dupn(L,N,X)</code> mit der folgenden Bedeutung: 
+        <code>X</code> ist die Liste <code>L</code>, wobei alle Elemente <code>N</code>-fach dupliziert sind.
+      </p>
+      
+      <p>Beispiel:</p>
+      <pre data-lang="prolog">
+?- dupn([a,b], 3, X).
+X = [a, a, a, b, b, b]
+</pre>
+
+      <pre class="build" data-lang="prolog">
+<span>dupn(X,1,X).</span>
+<span>dupn([A],Anzahl,Erg) :- AnzahlN is Anzahl-1, 
+     dupn([A], AnzahlN,ErgN), 
+     Erg = [A|ErgN].</span>
+<span>dupn([A|Liste],Anzahl,Erg) :- dupn([A],Anzahl,AErg), 
+     dupn(Liste,Anzahl,LErg), 
+     append(AErg,LErg,Erg).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (4)</h2>
+    </hgroup>
+    <article>     
+      <p>
+        <i>(Klausur SS2012-1)</i><br>
+        Definieren Sie ein Prolog-Prädikat <code>zip(L1,L2,L3)</code>, welches analog zur Haskell-Funktion <code>zip</code> funktioniert, 
+        d. h. falls eine der beiden Listen länger als die jeweils andere Liste ist, wird der Rest der Liste ignoriert.
+      </p>
+      
+      <p>Beispiel:</p>
+      <pre data-lang="prolog">
+?- zip([1,2,3],[a,b,c],R).
+R = [ (1, a), (2, b), (3, c)]
+</pre>
+
+      <pre class="build" data-lang="prolog">
+<span>zip([],_,[]).</span>
+<span>zip(_,[],[]).</span>
+<span>zip([E1|R1],[E2|R2],[paar(E1,E2)|Rest]) :- zip(R1,R2,Rest).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 5 (5)</h2>
+    </hgroup>
+    <article>     
+      <p>
+        <i>(Klausur SS2012-1)</i><br>
+        Wie sieht die Definition für ein Prädikat <code>unzip/3</code> aus, welches zu dem in der letzten Teilaufgabe definierten Prädikat <code>zip</code> passt?
+      </p>
+      
+      <p>Beispiel:</p>
+      <pre data-lang="prolog">
+?- unzip([(1,a),(2,b),(3,c)],F,S).
+F = [1, 2, 3],
+S = [a, b, c]
+</pre>
+
+      <pre class="build" data-lang="prolog">
+<span>unzip(XY,X,Y) :- zip(X,Y,XY).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 6</h2>
+      <h3>Regelanwendung</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 6</h2>
+    </hgroup>
+    <article>      
+      <p>
+        <i>(Klausur SS2010-1)</i><br>
+        Gegeben sei das folgende CHR-Programm:
+      </p>
+      
+      <pre data-lang="CHR">
+r1 @ tak(X,Y,Z,A) <=> X =< Y | Z = A.
+
+r2 @ tak(X,Y,Z,A) <=> X > Y |
+      X1 is X-1, Y1 is Y-1, Z1 is Z-1,
+      tak(X1,Y,Z,A1), tak(Y1,Z,X,A2), tak(Z1,X,Y,A3),
+      tak(A1,A2,A3,A).
+</pre>
+      <p>Ergänzen Sie im Folgenden die Regelanwendungen und die dabei entfernten und erzeugten 
+        Constraints für die Eingabe <code>tak(3,2,4,R)</code>:</p>
+        
+      <table>
+        <thead>
+          <tr>
+            <th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+          </tr>
+        </thead>
+      </table>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="padding-top:20px;">
+    <hgroup>
+      <h2>Lösung 6</h2>
+    </hgroup>
+    <article class="smaller">      
+      <pre data-lang="CHR">
+r1 @ tak(X,Y,Z,A) <=> X =< Y | Z = A.
+
+r2 @ tak(X,Y,Z,A) <=> X > Y |
+      X1 is X-1, Y1 is Y-1, Z1 is Z-1,
+      tak(X1,Y,Z,A1), tak(Y1,Z,X,A2), tak(Z1,X,Y,A3),
+      tak(A1,A2,A3,A).
+</pre>
+        
+      <table>
+        <thead>
+          <tr>
+            <th>Regel</th><th>Entfernt</th><th>Erzeugt</th>
+          </tr>
+        </thead>
+        <tbody class="build">
+          <tr>
+            <td>r2</td><td>tak(3,2,4,R)</td><td>tak(2,2,4,A1), tak(1,4,3,A2), tak(3,3,2,A3), tak(A1,A2,A3,R)</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(2,2,4,A1)</td><td>A1 = 4</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(1,4,3,A2)</td><td>A2 = 3</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(3,3,2,A3)</td><td>A3 = 2</td>
+          </tr>
+          <tr>
+            <td>r2</td><td>tak(4,3,2,R)</td><td>tak(3,3,2,A1), tak(2,2,4,A2), tak(1,4,3,A3), tak(A1,A2,A3,R)</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(3,3,2,A1)</td><td>A1 = 2</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(2,2,4,A2)</td><td>A2 = 4</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(1,4,3,A3)</td><td>A3 = 3</td>
+          </tr>
+          <tr>
+            <td>r1</td><td>tak(2,4,3,R)</td><td>R = 3</td>
+          </tr>
+        </tbody>
+      </table>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <hgroup class="auto-fadein">
+      <h2>Aufgabe 7</h2>
+      <h3>Programmentwicklung</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (1)</h2>
+    </hgroup>
+    <article>      
+      <p>Definieren Sie ein CHR-Programm, dass bei Eingabe mehrerer <code>num/1</code> Constraints
+        das Maximum der übergebenen Zahlen bestimmt und in einem einzigen <code>max/1</code> vorhält.</p>
+        
+      <p>Beispiel:</p>
+      
+      <pre data-lang="CHR">
+?- num(1), num(8), num(7), num(2), num(0), num(9), num(0), num(9).
+num(9)
+num(0)
+num(9)
+num(0)
+num(2)
+num(7)
+num(8)
+num(1)
+max(9)
+true .
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 7 (1)</h2>
+    </hgroup>
+    <article>      
+      <pre class="build" data-lang="CHR">
+<span>chr_constraint num/1, max/1.</span>
+
+<span>num(A) ==> max(A).</span>
+<span>max(A) \ max(B) <=> B <span class="dotted">=<</span> A | true.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (2)</h2>
+    </hgroup>
+    <article>      
+      <div class="build" style="margin-top:20px;">
+      <p>Entwickeln Sie ein CHR-Programm, dass die zweistellige "kleiner-gleich" Relation als <code>leq/2</code> Constraint abbildet.
+        Implementieren Sie Regeln zur Sicherstellung der Reflexivität, Antisymmetrie und Transitivität. Doppelte <code>leq/2</code>
+        Constraints sollen entfernt werden.
+      </p>
+      
+      <pre data-lang="CHR">
+?- leq(1,2), leq(3,8), leq(3,9), leq(1,9).
+leq(1,3)
+leq(1,8)
+leq(2,8)
+leq(2,9)
+leq(2,3)
+leq(1,9)
+leq(3,9)
+leq(3,8)
+leq(1,2)
+true
+</pre>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 7 (2)</h2>
+    </hgroup>
+    <article>      
+      <pre class="build">
+<span>chr_constraint leq/2.</span>
+
+<span>reflexivity  @ leq(X,X) <=> true.</span>
+<span>antisymmetry @ leq(X,Y), leq(Y,X) <=> X=Y.</span>
+<span>idempotence  @ leq(X,Y) \ leq(X,Y) <=> true.</span>
+<span>transitivity @ leq(X,Y), leq(Y,Z) ==> leq(X,Z).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (3)</h2>
+    </hgroup>
+    <article>      
+      <p>Paul ist ein rauchender Schwabe: Er weiß, dass jede gerauchte Zigarette einen Stummel hinterlässt,
+        und dass er aus drei Stummeln eine neue Zigarette basteln kann.
+        Um am Ende des Tages zu wissen, wieviele Zigaretten er geraucht hat, zählt Paul über ein <code>geraucht/1</code>
+        Constraint mit.
+        <br>Schreiben Sie ein CHR-Programm, das Paul beim Rauchen hilft!
+      </p>
+      
+      <p>Beispiel:</p>
+      <pre data-lang="CHR">
+<span style="font-size:17px;">?- zigarette, zigarette, zigarette, zigarette, stummel, stummel, geraucht(0).</span>
+stummel
+stummel
+geraucht(6)
+true
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 7 (3)</h2>
+    </hgroup>
+    <article>      
+      <pre class="build" data-lang="CHR">
+<span>zigarette, geraucht(N) <=> stummel, N1 is N+1, geraucht(N1).</span>
+<span>stummel, stummel, stummel <=> zigarette.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (4)</h2>
+    </hgroup>
+    <article>      
+      <div class="build" style="margin-top:20px;">
+      <p>
+        Gegeben sei ein Array mit natürlichen Zahlen in der Form <code>a(I,V)</code>, mit der Bedeutung, dass 
+        an Stelle <code>I</code> des Arrays der Wert <code>V</code> steht.<br>
+        Ein Beispielarray: <pre class="inline">a(0,4), a(1,2), a(2,5), a(3,1)</pre></a>
+      </p>
+      
+      <p>Schreiben Sie eine CHR-Regel, welche ein derart gegebenes Array mittels Exchange Sort
+aufsteigend sortiert, d.h. es sollen jeweils zwei noch falsch sortierte Array-Einträge vertauscht werden.</p>
+      
+      <p>Beispiel:</p>
+      <pre data-lang="CHR">
+?- a(0,4), a(1,2), a(2,5), a(3,1).
+<i>   % a(3,5), a(2,4), a(1,2), a(0,1)</i>
+</pre>
+
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Lösung 7 (4)</h2>
+    </hgroup>
+    <article>      
+      <pre data-lang="CHR">
+a(I,V), a(J, W) <=> I < J, V > W | a(I,W), a(J,V).
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Aufgabe 7 (5)</h2>
+    </hgroup>
+    <article>      
+      <p>
+        Schreiben Sie ein CHR Programm, welches die Summe aller geraden Werte im Array
+        berechnet (in vorangegangenen Beispiel also die Summe 4+2).
+      </p>
+      
+      <p>Falls ihr Programm Eingaben zusätzlich zum Array benötigt, geben Sie dies an.</p>  
+      
+      <pre data-lang="CHR" class="build">
+<span>a(I,V) ==> V mod 2 =:= 0 | sum(V).</span>
+<span>sum(V1), sum(V2) <=> V is V1+V2, sum(V).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Skript</h2>
+    </hgroup>
+	  <article>
+	    <p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-13/prolog-chr/</a></p>
+
+	    <h3 style="margin-top:160px;">Credits</h3>
+	    <p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
+	    <p>Title image: <a href="http://www.flickr.com/photos/carbonnyc/67187558/">Miran Lipovača</a> under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a></p>
+	  </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
