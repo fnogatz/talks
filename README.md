@@ -3,6 +3,10 @@ Talks
 
 A little collection of talks I gave.
 
+## [Project Demo: CHR.js](http://fnogatz.github.com/talks/ss15-projekt-chr)
+
+*University of Ulm, 2 June 2015*
+
 ## Repetitorium: Paradigmen der Programmierung (2013)
 
 *University of Ulm, 7/19/2013 - 7/21/2013*
