@@ -1,0 +1,471 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="hidden title-slide segue nobackground">
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/chrjsnet.png)">
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>Master-Student @ <a href="http://uni-ulm.de">uulm</a></p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+
+    <aside class="note">
+      <ul>
+        <li>strong background in CHR, interested in compiler construction</li>
+        <li>Bachelor's thesis three semesters ago: translate schemas of XML into JSON, which is subset of JavaScript; with the help of CHR</li>
+        <li>Aim now: similar vice-versa, transpile CHR to Javascript</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Aim: Transpile CHR into JavaScript</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Never heard of "transpile" before? Compile vs transpile</li>
+        <li>Ask: Why?</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="quote" style="color:#797979;background-color:#fff">
+    <article class="flexbox vleft">
+      <q>
+        Any application that can be written in JavaScript, will eventually be written in JavaScript.
+      </q>
+      <div class="author" style="bottom:140px; right: 60px;">
+       Atwood's Law
+      </div>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>Atwood == Founder of Stackoverflow.com</li>
+      <li>CHR = lingua franca? So is JavaScript</li>
+      <li>JavaScript (speciefied as EcmaScript) is the rising star of programming languages</li>
+      <li>web development (node.js), server-side, drivers</li>
+      <li>reason: highly optimized JS runtime V8, developped by Google (compiles into C)</li>
+      <li>Transpiler itself is written in JavaScript</li>
+      <li>Another reason: Make CHR usage more easy! So what is the current tool chain?</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/swipl.png)">
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://chr.informatik.uni-ulm.de/~webchr/"></iframe>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>No need to install SWI-Prolog locally</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://pengines.swi-prolog.org/apps/scratchpad/index.html"></iframe>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>Remote procedure Call on remote SWI-Prolog service</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.149.8471&amp;rep=rep1&amp;type=pdf"></iframe>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>CHR(Java), CHR(C)</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Architecture</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Components</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build" style="font-size:40px;">
+        <li>Parser</li>
+        <li>Transpiler</li>
+        <li>Runtime</li>
+        <li>Build-System</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Parser</h2>
+    </hgroup>
+    <article>
+      <p>Parse the given CHR source and create a syntax tree.</p>
+
+<pre data-lang="CHR"><code>rem_long @ path(X,Y,L1) \ path(X,Y,L2) &lt;=&gt; L1 &lt;= L2 | true;
+path_add @ path(X,Y,L1), path(Y,Z,L2) ==> X !== Z | path(X,Z,L1+L2);</code></pre>
+
+      <p>Modifications:</p>
+      <ul class="build">
+        <li>Rules end with <code>;</code></li>
+        <li>No logical variables</li>
+        <li>JavaScript operators and notation</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Parsing Expression Grammar</h2>
+    </hgroup>
+    <article>
+<pre data-lang="PEG"><code>Start
+  = Program
+
+CHRRule
+  = PropagationRule
+  / SimplificationRule
+  / SimpagationRule
+
+PropagationRule
+  = RuleName? CHRConstraints "==>" Guard? Body {
+      ...
+    }
+
+RuleName
+  = identifier:Identifier "@" {
+      return identifier;
+    }
+</code></pre>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>PEG = Parsing Expression Grammar</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://chrjs.net/"></iframe>
+    </article>
+
+    <aside class="note">
+    <ul>
+      <li>head normal form</li>
+    </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime Components</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build" style="font-size:40px;">
+        <li>Constraint</li>
+        <li>Constraint Store</li>
+        <li>Propagation History</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: Constraint</h2>
+    </hgroup>
+    <article class="">
+<pre><code>var Constraint = require('chr/runtime/constraint')
+
+var c = new Constraint('a',   1,      [ 8 ])
+             //        name,  arity,  arguments
+
+c.toString() // 'a(8)'
+
+// some properties:
+c.id         // unique
+c.alive
+c.activated
+</code></pre>
+    </article>
+
+    <aside class="note">
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: Store</h2>
+    </hgroup>
+    <article class="">
+<pre><code>var Store = require('chr/runtime/store')
+
+var store = new Store()
+
+// some methods:
+store.add(constraint)
+store.kill(constraint.id)
+store.lookup(name, arity)
+</code></pre>
+    </article>
+
+    <aside class="note">
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: Propagation History</h2>
+    </hgroup>
+    <article class="">
+<pre><code>var History = require('chr/runtime/history')
+
+var history = new History()
+
+// some methods:
+history.add(rulename, ids)
+history.notIn(rule, ids)
+</code></pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Uses hashes internally</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Transpiler Demo</h2>
+    </hgroup>
+    <article class="">
+    <p>Source:</p>
+<pre><code>echo 'a(0) &lt;=&gt; true; a(N) ==> a(N-1);' | chrjs
+</code></pre>
+
+    <p>Generated Program Header:</p>
+<pre><code>function CHR(store, history) {
+  this.Store = store || new Store()
+  this.History = history || new History()
+  this.constraints = [ "a/1" ]
+}
+
+...
+</code></pre>    
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Transpiler Demo</h2>
+    </hgroup>
+    <article class="">
+    <p>Source:</p>
+<pre><code>echo 'a(0) &lt;=&gt; true; a(N) ==> a(N-1);' | chrjs
+</code></pre>
+
+    <p>Generated Caller for <code>a</code>:</p>
+<pre><code>...
+
+CHR.prototype.a = function a() {
+  var arity = arguments.length
+  
+  var constraint = new Constraint("a", arity, arguments)
+  this.Store.add(constraint)
+  this["_a_"+arity+"_activate"](constraint)
+}
+
+...
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Transpiler Demo</h2>
+    </hgroup>
+    <article class="">
+    <p>Source:</p>
+<pre><code>echo 'a(0) &lt;=&gt; true; a(N) ==> a(N-1);' | chrjs
+</code></pre>
+
+    <p>Generated Activator for <code>a/1</code>:</p>
+<pre><code>...
+
+CHR.prototype._a_1_activate = function (constraint) {
+  this._a_1_occurence_1(constraint)
+  this._a_1_occurence_2(constraint)
+}
+
+...
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Transpiler Demo</h2>
+    </hgroup>
+    <article class="">
+    <p>Generated Occurences for <code>a/1</code>:</p>
+<pre><code>CHR.prototype._a_1_occurence_1 = function (constraint) {
+  // a(0) ?
+  if (constraint.args[0] !== 0) { return }
+  
+  var ids = [ constraint.id ]
+  if (ids.every(function(id) { return Store.alive(id) })) {
+    if (allDifferent(ids)) {
+      if (History.notIn("__rule_2", ids)) {
+        History.add("__rule_2", ids)
+      
+        Store.kill(ids[0])
+      }
+    }
+  }
+}
+CHR.prototype._a_1_occurence_2 = function (constraint) { ... }</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Usage</h2>
+    </hgroup>
+    <article class="">
+    <p>Transpile CHR:</p>
+<pre><code>echo 'a(0) &lt;=&gt; true; a(N) ==> a(N-1);' | chrjs > a.example.js
+</code></pre>
+
+    <p>Usage with node.js:</p>
+    <pre><code>var konsole = require('chr/console')
+var CHR = require('./a.example.js')
+
+konsole(CHR)  // empty store
+
+CHR.a(5)
+konsole(CHR)
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Run CHR.js in the Browser</h2>
+    </article>
+
+    <aside class="note">
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;"><a href="http://chrjs.net">chrjs.net</a></h2>
+    </article>
+
+    <aside class="note">
+    </aside>
+  </slide>
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Thank you!</h2>
+      </pre>
+
+	<br/> 
+
+	<p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

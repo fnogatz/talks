@@ -1,0 +1,393 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside style="width:360px;" class="gdbar"><img src="images/uulm-128-mi.png" style="height:85px;width:auto;"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/node.png);background-position:center center;">
+      <aside class="note">
+	<section>
+	<ul>
+		<li>Letztes halbes Jahr, nur sh & js</li>
+		<li>GitHub, dritte Stelle</li>
+		<li>serverseitiges JavaScript</li>
+	</ul>
+	</section>
+	</aside>
+    <footer class="source white"></footer>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <pre class="prettyprint" data-lang="shell" style="font-size:1.6em;margin-top:0px;left:0px;height:110px;text-align:center;width:80%;">
+
+$ node
+      </pre>
+    <aside class="note">
+      <section>
+        <ul>
+		<li>basiert auf Googles V8. Kompilierung von JavaScript in
+		nativen Maschinencode vor Ausf&uuml;hrung.</li>
+        </ul>
+      </section>
+    </aside>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Sequential</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="javascript">
+$ cat hello-world.js
+console.log("hello fellas!");
+
+$ node hello-world.js
+hello fellas!
+
+$
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Sequential</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="php">
+$result = mysql_query("SELECT * FROM table");
+
+/* ... process blocked until query returns ... */
+
+if (!$result) {
+	die("no result");
+}
+
+while ($row = mysql_fetch_assoc($result)) {
+	/* iterate over result */
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Event-driven Programming</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="javascript">
+db.query("SELECT * FROM table", callback);
+
+/* non-blocking: program continues immediately, 
+callback is executed once query is finished. */
+
+var callback = function (result) {
+	for (var i in result) {
+	     /* iterate over result */
+	}
+};
+</pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Typical node.js Snippets (Filesystem)</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="javascript">
+var fs = require('fs');
+
+fs.readFile("/etc/passwd", function (err, data) {
+	if (err) throw err;
+	console.log(data);
+});
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Typical node.js Snippets (HTTP)</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="javascript">
+var http = require("http");
+
+http.get("http://uni-ulm.de", function(res) {
+	console.log("Got response: " + res.statusCode);
+}).on('error', function(e) {
+	console.log("Got error: " + e.message);
+});
+</pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Simple Socket Example</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="shell">
+$ cat socket-example.js 
+var net = require("net");
+var s = net.createServer();
+
+s.addListener("connection", function (socket) {
+	socket.write("hello, stranger!\n");
+	socket.end();
+});
+
+s.listen(1337);
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Simple Example</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="shell">
+$ node socket-example.js &
+
+$ telnet localhost 1337
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
+hello, stranger!
+Connection closed by foreign host.
+
+$ 
+</pre>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/node-doc.png);background-position:center center;">
+      <aside class="note">
+	<section>
+	<ul>
+	</ul>
+	</section>
+	</aside>
+    <footer class="source white">https://www.npmjs.org/</footer>
+  </slide>
+
+
+  <slide>
+    <article class="flexbox vcenter">
+      <img src="images/npm.png" alt="Description" title="Description">
+    <aside class="note">
+      <section>
+        <ul>
+		<li>Berücksichtigung von Abhängigkeiten, Installation, Aktualisierung</li>
+		<li>&gt; 48k Pakete</li>
+        </ul>
+      </section>
+    </aside>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/npm-screen.png);background-position:center center;">
+      <aside class="note">
+	<section>
+	<ul>
+	</ul>
+	</section>
+	</aside>
+    <footer class="source white">https://www.npmjs.org/</footer>
+  </slide>
+
+
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Node Package Manager</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="shell">
+$ cd someProject/
+$ ls
+someProject.js	package.json
+$ npm publish
+</pre>
+
+<pre class="prettyprint" data-lang="shell">
+$ npm install someProject
+...
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>package.json</h2>
+    </hgroup>
+    <article>
+<pre class="prettyprint" data-lang="shell">
+$ cat package.json
+{
+  "author": "Michael Müller <mich@elmueller.net>",
+  "homepage": "https://github.com/cmichi/twitterwall",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmichi/twitterwall.git"
+  },
+  "name": "twitterwall",
+  "description": "Display topic-related tweets in realtime.",
+  "keywords": ["twitterwall", "twitter"],
+  "license": "MIT",
+  "version": "0.1.4",
+  "dependencies": {
+    "express": "3.0.x",
+    "socket.io": "0.9.x"
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="quote" style="color:#797979;">
+    <article class="flexbox vleft">
+      <q>
+	Any application that can be written in JavaScript, will eventually be written in JavaScript.
+      </q>
+      <div class="author" style="bottom:140px; right: 60px;">
+       Atwood's Law
+      </div>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em">Libraries</h2>
+      <h3>socket.io, cradle, node_pcap, express, &hellip;</h3>
+    </article>
+  </slide>
+
+  <slide class="">
+      <aside class="note">
+	<section>
+	<ul>
+		<li>JSON, DB: CouchDB, client-seitig, serverseitig</li>
+	</ul>
+	</section>
+	</aside>
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em">Vorteile server-seitiges JavaScript?</h2>
+    </article>
+  </slide>
+
+
+  <slide>
+    <article class="flexbox vcenter">
+	    <div style="text-align:center;">
+		<img src="images/node-meme.jpg" style="width:100%;margin-top:-60px;">
+	    </div>
+	    <footer class="source">source: http://memegenerator.net/instance/45933548</footer>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Take-Away</h2>
+    </hgroup>
+    <article>
+	<table style="" class="white">
+	<tr>
+		<th width="30%" class="white">Powered By</th>
+		<td class="black">JavaScript.<br/>Googles V8</td>
+	</tr>
+	<tr>
+		<th width="30%" class="white">JavaScript</th>
+		<td class="black">Ereignisbasierte Programierung mittels Callbacks.
+		<br />Funktional.</td>
+	</tr>
+	<tr>
+		<th width="30%" class="white">St&auml;rken</th>
+		<td class="black">Netzwerk-Anwendungen.<br />I/O lastige Tasks.</td>
+	</tr>
+	<tr>
+		<th width="30%" class="white">Schw&auml;chen</th>
+		<td class="black">CPU-lastige Tasks.</td>
+	</tr>
+	</table>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Dankesch&ouml;n!</h2>
+      <br />
+      <br />
+      <br />
+      <pre class="prettyprint" data-lang="javascript" style="font-size:1.6em;margin-top:50px;padding-top:25px;left:0px;height:130px;text-align:center;width:100%;">
+
+michi.ask(questions);
+      </pre>
+
+	<br/>
+	<br/>
+	<br/>
+	<p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>

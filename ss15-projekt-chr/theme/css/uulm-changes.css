@@ -1,0 +1,76 @@
+aside.gdbar {
+  height: 97px;
+  width: 360px;
+}
+
+aside.gdbar img {
+    height:85px;
+    width:210px;
+}
+
+pre[data-lang]:after {
+	display:none;
+}
+
+pre.questions {
+      font-size:1.6em;
+      padding-top:60px;
+      margin-top:50px;
+      left:4px;
+      width:100%;
+      line-height: 1.2em;
+      height:300px;
+      text-align:left;
+}
+
+slides > slide:not(.nobackground):before {
+  bottom: 20px;
+  left: 60px;
+  background: url(../../images/slide-institute/uulm-128.png) no-repeat 0 50%;
+  -webkit-background-size: 74px 30px;
+  -moz-background-size: 74px 30px;
+  -o-background-size: 74px 30px;
+  background-size: 74px 30px;
+  padding-left: 40px;
+  height: 30px;
+  width:100px;
+}
+.thank-you-slide {
+  background: #A32638 !important;
+  color: white;
+}
+.thank-you-slide a {
+  color: white;
+  text-decoration: none;
+  border-bottom: none;
+}
+.thank-you-slide a:hover {
+  border-bottom: 1px solid #fff;
+  color: #fff;
+}
+
+table th {
+  color: white;
+  font-size: 18px;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(40%, #A32638), color-stop(80%, #A32638)) no-repeat;
+  background: -webkit-linear-gradient(top, #A32638 40%, #A32638 80%) no-repeat;
+  background: -moz-linear-gradient(top, #A32638 40%, #A32638 80%) no-repeat;
+  background: -o-linear-gradient(top, #A32638 40%, #A32638 80%) no-repeat;
+  background: linear-gradient(top, #A32638 40%, #A32638 80%) no-repeat;
+}
+
+.uni-red {
+  color: #A32638;
+}
+
+.source {
+	bottom: 50px;
+}
+
+footer.white a {
+	color: #fff !important;
+}
+
+slides > slide > article:only-child > iframe {
+	height: 90% !important;
+}
