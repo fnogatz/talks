@@ -3,15 +3,39 @@ Talks
 
 A little collection of talks I gave.
 
+## Repetitorium: Paradigmen der Programmierung (2015)
+
+*University of Ulm, 7/10/2015 - 7/14/2015*
+
+Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-15/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/haskell/exercises.html)
+
+Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-15/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/prolog-chr/exercises.html)
+
+Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/exercises.html)
+
 ## [Project Demo: CHR.js](http://fnogatz.github.com/talks/ss15-projekt-chr)
 
 *University of Ulm, 2 June 2015*
+
+## Repetitorium: Paradigmen der Programmierung (2014)
+
+*University of Ulm, 7/26/2014 - 7/31/2014*
+
+Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-14/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/haskell/exercises.html)
+
+Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-14/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/prolog-chr/exercises.html)
+
+Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/exercises.html)
 
 ## Repetitorium: Paradigmen der Programmierung (2013)
 
 *University of Ulm, 7/19/2013 - 7/21/2013*
 
 Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-13/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/haskell/exercises.html)
+
+Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-13/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/prolog-chr/exercises.html)
+
+Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/exercises.html)
 
 ## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](http://fnogatz.github.com/talks/webeng12-geospatial-app)
 
