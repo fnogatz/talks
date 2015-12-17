@@ -1,0 +1,710 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="hidden logoslide nobackground">
+    <article class="flexbox vcenter">
+      <span><img src="images/google_developers_logo.png"></span>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/Uni_ulm_logo.svg"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title style="font-size:55px;"><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>Master-Student @ <a href="http://uni-ulm.de">Uni Ulm</a><br/>
+      PhD-Student @ <a href="http://uni-wuerzburg.de">Uni Würzburg</a></p>
+    </article>
+    <p class="auto-fadein" data-config-contact>
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">CHR Introduction</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Rule-based language defined 1991 by Thom Frühwirth</li>
+        <li>Originally created to implement constraint solvers in a high level programming language
+        <li>Today a general-purpose programming language, used for natural language processing, compilation, verification, etc.</li>
+        <li>Typically used as a language extension: CHR(Prolog), CHR(Java), CHR(C)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR: Parts</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Constraints with <code>name/arity</code>
+        <ul>
+          <li>CHR Constraints</li>
+          <li>Built-in Constraints by the host language
+        </ul></li>
+        <li>Constraint Store</li>
+        <li>Rules
+        <ul>
+          <li>Propagation Rule (<code>&hellip; ==&gt; &hellip;</code>)</li>
+          <li>Simplification Rule (<code>&hellip; &lt;=&gt; &hellip;</code>)</li>
+          <li>Simpagation Rule (<code>&hellip; \ &hellip; &lt;=&gt; &hellip;</code>)</li>
+        </ul></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR: Rules</h2>
+    </hgroup>
+    <article>
+      <p>Propagation Rule</p>
+      <pre data-lang="chr">
+Name @ H<sub>1</sub>, &hellip;, H<sub>n</sub> ==&gt; G<sub>1</sub>, &hellip;, G<sub>m</sub> | B<sub>1</sub>, &hellip;, B<sub>l</sub>
+</pre>
+      <p>Simplification Rule</p>
+      <pre data-lang="chr">
+Name @ H<sub>1</sub>, &hellip;, H<sub>n</sub> &lt;=&gt; G<sub>1</sub>, &hellip;, G<sub>m</sub> | B<sub>1</sub>, &hellip;, B<sub>l</sub>
+</pre>
+      <p>Simpagation Rule</p>
+      <pre data-lang="chr">
+Name @ H<sub>1</sub>, &hellip;, H<sub>k</sub> \ H<sub>k+1</sub> &hellip;, H<sub>n</sub> &lt;=&gt; G<sub>1</sub>, &hellip;, G<sub>m</sub> | B<sub>1</sub>, &hellip;, B<sub>l</sub>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR: <code>gcd</code> Example</h2>
+      <h3>Pseudocode Implementation</h3>
+    </hgroup>
+    <article>
+      <p>Example Program: Calculation of the greatest common divisor (GCD) using the subtraction-based Euclidean algorithm.</p>
+      <pre class="prettyprint" data-lang="pseudo">
+function gcd(a, b)
+  while b > 0
+    if a > b
+      a := a - b
+    else
+      b := b - a
+  return a
+end
+</pre>
+
+      <pre class="prettyprint" data-lang="pseudo">
+gcd(15, 12) == 3
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR: <code>gcd</code> Example</h2>
+      <h3>CHR Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="chr">
+gcd1  @  gcd(0) &lt;=&gt; true.
+gcd2  @  gcd(N) \ gcd(M) &lt;=&gt; 0 &lt; N, N &lt;= M | gcd(M-N).
+</pre>
+
+      <pre class="prettyprint" data-lang="chr">
+?- gcd(15), gcd(12)
+...
+gcd(3)
+</pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Demo: SWI-Prolog</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">CHR.js</h2>
+    </article>
+  </slide>
+
+  <slide class="quote" style="color:#797979;background-color:#fff">
+    <article class="flexbox vleft">
+      <q>
+        Any application that can be written in JavaScript, will eventually be written in JavaScript.
+      </q>
+      <div class="author" style="bottom:140px; right: 60px;">
+       Atwood's Law
+      </div>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/swipl.png)">
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://chr.informatik.uni-ulm.de/~webchr/"></iframe>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime Components</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="build" style="font-size:40px;">
+        <li>CHR.Constraint</li>
+        <li>CHR.Store</li>
+        <li>CHR.History</li>
+        <li>CHR.Rule</li>
+        <li>CHR <small style="font-size:30px;">(CHR.Rules)</small></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: CHR.Constraint</h2>
+    </hgroup>
+    <article class="">
+<pre><code>let Constraint = CHR.Constraint
+
+let gcd8 = new Constraint('gcd',   1,      [ 8 ])
+                   //      name,  arity,  arguments
+
+// some properties:
+gcd8.id            // unique
+gcd8.alive         // boolean
+
+// prototype methods:
+gcd8.toString()    // 'gcd(8)'
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: CHR.Store</h2>
+    </hgroup>
+    <article class="">
+<pre><code>let chr = new CHR()
+let store = chr.Store     // or:
+                          // new CHR.Store()
+
+// some properties:
+store.length              // int
+store.invalid             // boolean
+
+// prototype methods:
+store.add(gcd8)
+store.kill(gcd8)
+store.alive(gcd8)         // boolean
+store.reset()
+store.toString()          // tabular string representation
+store.lookup(name, args)  // generator
+
+// events:
+store.on('add', handler)
+store.on('remove', handler)
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: CHR.History</h2>
+    </hgroup>
+    <article class="">
+<pre><code>let chr = new CHR()
+let history = chr.History // or:
+                          // new CHR.History()
+
+// some methods:
+history.add(ruleName, constraintIds)
+history.has(ruleName, constraintIds)
+history.notIn(ruleName, constraintIds)
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: CHR.Rule</h2>
+    </hgroup>
+    <article class="">
+<pre><code>let chr = new CHR()
+chr`
+  ruleName @ gcd(0) &lt;=&gt; true
+`                         // or:
+                          // new CHR.Rule('gcd(0) &lt;=&gt; true')
+
+let rule = chr.Rules.ruleName
+
+// some methods:
+rule.Fire(constraint)
+
+// events resp. breakpoints:
+rule.Breakpoints.onTry = handler
+let firstGcdOccurrence = rule['gcd/1'][0]
+firstGcdOccurrence.Breakpoints.onTry = handler
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: Call Semantics</h2>
+      <h3 style="color:#fff;">Preview</h3>
+    </hgroup>
+    <article class="">
+<pre><code>let chr = new CHR()
+chr`
+  gcd1  @  gcd(0) &lt;=&gt; true
+  gcd2  @  gcd(N) \\ gcd(M) &lt;=&gt; 0 &lt; N, N &lt;= M | gcd(M-N)
+`
+
+// How to call gcd(15), gcd(12) ?
+// Not working because of asynchronous functions:
+//   chr.gcd(15)
+//   chr.gcd(12)
+//   let result = chr.store.lookup(...)
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">The Event Loop</h2>
+    </article>
+  </slide>
+
+  <slide class="quote" style="color:#797979;background-color:#fff">
+    <article class="flexbox vleft">
+      <q>
+        In node.js everything runs in parallel,<br>except your code.
+      </q>
+      <div class="author" style="bottom:140px; right: 60px;">
+       Felix Geisendörfer, Core Comitter of node.js
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+      <h3>Pseudocode Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pseudo">
+while queue.waitForMessage()
+  queue.processNextMessage()
+end
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+      <h3>Visualisation</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/eventloop.png" alt="Description" title="Description" style="max-height:80%;">
+      <footer class="source">Source: Mozilla Developer Network (MDN)</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+      <h3><code>gcd</code> Example, Naive Recursive Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pseudo">
+function gcd (a, b) {
+  if (b == 0)
+    return a
+  if (a > b)
+    return gcd(a-b, b)
+  return gcd(a, b-a)
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+      <h3><code>gcd</code> Example, Asynchronous Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="pseudo">
+function gcd (a, b, callback) {
+  if (b == 0) {
+    callback(a)
+  } else if (a > b) {
+    setTimeout(function () {
+      gcd(a-b, b, callback)
+    }, 0)
+  } else {
+    setTimeout(function () {
+      gcd(a, b-a, callback)
+    }, 0)
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Runtime: Call Semantics</h2>
+      <h3 style="color:#fff;">Example Usage</h3>
+    </hgroup>
+    <article class="">
+<pre><code>let chr = ...
+chr.gcd(15).then(function () {
+  return chr.gcd(12)
+}).then(function () {
+  // finished
+})
+
+Promise
+.all([ chr.gcd(15), chr.gcd(12) ])
+.then(function () {
+  // finished
+})
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Components</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <ul class="" style="font-size:40px;">
+        <li>Parser</li>
+        <li>Compiler</li>
+        <li>Runtime</li>
+        <li>Builds and Benchmarks</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">CHR.js Compiler</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR: <code>gcd</code> Example</h2>
+      <h3>CHR Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="chr">
+gcd1  @  gcd(0) &lt;=&gt; true.
+gcd2  @  gcd(N) \ gcd(M) &lt;=&gt; 0 &lt; N, N &lt;= M | gcd(M-N).
+</pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Example Compilation</h2>
+    </hgroup>
+    <article class="small">
+<pre class="small"><code>function (constraint,replacements) {
+  var M = constraint.args[0]
+  
+  var constraintIds = [
+    self.Store.lookup("gcd", 1)
+  , [ constraint.id ]
+  ]
+  
+  return new Promise(function (resolve, reject) {
+    self.Helper.forEach(constraintIds,
+    function iterateConstraint (ids, callback) {
+      if (!self.Store.allAlive(ids)) return callback()
+      if (self.History.has("gcd2", ids)) return callback()
+      
+      var N = self.Store.args(ids[0])[0]
+      ...
+    }
+  })
+}
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Example Compilation</h2>
+    </hgroup>
+    <article class="small">
+<pre class="small"><code>      ...
+      var N = self.Store.args(ids[0])[0]
+
+      var guards = [
+        new Promise(function (s, j) { (0 &lt; N) ? s() : j() })
+      , new Promise(function (s, j) { (N &lt;= M) ? s() : j() })
+      ]
+      
+      Promise.all(guards)
+      .then(function () {
+        self.History.add("gcd2", ids)
+        self.Store.kill(ids[1])
+        
+        Promise.resolve().then(function () {
+          return self.gcd(M - N)
+        })
+      })
+    }, resolve)
+  })
+}
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Demo</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Source Code Demo</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Benchmarks</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/example-plot-gcd.png" alt="Description" title="Description">
+      <footer class="source">CHR-Benchmarks for gcd</footer>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Thank you!</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="javascript" >question(X) ==> ask(X)</pre>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+<!-- Backup slides -->
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Backup Slides</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Parser</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Parser</h2>
+    </hgroup>
+    <article>
+      <p>Parse the given CHR source and create a syntax tree.</p>
+
+<pre data-lang="CHR"><code>rem_long @ path(X,Y,L1) \ path(X,Y,L2) &lt;=&gt; L1 &lt;= L2 | true;
+path_add @ path(X,Y,L1), path(Y,Z,L2) ==> X !== Z | path(X,Z,L1+L2);</code></pre>
+
+      <p>Modifications:</p>
+      <ul class="build">
+        <li>Rules (might) end with <code>;</code></li>
+        <li>ES2015 destructuring instead of logical variables</li>
+        <li>JavaScript operators and notation</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Parsing Expression Grammar</h2>
+    </hgroup>
+    <article>
+<pre data-lang="PEG"><code>Start
+  = Program
+
+CHRRule
+  = PropagationRule
+  / SimplificationRule
+  / SimpagationRule
+
+PropagationRule
+  = RuleName? CHRConstraints "==>" Guard? Body {
+      ...
+    }
+
+RuleName
+  = identifier:Identifier "@" {
+      return identifier;
+    }
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">JS Optimizations</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JS Optimizations</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/JSPerf-with.png" alt="Description" title="Description">
+      <footer class="source">JS Performance of <code>with</code> statement</footer>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">CHR.js Precompiler</h2>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Optimization using Trampolines</h2>
+    </hgroup>
+    <article class="">
+<pre class=""><code>function _chr () {
+  /**
+    ... static implementation for CHR runtime components ...
+  */
+
+  function State (constraint, type, step, lookup, scope) {
+    this.type = type
+    this.constraint = constraint
+    this.step = step
+    this.lookup = lookup
+    this.scope = scope
+  }
+
+  function saveState (constraint, step, lookup, scope) {
+    return new State(constraint, 'intermediate', step, lookup, scope)
+  }
+
+  function constraintState (constraint) {
+    return new State(constraint, 'constraint', null, null, null)
+  }
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <hgroup>
+      <h2>Optimization using Trampolines</h2>
+    </hgroup>
+    <article class="">
+<pre class=""><code>function _chr () {
+  ...
+
+  function tell () {
+    var current
+    while (chr.Tells.length > 0) {
+      current = chr.Tells.pop()
+      if (current.type === 'constraint') {
+        chr.Store.add(current.constraint)
+      }
+      dispatchTell(current)(current)
+    }
+  }
+
+  function dispatchTell (current) {
+    switch (current.constraint.functor) {
+      case 'gcd/1':
+        return gcd_1
+      break
+    }
+  }
+</code></pre>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
