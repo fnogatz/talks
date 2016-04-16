@@ -2,6 +2,13 @@
 
 [Master Thesis](http://www.informatik.uni-ulm.de/pm/fileadmin/pm/home/fruehwirth/drafts/Nogatz-CHR-Javascript-Masterthesis.pdf) at the University of Ulm, Presentation in December 2015
 
+## Related Links:
+- [Master Thesis](http://www.informatik.uni-ulm.de/pm/fileadmin/pm/home/fruehwirth/drafts/Nogatz-CHR-Javascript-Masterthesis.pdf)
+- [CHR.js](http://github.com/fnogatz/CHR.js), JIT Compiler
+- [chrjs.net](http://chrjs.net/), Online Playground for CHR.js
+- [CHR.js-website](http://github.com/fnogatz/CHR.js-website), source code of chrjs.net
+- [CHR-Benchmarks](http://github.com/fnogatz/CHR-Benchmarks), benchmark suite for CHR systems
+
 ## HTML5 University of Ulm Slide Templates
 
 This is an adaption of the

@@ -7,6 +7,17 @@ A little collection of talks I gave.
 
 *University of Würzburg, 4/14/2016*.
 
+## [CHR.js: Compiling Constraint Handling Rules to JavaScript](http://fnogatz.github.com/talks/master-thesis)
+
+*University of Ulm, 12/01/2015. Presentation of my Master Thesis.*
+
+Related Links:
+- [Master Thesis](http://www.informatik.uni-ulm.de/pm/fileadmin/pm/home/fruehwirth/drafts/Nogatz-CHR-Javascript-Masterthesis.pdf)
+- [CHR.js](http://github.com/fnogatz/CHR.js), JIT Compiler
+- [chrjs.net](http://chrjs.net/), Online Playground for CHR.js
+- [CHR.js-website](http://github.com/fnogatz/CHR.js-website), source code of chrjs.net
+- [CHR-Benchmarks](http://github.com/fnogatz/CHR-Benchmarks), benchmark suite for CHR systems
+
 ## Repetitorium: Paradigmen der Programmierung (2015)
 
 *University of Ulm, 7/10/2015 - 7/14/2015*
