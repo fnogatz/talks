@@ -3,6 +3,10 @@ Talks
 
 A little collection of talks I gave.
 
+## [Seminareinführung: Advanced Database and Logic Programming Concepts](http://fnogatz.github.com/talks/ss16-uniwue-seminar) (2016)
+
+*University of Würzburg, 4/14/2016*.
+
 ## Repetitorium: Paradigmen der Programmierung (2015)
 
 *University of Ulm, 7/10/2015 - 7/14/2015*

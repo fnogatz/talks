@@ -1,0 +1,396 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />Raum E34<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Und Ihr so?</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Kurs im <a href="https://wuecampus2.uni-wuerzburg.de/moodle/course/view.php?id=16828">WueCampus</a></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/Wuecampus.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Organisation des Seminars</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Blockveranstaltung am Ende des Semesters</li>
+        <li>Individuelle Bearbeitung des Themas</li>
+        <li>Einstiegsliteratur gegeben, Seminartitel nicht festgeschrieben</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Art der Ausarbeitung</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Schriftliche Seminararbeit ca. 12 Seiten, maximal 15 Seiten</li>
+        <li>Abschlussvortrag ca. 45 Minuten, inklusive Zeit für Fragen</li>
+        <li>Seminararbeit auf Englisch, Vortrag auf Deutsch oder Englisch</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Verpflichtende Vorlagen</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Schriftliche Seminararbeit:
+        <ul class="build">
+          <li>LaTeX-Vorlage</li>
+          <li>BibTeX-Literaturverwaltung</li>
+        </ul></li>
+        <li>Präsentation:<ul class="build">
+          <li>LaTeX-Beamer</li>
+          <li>PowerPoint</li>
+          <li>HTML5</li>
+          <li>... relativ frei in der Gestaltung</li>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>PowerPoint</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/Powerpoint.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>HTML5</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/html5.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Fragen?</h2>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Themen</h2>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">GraphQL</span></h2>
+      <h3>A Survey about Facebook's new Query Language</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GraphQL</h2>
+      <h3>A Survey about Facebook's new Query Language</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="GraphQL">
+{
+  user(id: 1) {
+    name
+    age
+    friends {
+      name
+    }
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Ask only once</span></h2>
+      <h3>PostgreSQL's Window Functions</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ask only once</h2>
+      <h3>PostgreSQL's Window Functions</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Table">
+| POST | COMMENT |       BODY | 
+|------|---------|------------|      | POST | COMMENT |       BODY |
+|    1 |       1 |    foo old |      |------|---------|------------|
+|    1 |       2 |    foo new |      |    1 |       4 | foo newest |
+|    1 |       3 |  foo newer |      |    1 |       3 |  foo newer |
+|    1 |       4 | foo newest |      |    1 |       2 |    foo new |
+|    2 |       5 |    bar old |      |    2 |       8 | bar newest |
+|    2 |       6 |    bar new |      |    2 |       7 |  bar newer |
+|    2 |       7 |  bar newer |      |    2 |       6 |    bar new |
+|    2 |       8 | bar newest |
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">From <code>G<small>ROUP</small> B<small>Y</small></code> to <code>M<small>AP</small>R<small>EDUCE</small></code></span></h2>
+      <h3>Database Aggregations using the example of MongoDB</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>From <code>G<small>ROUP</small> B<small>Y</small></code> to <code>M<small>AP</small>R<small>EDUCE</small></code></span></h2>
+      <h3>Database Aggregations using the example of MongoDB</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="MongoDB $group">
+db.orders.aggregate(
+  [
+    { $group : { _id : "$cust_id", prices: { $push: "$price" } } }
+  ]
+)
+</pre>
+      <pre class="prettyprint" data-lang="MapReduce">
+db.orders.mapReduce(
+  function() { emit(this.cust_id, this.price) },
+  function(keyCustId, valuesPrices) {
+    return Array.sum(valuesPrices)
+  }
+)
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">MySQL Cluster Architecture Overview</span></h2>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Real-World DSL</span></h2>
+      <h3>Using Domain-Specific Languages in Prolog</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Real-World DSL</h2>
+      <h3>Using Domain-Specific Languages in Prolog</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog">
+if 'Processes in ERP System' = partly
+then 'Processes in other Software' = partly .
+
+if 'Existence of other Software' = yes
+and 'Functionality of other Software' = increasing
+and 'Acceptance of other Software' = increasing
+then 'Acceptance of ERP System' = decreasing .
+
+if 'Use of other Software' = increasing/constant
+then 'Acceptance of ERP System by Users' = decreasing .
+
+if 'Test of ERP System by Users' = yes
+then 'Discovery of ERP Function by Users' = yes .
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Rule Base Management Systems</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Rule Base Management Systems</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog">
+father(george, elizabeth).
+mother(elizabeth, charles).
+father(charles, william).
+</pre>
+      <pre class="prettyprint" data-lang="Prolog REPL">
+?- listing(mother/2).
+mother(elizabeth, charles).
+
+?- assertz(mother(diana, william)).
+
+?- listing(mother/2).
+mother(elizabeth, charles).
+mother(diana, william).
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Disjunctive Logic Programming</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Disjunctive Logic Programming</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog">
+parent(P,C) :- father(P,C).
+parent(P,C) :- mother(P,C).
+</pre>
+      <pre class="prettyprint build" data-lang="DLP">
+<span>father(P,C) &or; mother(P,C) :- parent(P,C).</span>
+</pre>
+    </article>
+  </slide>
+
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Vergabe</h2>
+    </article>
+  </slide>
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Themenvergabe</h2>
+    </hgroup>
+    <article>
+      <table class="rows">
+        <tr>
+          <th style="width:350px;">Facebook's GraphQL</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>PostgreSQL's Window Functions</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Aggregations with MongoDB</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>MySQL Cluster Architectures</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Real-World DSL</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Rule Base Management</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Disjunctive Logic Programming</th><td>NN</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wie geht es weiter?</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Anmeldung im WueCampus</li>
+        <li>Anmeldung bis Ende April in SB@Home</li>
+        <li>Literaturrecherche</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Viel Erfolg!</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(Question,Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
