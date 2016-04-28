@@ -3,6 +3,10 @@ Talks
 
 A little collection of talks I gave.
 
+## [Prolog Crashkurs](http://fnogatz.github.com/talks/ss16-uniwue-prolog-intro)
+
+*University of Würzburg, 4/28/2016*.
+
 ## [Seminareinführung: Advanced Database and Logic Programming Concepts](http://fnogatz.github.com/talks/ss16-uniwue-seminar) (2016)
 
 *University of Würzburg, 4/14/2016*.

@@ -1,0 +1,719 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />Raum E34<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Was ist das wichtigste Konstrukt in z.B. Java?</h2>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Beispiel: Quicksort</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Java">
+public static void quicksort(int liste[], int links, int rechts) {
+  if (links < rechts) {
+    <b>int i = links;</b>
+    <b>int j = rechts-1;</b>
+    <b>int pivot = liste[rechts];</b>
+    while (i <= j) {
+      while ((liste[i] <= pivot) &amp;&amp; (i < rechts)) <b>i++;</b>
+      while ((liste[j] >= pivot) &amp;&amp; (j > links)) <b>j--;</b>
+      if (i < j) {
+         <b>int swap = liste[i];</b>
+         <b>liste[i] = liste[j];</b>
+         <b>liste[j] = swap;</b>
+      }
+    }
+    if (liste[i] > pivot) {
+      <b>liste[rechts] = liste[i];</b>
+      <b>liste[i] = pivot;</b>
+    }
+    quicksort(liste, links, i-1);
+    quicksort(liste, i+1, rechts);
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Variablen &amp; Konstanten</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variablen in der logischen Programmierung</h2>
+    </hgroup>
+    <article class="build">      
+      <p>Anders als in imperativen Programmiersprachen stehen Variablen nicht für
+        Speicherplätze, sondern sind Platzhalter für <b>genau einen</b> Wert. Sie können,
+        einmal <b>gebunden</b>, keinen anderen Wert mehr annehmen.</p>       
+
+      <pre data-lang="Prädikatenlogik" class="build">
+F = &exist; X (X = 1 &and; X = 2)
+<span>&rArr; F = &perp;</span>
+</pre> 
+            
+      <p style="margin-top:30px;">Gebundene Variablen lassen sich nicht (ohne weiteres) vom konkreten Wert, für
+          den sie stehen, unterscheiden.</p>
+    </article>
+    <aside class="note">
+      <section>
+        <p>Unterscheidung "gebundene" und "ungebundene" Variable</p>
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variablen</h2>
+    </hgroup>
+    <article> 
+        <dt class="uni-blue">Syntax</dt>
+        <dd><pre data-lang="prolog">
+% beginnen mit einem Großbuchstaben
+ X, Y, Mensch, Hochschule, ...
+
+% oder beginnen mit einem Unterstrich
+ _mensch, _Hochschule, ...
+
+% oder sind anonym
+ _
+</pre></dd>
+      </dl>     
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Variablen: Beispiele</h2>
+    </hgroup>
+    <article> 
+        <dt class="uni-blue">swipl</dt>
+        <dd><pre data-lang="prolog" class="build">
+?- X = 1.
+  <span>X = 1.</span>
+
+?- X = 1, Y = 2.
+  <span>X = 1, Y = 2.</span>
+
+?- X = 1, X = 2.
+  <span>false.</span>
+</pre></dd>
+      </dl>     
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Konstanten</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="uni-blue">Syntax</dt>
+        <dd><pre data-lang="prolog">
+% fangen mit kleinem Buchstaben an
+  otto, karl, mensch, person_, uni_mensa
+
+% oder sind in Hochkommata eingeschlossen
+  'Otto', 'Karl', 'Mensch', 'Person', 'Uni-Mensa'
+
+% oder sind Zahlen
+  1, 2.3, -5
+</pre></dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Strukturen</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Strukturen</h2>
+    </hgroup>
+    <article>      
+      <dl class="">
+        <dt class="uni-blue">Syntax</dt>
+        <dd><pre data-lang="prolog">
+% bestehen aus Funktionssymbol und Argumenten
+  name(k1, k2, ..., kn)
+% sind charakterisiert durch Namen und Anzahl der Argumente
+  name/n         % "Funktor"
+% können geschachtelt und mit unterschiedlichen Stelligkeiten
+%    definiert werden
+</pre></dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Strukturen: Beispiele</h2>
+    </hgroup>
+    <article> 
+        <dt class="uni-blue">swipl</dt>
+        <dd><pre data-lang="prolog" class="build">
+?- X = ist_toll(prolog).
+  <span>X = ist_toll(prolog).</span>
+
+?- X = writeln(hello).
+  <span>X = writeln(hello).</span>
+
+?- X = 4/5.
+  <span>X = 4/5.</span>
+
+?- X = /(4,5).
+  <span>X = 4/5.</span>
+</pre></dd>
+      </dl>     
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Unifikation</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Unifikation</h2>
+    </hgroup>
+    <article>      
+      <p>"Gleichmachen von Termen": Zwei Terme sind unifizierbar, wenn sie entweder gleich sind, oder durch
+        Bindung von Variablen gleich gemacht werden können.</p>
+        
+      <p style="margin-top:40px;">Dabei sind folgende Regeln zu beachten:</p>
+      
+      <ul class="build" style="margin-top:20px;">
+        <li>Konstanten sind nur mit sich selbst unifizierbar.</li>
+        <li>Eine ungebundene Variable ist mit jedem Term unifizierbar, der die Variable selbst nicht enthält.</li>
+        <li>Strukturen sind unifizierbar, wenn sie den gleichen Funktor besitzen und die Komponenten paarweise unifizierbar sind.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Unifikation: Beispiele (1)</h2>
+    </hgroup>
+    <article>      
+      <p>Unifikation geschieht über den "=" Operator.</p>
+      
+      <dt class="uni-blue">swipl</dt>
+      <dd><pre class="build" data-lang="prolog">
+?- foo(X,b) = foo(a,Y).
+  <span>X = a, Y = b.</span>
+
+?- plus(1,2,N).
+  <span>N = 3.</span>
+
+?- foo(plus(1,2)) = foo(N).
+  <span>false.</span>
+</pre></dd>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Typen</h2>
+    </hgroup>
+    <article>      
+      <p>Welche Typen werden in Prolog unterschieden?</p>
+      
+      <div class="build">
+        <p style="margin-top:20px; margin-left:30px; font-style:italic;">Keine Typisierung in Prolog!</p>
+        
+        <dl class="build">
+          <dt class="uni-blue" style="margin-top:20px;">Listen</dt>
+          <dd>
+            <ul class="build">
+              <li>fassen beliebige Elemente</li>
+              <li>leere Liste: <pre class="inline">[]</pre></li>
+              <li>Aufzählung: <pre class="inline">[1,2,3,4]</pre></li>
+              <li>Head-Tail-Aufspaltung: <pre class="inline">[X|Xs], [A,B|Rest]</pre></li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Typen</h2>
+    </hgroup>
+    <article>      
+      <dl class="build">
+        <dt class="uni-blue" style="margin-top:20px;">Tupel</dt>
+        <dd>
+          <ul class="build">
+            <li>Einfache Schreibweise:<pre class="inline">(1,2,'c')</li>
+            <li>Häufig Definition eines Tupels über neues Prädikat, z.B. <pre class="inline">zahlenpaar(1,1)</pre></li>
+          </ul>
+        </dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Unifikation: Beispiele (2)</h2>
+    </hgroup>
+    <article>
+      <dt class="uni-blue">swipl</dt>
+      <dd><pre class="build" data-lang="prolog">
+?- [X,b] = [a,Y].
+  <span>X = a, Y = b.</span>
+
+?- [X|Y] = [a,b].
+  <span>X = a, Y = [b].</span>
+
+?- [A, f(x,y)|R] = [f(R), B].
+  <span>A = f(R), B = f(x,y), R = [].</span>
+</pre></dd>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wichtige Operatoren in Prolog</h2>
+    </hgroup>
+    <article>      
+      <dl class="build">
+        <dt class="uni-blue">Grundrechenarten</dt>
+        <dd><pre data-lang="prolog">+, -, *, /, //, mod</pre></dd>
+
+        <dt class="uni-blue">Exponentiation</dt>
+        <dd><pre data-lang="prolog">^ und **</pre></dd>
+
+        <dt class="uni-blue">Arithmetische Vergleiche</dt>
+        <dd><pre data-lang="prolog"><span class="dotted">=:=</span>, <span class="dotted">=\=</span>, <, >, <span class="dotted">=<</span>, >=</pre></dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Arithmetische Zuweisungen mit <code>is</code></h2>
+    </hgroup>
+    <article>      
+      <p>Arithmetische Variablenbindungen werden in Prolog mit <code>is</code> durchgeführt statt <code>=</code>. Warum?</p>
+      
+      <dt class="uni-blue">swipl</dt>
+      <dd><pre class="build" data-lang="prolog">
+?- X = 4/5, X =:= 0.8.
+  <span>true.</span>
+
+?- X = 4/5, X = 0.8.
+  <span>false.</span>
+
+?- X is 4/5, X = 0.8.
+  <span>true.</span>
+</pre></dd>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Let's hack!</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Was ist ein Prolog-Programm?</h2>
+    </hgroup>
+    <article>      
+      <ul class="build">
+        <li>Ein Prolog-Programm besteht aus einer Folge von Fakten und Regeln.</li>
+        <li>Eine Berechnung wird angestoßen durch eine Anfrage: <code>?- ...</code></li>
+        <li>Die Berechnung entspricht dem Versuch, die Anfrage aus den "Programmformeln" abzuleiten.
+          Es wird versucht, eine erfüllende Variablenbelegung zu finden.</li>
+        <li>Das Ergebnis des Programms ist diese Variablenbelegung.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Fakten</h2>
+      <h3>Syntax</h3>
+    </hgroup>
+    <article>      
+      <ul class="build">
+        <li>Prolog-Fakten können einfach aufgelistet werden</li>
+        <li>können neben Entitäten auch Variablen enthalten</li>
+      </ul>
+      
+      <p style="margin-top:40px;">Beispiele:</p>
+      <pre class="build" data-lang="prolog">
+<span>mensch(falco).
+mensch(sandra).</span>
+
+<span>freunde(falco, sandra).</span>
+<span>freunde(sandra, falco).</span>
+
+<span>prolog_ist_toll.</span>
+
+<span>laenge([X], 1).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Fakten</h2>
+      <h3>Operationale Semantik</h3>
+    </hgroup>
+    <article>
+      <pre class="build" data-lang="prolog">
+laenge([X], 1).
+</pre>
+
+      <pre class="build" data-lang="Prädikatenlogik">
+<span>&forall; X laenge([X],1)</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Regeln (1)</h2>
+    </hgroup>
+    <article>      
+      <ul class="build">
+        <li>Allgemeiner Aufbau:
+          <pre data-lang="prolog">
+<i>kopf/n</i> :- <i>rumpf<sub>1</sub></i>, ..., <i>rumpf<sub>n</sub></i>.
+</pre>
+        </li>
+        <li>Wechselseitige Abhängigkeiten vermeiden:
+          <pre class="" data-lang="prolog">elternteil(X,Y) :- kind(Y,X).
+kind(X,Y) :- elternteil (Y,X).</pre></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Regeln (2)</h2>
+    </hgroup>
+    <article>      
+      <p>Beispiele:</p>
+      
+      <pre class="build" data-lang="prolog">
+<span>freund(X,Y) :- freund(Y,X).</span>
+ <span>% wird Problem bei Abfrage von freund(A,B).</span>
+
+<span>grossvater(X,Y) :- mutter(X,M), vater(M,Y).
+grossvater(X,Y) :- vater(X,V), vater(V,Y).</span>
+
+<span>laenge([X|Xs],L) :- laenge(Xs,S), L is S+1.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Regeln</h2>
+      <h3>Operationale Semantik</h3>
+    </hgroup>
+    <article>
+      <pre class="build" data-lang="prolog">
+laenge([X|Xs],L) :- laenge(Xs,S), L is S+1.
+</pre>
+
+      <pre class="build" data-lang="Prädikatenlogik">
+<span>&forall; X &forall; Xs &forall; L (laenge([X|Xs],L) &larr; &exist; S (laenge(Xs,S) &and; L = S+1))</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auswertung von Anfragen</h2>
+    </hgroup>
+    <article>      
+      <ul class="build">
+        <li>Abarbeitung der Anfrage von links nach rechts</li>
+        <li>Versuch, das Prädikat der Anfrage mit Fakt oder Regelkopf zu unifizieren</li>
+        <li>Falls mehrere Fakten oder Regeln in Frage kommen, wird das erste (Backtracking: nächste) genommen
+          <br><span style="margin-left:30px;font-style:italic;">Folge: Basis- vor Rekursionsfällen!</span>
+        </li>
+        <li>Wird eine Regel angewandt, werden die Prädikate im Rumpf von links nach rechts ausgewertet.</li>
+        <li>Gibt es weder passenden Fakt noch Regel, schlägt die Anfrage fehl.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auswertung von Anfragen - Beispiel (1)</h2>
+    </hgroup>
+    <article>      
+      <p>
+        Gegeben sei folgendes Prolog-Programm:          
+      </p>
+      
+      <pre style="width:360px;float:left;margin-right:80px;" data-lang="prolog">
+
+(1)   a(u).
+(2)   b(s).
+(3)   b(t).
+(4)   c(X) :- p(X),r(X).
+(5)   c(X) :- q(X).
+(6)   p(t).
+(7)   q(t).
+(8)   q(u).
+(9)   r(s).
+</pre>
+      <p>Anfragen:</p>
+      <ul class="build">
+        <li><code>?- a(X),c(X).</code></li>
+        <li><code>?- b(X),c(X).</code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auswertung von Anfragen - Beispiel (2)</h2>
+    </hgroup>
+    <article>              
+      <pre style="width:360px;float:left;margin-right:20px;" data-lang="prolog">
+(1)   a(u).
+(2)   b(s).
+(3)   b(t).
+(4)   c(X) :- p(X),r(X).
+(5)   c(X) :- q(X).
+(6)   p(t).
+(7)   q(t).
+(8)   q(u).
+(9)   r(s).
+</pre>
+      
+      <code>?- a(X),c(X).</code>
+      
+      <img src="images/8-4-a.png" style="width:480px;position:absolute; left: 500px; margin-top:80px;" />
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Auswertung von Anfragen - Beispiel (3)</h2>
+    </hgroup>
+    <article>
+      <pre>?- b(X),c(X).</pre>
+      
+      <img src="images/8-4-b.png" style="width:740px;" />
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cut-Operator - Beispiel (1)</h2>
+    </hgroup>
+    <article>
+      <pre data-lang="prolog">
+drei_wuerfe(A,B,C) :-
+  (A = kopf ; A = zahl), (B = kopf ; B = zahl), (C = kopf ; C = zahl).
+</pre>
+
+      <pre class="build" data-lang="prolog">
+?- drei_wuerfe(A, B, C).
+  <span>A = B,    B = C,    C = kopf ;</span>
+  <span>A = B,    B = kopf, C = zahl ;</span>
+  <span>A = C,    C = kopf, B = zahl ;</span>
+  <span>A = kopf, B = C,    C = zahl ;</span>
+  <span>A = zahl, B = C,    C = kopf ;</span>
+  <span>A = C,    C = zahl, B = kopf ;</span>
+  <span>A = B,    B = zahl, C = kopf ;</span>
+  <span>A = B,    B = C,    C = zahl.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cut-Operator - Beispiel (2)</h2>
+    </hgroup>
+    <article>
+      <pre data-lang="prolog">
+drei_wuerfe(A,B,C) :-
+  (A = kopf ; A = zahl), (B = kopf ; B = zahl), <b>!</b>, (C = kopf ; C = zahl).
+</pre>
+
+      <pre class="build" data-lang="prolog">
+?- drei_wuerfe(A, B, C).
+  <span>A = B, B = C,    C = kopf ;</span>
+  <span>A = B, B = kopf, C = zahl.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Cut-Operator - Beispiel (3)</h2>
+    </hgroup>
+    <article>
+      <pre data-lang="prolog">
+drei_wuerfe(A,B,C) :-
+  (A = kopf ; A = zahl), <b>!</b>, (B = kopf ; B = zahl), (C = kopf ; C = zahl).
+</pre>
+
+      <pre class="build" data-lang="prolog">
+?- drei_wuerfe(A, B, C).
+  <span>A = B, B = C, C = kopf ;</span>
+  <span>A = B, B = kopf, C = zahl ;</span>
+  <span>A = C, C = kopf, B = zahl ;</span>
+  <span>A = kopf, B = C, C = zahl.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Negation-as-absence</h2>
+    </hgroup>
+    <article>      
+      <dl>
+        <dt class="uni-blue">\+(<i>Prädikat</i>)</dt>
+        <dd>
+          ... ist erfüllbar, wenn <i>Prädikat</i> unerfüllbar ist.
+          <pre data-lang="prolog">\+(member(1,[2,3,4]))       <i>% true</i></pre>
+        </dd>
+      </dl>       
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ausgabeprädikate</h2>
+    </hgroup>
+    <article>      
+      <dl class="build">
+        <dt class="uni-blue">write/1</dt>
+        <dd>
+          ... schreibt übergebenen Wert in die Ausgabe.
+          <pre data-lang="prolog">write('Hello '), write(Name), write('!').</pre>
+        </dd>
+        
+        <dt class="uni-blue">nl/0</dt>
+        <dd>
+          ... schreibt einen Zeilenumbruch in die Ausgabe.
+          <pre data-lang="prolog">write('Hello '), write(Name), write('!'), nl,
+write('Alles klar?').</pre>
+        </dd>
+      </dl>       
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Debugging</h2>
+    </hgroup>
+    <article>      
+      <dl class="build">
+        <dt class="uni-blue">trace/0</dt>
+        <dd>
+          ... benutzt Tracer für die aktuelle Anfrage.
+          <pre data-lang="prolog">trace, length([1,2,3],R).</pre>
+        </dd>
+        
+        <dt class="uni-blue">guitracer/0</dt>
+        <dd>
+          ... aktiviert den grafischen Tracer.
+          <pre data-lang="prolog">guitracer, trace, length([1,2,3],R).</pre>
+        </dd>
+        
+        <dt class="uni-blue">nodebug/0</dt>
+        <dd>
+          ... beendet den Tracing/Debugging-Modus.
+          <pre data-lang="prolog">nodebug.</pre>
+        </dd>
+      </dl>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Fragen?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(Question,Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
