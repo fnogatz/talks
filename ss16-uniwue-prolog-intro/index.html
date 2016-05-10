@@ -261,7 +261,7 @@ F = &exist; X (X = 1 &and; X = 2)
   <span>N = 3.</span>
 
 ?- foo(plus(1,2)) = foo(N).
-  <span>false.</span>
+  <span>N = plus(1,2).</span>
 </pre></dd>
     </article>
   </slide>
@@ -574,14 +574,14 @@ drei_wuerfe(A,B,C) :-
 
       <pre class="build" data-lang="prolog">
 ?- drei_wuerfe(A, B, C).
-  <span>A = B,    B = C,    C = kopf ;</span>
-  <span>A = B,    B = kopf, C = zahl ;</span>
-  <span>A = C,    C = kopf, B = zahl ;</span>
-  <span>A = kopf, B = C,    C = zahl ;</span>
-  <span>A = zahl, B = C,    C = kopf ;</span>
-  <span>A = C,    C = zahl, B = kopf ;</span>
-  <span>A = B,    B = zahl, C = kopf ;</span>
-  <span>A = B,    B = C,    C = zahl.</span>
+  <span>A = kopf, B = kopf, C = kopf ;</span>
+  <span>A = kopf, B = kopf, C = zahl ;</span>
+  <span>A = kopf, B = zahl, C = kopf ;</span>
+  <span>A = kopf, B = zahl, C = zahl ;</span>
+  <span>A = zahl, B = kopf, C = kopf ;</span>
+  <span>A = zahl, B = kopf, C = zahl ;</span>
+  <span>A = zahl, B = zahl, C = kopf ;</span>
+  <span>A = zahl, B = zahl, C = zahl.</span>
 </pre>
     </article>
   </slide>
@@ -598,8 +598,8 @@ drei_wuerfe(A,B,C) :-
 
       <pre class="build" data-lang="prolog">
 ?- drei_wuerfe(A, B, C).
-  <span>A = B, B = C,    C = kopf ;</span>
-  <span>A = B, B = kopf, C = zahl.</span>
+  <span>A = kopf, B = kopf, C = kopf ;</span>
+  <span>A = kopf, B = kopf, C = zahl.</span>
 </pre>
     </article>
   </slide>
@@ -616,10 +616,10 @@ drei_wuerfe(A,B,C) :-
 
       <pre class="build" data-lang="prolog">
 ?- drei_wuerfe(A, B, C).
-  <span>A = B, B = C, C = kopf ;</span>
-  <span>A = B, B = kopf, C = zahl ;</span>
-  <span>A = C, C = kopf, B = zahl ;</span>
-  <span>A = kopf, B = C, C = zahl.</span>
+  <span>A = kopf, B = kopf, C = kopf ;</span>
+  <span>A = kopf, B = kopf, C = zahl ;</span>
+  <span>A = kopf, B = zahl, C = kopf ;</span>
+  <span>A = kopf, B = zahl, C = zahl.</span>
 </pre>
     </article>
   </slide>
@@ -635,7 +635,7 @@ drei_wuerfe(A,B,C) :-
           ... ist erfüllbar, wenn <i>Prädikat</i> unerfüllbar ist.
           <pre data-lang="prolog">\+(member(1,[2,3,4]))       <i>% true</i></pre>
         </dd>
-      </dl>       
+      </dl>
     </article>
   </slide>
 
