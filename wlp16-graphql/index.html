@@ -1,0 +1,832 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog</h1>
+      <h2 style="color: #797979;">Using DCGs, Quasi Quotations, and Dicts</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span> and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">GraphQL</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>very short introduction</li>
+        <li>explain most properties while discussing the implementation using Prolog</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        GraphQL is a data query language to query, fetch and mutate data from any data source in a declarative way.
+      </q>
+      <div class="author">
+        Facebook<br>
+        GraphQL Specification
+      </div>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>GraphQL</h2>
+    </hgroup>
+    <article>
+      <ul class="large" style="margin-bottom: 60px;">
+        <li>Developed by Facebook</li>
+        <li>In active use since 2012</li>
+        <li>Open–Source since October 2015</li>
+        <li>No ad–hoc queries</li>
+      </ul>
+
+      <img src="images/facebook.png" style="height:200px; float:left; margin-left: 100px;">
+      <img src="images/graphql.png" style="height:200px; float:right; margin-right: 100px;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Facebook: Development since 2012</li>
+        <li>still in Draft status</li>
+        <li>hundreds of billions of GraphQL API calls a day</li>
+        <li>very popular, implementations in most languages</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GraphQL</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/graphql.png" alt="Description" title="Description">
+    </article>
+    <aside class="note">
+      <ul>
+        <li>name: not to be confused, not restricted to graphs, i.e. no vertices (nodes) and edges</li>
+        <li>powerful type system</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GraphQL: Application Layer</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/graphql-distributed.png" alt="Description" title="Description" style="width:100%;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">GraphQL.pl</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Prolog module to specify GraphQL server</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>GraphQL.pl</h2>
+      <h3>Implementation Goals Using Prolog</h3>
+    </hgroup>
+    <article>
+      <ul class="large build">
+        <li>Feature–rich implementation of a GraphQL server in SWI–Prolog 7</li>
+        <li>Definition of GraphQL as a domain–specific language (DSL) for the
+        <ul class="build">
+          <li>type system</li>
+          <li>query document</li>
+        </ul>
+        </li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>for presentation: restrict to the type system</li>
+        <li>more expressive than the query document</li>
+        <li>query document presented in the demo</li>
+        <li>make use of existing technologies, Prolog is good with hybrid databases</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>GraphQL Type System</h2>
+    </hgroup>
+    <article class="build">
+      <pre class="prettyprint build" data-lang="GraphQL" style="width:47%;float:left;">
+<span>type Person {
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+}</span>
+
+<span>type Book {
+   title:   String!
+   authors: [Person]
+}</span>
+
+<span>type Query {
+   person(name: String!): Person
+   book(title: String!):  Book
+   books(filter: String): [Book]
+}</span>
+</pre>
+
+      <pre class="prettyprint" data-lang="Query" style="width:47%;float:left; margin-left:6%;">
+query {
+   person(name: "Alice") {
+      name
+      years: age
+      books(favourite: true) {
+         title
+         authors {
+            name
+         }
+      }
+   }
+}
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>format given in the specification</li>
+        <li>only the query format is standardized</li>
+        <li>type format is given by examples</li>
+        <li>want to support the examples out-of-the-box</li>
+        <li>books is implicitly a list</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>GraphQL Types as an Internal DSL</h2>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="GraphQL" style="">
+type Person {
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+}
+</pre>
+
+      <div class="build">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+<span class="build"><span>:- op(800, xf, !).</span>
+<span>:- op(650, fx, type).</span></span>
+?- Person = type person(
+               name: string!,
+               age: integer,
+               friends: [person],
+               books: [book] ).
+</pre>
+
+      </div>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>commas and whitespaces are insignificant in GraphQL</li>
+        <li>not possible to replace curly braces</li>
+        <li>types must be lowercase letters to not confuse with variables</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Embedding<br>GraphQL as an<br>External DSL</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>copy/paste examples out of the documentation, without a special syntax</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Quasi Quotations, DCGs, and Dicts</h2>
+      <h3>Implementation of GraphQL.pl</h3>
+    </hgroup>
+    <aside class="note">
+      <ul>
+        <li>Quasi-Quotations: v6.3</li>
+        <li>DCGs: Part of the ISO Prolog standard</li>
+        <li>Dicts: v7</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Quasi Quotations</h2>
+      <h3>Since SWI-Prolog 6.3 (Wielemaker &amp; Hendricks, WLPE 2013)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Basic form</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+{| Tag || Content |}
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Example</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = {| type ||
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+|}.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>inspired by Haskell</li>
+        <li>multi-line</li>
+        <li>strings which are not valid in Prolog</li>
+        <li>allows embedding of every external language</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Quasi Quotations</h2>
+      <h3>Term Expansion</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Example</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = {| type ||
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+|}.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Term Expansion</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+:- use_module(library(quasi_quotations)).
+:- quasi_quotation_syntax(type).
+
+type(ContentHandle, SyntaxArgs, Vars, Result) :-
+   phrase_from_quasi_quotation(dcg_type(Vars, Result), ContentHandle).
+dcg_type(Vars, Result) --> ...  % DCG definitions
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>replaced at compilation time</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Example for <code>dcg_type</code></h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 0px 0 10px 0;">Example</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+dcg_type(_Vars, Result) --> list_of_type_definition,
+<span class="build"><span>   { Result = ... }.</span></span>
+type_definition -->
+   name,
+   ( arguments | "" ),
+   ":",
+   type.
+type --> ( named_type | list_type | non_null_type ).
+named_type --> ( primitive_type | prolog_var_name ).
+list_type --> "[", type, "]".
+non_null_type -->
+   ( named_type | list_type ),
+   "!".
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>possible to access variables outside of this quasi quotation via <code>Vars</code></li>
+        <li>more than 80 non-terminals</li>
+        <li>more than 600 LOC for DCGs</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Quasi Quotations &amp; DCGs</h2>
+      <h3>Recapitulation</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Quasi Quotation Call</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = {| type ||
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+|}.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Internal Representation</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+Person = object{
+   fields: _{
+      name: field{ type: string, nonNull: true, resolve: _ },
+      age: ...,
+      ...
+   } }
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>replaced at compilation time</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Dicts</h2>
+      <h3>Since SWI-Prolog 7 (Wielemaker, CICLOPS 2014)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Basic form</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+Tag{ Key1: Value1, Key2: Value2, ... }
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Example</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = object{
+               fields: _{ type: string, nonNull: true }
+            }.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>reason for some breaking changes in SWI-Prolog 7</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Dicts</h2>
+      <h3>Inspired by JSON</h3>
+    </hgroup>
+    <article class="build">
+<div style="width:47%; float:left;">
+      <dt class="uni-blue" style="margin: 0 0 10px 0;">JSON Example</dt>
+      <pre class="prettyprint" data-lang="JSON" style="">
+{ "data": {
+   "person": {
+      "name": "Alice",
+      "years": 31,
+      "books": [ ... ]
+   } } }
+</pre>
+</div>
+
+<div style="width:47%; float:left; margin-left:6%;">
+      <dt class="uni-blue" style="margin: 0 0 10px 0;">Dict Representation</dt>
+      <pre class="prettyprint" data-lang="SWI-Prolog >= 7" style="">
+_{ data: _{
+      person: _{
+         name: 'Alice',
+         years: 31,
+         books: [ ... ]
+      } } }
+</pre>
+</div>
+
+<div style="width:97%;">
+      <dt class="uni-blue" style="margin: 0 0 10px 0;">Classical Prolog Representation</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+json([data= json([
+   person= json([
+      name= 'Alice',
+      years= 31,
+      books= [ ... ]
+   ])
+])])
+</pre>
+</div>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>GraphQL query returns JSON document</li>
+        <li>reason to represent result document by dict</li>
+        <li>consequently used for other nested terms</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Dicts</h2>
+      <h3>Usage</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Get field</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = object{
+               fields: _{ type: string, nonNull: true }
+            },
+   Field = Person.fields.               % _{ type: string, nonNull: true }
+
+?- Other = Person.does_not_exist.       % throws failure
+
+?- Other = Person.get(does_not_exist).  % false
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Type Definitions and Queries</h2>
+      <h3>Represented by Dicts</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Specification of the Schema</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Person = {| type ||
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+|}, Book = {| type || ... |}, Schema = {| schema || ... |}.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Internal Representation Using Dicts</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+Person = object{
+   fields: _{
+      name: field{ type: string, nonNull: true, resolve: _ },
+      age: ...,
+   } }, Book = _{ ... }, Schema = _{ ... }.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Run Queries</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Query as Quasi Quotation</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- Query = {| query ||
+      person(name: "Alice") {
+         name, years: age
+         books(favourite: true) {
+            title, authors { name }
+         } } |}.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Run Query against Schema</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+:- use_module(library(graphql)).
+
+graphql:query(Schema, Query, ResultDict).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GraphQL: Application Layer</h2>
+      <h3>Recapitulation</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/graphql-distributed.png" alt="Description" title="Description" style="width:100%;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Resolvers</h3>
+    </hgroup>
+    <article class="build">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+Person.resolve = resolve_p
+</pre>
+
+      <pre class="prettyprint" data-lang="Prolog" style="">
+resolve_p(Id, _Parent, Args, _AST, Result) :-
+    Name = Args.get(Name),
+    person(Id, Name, Age, Fri, All, Favs),
+    Result = _{ name:Name, age:Age, friends:Fri, books:(All, Favs) }.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Conclusion</h2>
+    </hgroup>
+    <article>
+      <ul class="large build">
+        <li>Comparison to REST</li>
+        <li>Discussed GraphQL as an Internal DSL</li>
+        <li>Implemented GraphQL as an External DSL using
+        <ul>
+           <li>Quasi Quotations</li>
+           <li>DCGs</li>
+           <li>Dicts</li>
+        </ul></li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>little bit opionated</li>
+        <li>implementation without quasi quotations</li>
+        <li>representation possible using nested terms</li>
+        <li>full stack usage example of features of SWI-Prolog 7</li>
+        <li>tradeoff: no ad-hoc queries</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Future Work</h2>
+    </hgroup>
+    <article>
+      <ul class="large build">
+        <li>Support of all features of GraphQL</li>
+        <li>Definition of standard data source resolvers</li>
+        <li>Automatic creation of the schema</li>
+        <li>Schema optimisations for hybrid databases</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>mutations, currently only queries supported</li>
+      </ul>
+    </aside>
+  </slide>
+
+
+
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Questions?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(falco, Question, Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>University of Würzburg<br>Chair for Computer Science I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />http://uni-wuerzburg.de/?nogatz</p>
+    </article>
+  </slide>
+
+
+
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em">Backup Slides</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>REST vs. GraphQL</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/rest-vs-graphql.png" alt="Description" title="Description" style="width:100%;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Example: Query</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="GraphQL" style="">
+query getAlice {
+   person(name: "Alice") {
+      name
+      years: age
+      books(favourite: true) {
+         # is implicitly a list
+         title
+         authors {
+            name
+         }
+      }
+   }
+}
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Example: Data Storage</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+% person(Id, Name, Age, Books, Favs, Friends)
+person(1, 'Alice', 31, [1, 2], [2], [2]).
+person(2, 'Bob', 42, [2], [2], [1, 3]).
+person(3, 'H. Melville', 72, [1], [], []).
+person(4, 'D. Defoe', 71, [], [], []).
+
+% book(Id, Title, Authors)
+book(1, 'Robinson Crusoe', [4]).
+book(2, 'Moby-Dick', [3]).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Example: Resolvers</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+resolve_p(Id, _Parent, Args, _AST, Result) :-
+    ( Name = Args.get(name)
+    ; nonvar(Id) ),
+    person(Id, Name, Age, Fri, All, Favs),
+    Result = _{ name:Name, age:Age, friends:Fri, books:(All, Favs) }.
+
+resolve_b(Id, _Parent, Args, _AST, Result) :-
+    ( book(Id, Authors, Args.get(title))
+    ; nonvar(Id), book(Id, Authors, Title) ),
+    Result = _{ title:Title, authors:Authors }.
+    
+resolve_p_b(_Id, Parent, Args, _AST, Result) :-
+    (All, Favs) = Parent.books,
+    ( Args.get(favourite) = true ->
+      Result = Favs
+    ; Result = All ).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+
+
+
+
+
+
+
+
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>

@@ -3,6 +3,12 @@ Talks
 
 A little collection of talks I gave.
 
+## [WLP'16: Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](http://fnogatz.github.com/talks/wlp16-graphql) (2016)
+
+*Workshop on (Constraint) Logic Programming (WLP), HTWK Leipzig, 9/12/2016*.
+
+[Related Paper](http://www.imn.htwk-leipzig.de/~schwarz/wlp16/wlp2016_pre-proceedings_paper_5.pdf)
+
 ## [Prolog Crashkurs](http://fnogatz.github.com/talks/ss16-uniwue-prolog-intro)
 
 *University of Würzburg, 4/28/2016*.
