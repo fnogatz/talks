@@ -1,0 +1,440 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />Raum E34<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Und Ihr so?</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Kurs im <a href="https://wuecampus2.uni-wuerzburg.de/moodle/course/view.php?id=20028">WueCampus</a></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/WueCampus.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Organisation des Praktikums</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Pflichtmodul im Master Informatik</li>
+        <li>10 ECTS, unbenotet</li>
+        <li>Sechsmonatige Erarbeitung eines praktischen Konzepts</li>
+        <li>Semesterbegleitend oder zu anderem Startzeitpunkt</li>
+        <li>Individuelle Bearbeitung des Themas, regelmäßige individuelle Treffen</li>
+        <li>Einstiegsliteratur gegeben, Arbeitstitel nicht festgeschrieben</li>
+        <li>Anrechnung im Schwerpunkt Intelligente Systeme, Internet Technologie, Algorithmik und Theorie, Software Engineering oder Human-Computer-Interaction möglich</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Art der Ausarbeitung</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Implementierung, Programmiersprache nach Thema</li>
+        <li>Schriftlicher Bericht (PO: 5-15 Seiten, mit Dokumentation wohl mehr)</li>
+        <li>Abschlussvortrag (nicht laut PO) zur Vorstellung des Ergebnisses</li>
+        <li>Bericht auf Englisch oder Deutsch, Dokumentation auf Englisch, Vortrag auf Deutsch oder Englisch</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Fragen?</h2>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Themenvorschläge</h2>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Continuous Integration</span></h2>
+      <h3>For Prolog Programs</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Continuous Integration</h2>
+      <h3>For Prolog Programs</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Languages: Various (Service Configurations)</li>
+        <li>Keywords: CI, Continuous Delivery</li>
+        <li>Focus: Tool Chain, Configuration, Workflow</li>
+        <li>Aims: Test Program against multiple Prolog Versions (SWI 6, SWI 7, SICStus, GNU Prolog)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">A Style Linter for Prolog</span></h2>
+      <h3>Prolog Standard Style&trade;</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>A Style Linter for Prolog</h2>
+      <h3>Prolog Standard Style&trade;</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog (Ugly)">
+edge(ulm, wuerzburg). edge(ulm, berlin).
+path(A, Beta) :-
+   edge(A, Beta).
+   edge(berlin, wuerzburg).
+path(X, Xs) :- edge(X, _city)
+             , path(_city, Xs).
+</pre>
+
+      <pre class="prettyprint" data-lang="JavaScript, ESLint">
+/*eslint indent: ["error", "tab"]*/
+/*eslint linebreak-style: ["error", "unix"]*/
+</pre>
+
+      <ul>
+        <li>Languages: <u>Prolog</u></li>
+        <li>Keywords: Style Guide, Linting, Parser, AST</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">An Interactive Visualisation for DCGs</span></h2>
+      <h3>ClickyDCG&trade;</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>An Interactive Visualisation for DCGs</h2>
+      <h3>ClickyDCG&trade;</h3>
+    </hgroup>
+    <article>
+      <p>DCG = Definite Clause Grammar</p>
+      <pre class="prettyprint" data-lang="DCG">
+value(Const, Value) -->
+  int_value(Value) |
+  float_value(Value) |
+  string_value(Value) |
+  boolean_value(Value) |
+  enum_value(Value) |
+  list_value(Const, Value) |
+  object_value(Const, Value).
+
+boolean_value(true) -->
+  "true".
+boolean_value(false) -->
+  "false".
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>An Interactive Visualisation for DCGs</h2>
+      <h3>ClickyDCG&trade;</h3>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Languages: DCG, <u>Prolog</u>, <u>UI</u></li>
+      </ul>
+
+      <iframe data-src="http://stefankoegel.github.io/clickyEvaluation/"></iframe>
+
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Optimising DCGs</span></h2>
+      <h3>Pre-Compiling vs. Memoization</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Optimising Definite Clause Grammars</h2>
+      <h3>Pre-Compiling vs. Memoization</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG">
+value(Const, Value) -->
+  int_value(Value) |
+  float_value(Value) |
+  string_value(Value) |
+  boolean_value(Value) |
+  enum_value(Value) |
+  list_value(Const, Value) |
+  object_value(Const, Value).
+</pre>
+      <ul>
+        <li>Languages: DCG, <u>Prolog</u></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Prolog Connector</span></h2>
+      <h3>For JavaScript or Python</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Prolog Connector</h2>
+      <h3>For JavaScript or Python</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+var Prolog = require('prolog')
+var knowledge = new Prolog()
+
+knowledge`
+  edge(ulm, wuerzburg).
+  edge(ulm, berlin).
+`
+for (let { From, To } of knowledge.ask('edge(From, To)')) {
+  console.log(From, To)
+}
+</pre>
+      <ul>
+        <li>Languages: <u>JavaScript (ES 2015) / Python</u>, Prolog</li>
+        <li>Keywords: Domain-Specific Language, Quasi Quotation, Tagged Template String, Pengines</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Prolog Interpreter for JavaScript</span></h2>
+      <h3>Use Prolog in the Browser, Drones, ...</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Prolog Interpreter for JavaScript</h2>
+      <h3>Use Prolog in the Browser, Drones, ...</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+var Prolog = require('prolog')
+var knowledge = new Prolog()
+
+knowledge`
+  edge(ulm, wuerzburg).
+  edge(ulm, berlin).
+`
+for (let { From, To } of knowledge.ask('edge(From, To)')) {
+  console.log(From, To)
+}
+</pre>
+      <ul>
+        <li>Languages: <u>JavaScript (ES 2015)</u>, Prolog</li>
+        <li>Keywords: Domain-Specific Language, Tagged Template String, Transpiler, Grammar, PEG.js, Babel.js</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Disorderly Distributed Programming</span></h2>
+      <h3>Integrating Bloom into Prolog or JavaScript</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Disorderly Distributed Programming</h2>
+      <h3>Integrating Bloom into Prolog or JavaScript</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Bloom (Bud in Ruby)">
+nodelist <= connect { |c| [c.client, c.nick] }
+mcast <~ (mcast * nodelist).pairs { |m,n| [n.key, m.val] }
+</pre>
+      <ul>
+        <li>Languages: Bloom (BOOM), <u>Prolog / JavaScript</u>, Ruby</li>
+        <li>Keywords: BOOM, Distributed Programming, Streams, Domain-Specific Language</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">XSD 1.1 with Prolog</span></h2>
+      <h3>Declarative XML Schema 1.1 Validation with Prolog</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>XSD 1.1 with Prolog</h2>
+      <h3>Declarative XML Schema 1.1 Validation with Prolog</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="XSD 1.1">
+&lt;xs:simpleType name="even">
+  &lt;xs:restriction base="xs:integer"&gt;
+    &lt;xs:minInclusive value="0" /&gt;
+    &lt;xs:maxInclusive value="100" /&gt;
+    &lt;xs:assertion test="$value mod 2 = 0" /&gt;
+  &lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;
+</pre>
+      <ul>
+        <li>Languages: XSD, Prolog</li>
+        <li>Keywords: XML Schema 1.1, Domain-Specific Language, AST, Validation</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Vergabe</h2>
+    </article>
+  </slide>
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Interesse?</h2>
+    </hgroup>
+    <article>
+      <table class="rows">
+        <tr>
+          <th style="width:450px">Continuous Integration for Prolog</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>A Style Linter for Prolog</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>An Interactive Visualisation for DCGs</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Optimising DCGs</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Prolog Connector for Python or JavaScript</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Prolog Interpreter for JavaScript</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Integrating Bloom into Prolog or JavaScript</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Declarative XSD 1.1 Validation with Prolog</th><td>NN</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wie geht es weiter?</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Anmeldung im WueCampus</li>
+        <li>Anmeldung nach Vereinbarung im SB@Home</li>
+        <li>Einarbeitung ins Thema</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Viel Erfolg!</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(Question,Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
