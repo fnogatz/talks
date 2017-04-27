@@ -1,0 +1,501 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2><p>Prof. Dr.</p>Dietmar Seipel</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p><a href="mailto:dietmar.seipel@uni-wuerzburg.de">dietmar.seipel@uni-wuerzburg.de</a><br />Raum E30<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2><p>M.Sc.</p>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p><a href="mailto:falco.nogatz@uni-wuerzburg.de">falco.nogatz@uni-wuerzburg.de</a><br />Raum E34<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2><p>M.Sc.</p>Mirco Lukas</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p><a href="mailto:mirco.lukas@uni-wuerzburg.de">mirco.lukas@uni-wuerzburg.de</a><br />Raum E31<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Und Ihr so?</h2>
+    </article>
+    <aside class="note">
+      <section>
+        <ul>
+          <li>Bachelor/Master?</li>
+          <li>Semester?</li>
+          <li>Schon Seminar gehabt?</li>
+          <li>LaTeX Erfahrung?</li>
+        </ul>
+      </section>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Organisation des Seminars</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Blockveranstaltung am Ende des Semesters</li>
+        <li>Individuelle Bearbeitung des Themas</li>
+        <li>Einstiegsliteratur gegeben, Seminartitel nicht in Stein gemeißelt</li>
+        <li>Ggf. ein bis zwei Info-Termine, etwa LaTeX-Kurs</li>
+        <li>Anmeldung über SB@Home zwischen 01.05.2017 und 31.05.2017</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Art der Ausarbeitung</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Schriftliche Seminararbeit ca. 12 Seiten, maximal 15 Seiten</li>
+        <li>Abschlussvortrag ca. 45 Minuten, inklusive Zeit für Fragen</li>
+        <li>Seminararbeit auf Englisch, Vortrag auf Deutsch oder Englisch</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Verpflichtende Vorlagen</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Schriftliche Seminararbeit:
+        <ul class="build">
+          <li>LaTeX-Vorlage</li>
+          <li>BibTeX-Literaturverwaltung</li>
+        </ul></li>
+        <li>Präsentation:<ul class="build">
+          <li>LaTeX-Beamer</li>
+          <li>PowerPoint</li>
+          <li>HTML5</li>
+          <li>... relativ frei in der Gestaltung</li>
+        </li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Seminararbeit</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/seminar.png" style="border:1px solid #aaa;">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>LaTeX-Beamer</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/latex-beamer.png" style="border:1px solid #aaa;">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>PowerPoint</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/Powerpoint.png" style="border:1px solid #aaa;">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>HTML5</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/html5.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/wuecampus.png)">
+    <article >
+
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Fragen?</h2>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Themen</h2>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">GraphQL</span></h2>
+      <h3>A Survey about Facebook's new Query Language</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>GraphQL</h2>
+      <h3>A Survey about Facebook's new Query Language</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="GraphQL">
+{
+  user(id: 1) {
+    name
+    age
+    friends {
+      name
+    }
+  }
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">From <code>G<small>ROUP</small> B<small>Y</small></code> to <code>M<small>AP</small>R<small>EDUCE</small></code></span></h2>
+      <h3>Database Aggregations using the example of MongoDB</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>From <code>G<small>ROUP</small> B<small>Y</small></code> to <code>M<small>AP</small>R<small>EDUCE</small></code></span></h2>
+      <h3>Database Aggregations using the example of MongoDB</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="MongoDB $group">
+db.orders.aggregate(
+  [
+    { $group : { _id : "$cust_id", prices: { $push: "$price" } } }
+  ]
+)
+</pre>
+      <pre class="prettyprint" data-lang="MapReduce">
+db.orders.mapReduce(
+  function() { emit(this.cust_id, this.price) },
+  function(keyCustId, valuesPrices) {
+    return Array.sum(valuesPrices)
+  }
+)
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">LogicBlox</span></h2>
+      <h3>A Prolog Success-Story</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>LogicBlox</h2>
+      <h3>A Prolog Success-Story</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/logiql.png">
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Disjunctive Logic Programming</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Disjunctive Logic Programming</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog">
+parent(P,C) :- father(P,C).
+parent(P,C) :- mother(P,C).
+</pre>
+      <pre class="prettyprint build" data-lang="DLP">
+<span>father(P,C) &or; mother(P,C) :- parent(P,C).</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Attributed Variables in Prolog</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Attributed Variables in Prolog</h2>
+    </hgroup>
+    <article>
+      <pre class="" data-lang="prolog" style="color:#333;">
+?- use_module(library(clpfd)).
+?- X in 0..10, Y #= 3*X, Y in 0..5.
+X in 0..1,
+3*X #= Y,
+Y in 0..3.
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Delimited Continuations in Prolog</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Delimited Continuations in Prolog</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="prolog">
+main :-
+   writeln(a),                  1. a
+   reset(p,X,Cont),
+   writeln(X),                  3. hello
+   writeln(c),                  4. c
+   call(Cont).
+p :-
+   writeln(b),                  2. b
+   shift(hello),
+   writeln(d).                  5. d
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Make Prolog Logical Again</span></h2>
+      <h3>Tabled Execution in SWI-Prolog</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Make Prolog Logical Again</h2>
+      <h3>Tabled Execution in SWI-Prolog</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="prolog">
+p(A,B) :- e(A,B).
+p(A,B) :- p(A,M), p(M,B).
+
+e(ulm,wuerzburg).
+e(wuerzburg,berlin).
+</pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">Inductive Logic Programming with Metagol</span></h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Inductive Logic Programming with Metagol</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="prolog" style="float:left; width:45%;">
+mother(ann,amy).
+mother(ann,andy).
+mother(amy,amelia).
+mother(linda,gavin).
+father(steve,amy).
+father(steve,andy).
+father(gavin,amelia).
+father(andy,spongebob).
+</pre>
+      <pre class="prettyprint" data-lang="prolog" style="float:right; width:45%; margin-left: 10%;">
+a :-
+  %% positive examples
+  Pos = [
+    grandparent(ann,amelia),
+    grandparent(steve,amelia),
+    grandparent(ann,spongebob),
+    grandparent(steve,spongebob),
+    grandparent(linda,amelia)
+  ],
+  %% negative examples
+  Neg = [
+    grandparent(amy,amelia)
+  ],
+  learn(Pos,Neg,Prog),
+  pprint(Prog).
+</pre>
+
+      <pre class="prettyprint" data-lang="prolog" style="clear: both;">
+grandparent(A,B) :- grandparent_1(A,C), grandparent_1(C,B).
+grandparent_1(A,B) :- mother(A,B).
+grandparent_1(A,B) :- father(A,B).
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em"><span class="uni-blue">VoCol</span></h2>
+      <h3>Vocabulary collaboration and build environment</h3>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>VoCol</h2>
+      <h3>Vocabulary collaboration and build environment</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/vocol.png" style="border:1px solid #aaa;">
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px;">Vergabe</h2>
+    </article>
+  </slide>
+
+
+
+  <slide>
+    <hgroup>
+      <h2>Themenvergabe</h2>
+    </hgroup>
+    <article>
+      <table class="rows">
+        <tr>
+          <th style="width:350px;">Facebook's GraphQL</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Aggregations with MongoDB</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>LogiQL by LogicBlox</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Disjunctive Logic Programming</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Attributed Variables</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Delimited Continuations</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Tabling in Prolog</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Inductive LP with Metagol</th><td>NN</td>
+        </tr>
+        <tr>
+          <th>Ontologies with Vocol</th><td>NN</td>
+        </tr>
+      </table>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wie geht es weiter?</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Anmeldung im WueCampus</li>
+        <li>Anmeldung bis Ende Mai in SB@Home</li>
+        <li>Literaturrecherche</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Viel Erfolg!</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(Question,Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
