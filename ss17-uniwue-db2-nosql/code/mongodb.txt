@@ -1,0 +1,13 @@
+db.haltestellen.findOne({
+  "ort": "Ulm"
+})
+
+db.haltestellen.find({ "ort": "Ulm" }).count()
+
+db.haltestellen.find({ "ort": "Ulm" }, { ort: 1 }).limit(2)
+
+db.haltestellen.find({ "ort": { $in: [ "Ulm", "Neu-Ulm" ] } }).count()
+
+db.example.find()
+
+db.example.update({ "name": "falco" }, { "name": "dietmar" })

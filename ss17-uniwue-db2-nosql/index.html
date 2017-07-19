@@ -1,0 +1,492 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="images/favicons/manifest.json">
+  <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#00c7ff">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2><p>M.Sc.</p>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />Raum E34<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Recap: Database Concepts</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Relational Databases (tables, tuples, columns): SQL</li>
+        <li>Hierarchical Databases (tree structure): XML</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>NoSQL</h2>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/nosql-cv.jpg); background-size: contain; background-position: center center;">
+    <footer class="source black">
+  source: 
+  <a href="http://geekandpoke.typepad.com/geekandpoke/2011/01/nosql.html">http://geekandpoke.typepad.com/geekandpoke/2011/01/nosql.html</a>
+    </footer>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>NoSQL</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>NoSQL = Not Only SQL</li>
+        <li>Build by demands of modern database applications</li>
+        <li>Use Hipster technologies! :)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Demands of Modern Database Applications</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Massive data amount (<i>Big Data</i>)</li>
+        <li>Rapidly changing data types</li>
+        <li>Modern development approaches: agile software development, etc.</li>
+        <li>New use-cases: geospatial applications, ubiquitous computing, graph-based applications, data versioning, etc.</li>
+        <li>Non-traditional database requirements: consistency, reliability, scalability, latency, etc.</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>NoSQL Database Types</h2>
+    </hgroup>
+    <article>
+      <ul class="">
+        <li>Key-value Stores: Redis</li>
+        <li>Wide-Column Stores <em>(spaltenorientierte Datenbank)</em>: Cassandra, HBase</li>
+        <li>Graph Databases: Neo4j</li>
+        <li>Document Databases: CouchDB, MongoDB, ArangoDB</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Key-value Stores</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Redis</h2>
+      <h3>Key-value Store</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Redis = remote dictionary server</li>
+        <li>Most popular key-value store</li>
+        <li>Used by Twitter, GitHub, Snapchat, StackOverflow</li>
+        <li>BSD License, written in ANSI C</li>
+        <li>Supports clusters, geospatial queries</li>
+        <li>Configurable for ACID</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Example</h2>
+    </hgroup>
+    <article>
+      <p>Usually (extended) JSON documents</p>
+      <pre class="prettyprint" data-lang="shell">
+$ redis-cli
+redis 127.0.0.1:6379> set mykey somevalue
+OK
+redis 127.0.0.1:6379> get mykey
+"somevalue"
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Wide-Column Stores</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Wide-Column Stores</h2>
+    </hgroup>
+    <article>
+      <ul class="">
+        <li>German term <i>Spaltenorienterte Datenbank</i> used for different approaches</li>
+        <li>Names and format of columns can vary from row to row</li>
+        <li>Multi-dimensional key-value store</li>
+        <li>Google BigTable in 2004</li>
+        <li>Cassandra used by Facebook (Inbox Search), Netflix, Wikipedia (Content API)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Graph Databases</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Graph Databases</h2>
+    </hgroup>
+    <article>
+      <ul class="">
+        <li>Data representation using nodes (entities) and edges (relationships)</li>
+        <li>Nodes with additional information (properties)</li>
+        <li>Neo4j used by Airbnb (Data Exploration), NASA (Knowledge Representation), Deutsche Bahn (Configuration Management)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Neo4j with Twitter</h2>
+      <h3>Live Demo</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>sones Graph Query Language</h2>
+    </hgroup>
+    <article>
+      <p>SQL for graphs</p>
+      <pre class="prettyprint" data-lang="sones">
+FROM User SELECT
+  User.Friends.Friends.Name
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>Document Databases</h2>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Claims</h2>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        MongoDB is a document database with the scalability and flexibility that you want with the querying and indexing that you need.
+      </q>
+      <div class="author">
+        MongoDB
+      </div>
+    </article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        The NoSQL multi-model database that scales. An easy to use mostly memory, high performance, open source NoSQL database with a unique combination of features like graph &amp; geo queries.
+      </q>
+      <div class="author">
+        ArangoDB
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>MongoDB</h2>
+      <h3>Document Database</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>From hu<i>mongo</i>us = <i>gigantisch</i></li>
+        <li>Origins in 2009</li>
+        <li>Data stored in documents and collections using BSON</li>
+        <li>Most popular NoSQL database</li>
+        <li>Used by Expedia, Ebay</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Documents</h2>
+    </hgroup>
+    <article>
+      <p>Usually (extended) JSON documents</p>
+      <pre class="prettyprint" data-lang="bson">
+{
+  "_id": ObjectId("5099803df3f4948bd2f98391"),
+  "name": "sue",
+  "age": 26,
+  "status": "A",
+  "groups": [ "news", "sport" ]
+}
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>NoSQL? &mdash; No Queries!</h2>
+    </hgroup>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>MongoDB</h2>
+      <h3>Live Demo</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Live Demo: Queries</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="bson">
+db.haltestellen.findOne({
+  "ort": "Ulm"
+})
+
+db.haltestellen.find({ "ort": "Ulm" }).count()
+
+db.haltestellen.find({ "ort": "Ulm" }, { ort: 1 }).limit(2)
+
+db.haltestellen.find({ "ort": { $in: [ "Ulm", "Neu-Ulm" ] } }).count()
+
+db.example.find()
+
+db.example.update({ "name": "falco" }, { "name": "dietmar" })
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CouchDB</h2>
+      <h3>Document Database</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>First release in 2005</li>
+        <li>Authors: Damien Katz, Jan Lehnardt</li>
+        <li>Written in Erlang</li>
+        <li>HTTP REST interface, native replication, MapReduce</li>
+        <li>Used by Sky, Ryanair</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>CouchDB: Futon</h2>
+      <h3>Live Demo</h3>
+    </hgroup>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/nosql-fault-tolerance.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+  source: 
+  <a href="http://howfuckedismydatabase.com/nosql/">http://howfuckedismydatabase.com/nosql/</a>
+    </footer>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/mapreduce.jpg); background-size: contain; background-position: center center;">
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>CouchDB: MapReduce</h2>
+      <h3>Live Demo</h3>
+    </hgroup>
+  </slide>
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>All rainbow and unicorns?</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Recap: ACID</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Atomicity: <i>all or nothing</i></li>
+        <li>Consistency: <i>always a valid state</i></li>
+        <li>Isolation: <i>concurrency control</i></li>
+        <li>Durability <i>(Persistenz)</i>: <i>survice crashes</i></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CAP-Theorem</h2>
+      <h3>(Brewers Theorem)</h3>
+    </hgroup>
+    <article>
+      <q>
+        In a distributed data storage it is impossible to simultaneously provide more than two out of the following three guarantees: consistency, availability, partition tolerance.</q>
+      </q>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CAP</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Consistency: <i>every read receives the most recent write or an error</i></li>
+        <li>Availability: <i>every request gets a non-error response</i></li>
+        <li>Partition Tolerance: <i>system reliable even with dropped messages</i></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>BASE</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Basically Available</li>
+        <li>Soft State: <i>not always consistent</i></li>
+        <li>Eventual Consistency: <i>becomes consistent at some time</i></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2>NoSQL? &mdash; KnowSQL!</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>MySQL Alternatives</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>MariaDB: <i>Guaranteed to stay open source.</i></li>
+        <li>PostgreSQL: <i>The most advanced open source database.</i></li>
+        <li>SQLite: <i>A self-contained, high-reliability, embedded, SQL engine.</i>
+        <li>DB2, MSSQL Server, Oracle, Derby, ...</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Thank you!</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="MongoDB" >
+db.questions.find();
+      </pre>
+
+	<br/> <br/> <br/>
+
+	<p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
