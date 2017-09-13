@@ -1,0 +1,798 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">Declarative XML Schema Validation</h1>
+      <h2 style="color: #797979;">with SWI–Prolog</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li>System Description</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Yet another<br />XSD Validator?
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q>
+        SWI Prolog's 'sgml' does not yet come with a schema validator, but who knows what the future holds?
+      </q>
+      <div class="author">
+        SWI-Prolog documentation, SGML package
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Motivation</h2>
+      <h3>Prolog's Point of View</h3>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>Good XML support but missing XSD features</li>
+        <li>SWI &hearts; the web</li>
+        <li>Application domains: web services, data storage formats, data analysis</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Motivation</h2>
+      <h3>The Implementer's Choice</h3>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>SWI has good XML support</li>
+        <li>Little tools with XSD 1.1 support</li>
+        <li>Existing implementations little declarative</li>
+        <li>Typical needs: pattern matching, DOM tree traversal, backtracking</li> 
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Our Approach</h2>
+      <h3><code>library(xsd)</code></h3>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>Module to load XML files</li>
+        <li>Validates against XSD</li>
+        <li>Well tested</li>
+        <li>Open source and available in SWI's packs list</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Outline</h3>
+    </hgroup>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Outline</h2>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>Motivating Example</li>
+        <li>XML Representations</li>
+        <li>Validation Process</li>
+        <li>Testing Framework</li>
+        <li>Conclusions and Future Work</li>
+      </ul>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Example</h2>
+    </hgroup>
+    <article class="build">
+      <pre class="prettyprint valid" data-lang="XML" style="width:47%;float:left;">
+&lt;person no="123">
+  &lt;name>John Doe&lt;/name>
+  &lt;email>john@doe.com&lt;/email>
+  &lt;email>j.doe@example.com&lt;/email>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint invalid" data-lang="XML" style="width:47%;float:right; left:0;">
+&lt;person no="abc">
+  &lt;name>John Doe&lt;/name>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint build" data-lang="XSD" style="clear: both;">
+<span>&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="person"&gt;&lt;xs:complexType&gt;
+    &lt;xs:sequence&gt;</span><span>
+      &lt;xs:element name="name" type="xs:string" /&gt;</span><span>
+      &lt;xs:element name="email" type="xs:string" maxOccurs="unbounded" /&gt;</span><span>
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="no" type="id" use="required" /&gt;
+  &lt;/xs:complexType&gt;&lt;/xs:element&gt;</span><span>
+  &lt;xs:simpleType name="id"&gt;&lt;xs:restriction base="xs:int"&gt;
+    &lt;xs:minInclusive value="100" /&gt;
+  &lt;/xs:restriction&gt;&lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</span>
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Data Structures in Prolog</h3>
+    </hgroup>
+    <article class="">
+
+      <h3><code>library(sgml)</code></h3>
+
+      <pre class="prettyprint valid" data-lang="XML" style="width:47%;float:left;">
+&lt;person no="123">
+  &lt;name>John Doe&lt;/name>
+  &lt;email>john@doe.com&lt;/email>
+  &lt;email>j.doe@example.com&lt;/email>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint" data-lang="Prolog" style="width:47%;float:right; left:0;">
+element( <span class="tag important">person</span>,
+  [ <span class="atn important">no</span>=<span class="atv important">'123'</span> ],
+  [ element(
+      <span class="tag important">name</span>,
+      [], [ ... ]), ... ] )
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Data Structures in Prolog</h3>
+    </hgroup>
+    <article class="">
+
+      <h3>Field Notation, F<small style="font-size:80%;">N</small>Q<small style="font-size:80%;">UERY</small> (Seipel, WLP 2002)</h3>
+
+      <pre class="prettyprint valid" data-lang="XML" style="width:47%;float:left;">
+&lt;person no="123">
+  &lt;name>John Doe&lt;/name>
+  &lt;email>john@doe.com&lt;/email>
+  &lt;email>j.doe@example.com&lt;/email>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint" data-lang="Prolog" style="width:47%;float:right; left:0;">
+<span class="tag important">person</span>:[<span class="atn important">no</span>=<span class="atv important">'123'</span>]:[
+  <span class="tag important">name</span>:[<span class="pln important">'John Doe'</span>],
+  <span class="tag important">email</span>:[<span class="pln important">'john@doe.com'</span>],
+  <span class="tag important">email</span>:[<span class="pln important">'j.doe@example.com'</span>]
+]
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Association lists and triples</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Disadvantages of nested representations</h3>
+    </hgroup>
+    <article class="build" style="margin-top:28px;">
+
+      <pre class="prettyprint" data-lang="XSD" style="clear: both;">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="person"&gt;&lt;xs:complexType&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="name" type="xs:string" /&gt;
+      &lt;xs:element name="email" type="xs:string" maxOccurs="unbounded" /&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="no" <span class="highlight">type="id"</span> use="required" /&gt;
+  &lt;/xs:complexType&gt;&lt;/xs:element&gt;
+  <span class="highlight">&lt;xs:simpleType name="id"&gt;</span>&lt;xs:restriction base="xs:int"&gt;
+    &lt;xs:minInclusive value="100" /&gt;
+  &lt;/xs:restriction&gt;&lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;
+</pre>
+
+      <pre class="prettyprint build" data-lang="Prolog" style="clear: both;">
+<span class="pln important">?- element(_Parent_ID, S_ID, <span class="tag important">simpleType</span>),</span><span class="pln important">
+   attribute($S_ID, <span class="atn important">name</span>, <span class="atv important">id</span>),
+   element(S_ID, R_ID, <span class="tag important">restriction</span>),
+   attribute(R_ID, <span class="atn important">base</span>, <span class="atv important">Base_Type</span>).</span>
+</pre>
+    </article>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li>No easy tree traversal</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Flattening</h3>
+    </hgroup>
+    <article>
+
+    <h3>Assertion of facts:</h3>
+<div class="build">
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">node(Handle, ID, Namespace, Type)</span>
+</pre>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">node_attribute(Handle, ID, Attribute, Value)</span>
+</pre>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">text_node(Handle, ID, Text)</span>
+</pre>
+</div>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Flattening: Example (I)</h3>
+    </hgroup>
+    <article class="" style="">
+
+      <pre class="prettyprint" data-lang="XSD" style="clear: both;">
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="person"&gt;&lt;xs:complexType&gt;
+    &lt;xs:sequence&gt;
+      &lt;xs:element name="name" type="xs:string" /&gt;
+      &lt;xs:element name="email" type="xs:string" maxOccurs="unbounded" /&gt;
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="no" type="id" use="required" /&gt;
+  &lt;/xs:complexType&gt;&lt;/xs:element&gt;
+  &lt;xs:simpleType name="id"&gt;&lt;xs:restriction base="xs:int"&gt;
+    &lt;xs:minInclusive value="100" /&gt;
+  &lt;/xs:restriction&gt;&lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;
+</pre>
+    </article>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li>No easy tree traversal</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Flattening: Example (II)</h3>
+    </hgroup>
+    <article class="" style="">
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">?- xml_flatten('file.xsd', xsd),
+   listing([node/4, node_attribute/4, text_node/4]).</span>
+<span class="build"><span class="pln important">
+node(xsd, [      0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), schema).
+node(xsd, [   0, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), element).
+node(xsd, [0, 0, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), complexType).
+node(xsd, [   1, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), simpleType).
+node(xsd, [0, 1, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), restriction).
+% ... and 5 other node/4</span><span class="pln important">
+
+node_attribute(xsd, [      0], xmlns:xs, 'http://www.w3.org/2001/XMLSchema').
+node_attribute(xsd, [   0, 0], name, person).
+node_attribute(xsd, [   1, 0], name, id).
+node_attribute(xsd, [0, 1, 0], base, 'xs:int').
+% ... and 9 other node_attribute/4</span></span>
+</pre>
+    </article>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>XML Representation</h2>
+      <h3>Flattening: Example (II)</h3>
+    </hgroup>
+    <article class="" style="">
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">?- xml_flatten('file.xsd', <span class="highlight nospace">xsd</span>),
+   listing([node/4, node_attribute/4, text_node/4]).</span>
+<span class=""><span class="pln important">
+node(<span class="highlight nospace">xsd, [      0]</span>, ns(xs, 'http://www.w3.org/2001/XMLSchema'), schema).
+node(xsd, [   0, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), element).
+node(xsd, [0, 0, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), complexType).
+node(xsd, [   1, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), simpleType).
+node(xsd, [0, 1, 0], ns(xs, 'http://www.w3.org/2001/XMLSchema'), restriction).
+% ... and 5 other node/4</span><span class="pln important">
+
+node_attribute(<span class="highlight nospace">xsd, [      0]</span>, xmlns:xs, 'http://www.w3.org/2001/XMLSchema').
+node_attribute(xsd, [   0, 0], name, person).
+node_attribute(xsd, [   1, 0], name, id).
+node_attribute(xsd, [0, 1, 0], base, 'xs:int').
+% ... and 9 other node_attribute/4</span></span>
+</pre>
+    </article>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Validation</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Example</h2>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint valid" data-lang="XML" style="width:47%;float:left;">
+&lt;person no="123">
+  &lt;name>John Doe&lt;/name>
+  &lt;email>john@doe.com&lt;/email>
+  &lt;email>j.doe@example.com&lt;/email>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint invalid" data-lang="XML" style="width:47%;float:right; left:0;">
+&lt;person no="abc">
+  &lt;name>John Doe&lt;/name>
+&lt;/person>
+</pre>
+
+      <pre class="prettyprint" data-lang="XSD" style="clear: both;">
+<span>&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;xs:element name="person"&gt;&lt;xs:complexType&gt;
+    &lt;xs:sequence&gt;</span><span>
+      &lt;xs:element name="name" type="xs:string" /&gt;</span><span>
+      &lt;xs:element name="email" type="xs:string" maxOccurs="unbounded" /&gt;</span><span>
+    &lt;/xs:sequence&gt;
+    &lt;xs:attribute name="no" type="id" use="required" /&gt;
+  &lt;/xs:complexType&gt;&lt;/xs:element&gt;</span><span>
+  &lt;xs:simpleType name="id"&gt;&lt;xs:restriction base="xs:int"&gt;
+    &lt;xs:minInclusive value="100" /&gt;
+  &lt;/xs:restriction&gt;&lt;/xs:simpleType&gt;
+&lt;/xs:schema&gt;</span>
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Top-down Validation</h2>
+      <h3>Using Simultaneous Tree Traversals</h3>
+    </hgroup>
+    <article class="build" style="">
+
+<div>
+      <h3>Validating a node:</h3>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">validate(+D_Handle, +D_ID, ?Vals, +S_Handle, +S_ID)</span>
+</pre>
+</div>
+
+<div>
+    <h3>Start of the validation:</h3>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">validate(S_Handle, D_Handle) :-
+  validate(D_Handle, [0], 1, S_Handle, [0]).</span>
+</pre>
+</div>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Top-down Validation</h2>
+      <h3>Complex Type Validation: Root Node</h3>
+    </hgroup>
+    <article class="" style="">
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">validate(D_Handle, D_ID, 1, S_Handle, S_ID) :-
+   node(S_Handle, S_ID, ns(_, 'http://www.w3.org/2001/XMLSchema'), schema),
+   
+   child(S_Handle, S_ID, S_Child),
+   node(S_Handle, S_Child, ns(_, 'http://www.w3.org/2001/XMLSchema'), element),
+   
+   validate(D_Handle, D_ID, 1, S_Handle, S_Child).
+
+% ... and other alternatives</span>
+</pre>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Top-down Validation</h2>
+      <h3>Complex Type Validation: Leaf Node</h3>
+    </hgroup>
+    <article class="" style="">
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">validate(D_Handle, D_ID, Vals, S_Handle, S_ID) :-
+   node(S_Handle, S_ID, ns(_, 'http://www.w3.org/2001/XMLSchema'), element),
+   attribute(S_Handle, S_ID, minOccurs, Min), 
+   attribute(S_Handle, S_ID, maxOccurs, Max),
+   between(Min, Max, Vals),
+   validate_element(D_Handle, D_ID, S_Handle, S_ID),
+   forall(between(Vals+1, Max, Next), 
+      (get_nth_sibling(D_Handle, D_ID, Next, Next_ID),
+         validate(D_Handle, Next_ID, 1, S_Handle, S_ID))).</span>
+</pre>
+
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Used Techniques</h2>
+    </hgroup>
+    <article style="">
+      <ul class="build">
+        <li>Unification</li>
+        <li>Backtracking</li>
+        <li>Tabling</li>
+        <li>Third-party modules like <code>library(regex)</code> and <code>library(tap)</code></li>
+        <li>Test-driven development</li>
+        <li>Quasi-quotations, term expansions</li>
+      </ul>
+    </article>
+    <aside class="note">
+      <ul>
+        <li>Unification: find the right element</li>
+        <li>Backtracking: finde the right alternative</li>
+        <li>Tabling: avoid recalculation using memoisation</li>
+        <li>regex: <code>restriction base="string"</code> with <code>pattern</code>, XSD pre-defined types</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Test Framework</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2><code>library(tap)</code></h2>
+      <h3>Test Anything Protocol</h3>
+    </hgroup>
+    <article style="">
+      <p>SWI-Prolog pack by Michael Hendricks</p>
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">swipl -q -g main -t halt -s test/test.pl | tap-prettify -
+<span class="atv important">356/356 tests passed</span>, none skipped.
+</span></pre>
+
+      <p><code>library(tap)</code> specifies tests as Prolog rules, get expanded using term expansion</p>
+
+      <p>Our approach: Use together with quasi-quoations for XML embedding.</p>
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Test Framework</h2>
+      <h3>Using Quasi-Quotations</h3>
+    </hgroup>
+    <article style="" class="build">
+      <pre class="prettyprint" data-lang="XSD" style="width:47%;float:left;">
+
+&lt;!-- test/schema/string.pl -->
+
+&lt;?xml version="1.0"
+  encoding="UTF-8"?>
+&lt;xs:schema xmlns:xs="...">
+  &lt;xs:element name="text"
+    type="xs:string" />
+&lt;/xs:schema></pre>
+
+      <pre class="prettyprint" data-lang="Prolog" style="float:right; width: 47%; left:0;">
+<span class="pln important">
+% test/validation/string.pl
+
+'Simple xs:string':
+{|xml||
+  &lt;text>Test String&lt;/text>
+|}.
+
+'Empty xs:string with short tag':
+{|xml||
+  &lt;text />
+|}.
+
+'ComplexType is no xs:string'(fail):
+{|xml||
+  &lt;text>&lt;string />&lt;/text>
+|}.</span></pre>
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Conclusion and<br />
+        Future Work</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Contributions</h2>
+    </hgroup>
+    <article class="build">
+      <ul class="build large">
+        <li>Implementation of XSD Validator in SWI-Prolog</li>
+        <li>A discussion on XML data representation in Prolog</li>
+        <li>Example application in a modern development approach: test-driven, TAP, quasi-quotations</li>
+      </ul>
+
+      <p style="text-align:center; margin-top: 60px; font-size: 40px;" class="uni-red">github.com/jonakalkus/xsd</p>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Provided Modules</h2>
+    </hgroup>
+    <article>
+      <ul class="build large">
+        <li><code>library(xsd)</code></li>
+        <li><code>library(xsd/flatten)</code></li>
+        <li><code>library(xsd/simpletype)</code></li>
+        <li><code>library(xsd/validate)</code></li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Future Work</h2>
+    </hgroup>
+    <article>
+      <ul class="build large">
+        <li>XPath support</li>
+        <li>Support for features of XSD 1.1</li>
+        <li>Unified graph representation</li>
+        <li>Useful return values</li>
+        <li>Tabling of failing answers</li>
+      </ul>
+    </article>
+  </slide>
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Questions?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(falco, Question, Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>University of Würzburg<br>Chair for Computer Science I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />http://uni-wuerzburg.de/?nogatz</p>
+    </article>
+  </slide>
+
+
+
+
+  <slide class="">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:2em">Backup Slides</span></h2>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Memoisation of failing answers</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+<span class="pln important">:- dynamic xsd_table/2.
+validate_tabled(D_Handle, D_ID, Vals, S_Handle, S_ID) :-
+   ( xsd_table(validate(D_Handle, D_ID, Vals, S_Handle, S_ID), Valid) ->
+     !, call(Valid)      % still trigger backtracking if invalid
+   ; validate(D_Handle, D_ID, Vals, S_Handle, S_ID) ->
+     asserta(xsd_table(validate(D_Handle, D_ID, Vals, S_Handle, S_ID), true))
+   ; asserta(xsd_table(validate(D_Handle, D_ID, Vals, S_Handle, S_ID), false)),
+     !, false ).         % trigger backtracking</span>
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+
+
+
+
+
+
+
+
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
