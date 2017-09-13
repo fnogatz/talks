@@ -3,6 +3,10 @@ Talks
 
 A little collection of talks I gave.
 
+## [WFLP'17: Declarative XML Schema Validation with SWI–Prolog](http://fnogatz.github.com/talks/wflp17-lib-xsd) (2017)
+
+*Workshop on (Constraint) Logic Programming (WLP), University of Würzburg, 9/20/2017*.
+
 ## [WLP'16: Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](http://fnogatz.github.com/talks/wlp16-graphql) (2016)
 
 *Workshop on (Constraint) Logic Programming (WLP), HTWK Leipzig, 9/12/2016*.
