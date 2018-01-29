@@ -1,0 +1,875 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">A Prolog Grammar written in Prolog</h1>
+      <h2 style="color: #797979;">Presentation of WIP</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span><br>
+      University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2><p>M.Sc.</p>Falco Nogatz</h2>
+      <p>Lehrstuhl für Informatik I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />Raum E32<br />Termin nach Absprache</p>
+    </article>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/prolog-prolog-meme.jpg); background-size: contain; background-position: center center;">
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/but-why.gif); background-size: contain; background-position: center center;">
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q style="font-size:36px;">
+        More feasible is a source-to-source compiler similar to JavaScript code minification. (...) Writing such a conversion has been discussed several times, but so far never found the funding and interest to really do it.
+      </q>
+      <div class="author">
+        Jan Wielemaker at the <a href="https://groups.google.com/d/msg/swi-prolog/BsvvvmhcUhY/FGSUxOsmCgAJ" style="color:#fff;">SWI-Prolog mailing list</a><br />25 Jan 2018
+      </div>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h3>(Even more)</h3>
+      <h2 style="font-size:72px; line-height:100px;">
+        Motivational<br />Use-Cases
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/astexplorer.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+  Falco Nogatz and Daniel Haumann: Ein Style Linter für Prolog (Praktikum WS 2016/17)
+    </footer>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/tabs-vs-spaces.jpg); background-size: contain; background-position: center center;">
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/paper-coding-guidelines.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+  Covington, Michael A., et al. "Coding guidelines for Prolog." Theory and Practice of Logic Programming 12.6 (2012): 889-927.
+    </footer>
+
+    <aside class="note">
+      <ul>
+        <li>Begin each clause on a new line and indent all but the first line of each clause.</li>
+        <li>Put each subgoal on a separate line.</li>
+        <li>Use vertical space consistently to improve readability.</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/eslint.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+      ESLint Demo, <a href="https://eslint.org/demo/">https://eslint.org/demo/</a>
+    </footer>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/pllint-mockup.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+      PLLint Demo (Mockup)
+    </footer>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/paper-comlan.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+      Seipel, Dietmar, Falco Nogatz, and Salvador Abreu. "Domain-specific languages in Prolog for declarative expert knowledge in rules and ontologies." Computer Languages, Systems &amp; Structures 51 (2018): 102-117.
+    </footer>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/neumerkel-swi7.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+      Ulrich Neumerkel, editor of ISO/IEC 13211-1 (core).<br>
+      <a href="https://www.complang.tuwien.ac.at/ulrich/iso-prolog/SWI7_and_ISO">https://www.complang.tuwien.ac.at/ulrich/iso-prolog/SWI7_and_ISO</a>
+    </footer>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>On the <span class="uni-red">Why</span> and <span class="uni-blue">How</span></h2>
+    </hgroup>
+    <article>
+      <div style="width:48%; float:left;">
+        <h3>A <span class="uni-red">Grammar Formalism</span></h3>
+
+        <ul class="build">
+          <li>Interactive Prolog demos with syntax highlighting</li>
+          <li>Enforce consistent code style</li>
+          <li>Support for multiple Prolog dialects and extensions</li>
+          <li>Source-to-source Transformations<br />
+            <small style="font-size:70%;">(Prolog &rarr; Prolog, Prolog &rarr; Any)</small></li>
+        </ul>
+      </div>
+      <div style="float:right; width:48%;">
+        <h3>with <span class="uni-blue">Prolog</span> and <span class="uni-blue">DCGs</span></h3>
+
+        <ul class="build">
+          <li>Eat your own dog food</li>
+          <li>Prolog's DCGs are very powerful</li>
+          <li>Proven to be useful for graph transformations</li>
+          <li>Automatically derive currently (most-) used styles</li>
+          <li>Automatically derive operator definitions</li>
+        </ul>
+      </div>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>e.g.: transform legacy code
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/grammar-everywhere-meme.jpg); background-size: contain; background-position: center center;">
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Related Work
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ISO-Prolog Standard</h2>
+      <h3>ISO/IEC 13211-1 (1995)</h3>
+    </hgroup>
+    <article>
+      <h3>6.4.3 Variables</h3>
+      <pre class="prettyprint" data-lang="EBNF" style="">
+<span class="atn important">variable token</span> <span class="atv important">(* 6.4.3 *)</span>
+  = <span class="tag important">anonymous variable</span> <span class="atv important">(* 6.4.3 *)</span>
+  | <span class="tag important">named variable</span> <span class="atv important">(* 6.4.3 *)</span> ;
+<span class="atn important">anonymous variable</span> <span class="atv important">(* 6.4.3 *)</span> 
+  = <span class="tag important">variable indicator char</span> <span class="atv important">(* 6.4.3 *)</span> ;
+<span class="atn important">named variable</span> <span class="atv important">(* 6.4.3 *)</span>
+  = <span class="tag important">variable indicator char</span> <span class="atv important">(* 6.4.3 *)</span>,
+    <span class="tag important">alphanumeric char</span> <span class="atv important">(* 6.5.2 *)</span>,
+    { <span class="tag important">alphanumeric char</span> <span class="atv important">(* 6.5.2 *)</span> }
+  | <span class="tag important">capital letter char</span> <span class="atv important">(* 6.5.2 *)</span>,
+    { <span class="tag important">alphanumeric char</span> <span class="atv important">(* 6.5.2 *)</span> } ;
+<span class="atn important">variable indicator char</span> <span class="atv important">(* 6.4.3 *)</span>
+  = <span class="tag important">underscore char</span> <span class="atv important">(* 6.5.2 *)</span> ;
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Prolog: the standard &ndash; reference manual</h2>
+      <h3>Deransart, P., Ed-Dbali, A., &amp; Cervoni, L. (1996).</h3>
+    </hgroup>
+    <article>
+      <h3>9. Prolog Syntax (p. 221ff)</h3>
+      <pre class="prettyprint" data-lang="DCG" style="">
+
+variable_token(V)             -->  anonymous_variable(V) | named_variable(V)
+
+anonymous_variable(['_'])     -->  "_" underscore
+
+named_variable(['_', A | S])  -->  "_", alpa_numeric_char(A),
+                                   alpha_num_seq_char(S)
+
+named_variable([C | S])       -->  capital_letter_char(C), alpha_num_seq_char(S)
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tau Prolog (2018)</h2>
+      <h3>José A. Riaza Valverde, Miguel Riaza Valverde, José M. García-García</h3>
+    </hgroup>
+    <article>
+      <center><img src="images/tau-prolog.png" style="max-width:70%;"></center>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tau Prolog (2018)</h2>
+      <h3>José A. Riaza Valverde, Miguel Riaza Valverde, José M. García-García</h3>
+    </hgroup>
+    <article>
+      <h3>Lexer written in pure JavaScript</h3>
+      <pre class="prettyprint" data-lang="javascript" style="">
+  var tokenize = (function() {
+    var rules = {
+      whitespace: /^\s*(?:(?:%.*)|(?:\/\*(?:\n|\r|.)*?\*\/)|(?:\s+))\s*/,
+      variable: /^(?:[A-Z_][a-zA-Z0-9_]*)/,
+      point: /^\./,
+      compound: /^((,|;|[a-z][0-9a-zA-Z_]*|[#\$\&amp;\*\+-\.\/\:&lt;=>\?@\^\~\\]+|'(?:[^']*?(?:\\(?:x?\d+)?\\)*(?:'')*(?:\\')*)*')\()/,
+      atom: /^(,|;|[a-z][0-9a-zA-Z_]*|[#\$\&amp;\*\+-\.\/\:&lt;=>\?@\^\~\\]+|'(?:[^']*?(?:\\(?:x?\d+)?\\)*(?:'')*(?:\\')*)*')/,
+      number: /^(?:0o[0-7]+|0x[0-9a-f]+|0b[01]+|0'(?:''|\\[abfnrtv\\'"`]|\\x?\d+\\|.)|\d+(?:\.\d+(?:e[+-]?\d+)?)?)/i,
+      string: /^(?:"([^"]|""|\\")*"|`([^`]|``|\\`)*`)/,
+      l_brace: /^(?:\[)/,
+      r_brace: /^(?:\])/,
+      l_bracket: /^(?:\{)/,
+      r_bracket: /^(?:\})/,
+      bar: /^(?:\|)/,
+      l_paren: /^(?:\()/,
+      r_paren: /^(?:\))/,
+      cut: /^(?:\!)/,
+      error: /^./
+    };
+
+    ...
+  })();
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js (2015)</h2>
+      <h3>Falco Nogatz</h3>
+    </hgroup>
+    <article>
+      <center><img src="images/chrjs.png" style="max-width:70%;"></center>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js (2015)</h2>
+      <h3>Falco Nogatz</h3>
+    </hgroup>
+    <article>
+      <h3>Using PEG parser generator</h3>
+      <pre class="" data-lang="PEG" style="">
+Rule
+  = name:RuleName?
+    rule:RuleWithoutName
+
+RuleWithoutName
+  = PropagationRule
+  / SimplificationRule
+  / SimpagationRule
+
+PropagationRule
+  = headConstraints:Constraints __
+    "==>" __
+    guard:Guard?
+    bodyConstraints:Body
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark quote nobackground">
+    <aside class="gdbar right bottom"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <q style="font-size:36px;">
+        A token shall not be followed by characters such that concatenating the characters of the token with these characters forms a valid token as specified by the above Syntax.
+      </q>
+      <div class="author">
+        ISO Prolog Standard, Section 6.4
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Our Approach</h2>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>Write DCG for Prolog as closely as possible to the ISO Standard</li>
+        <li>Use term expansions to automatically create syntax tree</li>
+        <li>Use graph transformations to create abstract syntax tree</li>
+        <li>Use graph transformations to create transpilers and compilers</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h3>Recap:</h3>
+      <h2 style="font-size:72px; line-height:82px;">
+        <span class="highlight-char">D</span>efinite<br>
+        <span class="highlight-char">C</span>lause<br>
+        <span class="highlight-char">G</span>rammars
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>DCG</h2>
+      <h3>Simple Syntax</h3>
+    </hgroup>
+    <article>
+      <h3>General Syntax for <code>head//0</code>:</h3>
+      <pre class="" data-lang="DCG" style="">
+head         -->  body.
+</pre>
+
+      <h3>Translates into:</h3>
+      <pre class="" data-lang="Prolog" style="">
+head(In, Out) :-  body(In, Out).
+</pre>
+
+      <h3>Usage with <code>phrase/3</code>:</h3>
+      <pre class="" data-lang="Prolog" style="">
+?- phrase(DCGBody,In,Rest).
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>DCG</h2>
+      <h3>Example: <code>as</code></h3>
+    </hgroup>
+    <article>
+      <pre class="" data-lang="DCG" style="">
+as --> [].
+as --> [a], as.
+</pre>
+
+      <h3>Translates into:</h3>
+      <pre class="" data-lang="Prolog" style="">
+as(A, A).
+as([a|A], B) :-
+  as(A, B).
+</pre>
+
+      <h3>Example call:</h3>
+      <pre class="" data-lang="Prolog" style="">
+?- phrase(as, Ls, []).
+Ls = [] ;
+Ls = [a] ;
+Ls = [a, a] ;
+...
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>DCG</h2>
+      <h3>Semicontext, right-hand context, pushback list</h3>
+    </hgroup>
+    <article>
+      <pre class="" data-lang="DCG" style="">
+first                 -->  body.
+second, [push]        -->  body.
+</pre>
+
+      <h3>Translates into:</h3>
+      <pre class="" data-lang="Prolog" style="">
+first(In, Out)         :-  body(In, Out).
+second(In, [push|Out]) :-  body(In, Out).
+</pre>
+
+      <h3>Usage with <code>phrase/3</code>:</h3>
+      <pre class="" data-lang="Prolog" style="">
+?- phrase(second,In,[push|Rest]).
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>DCG</h2>
+      <h3>Example: Use semicontext to count <code>as</code></h3>
+    </hgroup>
+    <article>
+      <pre class="" data-lang="DCG" style="">
+as, [0] --> [].
+as, [N] --> [a], as, [M], { N is M+1 }.
+</pre>
+
+      <h3>Usage with <code>phrase/3</code>:</h3>
+      <pre class="build" data-lang="Prolog" style="">
+<span>?- phrase(as,[a,a,a],[Count|Rest]).</span><span>
+Count = 0,
+Rest = [a, a, a] ;</span><span>
+Count = 1,
+Rest = [a, a] ;</span><span>
+Count = 2,
+Rest = [a] ;</span><span>
+Count = 3,
+Rest = [] .</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Current Status
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>ISO Prolog as a DCG</h2>
+      <h3>Currently ~ 900 LOC</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ISO Prolog as a DCG</h2>
+      <h3>Currently ~ 900 LOC</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG" style="">
+/* 6.4.3 Variables */
+<span class="atn important">variable_token</span> -->                  <span class="atv important">% 6.4.3</span>
+    <span class="tag important">anonymous_variable</span>              <span class="atv important">% 6.4.3</span>
+  | <span class="tag important">named_variable</span>.                 <span class="atv important">% 6.4.3</span>
+<span class="atn important">anonymous_variable</span> -->              <span class="atv important">% 6.4.3</span>
+    <span class="tag important">variable_indicator_char</span>.        <span class="atv important">% 6.4.3</span>
+<span class="atn important">named_variable</span> -->                  <span class="atv important">% 6.4.3</span>
+    <span class="tag important">variable_indicator_char</span>         <span class="atv important">% 6.4.3</span>
+  , <span class="tag important">alphanumeric_char</span>               <span class="atv important">% 6.5.2</span>
+  , *<span class="tag important">alphanumeric_char</span>.             <span class="atv important">% 6.5.2</span>
+<span class="atn important">named_variable</span> -->                  <span class="atv important">% 6.4.3</span>
+    <span class="tag important">capital_letter_char</span>             <span class="atv important">% 6.5.2</span>
+  , *<span class="tag important">alphanumeric_char</span>.             <span class="atv important">% 6.5.2</span>
+<span class="atn important">variable_indicator_char</span> -->         <span class="atv important">% 6.4.3</span>
+    <span class="tag important">underscore_char</span>.                <span class="atv important">% 6.5.2</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ISO Prolog as a DCG</h2>
+      <h3>Quantifiers <code>?</code> and <code>*</code></h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint build" data-lang="DCG" style="">
+<span>%% op `?` to denote optional occurence
+:- op(800, fy, ?).
+?_ -->
+  [].
+?X -->
+  X.</span><span>
+
+%% op `*` to denote any number of occurences
+:- op(800, fy, *).
+*_ -->
+  [].
+*X --> 
+  X,
+  *X.</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ISO Prolog as a DCG</h2>
+      <h3>Example Usage with <code>phrase/3</code></h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint build" data-lang="Prolog" style="">
+<span>?- phrase(variable_token, ['A'], []).
+true.</span><span>
+
+?- phrase(variable_token, ['a'], []).
+false.</span><span>
+
+?- phrase(variable_token, ['_','a'], Rest).
+Rest = [a] ;
+Rest = [] .</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ISO Prolog as a DCG</h2>
+      <h3>Conditions</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+%% "A token shall not be followed by characters such that
+%%   concatenating the characters of the token with these
+%%   characters forms a valid token as specified by the above
+%%   Syntax." (6.4)
+token(In, Out) :-
+  token_(In, Out),
+  (
+    % empty rest list
+    Out = []
+  ;
+    Out = [_One_More_Element|Rests],
+    % consuming one element does not succeed
+    \+ token_(In, Rests)
+  ).
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Create Syntax Trees<br />Using Term Expansions</h2>
+      <h3>Currently ~ 120 LOC</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Create Syntax Trees Using Term Expansions</h2>
+      <h3>Currently ~ 120 LOC</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+term_expansion((H --> [T]), Expanded) :-
+  Res =.. [H, T],   % Res = H(T)
+  dcg_translate_rule((H, [Res] --> [T]), Expanded).
+</pre>
+
+      <h3>Example:</h3>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+underscore_char --> ['_'].
+</pre>
+      <p>is expanded to</p>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+underscore_char, [underscore_char('_')] --> ['_'].
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Create Syntax Trees Using Term Expansions</h2>
+      <h3>Example Usage with <code>phrase/3</code></h3>
+    </hgroup>
+    <article class="build">
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- phrase(variable_token, ['A'], [T]).
+T = variable_token(named_variable([capital_letter_char('A')]))
+</pre>
+      <pre class="prettyprint" data-lang="DCG" style="">
+<span class="atn important">variable_token</span> -->                  <span class="atv important">% 6.4.3</span>
+    anonymous_variable              <span class="atv important">% 6.4.3</span>
+  | <span class="tag important">named_variable</span>.                 <span class="atv important">% 6.4.3</span>
+anonymous_variable -->              <span class="atv important">% 6.4.3</span>
+    variable_indicator_char.        <span class="atv important">% 6.4.3</span>
+<span class="atn important">named_variable</span> -->                  <span class="atv important">% 6.4.3</span>
+    variable_indicator_char         <span class="atv important">% 6.4.3</span>
+  , alphanumeric_char               <span class="atv important">% 6.5.2</span>
+  , *alphanumeric_char.             <span class="atv important">% 6.5.2</span>
+<span class="atn important">named_variable</span> -->                  <span class="atv important">% 6.4.3</span>
+    <span class="tag important">capital_letter_char</span>             <span class="atv important">% 6.5.2</span>
+  , *<span class="tag important">alphanumeric_char</span>.             <span class="atv important">% 6.5.2</span>
+variable_indicator_char -->         <span class="atv important">% 6.4.3</span>
+    underscore_char.                <span class="atv important">% 6.5.2</span>
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Create Syntax Trees Using Term Expansions</h2>
+      <h3>Example Usage with <code>phrase/3</code> (cont.)</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+?- phrase(variable_token, ['A'], [T]).
+T = variable_token(named_variable([capital_letter_char('A')]))
+
+<span class="build"><span>?- phrase(variable_token, ['a'], [T]).
+false.</span><span>
+
+?- phrase(variable_token, ['_','a'], [T|Rest]).
+T = variable_token(anonymous_variable(
+      variable_indicator_char(underscore_char('_')))),
+Rest = [a] ;</span><span>
+T = variable_token(named_variable([
+      variable_indicator_char(underscore_char('_')), 
+      alphanumeric_char(alpha_char(letter_char(small_letter_char(a))))
+    ])),
+Rest = [] .</span></span>
+</pre>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2>Operator Definitions</h2>
+      <h3>As CLP(FD)</h3>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Operator Definitions</h2>
+      <h3>As CLP(FD)</h3>
+    </hgroup>
+    <article>
+      <h3><code>fy</code> prefix operator:
+      <pre class="" data-lang="DCG" style="">
+term(P_o) -->
+    op(Op)
+  , term(P_i)
+  , {
+      operator_table(Op, Spec, Prec),
+      Spec = fy,
+      P_i  #=< Prec,  % note the # for library(clpfd)
+      Prec #=< P_o
+    }.
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Test Framework</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2><code>library(tap)</code></h2>
+      <h3>Test Anything Protocol</h3>
+    </hgroup>
+    <article style="">
+      <p>SWI-Prolog pack by Michael Hendricks</p>
+
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">swipl -q -g main -t halt -s test/test.pl
+swipl -q -g 'main,halt(0)' -t 'halt(1)' -s test/test.pl
+TAP version 13
+1..24
+ok 1 - [integer_token +] 123
+ok 2 - [integer_token +] 00123
+ok 3 - [integer_token -] 12 34
+ok 4 - [integer_token -] 12\n34
+ok 5 - [integer_token -] a
+ok 6 - [integer_token -] 1.2
+ok 7 - [float_number_token +] 1.2
+ok 8 - [float_number_token -] 1. 2
+ok 9 - [float_number_token -] 1.2.3
+ok 10 - [float_number_token +] 1.2e3
+ok 11 - [float_number_token +] 1.2E3
+...
+</span></pre>
+    </article>
+
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2><code>library(tap)</code></h2>
+    </hgroup>
+    <article style="">
+      <p><code>library(tap)</code> specifies tests as Prolog rules, get expanded using term expansion</p>
+
+      <pre class="prettyprint" data-lang="Prolog">
+<span class="pln important">%% test/parser/number.pl
+
+integer_token('123'):
+  integer_token(
+    integer_constant(
+      [ decimal_digit_char('1'),
+        decimal_digit_char('2'),
+        decimal_digit_char('3') ])).
+
+% integers are allowed to start with zeroes
+integer_token('00123'): true.
+
+% no space in between
+integer_token('12 34'): fail.
+</span></pre>
+    </article>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">Conclusion and<br />
+        Future Work</h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Current Contributions</h2>
+    </hgroup>
+    <article class="build">
+      <ul class="build large">
+        <li>Implementation of ISO Standard as DCGs</li>
+        <li>Term Expansions to get (verbose) syntax tree</li>
+        <li>CLP for operator definitions</li>
+        <li>Example application in a modern development approach: test-driven using TAP</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Next Steps</h2>
+    </hgroup>
+    <article>
+      <ul class="build large">
+        <li>Graph transformation to build AST</li>
+        <li>Run style tests for various Prolog source codes</li>
+        <li>Integration in IDE, CI, etc.</li>
+        <li>Source-to-source transformations over AST<br>(as transpiler Prolog &rarr; Prolog)</li>
+        <li>Source-to-source transformations over AST<br>(as compiler Prolog &rarr; Any)</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Questions?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(falco, +Question, -Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>University of Würzburg<br>Chair for Computer Science I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />http://uni-wuerzburg.de/?nogatz</p>
+    </article>
+  </slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
