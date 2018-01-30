@@ -146,8 +146,10 @@ table th {
 }
 
 footer.source {
-  background: #fff;
+  background: #ffff70;
   padding: 10px;
+  border: 1px solid #000;
+  border-width: 1px 0;
 }
 
 footer.white a {

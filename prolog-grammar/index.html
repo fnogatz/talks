@@ -41,6 +41,12 @@ URL: https://code.google.com/p/io-2012-slides
       </div>
     </hgroup>
 
+
+
+      <p style="position:absolute; right: 60px; bottom: 100px;">
+        <a href="http://falco.io/prolog-grammar">http://falco.io/prolog-grammar</a>
+      </p>
+
     <aside class="note">
       <ul>
       </ul>
@@ -92,6 +98,12 @@ URL: https://code.google.com/p/io-2012-slides
   <slide class="fill nobackground" style="background-image: url(images/astexplorer.png); background-size: contain; background-position: center center;">
     <footer class="source black">
   Falco Nogatz and Daniel Haumann: Ein Style Linter für Prolog (Praktikum WS 2016/17)
+    </footer>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/kalkus-dcg-visualisation.png); background-size: contain; background-position: center center;">
+    <footer class="source black">
+  Jona Kalkus: An Interactive Visualisation for Definite Clause Grammars (Master Thesis 2017)
     </footer>
   </slide>
 
@@ -706,11 +718,11 @@ Rest = [] .</span></span>
     <article>
       <h3><code>fy</code> prefix operator:
       <pre class="" data-lang="DCG" style="">
-term(P_o) -->
+term(P_o, Operator_Table) -->
     op(Op)
   , term(P_i)
   , {
-      operator_table(Op, Spec, Prec),
+      member(op(Op, Spec, Prec), Operator_Table),
       Spec = fy,
       P_i  #=< Prec,  % note the # for library(clpfd)
       Prec #=< P_o
