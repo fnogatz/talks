@@ -1,0 +1,69 @@
+<!-- Vorlage map-file -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+ <link rel="stylesheet" href="leaflet.css" />
+ <script src="leaflet.js"></script>
+
+<style type="text/css">
+#map { height: 620px; width: 980px;}
+</style>
+</head>
+<body>
+ <div id="map"></div>
+<a href=http://maps.google.com/maps?q=49.78175,9.97284 target=_blank><font size=1>Show building on Google Maps</font></a>
+<script>
+var map = L.map('map').setView([49.78175,9.97284], 18);
+		L.tileLayer("https://elmut.uni-wuerzburg.de/map/{z}/{x}/{y}.png", {
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			}).addTo(map);
+		var uniwueIcon = L.icon({
+				iconUrl: "images/marker-icon.png",
+				iconSize: [26, 36],
+				iconAnchor: [9, 38],
+				popupAnchor: [0, -28]
+			});
+		var uniwueIconSmall = L.icon({
+				iconUrl: "images/marker-icon.png",
+				iconSize: [16, 26],
+				iconAnchor: [9, 38],
+				popupAnchor: [0, -28]
+			});
+		var polygon = L.polygon( [[49.78197, 9.97212], [49.78173, 9.97212], [49.78174, 9.9723], [49.78177, 9.97231], [49.78178, 9.97275], [49.78154, 9.97276], [49.78155, 9.97319], [49.78183, 9.97318], [49.78185, 9.97296], [49.78195, 9.97295]]
+).addTo(map);
+	var markerP4 = L.marker([49.78151,9.97187],{icon: uniwueIconSmall,}).addTo(map);
+	markerP4.bindPopup('<b>Science Lecture Hall building (P4)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=66298&L=1" target="_top">Detail</a>');
+	var markerM1Z8 = L.marker([49.78175,9.97284],{icon: uniwueIconSmall,}).addTo(map);
+	markerM1Z8.bindPopup(' <b>Computer Science/Physics (M1) and Computing Center (Z8)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=66300&L=1" target="_top">Detail</a> ');
+	var markerM2 = L.marker([49.781139,9.973213],{icon: uniwueIconSmall,}).addTo(map);
+	markerM2.bindPopup('<b>Computer Science building (M2)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=66299&L=1" target="_top">Detail</a>');
+	var markerM3 = L.marker([49.781236,9.974672],{icon: uniwueIconSmall,}).addTo(map);
+	markerM3.bindPopup('<b>Robotics-Lab (M3)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=66312i&L=1" target="_top">Detail</a>');
+	var marker9030 = L.marker([49.784409,9.972643],{icon: uniwueIconSmall,}).addTo(map);
+	marker9030.bindPopup('<b>Mathematics West ( Emil-Fischer-Straße 30)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=120169&L=1" target="_top">Detail</a>');
+	var marker9040 = L.marker([49.784506,9.973308],{icon: uniwueIconSmall,}).addTo(map);
+	marker9040.bindPopup('<b>Mathematics East ( Emil-Fischer-Straße 40)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=120170&L=1" target="_top">Detail</a>');
+	var marker9031 = L.marker([49.785116,9.972192],{icon: uniwueIconSmall,}).addTo(map);
+	marker9031.bindPopup('<b>Physics East ( Emil-Fischer-Straße 31)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=142961&L=1" target="_top">Detail</a>');
+	var marker9052 = L.marker([49.785291,9.974422],{icon: uniwueIconSmall,}).addTo(map);
+	marker9052.bindPopup('<b>Building 52, Hubland Nord (Josef-Martin-Weg 52)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=169611&L=1" target="_top">Detail</a>');
+	var marker9070 = L.marker([49.78398,9.97624],{icon: uniwueIconSmall,}).addTo(map);
+	marker9070.bindPopup('<b>Building 70, Hubland Nord (Emil-Fischer-Straße 70)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=169613&L=1" target="_top">Detail</a>');
+	var markercave = L.marker([49.78399,9.97551],{icon: uniwueIconSmall,}).addTo(map);
+	markercave.bindPopup('<b>Helicopter hall, Hubland Nord (Emil-Fischer-Straße)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=169612&L=1" target="_top">Detail</a>');
+	var marker9064 = L.marker([49.78686,9.97527],{icon: uniwueIconSmall,}).addTo(map);
+	marker9064.bindPopup('<b>Library and seminar center, Hubland Nord (Josef-Martin-Weg 64)</b><br /><a href="http://www.mathematik-informatik.uni-wuerzburg.de/index.php?id=128485&L=1" target="_top">Detail</a>');
+
+var popup = L.popup();
+		function onMapClick(e) {
+			popup
+				.setLatLng(e.latlng)
+				.setContent("You clicked the map at " + e.latlng.toString())
+				.openOn(map);
+		}
+		map.on('click', onMapClick);
+</script>
+</body>
+</html>
+
