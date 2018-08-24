@@ -1,0 +1,1088 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">Web-based Visualisation for Definite Clause Grammars using Prolog Meta-Interpreters</h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li>System Description</li>
+        <li>based on Master thesis of the second author</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="">
+      <h1 style="font-size:44px;">Web-based Visualisation for <span style="color:#088d08;">Definite Clause Grammars</span> using Prolog Meta-Interpreters</h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="">
+      <h1 style="font-size:44px;">Web-based Visualisation for <span style="color:#088d08;">Definite Clause Grammars</span> using <span style="color:#de0404;">Prolog Meta-Interpreters</span></h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="">
+      <h1 style="font-size:44px;"><span style="color:#5858ff;">Web-based Visualisation</span> for <span style="color:#088d08;">Definite Clause Grammars</span> using <span style="color:#de0404;">Prolog Meta-Interpreters</span></h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#088d08 !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Definite Clause Grammars
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Basics</h3>
+    </hgroup>
+    <article>
+      <ul class="large build">
+        <li>A way of expressing grammars in Prolog</li>
+        <li>Extension of context-free grammars:
+          <ul>
+            <li>Context through additional arguments and semicontext</li>
+            <li>Approach to return values</li>
+            <li>Usage of built-in Prolog predicates</li>
+          </ul>
+        </li>
+        <li>Syntactic sugar for the description of lists</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Extended Backus-Naur Form (EBNF)</li>
+        <li>semicontext = pushback lists</li>
+        <li>return values: parse tree</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Syntax</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+<span class="head">Head</span> <span class="then">--></span> <span class="body">Body</span>.
+</pre>
+
+      <ul>
+        <li><code class="head">Head</code><br>
+          Non-terminal of any arity</li>
+        <li><code class="body">Body</code><br>
+          <span>Sequence of</span> <code class="terminal">terminals</code>, <code class="head">non-terminals</code>, and <code class="prolog">Prolog predicates</code></li>
+        <li><code class="terminal">Terminal</code><br>
+          Prolog list of any type, possibly strings</li>
+        <li><code class="prolog">Prolog code</code><br>
+          Built-in or user-defined Prolog predicates, enclosed in curly braces</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Strings = lists of chars in Prolog</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Syntax (cont.)</h3>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Usage of well-known Prolog control predicates:<br>
+          <code>;/2</code> and <code>|/2</code>,<br>
+          <code>->/2</code>,<br>
+          <code>\+/1</code>,<br>
+          <code>!/1</code></li>
+        <li><code class="head">Head</code> can be any callable term:<br>
+          <code>a</code>,<br>
+          <code>a(X)</code>,<br>
+          <code>a(b,2)</code></li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>disjunction (deprecated form for compatibility with EBNF)</li>
+        <li>if-then-else</li>
+        <li>not with default negation</li>
+        <li>With no arguments, the DCG is simply a context-free grammar similar to EBNF</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Example</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+% structure
+<span class="head">sentence</span>    --> <span class="body">noun_phrase, ws, verb_phrase</span>.
+<span class="head">noun_phrase</span> --> <span class="body">determiner, ws, noun</span>.
+<span class="head">verb_phrase</span> --> <span class="body">verb, ws, noun_phrase</span>.
+
+% vocabulary
+<span class="head">determiner</span>  --> <span class="terminal">"a"</span>.    % = [a]
+<span class="head">determiner</span>  --> <span class="terminal">"the"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"cat"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"mouse"</span>, { <span class="prolog">is_mouse_allowed</span> }.
+<span class="head">verb</span>        --> <span class="terminal">"chases"</span>.
+<span class="head">ws</span>          --> <span class="terminal">" "</span>.
+
+% user predicate
+<span class="prolog">is_mouse_allowed</span>.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Will omit the <code>ws</code> in the next examples</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Example (cont.)</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+% structure
+<span class="head">sentence</span>    --> <span class="body">noun_phrase, verb_phrase</span>.
+<span class="head">noun_phrase</span> --> <span class="body">determiner, noun</span>.
+<span class="head">verb_phrase</span> --> <span class="body">verb, noun_phrase</span>.
+
+% vocabulary
+<span class="head">determiner</span>  --> <span class="terminal">"a"</span>.    % = [a]
+<span class="head">determiner</span>  --> <span class="terminal">"the"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"cat"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"mouse"</span>, { <span class="prolog">is_mouse_allowed</span> }.
+<span class="head">verb</span>        --> <span class="terminal">"chases"</span>.
+
+% user predicate
+<span class="prolog">is_mouse_allowed</span>.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Usage with SWI-Prolog</h3>
+    </hgroup>
+    <article class="build">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">phrase/2</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- Input = "the cat chases a mouse", phrase(sentence, Input).
+true.
+?- Input = "the cat chases a mouse", phrase(noun_phrase, Input).
+false.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">phrase/3</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- Input = "the cat chases a mouse", phrase(noun_phrase, Input, Rest).
+Rest = "chases a mouse".
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">noun_phrase/2</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- Input = "the cat chases a mouse", noun_phrase(Input, Rest).
+Rest = "chases a mouse".
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Applications</h3>
+    </hgroup>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Applications</h3>
+    </hgroup>
+    <article>
+      <ul class="large build">
+        <li>Natural Language Processing</li>
+        <li>Formal languages, e.g., <code>library(http/html_write)</code></li>
+        <li>Formal languages using quasi-quotations</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Quasi-Quotations</h2>
+      <h3>Recap</h3>
+    </hgroup>
+    <article class="">
+      <p>Since SWI-Prolog 6.3 (Wielemaker &amp; Hendricks, WLPE 2013)</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Basic form</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="">
+{| Tag || Content |}
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Example</dt>
+      <pre class="prettyprint" data-lang="Prolog &hearts; GraphQL" style="">
+?- Person = {| type ||
+   name:    String!
+   age:     Integer
+   books(favourite: Boolean): [Book]
+   friends: [Person]
+|}.
+</pre>
+      <p class="source">Falco Nogatz and Dietmar Seipel. 2016. Implementing GraphQL as a Query Language for Deductive Databases in SWI-Prolog Using DCGs, Quasi Quotations, and Dicts. In Proc. 30th Workshop on Logic Programming (WLP&nbsp;2016).</p>
+    </article>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Existing Tools</h3>
+    </hgroup>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Prolog Visualizer</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/prolog-visualizer.png" alt="Description" title="Description" style="max-width:100%;">
+      <footer class="source">Zhixuan Lai and Alessandro Warth. Prolog Visualizer. http://cdglabs.org/prolog/, 2015.</footer>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>... and visualise Prolog's execution</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>HDRUG</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/matrixtree.png" alt="Description" title="Description" style="max-width:100%;">
+      <footer class="source">Gertjan Van Noord and Gosse Bouma. Hdrug. A Flexible and Extendible Development Environment for Natural Language Processing. Computational Environments for Grammar Development and Linguistic Engineering, 1997.</footer>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Two types: tools for NLP, ...</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Web-based Visualisation for DCGs</h2>
+      <h3>Goals</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Focus on DCGs</dt>
+      <p>Handle embedded code as preconditions (blackbox), correct line numbers</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Compatibility and feature-completeness</dt>
+      <p>Extend existing DCGs and Prolog systems</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Reasonable performance</dt>
+      <p>Reasonable overhead, pre-compilation in mind</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Interactive exploration of rule-applications</dt>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>pre-compilation = term expansion</li>
+        <li>exploration = not just static image, webservice</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="">
+      <h1 style="font-size:44px;">Web-based Visualisation for <span style="color:#088d08;">Definite Clause Grammars</span> using Prolog Meta-Interpreters</h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="">
+      <h1 style="font-size:44px;">Web-based Visualisation for <span style="color:#088d08;">Definite Clause Grammars</span> using <span style="color:#de0404;">Prolog Meta-Interpreters</span></h1>
+      <h2 style="color: #797979;">System Description</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>, Jona Kalkus, and Dietmar Seipel, University of Würzburg</p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Example (recap)</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+% structure
+<span class="head">sentence</span>    --> <span class="body">noun_phrase, verb_phrase</span>.
+<span class="head">noun_phrase</span> --> <span class="body">determiner, noun</span>.
+<span class="head">verb_phrase</span> --> <span class="body">verb, noun_phrase</span>.
+
+% vocabulary
+<span class="head">determiner</span>  --> <span class="terminal">"a"</span>.    % = [a]
+<span class="head">determiner</span>  --> <span class="terminal">"the"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"cat"</span>.
+<span class="head">noun</span>        --> <span class="terminal">"mouse"</span>, { <span class="prolog">is_mouse_allowed</span> }.
+<span class="head">verb</span>        --> <span class="terminal">"chases"</span>.
+
+% user predicate
+<span class="prolog">is_mouse_allowed</span>.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Definite Clause Grammars</h2>
+      <h3>Term Expansion in SWI-Prolog</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="head">sentence(A, C)</span> :-
+  <span class="body">noun_phrase(A, B),
+  verb_phrase(B, C)</span>.
+...
+<span class="head">determiner</span>([<span class="terminal">a</span>|A], A).
+<span class="head">determiner</span>([<span class="terminal">t,h,e</span>|A], A).
+<span class="head">noun</span>([<span class="terminal">c,a,t</span>|A], A).
+<span class="head">noun</span>([<span class="terminal">m,o,u,s,e</span>|A], A) :- <span class="prolog">is_mouse_allowed</span>.
+...
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>two ways to run DCGs: interpreter at run-time, or pre-compilation using term-expansion</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Naive Approaches</h3>
+    </hgroup>
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea I</h2>
+      <h3>Parse Tree as Additional Argument</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+<span class="head">sentence</span>(sentence(NP,VP)) --> <span class="body">noun_phrase(NP), verb_phrase(VP)</span>.
+<span class="head">noun_phrase</span>(noun_phrase(D,N)) --> <span class="body">determiner(D), noun(N)</span>.
+<span class="head">verb_phrase</span>(verb_phrase(V,NP)) --> <span class="body">verb(V), noun_phrase(NP)</span>.
+<span class="head">determiner</span>(determiner("a")) --> <span class="terminal">"a"</span>.
+<span class="head">determiner</span>(determiner("the")) --> <span class="terminal">"the"</span>.
+<span class="head">noun</span>(noun("cat")) --> <span class="terminal">"cat"</span>.
+<span class="head">noun</span>(noun("mouse")) --> <span class="terminal">"mouse"</span>, { <span class="prolog">is_mouse_allowed</span> }.
+<span class="head">verb</span>(verb("chases")) --> <span class="terminal">"chases"</span>.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea I</h2>
+      <h3>Parse Tree as Additional Argument (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+?- Input = "the cat chases a mouse",
+   phrase(noun_phrase(NP), Input, Rest).
+Rest = "chases a mouse",
+NP = noun_phrase(determiner("the"), noun("cat")).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea I</h2>
+      <h3>Parse Tree as Additional Argument (cont.)</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/query_parsetree.png" alt="Description" title="Description" style="max-width:100%;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Two types: tools for NLP, ...</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea I</h2>
+      <h3>Parse Tree as Additional Argument (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 0 0 10px 0;">Pro</dt>
+      <p>Simple implementation using term expansion</p>
+
+      <dt class="uni-blue" style="margin: 50px 0 10px 0;">Con</dt>
+      <p>Name clash<br>
+        Can not use existing programs<br>
+        Only successful applications</p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea II</h2>
+      <h3>Intercept Built-in Tracer</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+prolog_trace_interception(Port, Frame, Choice, Action) :-
+  % retrieve unique program counter
+  get_counter(N),
+  % get information about current event
+  prolog_frame_attribute(Frame,goal,Goal),
+  prolog_frame_attribute(Frame,parent,Parent),
+  prolog_choice_attribute(Choice,frame,ChoiceFrame),
+  % ...
+  % assert information as predicate `step/N`
+  assert(step(N,Port,Frame,Goal,Parent,Choice,ChoiceFrame, ...)),
+  % continue with the execution
+  Action = continue.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea II</h2>
+      <h3>Intercept Built-in Tracer (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- Input = "the cat chases a mouse",
+   trace, phrase(noun_phrase, Input, Rest), notrace.
+Rest = "chases a mouse".
+?- listing(step).
+% ...
+step(3,unify,235,noun_phrase(A,[]),
+   $dcg:call_dcg(noun_phrase,A,[]), ...).
+step(4,call,255,determiner(A,B),
+   noun_phrase(A,[]), ...).
+% ...
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea II</h2>
+      <h3>Intercept Built-in Tracer (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 0 0 10px 0;">Pro</dt>
+      <p>Native support for backtracking<br>
+        Information about current port, stack frame, choice points</p>
+
+      <dt class="uni-blue" style="margin: 50px 0 10px 0;">Con</dt>
+      <p>No unique identifiers (in deterministic predicates)<br>
+        <span>No easy distinction between</span> <code class="head">non-terminals</code> and <code class="prolog">Prolog predicates</code><br>
+        No way to re-use existing tracer</p></p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tracing &mdash; Idea II</h2>
+      <h3>Intercept Built-in Tracer (cont./backup)</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+prolog_trace_interception(Port, Frame, Choice, Action) :-
+  % retrieve unique program counter
+  get_counter(N),
+  % get information about current event
+  prolog_frame_attribute(Frame,goal,Goal),
+  prolog_frame_attribute(Frame,parent,Parent),
+  prolog_choice_attribute(Choice,frame,ChoiceFrame),
+  % ...
+  % assert information as predicate `step/N`
+  assert(step(N,Port,Frame,Goal,Parent,Choice,ChoiceFrame, ...)),
+  % continue with the execution
+  Action = continue.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#de0404 !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Prolog Meta-Interpreters
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter I</h2>
+      <h3>Vanilla Meta-Interpreter</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Meta-Interpreter I</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+vanilla(true).
+vanilla((A , B)) :- vanilla(A), vanilla(B).
+vanilla((A = B)) :- A = B.
+vanilla(A) :- 
+   A \= (_ , _), A \= (_ = _), A \= true,
+   clause(A, B),
+   vanilla(B).
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Usage</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- Input = "the cat chases a mouse", 
+   vanilla(noun_phrase(Input, Rest)).
+Rest = "chases a mouse".
+</pre>
+      <p class="source">
+        Leon Sterling and Ehud Y Shapiro. 1994. The art of Prolog: advanced programming
+techniques. MIT press.
+      </p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>meta-predicate <code>clause/3</code></li>
+        <li><code>clause/3</code> allows backtracking</li>
+        <li>MI can be adjusted to store information about its execution</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter II</h2>
+      <h3>Extension to Store Parse Trees</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Meta-Interpreter II</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+mi_tree(true, true).
+mi_tree((A, B) , (TA, TB)) :- mi_tree(A, TA), mi_tree(B, TB).
+mi_tree((A = B), (A = B)) :- A = B.
+mi_tree(A,(A:T)) :-
+   A \= (_ , _), A \= (_ = _), A \= true,
+   clause(A, B), 
+   mi_tree(B, T).
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Usage</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- ..., mi_tree(noun_phrase(Input, Rest), T).
+Rest = "chases a mouse",
+T = noun_phrase("the cat chases a mouse", "chases a mouse"):(
+      determiner("the cat", "cat"):true,
+      noun("cat", ""):true ).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter III</h2>
+      <h3>With Backtracking</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Meta-Interpreter III</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+mi_print(true, _Level).
+mi_print((A , B), L) :-
+   mi_print(A, L), mi_print(B, L).
+mi_print((A = B), L) :-
+   ( A = B ~> print_indented((A = B):exit, L)
+   ; print_indented((A = B):fail, L), fail ).
+mi_print(A, L) :- L1 is L+1,
+   A \= (_ , _), A \= (_ = _), A \= true,
+   print_indented(A:call, L),
+   nth_clause(A, Index, Sign),
+   ( clause(A, B, Sign), mi_print(B, L1) ~>
+     print_indented(A:Index:exit, L)
+   ; print_indented(A:Index:fail, L), fail ).
+print_indented(A, L) :-
+   Indent is 2*L, tab(Indent), writeln(A).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter III</h2>
+      <h3>With Backtracking (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Usage</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+?- mi_print(verb_phrase("chases a dog", ""), 0).
+verb_phrase("chases a dog",""):call
+   verb("chases a dog",_6966):call
+   verb("chases a dog","a dog"):1:exit
+   noun_phrase("a dog",""):call
+      determiner("a dog",_7198):call
+      determiner("a dog",_7198):1:fail
+      determiner("a dog","dog"):2:exit
+      noun("dog",""):call
+      noun("dog",""):1:fail
+      noun("dog",""):2:fail
+      determiner("a dog",_7198):2:fail
+   noun_phrase("a dog",""):1:fail
+   verb("chases a dog",_6966):1:fail
+verb_phrase("chases a dog",""):1:fail
+false.
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>allows the definition of recursion limit</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter IV</h2>
+      <h3>Modified Term Expansion</h3>
+    </hgroup>
+    <article class="">
+      <pre class="prettyprint" data-lang="DCG" style="clear: both;">
+mouse_phrase --> determiner, "mouse", { is_mouse_allowed }, .
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Normal Term Expansion</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+mouse_phrase(A, C) :-
+   determiner(A, B),
+   B = [m,o,u,s,e|C],
+   is_mouse_allowed.
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Wrap <code class="head">non-terminals</code> and <code class="prolog">Prolog predicates</code></dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+mouse_phrase(A, C) :-
+   'DCGBody'(determiner, A, B),
+   'T'("mouse", B, C),
+   'P'(is_mouse_allowed).
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Extensions to Meta-Interpreter IV</li>
+        <li><code>[m,o,u,s,e]</code> = <code>append/3</code></li>
+        <li>Also avoids SWI's optimisations</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Meta-Interpreter IV (cont.)</h2>
+      <h3>Storing Information</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asserted facts</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+event{
+   step: &lt;N>,
+   type: &lt;unify | exit | fail | depth>,
+   redo: &lt;Redo>,
+   goal: &lt;Goal with current variable bindings>,
+   line: &lt;Line number of associated clause
+            | 'T' | 'P' | 'DCGBody'>
+}
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Extensions to Meta-Interpreter IV</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#5858ff !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Web-based Visualisation
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Overall Architecture</h2>
+      <h3>Using Tracing Meta-Interpreter and Pengines</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/prolog-structure.png" alt="Description" title="Description" style="max-width:100%;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Web-Based Visualisation</h2>
+      <h3>Technology</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Server</dt>
+      <ul class="">
+        <li>Dicts</li>
+        <li>Pengines</li>
+      </ul>
+
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asserted facts</dt>
+      <ul>
+        <li>HTML5</li>
+        <li>JavaScript</li>
+        <li>CSS3</li>
+        <li>MUI, jQuery, CodeMirror</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#111 !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Demo
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/start.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/visualisation.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/first.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/further.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/failing-detail.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/visualisation.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/prolog-string.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/depth.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/help.png)"></slide>
+
+  <slide>
+    <hgroup>
+      <h2>Conclusion</h2>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Summary</dt>
+      <ul class="">
+        <li>DCG Tracer: Tracing Meta-Interpreter</li>
+        <li>DCG Visualiser: Pengine- and web-based Visualisation</li>
+      </ul>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Future Work</dt>
+      <ul>
+        <li>(tbd.)</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Open Source @ GitHub</h2>
+      <br /> <br /> <br />
+
+      <pre class=" questions" data-lang="" style="font-size:30px; color:#000; padding:60px 0;">
+https://github.com/jonakalkus/dcg-visualiser
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Questions?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(falco, +Question, -Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>University of Würzburg<br>Chair for Computer Science I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />http://uni-wuerzburg.de/?nogatz</p>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>

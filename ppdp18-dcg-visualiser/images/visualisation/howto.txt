@@ -1,0 +1,9 @@
+Firefox 
+-> Entwicklerwerkzeuge 
+-> Bildschirmgröße testen (Strg+Shift+M) 
+-> 3150x1700
+-> 200% Zoom (Browser)
+-> #visualisation {transform: scale(2)}
+-> .backtracking, .choice-inactive .goal > li {background-color: #b0b0b0;}
+
+http://www.9bitstudios.com/2016/06/how-to-take-retina-display-screenshots-on-pc-using-firefox/
