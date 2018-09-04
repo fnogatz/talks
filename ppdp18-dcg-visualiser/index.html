@@ -133,6 +133,7 @@ URL: https://code.google.com/p/io-2012-slides
     <aside class="note">
       <ul>
         <li>Extended Backus-Naur Form (EBNF)</li>
+        <li>similar to ANTLR, but supports generation, too</li>
         <li>semicontext = pushback lists</li>
         <li>return values: parse tree</li>
       </ul>
@@ -910,6 +911,13 @@ mouse_phrase(A, C) :-
       <h3>Storing Information</h3>
     </hgroup>
     <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Dicts in SWI-Prolog 7</dt>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+Tag{
+   key1: Value1,
+   key2: Value2, ... }
+</pre>
+
       <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asserted facts</dt>
       <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
 event{
@@ -925,7 +933,7 @@ event{
 
     <aside class="note">
       <ul>
-        <li>Extensions to Meta-Interpreter IV</li>
+        <li>syntax based on JSON</li>
       </ul>
     </aside>
   </slide>
@@ -971,9 +979,46 @@ event{
         <li>Dicts</li>
         <li>Pengines</li>
       </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Web-Based Visualisation (cont.)</h2>
+      <h3>Technology: Pengines</h3>
+    </hgroup>
+    <article class="">
+      <img src="images/pengines.png" alt="Description" title="Description" style="max-width:100%; max-height:200px; border:1px solid grey;">
+      <img src="images/swish.png" alt="Description" title="Description" style="max-width:100%; max-height:200px; margin-top:20px; border:1px solid grey;">
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Web-Based Visualisation</h2>
+      <h3>Technology (cont.)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Server</dt>
+      <ul class="">
+        <li>Dicts</li>
+        <li>Pengines</li>
+      </ul>
 
 
-      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asserted facts</dt>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Client</dt>
       <ul>
         <li>HTML5</li>
         <li>JavaScript</li>
@@ -1004,13 +1049,11 @@ event{
   </slide>
 
   <slide class="fill nobackground" style="background-image: url(images/visualisation/start.png)"></slide>
-  <slide class="fill nobackground" style="background-image: url(images/visualisation/visualisation.png)"></slide>
   <slide class="fill nobackground" style="background-image: url(images/visualisation/first.png)"></slide>
-  <slide class="fill nobackground" style="background-image: url(images/visualisation/further.png)"></slide>
-  <slide class="fill nobackground" style="background-image: url(images/visualisation/failing-detail.png)"></slide>
   <slide class="fill nobackground" style="background-image: url(images/visualisation/visualisation.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/failing-detail.png)"></slide>
   <slide class="fill nobackground" style="background-image: url(images/visualisation/prolog-string.png)"></slide>
-  <slide class="fill nobackground" style="background-image: url(images/visualisation/depth.png)"></slide>
+  <slide class="fill nobackground" style="background-image: url(images/visualisation/depth-15.png)"></slide>
   <slide class="fill nobackground" style="background-image: url(images/visualisation/help.png)"></slide>
 
   <slide>
