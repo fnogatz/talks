@@ -1,0 +1,1094 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A CHR Implementation in JavaScript</h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A <span style="color:#088d08;">CHR</span> Implementation in JavaScript</h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A <span style="color:#088d08;">CHR</span> Implementation in <span style="color:#de0404;">JavaScript</span></h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A <span style="color:#088d08;">CHR</span> <span style="color:#5858ff;">Implementation</span> in <span style="color:#de0404;">JavaScript</span></h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#088d08 !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Constraint Handling Rules
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+      <h3>Basics</h3>
+    </hgroup>
+    <article>
+      <ul class="large">
+        <li>Rule-based language defined in 1991 by Thom Frühwirth</li>
+        <li>Idea: Write constraint solvers in a high-level language</li>
+        <li>Used as language extension:
+          <ul>
+            <li>CHR(Prolog)</li>
+            <li>CHR(Java)</li>
+            <li>CHR(C)</li>
+            <li>&hellip; CHR(JavaScript)</li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>referenced in more than 2000 research papers</li>
+        <li>more than 200 academic and industrial systems using it</li>
+        <li>Haskell</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+      <h3>Constraints</h3>
+    </hgroup>
+    <article>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">General form</dt>
+      <pre class="prettyprint" data-lang="Constraints" style="clear: both;">
+c(a<sub>1</sub>, &hellip; , a<sub>n</sub>)
+</pre>
+
+      <ul class="smaller">
+        <li>Name <code>c</code>, Arity <code>n</code></li>
+        <li>Functor: <code>Name/Arity</code></li>
+      </ul>
+
+      <dt class="uni-blue" style="margin: 60px 0 10px 0;">Examples</dt>
+      <pre class="prettyprint" data-lang="Constraints" style="clear: both;">
+p,                                   % p/0
+num(1),                              % num/1
+list([1,2,3]),                       % list/1
+fun(function () { return true })     % f/1
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>What is allowed as arguments is defined by the host language</li>
+        <li>Constraint store</li>
+        <li>Manipulating operations: add, remove; possibly depending on its arguments and other constraints</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+      <h3>Syntax</h3>
+    </hgroup>
+    <article>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Simpagation</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+<span class="name">Name</span>  @  <span class="kept">Kept</span>  \  <span class="removed">Removed</span>  &lt;=&gt;  <span class="guard">Guard</span>  |  <span class="body">Body</span>
+</pre>
+
+      <ul>
+        <li>Optional rule <code class="name">Name</code></li>
+        <li><code class="kept">Kept</code>, <code class="removed">Removed</code>, and <code class="body">Body</code>: <em>CHR constraints</em> (<code>c/n</code>)</li>
+        <li><code class="guard">Guard</code>: <em>built-in constraints</em>
+          <ul>
+            <li>expression(s) of the host language</li>
+            <li>might be empty = <code>true</code></li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+      <h3>Syntax (cont.)</h3>
+    </hgroup>
+    <article>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Propagation</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+<span class="name">Name</span>  @  <span class="kept">Kept</span> ==&gt; <span class="guard">Guard</span> | <span class="body">Body</span>
+</pre>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Simplification</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+<span class="name">Name</span>  @  <span class="removed">Removed</span> &lt;=&gt; <span class="guard">Guard</span> | <span class="body">Body</span>
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Constraint Handling Rules</h2>
+      <h3>Major Differences to Prolog</h3>
+    </hgroup>
+    <article class="build">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Multi-headed rules</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+r1  @  a, b ==> c
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Multi-set semantics</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+r2  @  a, a ==> c
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Committed choice</dt>
+      <pre class="prettyprint" data-lang="CHR" style="clear: both;">
+r3  @  a ==> b
+r4  @  a ==> c
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Nondeterminism</dt>
+    </article>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>gcd</code> Example</h2>
+      <h3>Implementation in Pseudocode</h3>
+    </hgroup>
+    <article>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Running Example</dt>
+      <p>Calculation of the greatest common divisor (GCD) using the subtraction-based Euclidean algorithm.</p>
+      <pre class="prettyprint" data-lang="pseudocode">
+function gcd(a, b)
+  while b > 0
+    if a > b
+      a := a - b
+    else
+      b := b - a
+  return a
+end
+</pre>
+
+      <pre class="prettyprint" data-lang="pseudocode">
+gcd(15, 12) == 3
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>gcd</code> Example</h2>
+      <h3>Implementation in CHR</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="chr">
+gcd1  @  gcd(0) &lt;=&gt; true
+gcd2  @  gcd(N) \ gcd(M) &lt;=&gt; 0 &lt; N, N &lt;= M | gcd(M-N)
+</pre>
+
+      <pre class="prettyprint" data-lang="Prolog">
+?- gcd(15), gcd(12).
+...
+gcd(3)
+</pre>
+
+      <p><a href="http://chrjs.net/playground.html?gist=fafd892d773a2118d834"><em>&raquo; Interactive Application</em></a></p>
+    </article>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A <span style="color:#088d08;">CHR</span> Implementation in JavaScript</h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="title-slide segue nobackground no-animation">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 style="font-size:44px;">CHR.js: A <span style="color:#088d08;">CHR</span> Implementation in <span style="color:#de0404;">JavaScript</span></h1>
+      <h2 style="color: #797979;">RuleML+RR 2018, Luxembourg</h2>
+      <p style="font-size:24px;"><span class="uni-blue">Falco Nogatz</span>&sup1;, Thom Frühwirth&sup2;, and Dietmar Seipel&sup1;</p>
+      <p style="font-size:20px; margin-top:5px;"><span>&sup1;University of Würzburg</span><span style="margin-left:50px;">&sup2;Ulm University</span></p>
+
+      <div style="display:none;">
+        <h1 data-config-title><!-- populated from slide_config.json --></h1>
+        <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+        <p data-config-presenter><!-- populated from slide_config.json --></p>
+      </div>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#de0404 !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        CHR &hearts; JavaScript
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Why?</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="quote" style="color:#797979;background-color:#fff">
+    <article class="flexbox vleft">
+      <q>
+        Any application that can be written in JavaScript, will eventually be written in JavaScript.
+      </q>
+      <div class="author" style="bottom:140px; right: 60px;">
+       Atwood's Law
+      </div>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>Jeff Atwood, founder of StackOverflow.com</li>
+        <li>most popular programming language (GitHub, StackOverflow)</li>
+        <li>runs everywhere</li>
+        <li>Existing tools with drawbacks</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="fill nobackground" style="background-image: url(images/swipl.png); background-position: center;">
+
+    <aside class="note">
+      <ul>
+        <li>Prolog = only research community</li>
+        <li>compiled to Prolog, no good tracer</li>
+        <li>not very good for educational purposes</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground">
+    <article>
+      <iframe data-src="http://chr.informatik.uni-ulm.de/~webchr/"></iframe>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>old-school</li>
+        <li>RPC, not offline-capable</li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Goals</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Resemblance to existing CHR systems</dt>
+      <p>To be compatible with other CHR systems</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Syntax based on JavaScript</dt>
+      <p>To conform to JavaScript's design patterns</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Support for different runtime environments</dt>
+      <p>For example different browsers, node.js</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Extensible tracing options</dt>
+      <p>To be useful for teaching</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Efficiency</dt>
+      <p>In respect to JavaScript's JIT compilation</p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Existing Compilation Schemes</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <img src="images/paper2.png" alt="Description" title="Description" style="max-width:100%; max-height:90%; border: 1px solid #ccc;">
+      <footer class="source">Tom Schrijvers. Analyses, optimizations and extensions of Constraint Handling Rules. PhD thesis, K.U.Leuven, Belgium, June 2005.</footer>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <article class="flexbox vcenter">
+      <img src="images/paper1.png" alt="Description" title="Description" style="max-width:100%; border: 1px solid #ccc;">
+      <footer class="source">Peter Van Weert, Pieter Wuille, Tom Schrijvers, and Bart Demoen. CHR for imperative host languages. In Constraint Handling Rules, pages 161–212. Springer, 2008.</footer>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#5858ff !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        Implementation of CHR.js
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Implementation</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript" style="font-size:14px; line-height: 18px;">
+if (!Store.allAlive(constraintIds))        // = nested check of still alive ids   [l. 8]
+  return resolve()                         
+if (!Store.allDifferent(constraintIds))    // = pairwise comparison           [ll. 9-11]
+  return resolve()                         
+if (History.has(ruleId, constraintIds))    // = notInHistory()                   [l. 13]
+  return resolve()                         
+var guards = [                             // = g_1 and ... and g_ng             [l. 12]
+  new Promise(function(s, j) { return g_1 ? s() : j() }),  
+  ...
+  new Promise(function(s, j) { return g_ng ? s() : j() })
+]
+Promise.all(guards)                        // prove all guards
+  .then(function () {                      // all guards satisfied
+    History.add(ruleId, constraintIds)     // = addToHistory()                   [l. 14]
+    Store.kill(constraintIds[r])           // = kill()                       [ll. 15-17]
+    ...
+    Store.kill(constraintIds[h])
+    Promise.resolve()
+      .then(function() { return b_1() })   // invoke Promise for body 1      [ll. 18-20]
+      . ...                               
+      .then(function() { return b_nb() })  // invoke Promise for body nb
+      .then(function() { resolve() })
+      .catch(function() { reject() })
+  }).catch(function() { reject() })        // could not be fulfilled
+</pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground" style="background-color:#5858ff !important;">
+    <article class="flexbox vleft auto-fadein">
+      <h2 style="font-size:72px; line-height:100px;">
+        <span style="text-decoration: line-through;">Implementation of CHR.js</span><br>
+        <em>Proposed Solutions</em>
+      </h2>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Proposed Solutions</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Seamless Integration of CHR into JavaScript</dt>
+      <p>using tagged template strings</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Parsing CHR in JavaScript</dt>
+      <p>using Parsing Expression Grammars</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asynchronous Compilation Scheme</dt>
+      <p>for flexible and concurrent programs</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Synchronous Compilation Scheme</dt>
+      <p>using an explicit stack</p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Seamless Integration<br>of CHR into JavaScript</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Seamless Integration of CHR into JavaScript</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Tagged Template Strings</dt>
+      <pre class="prettyprint" data-lang="JavaScript">
+tag`text with ${ embedded_expr } even across multiple lines`
+</pre>
+
+      <dt class="uni-blue" style="margin: 50px 0 10px 0;">CHR.js Integration</dt>
+      <pre class="prettyprint" data-lang="JavaScript">
+var chr = new CHR()
+chr` gcd1 @ gcd(0) &lt;=> true
+     gcd2 @ gcd(N) \\ gcd(M) <=> 0 < N, N &lt;= M | gcd(M-N)`</pre>
+
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Parsing CHR in JavaScript</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Parsing CHR in JavaScript</h3>
+    </hgroup>
+    <article class="">
+      <pre class="" data-lang="PEG.js">
+Rule
+  = RuleName?
+    RuleWithoutName
+
+RuleWithoutName
+  = PropagationRule
+  / SimplificationRule
+  / SimpagationRule
+
+PropagationRule
+  = Constraints
+    "==>"
+    Guard?
+    bodyConstraints:Body
+
+...
+</pre>
+
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Asynchronous Compilation</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>gcd</code> Example</h2>
+      <h3>Naïve Recursive Implementation in JavaScript</h3>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+function gcd (a, b) {
+  if (b === 0)
+    return a
+  if (a > b)
+    return gcd(a-b, b)
+  return gcd(a, b-a)
+}
+
+console.log(gcd(15, 12))
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>JavaScript's standard has tail recursion optimization, but it is not yet implemented</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+    </hgroup>
+    <article>
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Pseudocode Implementation</dt>
+      <pre class="prettyprint" data-lang="pseudo">
+while queue.waitForMessage()
+  queue.processNextMessage()
+end
+</pre>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Visualisation</dt>
+      <img src="images/eventloop.png" alt="Description" title="Description" style="max-height:300px;">
+      <footer class="source">Source: Mozilla Developer Network (MDN)</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>JavaScript's Event Loop</h2>
+      <h3><code>gcd</code> Example, Asynchronous Implementation</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+function gcd (a, b, callback) {
+  if (b == 0) {
+    callback(a)
+  } else if (a > b) {
+    setTimeout(function () {
+      gcd(a-b, b, callback)
+    }, 0)
+  } else {
+    setTimeout(function () {
+      gcd(a, b-a, callback)
+    }, 0)
+  }
+}
+
+gcd(15, 12, console.log)
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li>optimisations possible, e.g. setTimeout only every 1000th step</li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Asynchronous Compilation</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+chr.gcd(15).then(function () {
+  // call when finished handling gcd(15)
+  chr.gcd(12).then(function () {
+    // call when finished handling gcd(12)
+    console.log(chr.Store.toString()) // prints constraint store
+  })
+})
+
+// output:
+gcd(3)
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Synchronous Compilation</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Synchronous Compilation</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+function trampoline() {
+  // pulls first element
+  while (constraint = stack.pop()) {
+    constraint.continue()
+    // might push new continuations to the stack
+  }
+}
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Synchronous Compilation (cont.)</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="JavaScript">
+function gcd() {
+  var args = Array.prototype.slice.call(arguments)
+  var arity = arguments.length, functor = "gcd/" + arity
+  var constraint = new Constraint("gcd", arity, args);
+  constraint.cont = [__gcd_1_0, 0]; stack.push(constraint)
+  trampoline()
+}
+
+   &hellip;
+
+function __gcd_1_3(c,n) {
+  c.cont = null; chr.Store.add(c)
+}
+</pre>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>CHR.js</h2>
+      <h3>Proposed Solutions (recap)</h3>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Seamless Integration of CHR into JavaScript</dt>
+      <p>using tagged template strings</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Parsing CHR in JavaScript</dt>
+      <p>using Parsing Expression Grammars</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Asynchronous Compilation Scheme</dt>
+      <p>for flexible and concurrent programs</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Synchronous Compilation Scheme</dt>
+      <p>using an explicit stack</p>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">Evaluation</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>gcd</code></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/bench-gcd.png" alt="Description" title="Description">
+      <footer class="source">CHR-Benchmarks for gcd</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>fib</code></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/bench-fib.png" alt="Description" title="Description">
+      <footer class="source">CHR-Benchmarks for fib</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>primes</code></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/bench-primes.png" alt="Description" title="Description">
+      <footer class="source">CHR-Benchmarks for primes</footer>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>ram</code></h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/bench-ram.png" alt="Description" title="Description">
+      <footer class="source">CHR-Benchmarks for ram</footer>
+    </article>
+  </slide>
+
+  <slide class="nobackground thank-you-slide">
+    <article class="flexbox vcenter">
+      <h2 style="font-size:90px; color:white; line-height:90px;">CHR.js Playground</h2>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Conclusion</h2>
+    </hgroup>
+    <article class="">
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Contributions</dt>
+      <ul class="">
+        <li>Asynchronous Compilation Scheme</li>
+        <li>Synchronous Compilation Scheme</li>
+        <li>CHR.js Playground as Application</li>
+      </ul>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Future Work</dt>
+      <ul>
+        <li>More real-world applications</li>
+        <li>Support for logical variables</li>
+        <li>Integration of Tau-Prolog</li>
+        <li>Adopt compilation ideas for Prolog using delimited continuations</li>
+      </ul>
+    </article>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Open Source @ GitHub</h2>
+      <br /> <br /> <br />
+
+      <pre class=" questions" data-lang="URL" style="font-size:30px; color:#000; padding:60px 0;">
+https://github.com/fnogatz/CHR.js
+      </pre>
+      <pre class=" questions" data-lang="URL" style="font-size:30px; color:#000; padding:60px 0;">
+https://chrjs.net
+      </pre>
+    </article>
+  </slide>
+
+  <slide class="thank-you-slide segue nobackground">
+    <article class="flexbox vleft">
+      <h2>Questions?</h2>
+      <br /> <br /> <br />
+
+      <pre class="prettyprint questions" data-lang="prolog" >
+?- ask(falco, +Question, -Answer).
+      </pre>
+
+  <br/> <br/> <br/>
+
+  <p style="font-size:0.7em;text-align:right;">
+      <img src="images/by.svg" style="float:right;margin-left:25px;" />
+      This presentation is licensed under the <br />
+      <a style="color:white;" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International</a> 
+      license.
+      </p>
+
+    </article>
+    <p class="auto-fadein" data-config-contact style="display:none;">
+      <!-- populated from slide_config.json -->
+    </p>
+  </slide>
+
+  <slide class="segue dark nobackground">
+    <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
+    <hgroup class="auto-fadein">
+      <h2 style="line-height:60px;">Backup Slides</h3>
+    </hgroup>
+
+    <aside class="note">
+      <ul>
+        <li></li>
+      </ul>
+    </aside>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>gcd</code></h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="CHR.js">
+cleanup @ gcd(0) &lt;=> true
+step    @ gcd(N) \ gcd(M) &lt;=> 0 < N, N &lt;= M | gcd(M - N)
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>fib</code></h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="CHR.js">
+start @ upto(N) ==> fib(0,1), fib(1,1)
+next  @ upto(Max), fib(N2,M2) \ fib(N1,M1) &lt;=>
+          Max > N2, N2 === N1+1 | fib(N2+1, M1+M2)
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>primes</code></h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="CHR.js">
+gen   @ upto(N) &lt;=> N > 1 | upto(N-1), prime(N)
+sift  @ prime(X) \ prime(Y) &lt;=> Y % X === 0 | true
+</pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2><code>ram</code></h2>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="CHR.js">
+prog(L,L1,'add',B,A), mem(B,Y) \ mem(A,X), prog_counter(L) <=> 
+    mem(A,X+Y), prog_counter(L1)
+
+prog(L,L1,'sub',B,A), mem(B,Y) \ mem(A,X), prog_counter(L) <=> 
+    mem(A,X-Y), prog_counter(L1)
+
+prog(L,L1,'mult',B,A), mem(B,Y) \ mem(A,X), prog_counter(L) <=> 
+    mem(A,X*Y), prog_counter(L1)
+
+prog(L,L1,'div',B,A), mem(B,Y) \ mem(A,X), prog_counter(L) <=> 
+mem(A,X/Y >> 0), prog_counter(L1)
+
+...
+</pre>
+    </article>
+  </slide>
+
+
+
+
+  <slide class="thank-you-slide segue nobackground">
+    <aside class="gdbar right"><img src="images/uniwue-128.png"></aside>
+    <article class="flexbox vleft auto-fadein">
+      <h2>Falco Nogatz</h2>
+      <p>University of Würzburg<br>Chair for Computer Science I</p>
+      <p>falco.nogatz@uni-wuerzburg.de<br />http://uni-wuerzburg.de/?nogatz</p>
+    </article>
+  </slide>
+
+  <slide class="backdrop"></slide>
+
+</slides>
+</body>
+</html>
