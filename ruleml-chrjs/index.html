@@ -137,7 +137,7 @@ URL: https://code.google.com/p/io-2012-slides
       <ul class="large">
         <li>Rule-based language defined in 1991 by Thom Frühwirth</li>
         <li>Idea: Write constraint solvers in a high-level language</li>
-        <li>Used as language extension:
+        <li>Used as an extension to a host language:
           <ul>
             <li>CHR(Prolog)</li>
             <li>CHR(Java)</li>
@@ -178,7 +178,7 @@ c(a<sub>1</sub>, &hellip; , a<sub>n</sub>)
 p,                                   % p/0
 num(1),                              % num/1
 list([1,2,3]),                       % list/1
-fun(function () { return true })     % f/1
+fun(function () { return true })     % fun/1
 </pre>
     </article>
 
@@ -207,7 +207,7 @@ fun(function () { return true })     % f/1
         <li><code class="kept">Kept</code>, <code class="removed">Removed</code>, and <code class="body">Body</code>: <em>CHR constraints</em> (<code>c/n</code>)</li>
         <li><code class="guard">Guard</code>: <em>built-in constraints</em>
           <ul>
-            <li>expression(s) of the host language</li>
+            <li>expression of the host language</li>
             <li>might be empty = <code>true</code></li>
           </ul>
         </li>
@@ -260,13 +260,13 @@ r1  @  a, b ==> c
 r2  @  a, a ==> c
 </pre>
 
-      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Committed choice</dt>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Nondeterminism</dt>
       <pre class="prettyprint" data-lang="CHR" style="clear: both;">
 r3  @  a ==> b
 r4  @  a ==> c
 </pre>
 
-      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Nondeterminism</dt>
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Committed choice</dt>
     </article>
 
     <aside class="note">
@@ -460,7 +460,8 @@ gcd(3)
 
     <aside class="note">
       <ul>
-        <li></li>
+        <li>all started with Prolog</li>
+        <li>refined operational semantics</li>
       </ul>
     </aside>
   </slide>
@@ -572,6 +573,8 @@ Promise.all(guards)                        // prove all guards
 
       <dt class="uni-blue" style="margin: 30px 0 10px 0;">Synchronous Compilation Scheme</dt>
       <p>using an explicit stack</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Benchmark Suite</dt>
     </article>
 
     <aside class="note">
@@ -600,12 +603,12 @@ Promise.all(guards)                        // prove all guards
       <h3>Seamless Integration of CHR into JavaScript</h3>
     </hgroup>
     <article class="">
-      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Tagged Template Strings</dt>
+      <dt class="uni-blue" style="margin: -30px 0 10px 0;">Tagged template strings</dt>
       <pre class="prettyprint" data-lang="JavaScript">
 tag`text with ${ embedded_expr } even across multiple lines`
 </pre>
 
-      <dt class="uni-blue" style="margin: 50px 0 10px 0;">CHR.js Integration</dt>
+      <dt class="uni-blue" style="margin: 50px 0 10px 0;">CHR.js integration</dt>
       <pre class="prettyprint" data-lang="JavaScript">
 var chr = new CHR()
 chr` gcd1 @ gcd(0) &lt;=> true
@@ -623,7 +626,7 @@ chr` gcd1 @ gcd(0) &lt;=> true
   <slide class="segue dark nobackground">
     <aside class="gdbar"><img src="images/uniwue-128.png"></aside>
     <hgroup class="auto-fadein">
-      <h2 style="line-height:60px;">Parsing CHR in JavaScript</h3>
+      <h2 style="line-height:60px;">Parsing CHR in JavaScript using Parsing Expression Grammars</h3>
     </hgroup>
 
     <aside class="note">
@@ -871,6 +874,8 @@ function __gcd_1_3(c,n) {
 
       <dt class="uni-blue" style="margin: 30px 0 10px 0;">Synchronous Compilation Scheme</dt>
       <p>using an explicit stack</p>
+
+      <dt class="uni-blue" style="margin: 30px 0 10px 0;">Benchmark Suite</dt>
     </article>
 
     <aside class="note">
@@ -955,7 +960,7 @@ function __gcd_1_3(c,n) {
 
     <aside class="note">
       <ul>
-        <li></li>
+        <li>more than 420 tests</li></li>
       </ul>
     </aside>
   </slide>
@@ -979,8 +984,8 @@ https://chrjs.net
       <h2>Questions?</h2>
       <br /> <br /> <br />
 
-      <pre class="prettyprint questions" data-lang="prolog" >
-?- ask(falco, +Question, -Answer).
+      <pre class="prettyprint questions" data-lang="CHR" >
+question(X) ==> ask(X)
       </pre>
 
   <br/> <br/> <br/>
