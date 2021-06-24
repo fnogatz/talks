@@ -36,13 +36,13 @@ Related Links:
 
 *University of Ulm, 7/10/2015 - 7/14/2015*
 
-Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-15/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/haskell/exercises.html)
+Haskell: [Skript](https://fnogatz.github.io/talks/pdp-rep-15/haskell/) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-15/haskell/exercises.html)
 
-Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-15/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/prolog-chr/exercises.html)
+Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-15/prolog-chr/) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-15/prolog-chr/exercises.html)
 
-Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/exercises.html)
+Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-15/exercises.html)
 
-## [Project Demo: CHR.js](http://fnogatz.github.com/talks/ss15-projekt-chr)
+## [Project Demo: CHR.js](https://fnogatz.github.io/talks/ss15-projekt-chr/)
 
 *University of Ulm, 2 June 2015*
 
@@ -50,23 +50,23 @@ Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-15/exercises.html)
 
 *University of Ulm, 7/26/2014 - 7/31/2014*
 
-Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-14/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/haskell/exercises.html)
+Haskell: [Skript](https://fnogatz.github.io/talks/pdp-rep-14/haskell/) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-14/haskell/exercises.html)
 
-Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-14/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/prolog-chr/exercises.html)
+Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-14/prolog-chr/) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-14/prolog-chr/exercises.html)
 
-Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-14/exercises.html)
+Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-14/exercises.html)
 
 ## Repetitorium: Paradigmen der Programmierung (2013)
 
 *University of Ulm, 7/19/2013 - 7/21/2013*
 
-Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-13/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/haskell/exercises.html)
+Haskell: [Skript](https://fnogatz.github.io/talks/pdp-rep-13/haskell) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/haskell/exercises.html)
 
-Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-13/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/prolog-chr/exercises.html)
+Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-13/prolog-chr) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/prolog-chr/exercises.html)
 
-Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/exercises.html)
+Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/exercises.html)
 
-## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](http://fnogatz.github.com/talks/webeng12-geospatial-app)
+## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](https://fnogatz.github.io/talks/webeng12-geospatial-app/)
 
 *University of Ulm, 1/31/2013, Web Engineering lecture.*
 
@@ -74,18 +74,18 @@ Mixed: [Übungen](http://fnogatz.github.com/talks/pdp-rep-13/exercises.html)
 
 *University of Ulm, 7/24/2012 - 7/26/2012 and 9/25/2012 - 9/27/2012*
 
-Haskell: [Skript](http://fnogatz.github.com/talks/pdp-rep-12/haskell) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-12/haskell/exercises.html)
+Haskell: [Skript](https://fnogatz.github.io/talks/pdp-rep-12/haskell) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-12/haskell/exercises.html)
 
-Prolog & CHR: [Skript](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr) | [Übungen](http://fnogatz.github.com/talks/pdp-rep-12/prolog-chr/exercises.html)
+Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-12/prolog-chr) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-12/prolog-chr/exercises.html)
 
-[Gemischte Übungsaufgaben](http://fnogatz.github.com/talks/pdp-rep-12/exercises)
+[Gemischte Übungsaufgaben](https://fnogatz.github.io/talks/pdp-rep-12/exercises)
 
 ## Repetitorium: R-Programmierung für Molekularmediziner
 
 *University of Ulm, 3/10/2012.*
 
-[Skript](http://fnogatz.github.com/talks/r-bioinformatik) | [Übungen](http://fnogatz.github.com/talks/r-bioinformatik/exercises.html)
+[Skript](https://fnogatz.github.io/talks/r-bioinformatik/) | [Übungen](https://fnogatz.github.io/talks/r-bioinformatik/exercises.html)
 
-## [Solving Linear Equation Sets with CHR](http://fnogatz.github.com/talks/chr-equations)
+## [Solving Linear Equation Sets with CHR](https://fnogatz.github.io/talks/chr-equations/)
 
 *University of Ulm, 2/14/2012.*
