@@ -22,6 +22,10 @@ div.build > pre {
   margin-top: 20px;
 }
 
+ul.build > li > pre {
+  margin-top:10px;
+}
+
 
 
 

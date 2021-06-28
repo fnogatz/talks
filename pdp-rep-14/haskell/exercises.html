@@ -633,12 +633,11 @@ quantitySum :: HuffmanTree -> Integer
       <h2>Aufgabe 8 - Ergänzung (2)</h2>
     </hgroup>
     <article>     
-      <p>Definiere eine nicht-rekursive Funktion <code>chars :: HuffmanTree -> [(Char,Float)]</code>, die eine Liste aller im übergebenen Huffman-Tree gespeicherten Buchstaben sowie ihrer absoluten Häufigkeiten zurückliefert. Die Reihenfolge ist dabei beliebig.</p>
+      <p>Definiere eine nicht-rekursive Funktion <code>chars :: HuffmanTree -> [(Char,Quantity)]</code>, die eine Liste aller im übergebenen Huffman-Tree gespeicherten Buchstaben sowie ihrer absoluten Häufigkeiten zurückliefert. Die Reihenfolge ist dabei beliebig.</p>
         
       <div class="build">
       <pre data-lang="haskell">
-quantitySum :: HuffmanTree -> Integer
-chars :: HuffmanTree -> [(Char,Float)]
+chars :: HuffmanTree -> [(Char,Quantity)]
 <span>chars = foldHuffmanTree (\q c -> [(c,q)]) (++)</span>
 </pre>
       </div>
@@ -798,7 +797,7 @@ calc = foldME <span>id</span><span> (+)</span><span> (*)</span><span> fak</span>
       <h2>Skript</h2>
     </hgroup>
   <article>
-    <p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">github.com/fnogatz/talks/pdp-rep-13/haskell/</a></p>
+    <p>... zum Repetitorium gibt's hier:<br><a href="index.html" style="">fnogatz.github.io/talks/pdp-rep-14/haskell/</a></p>
 
     <h3 style="margin-top:160px;">Credits</h3>
     <p>Thanks to <a href="http://erb.io">Benjamin Erb</a> for the <a href="https://github.com/berb/html5slides-uulm">html5slides</a> and uulm template.</p>
