@@ -84,8 +84,8 @@ Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-12/prolog-chr) | 
 
 *University of Ulm, 3/10/2012.*
 
-[Skript](https://fnogatz.github.io/talks/r-bioinformatik/) | [Übungen](https://fnogatz.github.io/talks/r-bioinformatik/exercises.html)
+[Skript](https://fnogatz.github.io/talks/201203_r-bioinformatik/) | [Übungen](https://fnogatz.github.io/talks/201203_r-bioinformatik/exercises.html)
 
-## [Solving Linear Equation Sets with CHR](https://fnogatz.github.io/talks/chr-equations/)
+## [Solving Linear Equation Sets with CHR](https://fnogatz.github.io/talks/201202_chr-equations/)
 
 *University of Ulm, 2/14/2012.*
