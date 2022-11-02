@@ -3,25 +3,29 @@ Talks
 
 A little collection of talks I gave.
 
-## [WLP'17: Declarative XML Schema Validation with SWI–Prolog](http://fnogatz.github.com/talks/wflp17-lib-xsd) (2017)
+## [PhD Defense: Defining and Implementing Domain-Specific Languages with Prolog](https://fnogatz.github.io/talks/202210_phd-defense)
+
+*University of Würzburg, 10/31/2022*.
+
+## [WLP'17: Declarative XML Schema Validation with SWI–Prolog](http://fnogatz.github.io/talks/wflp17-lib-xsd) (2017)
 
 *Workshop on (Constraint) Logic Programming (WLP), University of Würzburg, 9/20/2017*.
 
-## [WLP'16: Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](http://fnogatz.github.com/talks/wlp16-graphql) (2016)
+## [WLP'16: Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](http://fnogatz.github.io/talks/wlp16-graphql) (2016)
 
 *Workshop on (Constraint) Logic Programming (WLP), HTWK Leipzig, 9/12/2016*.
 
 [Related Paper](http://www.imn.htwk-leipzig.de/~schwarz/wlp16/wlp2016_pre-proceedings_paper_5.pdf)
 
-## [Prolog Crashkurs](http://fnogatz.github.com/talks/ss16-uniwue-prolog-intro)
+## [Prolog Crashkurs](http://fnogatz.github.io/talks/ss16-uniwue-prolog-intro)
 
 *University of Würzburg, 4/28/2016*.
 
-## [Seminareinführung: Advanced Database and Logic Programming Concepts](http://fnogatz.github.com/talks/ss16-uniwue-seminar) (2016)
+## [Seminareinführung: Advanced Database and Logic Programming Concepts](http://fnogatz.github.io/talks/ss16-uniwue-seminar) (2016)
 
 *University of Würzburg, 4/14/2016*.
 
-## [CHR.js: Compiling Constraint Handling Rules to JavaScript](http://fnogatz.github.com/talks/master-thesis)
+## [CHR.js: Compiling Constraint Handling Rules to JavaScript](http://fnogatz.github.io/talks/master-thesis)
 
 *University of Ulm, 12/01/2015. Presentation of my Master Thesis.*
 
@@ -66,7 +70,7 @@ Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-13/prolog-chr) | 
 
 Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/exercises.html)
 
-## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](https://fnogatz.github.io/talks/webeng12-geospatial-app/)
+## [Build Your Own Foursquare with MongoDB, node.js (and other hipster technologies)](https://fnogatz.github.io/talks/201301_webeng12-geospatial-app/)
 
 *University of Ulm, 1/31/2013, Web Engineering lecture.*
 
@@ -74,7 +78,7 @@ Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/exercises.html)
 
 *University of Ulm, 7/24/2012 - 7/26/2012 and 9/25/2012 - 9/27/2012*
 
-Haskell: [Skript](https://fnogatz.github.io/talks/pdp-rep-12/haskell) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-12/haskell/exercises.html)
+Haskell: [Skript](https://fnogatz.github.io/talks/201207_pdp-rep-12/haskell) | [Übungen](https://fnogatz.github.io/talks/201207_pdp-rep-12/haskell/exercises.html)
 
 Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-12/prolog-chr) | [Übungen](https://fnogatz.github.io/talks/pdp-rep-12/prolog-chr/exercises.html)
 

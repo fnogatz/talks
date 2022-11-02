@@ -1,0 +1,1702 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>PhD Talk by Falco Nogatz: Defining and Implementing Domain-Specific Languages with Prolog</title>
+
+    <meta name="description" content="PhD Talk by Falco Nogatz: Defining and Implementing Domain-Specific Languages with Prolog" />
+    <meta name="author" content="Falco Nogatz" />
+
+    <link rel="stylesheet" href="/extras/highlight/styles/github.css">
+    <link rel="stylesheet" href="/extras/mermaid/mermaid.forest.css">
+
+    <!-- This file contains common styles for example presentations. -->
+    <link href="/css/impress-common.css" rel="stylesheet" />
+
+    <!-- This file contains styles specific for this example presentation. -->
+    <link href="css/slides.css" rel="stylesheet" />
+
+</head>
+
+<body class="impress-not-supported">
+<!--
+    This fallback message is only visible when there is `impress-not-supported` class on body.
+-->
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress"
+    data-transition-duration="0"
+    data-width="1920"
+    data-height="1080"
+    data-max-scale="3"
+    data-min-scale="0"
+    data-perspective="1000"
+    data-autoplay="0"
+>
+    <div id="Frontpage" class="step slide title skip-progress" data-x="-2200" data-y="-3000">
+        <aside class="gdbar"><img src="images/uniwue.png"></aside>
+
+        <h1>Defining and Implementing<br>Domain-Specific Languages with Prolog</h1>
+        <h2><span class="uni-blue">Falco Nogatz</span><br>Chair of Computer Science I, University of Würzburg, Germany</h2>
+    </div>
+
+    <div id="Programming-Languages" class="step" data-rel-x="2800" data-rel-y="0">
+        <div class="hexagons">
+            <div style="background-image: url(images/python-classification.png);" class="substep" data-substep-order="1"><span class="language">Python</span></div>
+            <div style="background-image: url(images/graphql.jpg);" class="substep" data-substep-order="1"><span class="language">GraphQL</div>
+            <div style="background-image: url(images/javascript-browser.jpg);" class="substep" data-substep-order="1"><span class="language">JavaScript</span></div>
+            <div style="background-image: url(images/languages.png);"></div>
+            <div style="background-image: url(images/ebnf.jpg);" class="substep" data-substep-order="1"><span class="language">Ebnf</span></div>
+            <div style="background-image: url(images/prolog-reasoning.png);" class="substep" data-substep-order="1"><span class="language">Prolog</span></div>
+            <div style="background-image: url(images/xpath.png);" class="substep" data-substep-order="1"><span class="language">XPath</span></div>
+        </div>
+    </div>
+
+    <div id="GPL-vs-DSL" class="step skip-progress" data-rel-x="0" data-rel-y="100" data-rel-z="
+    300" data-transition-duration="1000">
+        <img src="images/gpl.png" id="gpl-img" style="left: 460px;">
+        <img src="images/dsl.png" id="dsl-img" style="left: 980px;">
+    </div>
+
+    <div id="DSLs-with-Prolog" class="step slide" data-x="-2200" data-y="-1500" data-z="
+    0">
+        <div class="left-col">
+            <h1>DSLs</h1>
+            <p style="padding: 0; margin: -1.7em 0 0 4px; text-align: left;"><b>D</b>omain-<b>S</b>pecific <b>L</b>anguages</p>
+            <ul>
+                <li>Tailored to a well-defined use case</li>
+                <li>Rapid prototyping</li>
+                <li class="substep bg" data-substep-order="2" style="background-image: url(images/external.png); background-size: 210px; background-position: 430px 72px; margin-right: -60px;">Integration via<br><em>Parsing</em><span class="substep bg" data-substep-order="3"> or</span><br><span class="substep bg" data-substep-order="3" style="background-image: url(images/internal.png); background-size: 210px; background-position: 430px 8px; padding-right: 500px;"><em>Embedding</em></span></li> 
+            </ul>
+        </div>
+        <div class="right-col">
+            <h1>Prolog</h1>
+            <ul style="padding-left: 0; margin-top: 80px;">
+                <li>Proven useful as an integration tool</li>
+                <li>Long tradition in NLP</li>
+                <li class="substep" data-substep-order="1" style="margin-right: 0; margin-top: 72px;">Definite Clause Grammars (DCGs)</li>
+                <li class="substep" data-substep-order="3">Flexible syntax</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Flexible-Syntax" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <div class="ribbon ribbon-top-right"><span>Prolog Recap</span></div>
+
+        <div style="float: left; width: 72%;">
+            <h1 style="font-size: 1.75em;">Flexible Syntax without Keywords</h1>
+
+            <ul style="margin-top: 126px; padding-left: 0;">
+                <li>Numbers: <code>1</code>, <code>2.3</code></li>
+                <li class="bg" style="background-image: url(images/anonymous-variable.png); background-size: 350px; background-position: 400px 18px; padding-right: 100px;">Variables: <code>A</code>, <code>_b</code>, <code>_</code></li>
+                <li>Atoms: <code>'C'</code>, <code>d</code>, <code>==&gt;</code></li>
+                <li class="bg"  style="background-image: url(images/functor-g2.png); background-size: 230px; background-position: 730px 18px; padding-right: 100px; margin-right: 0;">Compound terms: <code>+(1,2)</code>, <code>g(H,i)</code></li>
+                <li class="substep" data-substep-order="1">Execution based on SLD <small style="font-size: 70%;">(<i>Selective Linear Definite clause</i>)</small> resolution with backtracking</li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 28%; margin-top: 100px;">
+<pre data-lang="Prolog"><code style="background-image: url(images/source.png); background-size: 480px; background-position: 6px 75px; padding-top: 30px;">/* multiline comment */
+<span class="hljs-comment">% line comment</span>
+:- set_prolog_flag(
+  occurs_check, error).
+are(mammals, animals).
+are(elephants, mammals).
+are(tigers, mammals).
+are(As, Cs) :-
+  are(Bs, Cs), are(As, Bs).
+</code></pre>
+
+<pre data-lang="Toplevel" class="substep" data-substep-order="1"><code style="background-image: url(images/backtracking.png); background-size: 168px; background-position: 232px 84px; padding-top: 30px;">?- are(What, animals).
+What = mammals ;
+What = elephants ;
+What = tigers ;
+<span class="hljs-comment">% wait forever</span>
+</code></pre>
+</div>
+    </div>
+
+    <div id="Operator-Notation" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <div class="ribbon ribbon-top-right"><span>Prolog Recap</span></div>
+
+        <ul class="shortcuts">
+            <li><a href="#Operator-Tables">Operator Table</a></li>
+        </ul>
+
+        <h1>Internal DSLs via Operators</h1>
+        <div style="float: right; width: 28%; margin-top: -30px; padding-right: 4%; margin-left: 20px;">
+<pre data-lang="Prolog"><code style="background-image: url(images/both-notations-valid.png); background-size: 470px; background-position: 3px 155px;">:- op(700, xfx, are).
+mammals are animals.
+elephants are mammals.
+are(tigers, mammals).
+As are Cs :-
+  Bs are Cs, As are Bs.
+</code></pre>
+
+<pre data-lang="Toplevel" id="halloween" class="substep" data-substep-order="2"><code style="background-image: url(images/highlight-1.png); background-size: 56px; background-position: 110px 22px;">?- op(600, yfx, *).
+true.
+?- X is 1+2*3.
+X = 9.</code></pre>
+</div>
+
+        <ul style="padding-left: 0;">
+            <li>Parentheses-free compounds with operators</li>
+            <li>Definition via <code>:- op(+Precedence,+Type,:Name).</code></li>
+            <li class="bg" style="background-image: url(images/fix.png); background-size: 585px; background-position: 200px 55px; padding-bottom: 70px;">Types <code>xfx</code>, <code>xfy</code>, <code>yfx</code>, <code>fx</code>, <code>fy</code>, <code>xf</code>, <code>yf</code></li>
+            <li class="substep" data-substep-order="1">Precedences are in <code>1..1200</code>; smaller binds more</li>
+            <li class="substep bg" data-substep-order="1" style="background-image: url(images/left-associative.png); background-size: 340px; background-position: 210px 123px; padding-bottom: 70px;">More than 40 pre-defined operators, e.g.<br><code>(500,yfx,+)</code>, <code>(400,yfx,*)</code></li>
+        </ul>
+    </div>
+
+    <div id="If-then-Example" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <h1>If-then-Rules as an Internal DSL</h1>
+
+<pre data-lang="Prolog" class="left-col" style="width: 52%;"><code style="background-image: url(images/if-then-highlight.png); background-size: 735px; background-position: 55px 286px;">:- op(1100, yfx, then), op(1000, fx, if).
+:- op( 900, fx, [neg, not]).
+:- op( 850, yfx, or), op( 800, yfx, and).
+:- op( 700, xfx, are).
+:- op( 200, fx, [a, an, the, no]).
+
+the weather is rainy. <span class="hljs-comment">% is(the(weather), rainy)</span>
+the umbrella is broken.
+if the umbrella is broken then there is no umbrella.
+
+if the weather is rainy and there is no umbrella
+  or the weather is a thunderstorm
+then the clothes are wet.
+</code></pre>
+
+        <img src="images/if-then-binary-tree.png" style="float:right; width: 45%; margin-top: 120px;">
+    </div>
+
+    <div id="EBNF-Example" class="step slide" data-x="11400" data-y="-1500" data-y="0">
+        <h1>EBNF as an Internal DSL</h1>
+<pre data-lang="Prolog" class="left-col substep" style="width: 61%;"><code style="font-size: 30px; padding-top: 30px; background-image: url(images/ebnf-internal-dsl.png); background-size: 885px; background-position: 12px 86px;">:- op(1150, xfy, ;), op(1100, xfx, =), op(1001, xfy, '|').
+
+         variable_token = anonymous_variable /* 6.4.3 */
+                        | named_variable /* 6.4.3 */ ;
+     anonymous_variable = variable_indicator_char /* 6.4.3 */ ;
+         named_variable = variable_indicator_char /* 6.4.3 */,
+                          alphanumeric_char /* 6.5.2 */,
+                          { alphanumeric_char /* 6.5.2 */ }
+                        | capital_letter_char /* 6.5.2 */,
+                          { alphanumeric_char /* 6.5.2 */ } ;
+variable_indicator_char = underscore_char /* 6.5.2 */ ;
+        underscore_char = "_" ;
+    capital_letter_char = "A" | "B" | "C" | ... ;
+      alphanumeric_char = ... . <span class="hljs-comment">% sic!</span>
+</code></pre>
+
+        <div style="float:right; width: 38%; margin-top: 60px; position: relative;">
+            <div class="ribbon ribbon-top-right small"><span>ISO Standard</span></div>
+            <img src="images/iso-variable.png" style="width: 100%;">
+        </div>
+    </div>
+
+    <div id="Research-Question" class="step slide" data-x="6200" data-y="-1500" data-z="0">
+        <h1>Main Research Problem</h1>
+
+        <p style="font-size: 70px; margin-top: 1.2em;">Given a number of example sentences,<br>is it <em>possible</em> to model them as valid Prolog clauses,<br>and if so, can we <em>automatically infer</em> the required operator definitions?</p>
+
+        <p class="substep" style="font-size: 70px;" data-substep-order="1"><b>Approach:</b> Treat Prolog like an <em>external DSL</em>.</p>
+    </div>
+
+    <div id="Addressed-Problems" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <h1 style="margin-top: 0; margin-bottom: 0.2em;">Addressed Problems</h1>
+
+        <div id="image-holder">
+            <span class="substep" data-substep-order="1"></span>
+        </div>
+    </div>
+
+    <!--
+        #################
+        # EXTERNAL DSLs #
+        #################
+    -->
+
+    <div id="External-Segue" class="step slide segue skip-progress" data-x="-2200" data-y="0" data-z="
+    0">
+        <h1>External DSLs</h1>
+    </div>
+
+    <div id="External-Intro" class="step slide skip skip-progress" data-rel-x="2100" data-rel-y="0">
+        <div class="ribbon ribbon-top-right"><span>Prolog Recap</span></div>
+
+        <h1>External DSLs</h1>
+        <ul>
+            <li>Using DCGs: <code>phrase/{2,3}</code>, <code>phrase_from_file/2</code>, etc.</li>
+            <li>Inlining via Quasi-Quotations, since SWI-Prolog v6.3</li>
+        </ul>
+<pre data-lang="Prolog"><code style="background-image: url(images/external-dsl.png); background-size: 846px; background-position: 450px 70px;">:- set_prolog_flag(back_quotes, codes).
+xpath --> `every `, iterator, ` satisfies `, condition.
+iterator --> ...
+condition --> ...
+
+xsd_fragment(XML) :- XML = {| xsd ||
+  &lt;xs:complexType>
+    &lt;xs:assert test="entry[@id mod 2 eq 0]/@class = ’even’ or entry[@id mod 2 eq 1]/@class = ’odd’" />
+    &lt;xs:assert test="every $i in 1 to count(entry)-1 satisfies (entry[$i] lt entry[$i+1])" />
+  &lt;/xs:complexType&gt;
+|}.
+</code></pre>
+    </div>
+
+    <div id="DCGs-Intro" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <div class="ribbon ribbon-top-right"><span>Prolog Recap</span></div>
+
+        <h1>Definite Clause Grammars (DCGs)</h1>
+<pre data-lang="Prolog" data-text="Running Example" style="float: left; width:46%;"><code style="background-image: url(images/embedded-prolog.png); background-size: 400px; background-position: 330px 335px;"><i><span class="hljs-comment">% :- op(1200, xfx, -->).
+% head --> body<sub>1</sub>, ..., body<sub>n</sub>.</span></i>
+
+palindrome --> [].
+palindrome --> elem(_).
+palindrome --> elem(X),
+               palindrome,
+               elem(X).
+elem(X)    --> [X], { member(X, [a,b]) }.
+</code></pre>
+
+<pre class="substep" data-substep-order="2" data-lang="Prolog" style="float: right; width:48%;"><code><span class="hljs-comment">% Difference list V<sub>0</sub>-V<sub>n</sub>, i.e. V<sub>0</sub> = [...|V<sub>n</sub>]</span>
+<span class="hljs-comment">% head(V<sub>0</sub>,V<sub>n</sub>) :- body<sub>1</sub>(V<sub>0</sub>,V<sub>1</sub>), ..., body<sub>n</sub>(V<sub>n-1</sub>,V<sub>n</sub>).</span>
+
+palindrome(A, A).
+palindrome(A, Z)  :- elem(_, A, Z).
+palindrome(A, Z)  :- elem(X, A, B),
+                     palindrome(B, C),
+                     elem(X, C, Z).
+elem(X, [X|Z], Z) :- member(X, [a,b]).
+</code></pre>
+
+<pre class="substep" data-substep-order="1" data-lang="Prolog" style="clear: both; float: left; width:46%; margin-top: -20px;"><code style="background-image: url(images/dcg-translate-rule.png); background-size: 560px; background-position: 0px 3px; padding-top: 30px;">term_expansion(X1 --> Y1, X2 :- Y2) :-
+  term_args_attached(X1, [In, Out], X2),
+  translate_body(Y1, Y2, In, Out).
+</code></pre>
+
+<pre class="substep" data-substep-order="3" data-lang="Toplevel" style="float: right; width:48%; margin-top: -20px;"><code>?- palindrome([a,b,a], []).
+true .
+</code></pre>
+    </div>
+
+    <div id="Parse-Trees" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Parse-Tree-with-Pushback-Lists">Pushback Lists</a></li>
+        </ul>
+
+        <h1>Parse Tree Handling for DCGs</h1>
+
+        <p><b>Goal:</b> Represent parsed string by corresponding, <em>automatically expanded</em> Prolog term.</p>
+
+<pre data-text="Running Example" style="float: left; width:27%;"><code><span class="substep" data-substep-order="2">:- use_module(
+   library(dcg4pt/expand)).</span>
+palindrome --> [].
+palindrome --> elem(_).
+palindrome --> elem(X),
+               palindrome,
+               elem(X).
+elem(X) --> [X],
+  { member(X, [a,b]) }.
+</code></pre>
+
+<pre data-lang="Toplevel" style="float: right; width:72%;" class="border"><code>?- palindrome(PT, [a,b,a], []).
+PT = palindrome([ elem(a), palindrome( elem(b) ), elem(a) ]) .
+
+<span class="substep" data-substep-order="1">?- PT = palindrome([ elem(a), palindrome( elem(b) ), elem(a) ]),
+   palindrome(PT, L, []).
+L = [a,b,a] .</span>
+</code></pre>
+    </div>
+
+    <div id="Parse-Tree-Expansion-1" class="step slide" data-rel-x="2100" data-rel-y="0" 
+    data-transition-duration="1000">
+        <ul class="shortcuts">
+            <li><a href="#Parse-Tree-with-Pushback-Lists">Pushback Lists</a></li>
+        </ul>
+
+        <h1>Parse Tree Context in DCGs</h1>
+
+        <p><b>Solution:</b> Modified term expansion for DCGs.</p>
+
+<pre data-text="Running Example" style="float: left; width:27%;"><code>:- use_module(
+   library(dcg4pt/expand)).
+palindrome --> [].
+palindrome --> elem(_).
+palindrome --> elem(X),
+               palindrome,
+               elem(X).
+elem(X) --> [X],
+  { member(X, [a,b]) }.
+</code></pre>
+
+        <img src="images/pfeil-1.png" style="position: absolute; width: 120px; margin-left: 10px; margin-top: 150px;">
+
+<pre data-lang="DCG" style="float: right; width:65%;" class="border"><code>
+
+palindrome(palindrome([])) --> [].
+palindrome(palindrome(PT)) --> elem(_, PT).
+palindrome(palindrome([PT1,PT2,PT3]) --> elem(X, PT1),
+  palindrome(PT2),
+  elem(X, PT3).
+elem(X, elem(X)) -->
+  { member(X, [a,b]) }.
+</code></pre>
+    </div>
+
+    <div id="Parse-Tree-Expansion-2" class="step slide" data-rel-x="2100" data-rel-y="0" 
+    data-transition-duration="1000">
+        <ul class="shortcuts">
+            <li><a href="#Parse-Tree-with-Pushback-Lists">Pushback Lists</a></li>
+        </ul>
+
+        <h1>Parse Tree Context in DCGs <small>(cont.)</small></h1>
+
+        <p><b>Result:</b> <code>library(dcg4pt)</code> as a drop-in replacement for DCG expansion.</p>
+
+<pre data-text="Running Example" style="float: left; width:27%;"><code>:- use_module(
+   library(dcg4pt/expand)).
+palindrome --> [].
+palindrome --> elem(_).
+palindrome --> elem(X),
+               palindrome,
+               elem(X).
+elem(X) --> [X],
+  { member(X, [a,b]) }.
+</code></pre>
+
+        <img src="images/pfeil-2.png" style="position: absolute; width: 120px; margin-left: 10px; margin-top: 150px;">
+
+<pre data-lang="Prolog" style="float: right; width:65%;" class="border"><code>
+
+palindrome(palindrome([]), A, A).
+palindrome(palindrome(PT), A, Z) :- elem(_, PT, A, Z).
+palindrome(palindrome([PT1,PT2,PT3]), A, Z) :- elem(X, PT1, A, B),
+  palindrome(PT2, B, C),
+  elem(X, PT3, C, Z).
+elem(X, elem(X), [X|Z], Z) :-
+  member(X, [a,b]).
+</code></pre>
+    </div>
+
+    <div id="Library-dcg4pt" class="step slide" data-rel-to="EBNF-Example" data-y="-400">
+        <ul class="shortcuts">
+            <li><a href="#Parse-Tree-with-Pushback-Lists">Pushback Lists</a></li>
+            <li><a href="#dcg4pt-Implementation">Implementation</a></li>
+            <li><a href="#Summary-External-dcg4pt">Paper</a></li>
+            <li><a href="#Sequences-and-Optionals">Sequences and Optionals</a></li>
+        </ul>
+
+        <div style="float: left; width: 48%;">
+            <div class="ribbon ribbon-top-left wrapup"><span>Wrap-up</span></div>
+
+            <h1 style="font-size: 1.9em;">The Library <code>dcg4pt</code></h1>
+
+            <p style="font-size: 38px;"><b>D</b>efinite <b>C</b>lause <b>G</b>rammars for <b>P</b>arse <b>T</b>rees.<br>
+                Source-to-Source Transformation with an Additional Argument for Parsing and Serialising.</p>
+
+<pre data-lang="Prolog"><code style="background-image: url(images/dcg4pt-implements.png); background-size: 480px; background-position: 225px 79px; padding-top: 30px;"><span class="hljs-comment">% library(dcg4pt/expand) provides term expansion:</span>
+:- use_module(library(dcg4pt)).
+term_expansion(H --> B, Rule) :-
+  dcg4pt_rule_to_dcg_rule(H --> B, DCG),
+  dcg_translate_rule(DCG, Rule).
+</code></pre>
+
+            <ul class="small substep" style="margin-top: -10px;">
+                <li>Support for optionals <code>?</code> and sequences <code>*</code>, <code>**</code>, <code>+</code> using (open) lists</li>
+                <li>Translated body contains special caller predicates to recognise (partially) bound lists and parse trees</li>
+            </ul>
+        </div>
+
+        <img src="images/dcg4pt-table.png" style="float: right; width: 50%;">
+    </div>
+
+    <!--
+        #################
+        #    plammar    #
+        #################
+    -->
+
+    <div id="Recap-EBNF-Example" class="step skip-progress" data-progress-text="Recap" data-rel-to="EBNF-Example">
+        <!-- intentionally left blank -->
+    </div>
+
+    <!-- skip in presentation -->
+    <div id="Plammar-Segue" class="step slide segue skip-progress skip" data-x="-2200" data-y="1500" data-z="
+    0">
+        <h1 style="font-size: 120px;">A Prolog Parser and Serialiser</h1>
+        <h2 style="font-style: italic;">in Prolog</h2>
+    </div>
+
+    <div id="Combine-EBNF-dcg4pt" class="step" data-x="12400" data-y="-930" data-z="1600" 
+    data-transition-duration="1500">
+        <img src="images/plammar-idea.png" style="float: right; width: 50%;">
+    </div>
+
+    <div id="EBNF-dcg4pt-Fragments" class="step" data-rel-x="900" data-rel-y="0" data-rel-z="0" 
+    data-transition-duration="1500">
+<pre data-lang="Prolog" style="float: right; width: 50%; font-size: 30px;"><code><div>anonymous_variable =
+  variable_indicator_char /* 6.4.3 */ ; ...</div><div style="margin-top:40px;">anonymous_variable -->
+  variable_indicator_char.</div><div style="margin-top:30px;">anonymous_variable(Opts) -->
+  variable_indicator_char(Opts).</div><div style="margin-top:20px;">anonymous_variable(Opts,
+  anonymous_variable(PT)) -->
+  variable_indicator_char(Opts, PT).</div><div style="margin-top:10px;">anonymous_variable(Opts,
+  anonymous_variable(PT), A, Z) :-
+  variable_indicator_char(Opts, PT, A, Z).</div></code></pre>
+
+        <h1 class="substep">My library <code>plammar</code></h1>
+    </div>
+
+    <div id="Prolog-Tokenisation" class="step slide" data-x="-100" data-y="1500" data-z="
+    0">
+        <ul class="shortcuts">
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+        </ul>
+
+        <div style="float: left; width: 54%;">
+            <h1 style="font-size: 1.7em;">Tokenisation of Prolog</h1>
+
+            <pre data-lang="Prolog"><code>   token = variable | name | integer
+         | float_number | double_quoted_list | open
+         | open_ct | close | open_list | close_list
+         | open_curly | close_curly | ht_sep | comma
+         | back_quoted_string ;
+variable = [ layout_text_sequence /* 6.4.1 */ ],
+           variable_token /* 6.4.3 */ ;
+    open = layout_text_sequence,
+           open_token /* 6.4.8 */ ;
+ open_ct = open_token /* 6.4.8 */ ;
+</code></pre>
+
+            <p style="font-size: 40px; text-align: left;">My library <code style="color: #000;">plammar</code> provides the predicate <code>prolog_tokens/{2,3}</code>, that works in any mode.</p>
+        </div>
+
+        <img src="images/prolog-ebnf-token.png" style="float:right; width: 44%; margin-right: -50px; margin-top: 50px;">
+        <div class="ribbon ribbon-top-right small"><span>ISO Standard</span></div>
+    </div>
+
+    <div id="Prolog-Tokenisation-Example" class="step slide" data-rel-x="2100" data-rel-y="0" data-rel-z="
+    0" data-transition-duration="1000">
+        <ul class="shortcuts">
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+        </ul>
+
+        <div style="float: left; width: 55%;">
+            <h1 style="font-size: 1.7em;">Tokenisation of Prolog <small>(cont.)</small></h1>
+
+            <pre data-lang="Prolog"><code style="font-size: 25px;"><span class="hljs-comment">% prolog_tokens(?Source, ?Tokens, ?Opts)</span>
+prolog_tokens(chars(Chars), Tokens, Opts) :-
+  term(Opts, term(Tokens), Chars, []).
+</code></pre>
+
+            <pre data-lang="Toplevel" class="substep" data-substep-order="1"><code style="font-size: 25px;"><div style="margin-bottom: 5px;">?- use_module(library(plammar)).</div>?- prolog_tokens(string("What are animals."), Tokens).
+Tokens = [
+  variable([ variable_token('What',
+    named_variable([ capital_letter_char('W'), ... ])) ]),
+  name([
+    layout_text_sequence([layout_text(layout_char(space_char(' ')))]),
+    name_token(are,
+      letter_digit_token([small_letter_char(a), ... ])) ]),
+  name([
+    layout_text_sequence([layout_text(layout_char(space_char(' ')))]),
+    name_token(animals,
+      letter_digit_token([small_letter_char(a), ... ])) ]),
+  end( ... ) ].
+</code></pre>
+        </div>
+
+        <img src="images/prolog-ebnf-token.png" style="float:right; width: 44%; margin-right: -50px; margin-top: 50px;">
+        <div class="ribbon ribbon-top-right small"><span>ISO Standard</span></div>
+    </div>
+
+    <div id="Prolog-Parsing" class="step slide" data-rel-x="2100" data-rel-y="0" data-rel-z="
+    0" data-transition-duration="1000">
+        <h1>Term Parsing</h1>
+
+        <div style="float: left; width: 55%; margin-top: -40px;">
+
+            <pre data-lang="Prolog"><code style="background-image: url(images/terms-priority.png); background-size: 890px; background-position: 46px 112px;">           term(0) = [ integer(_) ]
+                   | [ float_number(_) ] ;
+           term(0) = negative_sign_name,
+                     [ integer(_) ]
+                   | negative_sign_name,
+                     [ float_number(_) ] ;
+negative_sign_name = [ name([name_token('-', _)]) ] ;
+</code></pre>
+
+            <p style="font-size: 29px;">My library <code style="color: #000;">plammar</code> provides the predicate <code>prolog_parsetree(?,?,?)</code>.
+
+            <pre data-lang="Toplevel"><code style="font-size: 28px;">?- prolog_parsetree(string("What are animals."),
+     PT, [operators([op(700, xfx, are)])]).
+PT = prolog([clause_term([term(xfx, [
+       term(...), op(...), term(...)]),
+       end([end_token(end_char('.'))]) ]) ]) ;
+</code></pre>
+
+        </div>
+
+        <div style="float: right; width: 40%;" class="substep" data-substep-order="1">
+            <p style="text-align: left;">Challenges:</p>
+
+            <ul class="small" style="font-size: 32px;">
+                <li>Deviations from the ISO Standard</li>
+                <li>Operators might be defined as infix, prefix <u>and</u> postfix</li>
+                <li>Parsing requires handling of term priorities</li>
+                <li>Associativity (e.g. <code>xfy</code>), operator precedences, constraints for arg lists, etc.</li>
+                <li>Missing operator definitions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Term-Parsing-CLPFD" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <h1>Term Parsing as a CSP</h1>
+
+        <p><b>Goal:</b> Automatically infer operator precedences.</p>
+
+<pre data-lang="Toplevel"><code>?- prolog_parsetree(string("What are animals."), _PT, [infer_operators(Os)]).
+<span class="hljs-comment">% are(What, animals)</span>
+Os = [op(P2, xfx, are)], P2 in 1..1200 ;
+Os = [op(P2, xfy, are)], P2 in 1..1200 ;
+Os = [op(P2, yfx, are)], P2 in 1..1200 ;
+<span class="substep" data-substep-order="1"><span class="hljs-comment">% animals(are(What))</span>
+Os = [op(P2, xf, are), op(P3, xf, animals)], P2 #< P3, P2 in 1..1199, P3 in 2..1200 ;
+Os = [op(P2, xf, are), op(P3, yf, animals)], P2 #=< P3, P2 in 1..1200, P3 in 1..1200 ;
+Os = [op(P2, yf, are), op(P3, xf, animals)], P2 #< P3, P2 in 1..1199, P3 in 2..1200 ;
+Os = [op(P2, yf, are), op(P3, yf, animals)], P2 #=< P3, P3 in 1..1200, P2 in 1..1200 ;
+false.</span></code></pre>
+    </div>
+
+    <div id="Term-Parsing-CLPFD-2" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <h1>Term Parsing as a CSP <small>(cont.)</small></h1>
+
+        <p><b>Solution:</b> Use <em>attributed variables</em><sup>1</sup> and <em>CLP(FD)</em>.<sup>2</sup></p>
+
+<pre data-lang="Prolog" style="float: left; width: 63%;"><code>:- use_module(library(clpfd)).<sup>2</sup>
+
+arg       --> { P #< 1000 }, term(P).
+term(P_o) --> op(Op),
+              term(P_i),
+              { current_operator_table(Operator_Table),
+                member(op(Op, Spec, Prec), Operator_Table),
+                Spec = fy,
+                P_i  #=< Prec,  % note the # for library(clpfd)
+                Prec #=< P_o }.
+</code></pre>
+
+        <p style="float: right; width: 33%; text-align: left; font-size: 28px; margin-top: 60px;">
+            <sup>1</sup> Bart Demoen. Dynamic Attributes, their hProlog Implementation, and a first Evaluation. Report CW, 350, 2002.
+        </p>
+        <p style="float: right; width: 33%; text-align: left; font-size: 28px;">
+            <sup>2</sup> Markus Triska. The Finite Domain Constraint Solver of SWI-Prolog. In Proc. International Symposium on Functional and Logic Programming (FLOPS 2012), volume 7294 of LNCS, pages 307–316, 2012.
+        </p>
+    </div>
+
+    <div id="Recap-If-then-Example" class="step skip-progress" data-progress-text="Recap" data-rel-to="If-then-Example">
+        <!-- intentionally left blank -->
+    </div>
+
+    <div id="CLPFD-If-then" class="step slide" data-rel-to="Term-Parsing-CLPFD-2" data-rel-x="2100">
+        <h1>Operator Inference for If-then-Rules</h1>
+
+        <p><b>Example:</b> Infer some of the operator precedences in If-then-Rules.</p>
+
+<pre data-lang="Toplevel"><code>?- prolog_parsetree(file('example_sentences.pl'), _PT,
+     [infer_operators(Os), not_operators([weather, ...])]). <span class="hljs-comment substep" data-substep-order="1">% op(700,xfx,is), op(700,xfx,are)</span>
+Os = [ op(P_a,fx,a), op(P_the,fx,the), op(P_no,fx,no), op(P_if,fx,if),
+       op(P_then,xfx,then), op(P_and,yfx,and), op(P_or,yfx,or) ],
+P_then in 702..1200,
+P_if   in 2..699,
+P_and  #=< P_or, P_and in 701..1199,
+P_or   #< P_then, P_or in 701..1199,
+P_the  #< P_if, P_the in 1..698,
+P_a    in 1..699 ,
+P_no   in 1..699 ; <span class="hljs-comment">% ...</span></code></pre>
+    </div>
+
+    <div id="Case-Study-XPath" class="step slide" data-rel-x="2100" data-rel-y="0">
+        <div style="float: left; width: 48%;">
+            <h1 style="font-size: 1.4em;">Case Study: Embedded XPath Expressions in <code>xsd</code></h1>
+
+<pre data-lang="XSD Fragments"><code style="font-size:24px; background-image: url(images/xsd-highlight.png); background-size: 555px; background-position: 230px 45px;">&lt;xs:restriction base="xs:date"&gt;
+  &lt;xs:assertion test="fn:day-from-date($value) eq 24" /&gt;
+&lt;/xs:restriction&gt;
+&lt;xs:complexType&gt;
+  &lt;xs:assert test="entry[@id mod 2 eq 0]/@class = 'even' or
+                   entry[@id mod 2 eq 1]/@class = 'odd'" /&gt;
+  &lt;xs:assert test="every $i in 1 to count(entry)-1 satisfies
+                     (entry[$i] lt entry[$i+1])" /&gt;
+&lt;/xs:complexType&gt;
+&lt;xs:element name="entry" maxOccurs="unbounded" type="entry"&gt;
+  &lt;xs:alternative test="@class = ’even’" type="entry-even" /&gt;
+&lt;/xs:element&gt;
+&lt;xs:key name="entry-id-key"&gt;
+  &lt;xs:selector xpath="entry" /&gt;
+  &lt;xs:field xpath="@id" /&gt;
+&lt;/xs:key&gt;</code></pre>
+        </div>
+
+        <div style="float: right; width: 45%;">
+            <img src="images/xpath-operators.png" style="width: 100%;">
+
+            <pre data-lang="Prolog"><code style="font-size:24px; padding-top: 30px; background-image: url(images/lt.png); background-size: 90px; background-position: 208px 30px;">xpath_expr(XML, A lt B, data('boolean', Result)) :-
+  xpath_expr(XML, A, data(_TypeA, ResultA)),
+  xpath_expr(XML, B, data(_TypeB, ResultB)),
+  ( ResultA < ResultB -> Result = true ; Result = false ).</code></pre>
+        </div>
+    </div>
+
+    <div id="Library-plammar" class="step slide" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Contributions">Contributions Overview</a></li>
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+            <li><a href="#Finite-State-Machine-Numbers">Finite-State Machine for Numbers</a></li>
+            <li><a href="#Covington-Coding-Guidelines">Covington's Coding Guidelines</a></li>
+        </ul>
+
+        <div class="ribbon ribbon-top-left wrapup"><span>Wrap-up</span></div>
+        
+        <h1 style="font-size: 1.9em;">The Library <code>plammar</code></h1>
+
+        <div style="float: left; width: 49%; margin-top: -20px;">
+            <p style="font-size: 38px;">A Prolog Parser and Serialiser, written in Prolog, with Support for 30 Language Extensions.</p>
+
+    <pre data-lang="Toplevel"><code>?- use_module(library(plammar)).
+?- prolog_tokens(file('ex.pl'), Tokens). % ?Opts
+?- prolog_parsetree(file('ex.pl'), PT, Options).
+?- prolog_ast(file('ex.pl'), AST, Options).</code></pre>
+        </div>
+
+        <img src="images/plammar-source-code-formatter.png" style="float: right; width: 47%; margin-top: -20px;">
+
+
+        <div style="clear: both; float: left; width: 49%; margin-top: -40px;">
+            <p style="text-align: left;">Intended Applications:</p>
+            <ul class="small">
+                <li>Static source code analysis</li>
+                <li>Enforcement of coding conventions</li>
+                <li>Code formatter</li>
+                <li>Incremental rollout of experimental language features</li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 50%; margin-top: -40px;">
+            <p style="text-align: left;">Implementation Details:</p>
+            <ul class="small">
+                <li>Tokeniser: ~1000 LOC, ~200 clauses, ~120 nonterminals</li>
+                <li>Alternative finite-state machine for efficient tokenisation (~600 LOC)</li>
+                <li>Parser: ~600 LOC, ~120 clauses, ~40 nonterminals</li>
+            </ul>
+        </div>
+    </div>
+
+    <!--
+        #################
+        #    Summary    #
+        #################
+    -->
+
+    <div id="Summary-Segue" class="step slide segue skip-progress" data-x="-2200" data-y="3000" data-z="
+    0" data-goto-next="Conclusion" data-goto-prev="Library-plammar">
+        <h1>Contributions &amp; Conclusion</h1>
+
+        <ul class="shortcuts">
+            <li><a href="#Summary-External-dcg4pt">Go on with Details</a></li>
+            <li><a href="#Conclusion">Conclusion</a></li>
+            <li><a href="#Contributions">Contributions Overview</a></li>
+        </ul>
+    </div>
+
+    <div id="Summary-External-dcg4pt" class="step slide summary external skip-progress" data-rel-x="2100" data-rel-y="0" data-z="0">
+        <ul class="shortcuts">
+            <li><a href="#Parse-Tree-with-Pushback-Lists">Pushback Lists</a></li>
+            <li><a href="#dcg4pt-Implementation">Implementation</a></li>
+            <li><a href="#Library-dcg4pt">Introduction with Translation Table</a></li>
+        </ul>
+
+        <div class="left-col">
+            <h1>The Library <code>dcg4pt</code></h1>
+
+            <p>Definite Clause Grammars for Parse Trees.</p>
+
+            <ul>
+                <li>Drop-in-replacement for DCGs</li>
+                <li>Handles optionals of nonterminals and sequences of any arity</li>
+                <li>Logically <em>pure</em>: for parsing and serialising</li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <div class="ribbon ribbon-top-right"><span>Best Paper Award</span></div>
+
+            <img src="images/paper-slate-dcg4pt.png">
+
+            <p>Falco Nogatz, Dietmar Seipel, and Salvador Abreu. <b>Definite Clause Grammars with Parse Trees: Extension for Prolog</b>. In 8th Symposium on Languages, Applications, Technologies (SLATE 2019), volume 74 of OpenAccess Series in Informatics (OASIcs), pages 7:1–7:14, 2019.</p>
+        </div>
+    </div>
+
+    <div id="Summary-External-Tracer" class="step slide summary external skip-progress" data-rel-x="0" data-rel-y="1100" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1>Web-Based Tracing<br>Meta-Interpreter</h1>
+
+            <p>Interactive Visualisation for DCG Applications.</p>
+
+            <img src="images/tracer-screenshot.png" style="width: 100%;">
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-ppdp-tracer.png">
+
+            <p>Falco Nogatz, Jona Kalkus, and Dietmar Seipel. <b>Web-based Visualisation for Definite Clause Grammars using Prolog Meta-Interpreters: System Description</b>. In 20th International Symposium on Principles and Practice of Declarative Programming (PPDP 2018), pages 25:1–25:10. ACM, 2018.</p>
+        </div>
+    </div>
+
+    <div id="Summary-Internal-If-then" class="step slide summary internal skip-progress" data-rel-x="0" data-rel-y="1100" data-z="0" data-transition-duration="500">
+        <h1 style="margin: 0;">If-then-Rules</h1>
+
+        <p style="margin-bottom: 60px;">Declarative Expert Knowledge, for Change Management.</p>
+
+        <div class="paper" style="width:29%; float: left; margin: 0 2%;">
+            <img src="images/paper-psychologie.png">
+
+            <p>Rüdiger von der Weth, Dietmar Seipel, Falco Nogatz, Katrin Schubach, Alexander Werner, and Franz Wortha. <b>Modellierung von Handlungswissen aus fragmentiertem und heterogenem Rohdatenmaterial durch inkrementelle Verfeinerung in einem Regelbanksystem</b>. Psychologie des Alltagshandelns, 9(2):33–48, 2016.</p>
+        </div>
+
+        <div class="paper" style="width:29%; float: left; margin: 0 2%;">
+            <img src="images/paper-slate-declarative-rules.png">
+
+            <p>Dietmar Seipel, Rüdiger von der Weth, Salvador Abreu, Falco Nogatz, and Alexander Werner. <b>Declarative Rules for Annotated Expert Knowledge in Change Management</b>. In 5th Symposium on Languages, Applications, Technologies (SLATE 2016).</p>
+        </div>
+
+        <div class="paper" style="width:29%; float: left; margin: 0 2%;">
+            <img src="images/paper-comlan.png">
+
+            <p>Dietmar Seipel, Falco Nogatz, and Salvador Abreu. <b>Domain-Specific Languages in Prolog for Declarative Expert Knowledge in Rules and Ontologies</b>. Computer Languages, Systems & Structures (COMLAN), 51C:102–117, 2018.</p>
+        </div>
+    </div>
+
+    <div id="Summary-Internal-CNL" class="step slide summary internal skip-progress" data-rel-x="0" data-rel-y="1100" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1>From If-then-Rules to CNLs</h1>
+
+            <p>Combining Internal and External DSLs for Controlled Natural Languages.</p>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-ltc-cnl.png">
+
+            <p>Dietmar Seipel, Falco Nogatz, and Salvador Abreu. <b>Prolog for Expert Knowledge Using Domain-Specific and Controlled Natural Languages</b>. In 8th Language & Technology Conference: Human Language Technologies as a Challenge for Computer Science and Linguistics (LTC 2017), pages 138–140, 2017.</p>
+        </div>
+    </div>
+
+    <div id="Summary-Applications-Alexa" class="step slide summary applications skip-progress" data-x="3500" data-y="3000" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1>The Library <code>alexa</code></h1>
+
+            <p>SWI-Prolog Framework for Amazon's Conversational Agent.</p>
+
+            <ul>
+                <li>Assisting the development of skills for Amazon's Alexa in Prolog</li>
+                <li>Combination with ACE, the Attempto Controlled Natural Language</li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-slate-alexa.png">
+
+            <p>Falco Nogatz, Julia Kübert, Dietmar Seipel, and Salvador Abreu. <b>Alexa, how can I reason with Prolog?</b> In 8th Symposium on Languages, Applications, Technologies (SLATE 2019), volume 74 of OpenAccess Series in Informatics (OASIcs), pages 17:1–17:9, 2019.</p>
+        </div>
+    </div>
+
+    <div id="Summary-Applications-GraphQL" class="step slide summary applications skip-progress" data-rel-x="0" data-rel-y="1100" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1 style="font-size: 1.8em;">The Library <code>graphql</code></h1>
+
+            <p>GraphQL as External DSL in SWI-Prolog.</p>
+
+            <ul>
+                <li>First support for GraphQL in SWI-Prolog</li>
+                <li>Implements GraphQL's type system</li>
+                <li>Made for deductive databases</li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-wlp-graphql.png">
+
+            <p>Falco Nogatz and Dietmar Seipel. <b>Implementing GraphQL as a Query Language for Deductive Databases in SWI-Prolog Using DCGs, Quasi Quotations, and Dicts</b>. In Proc. 30th Workshop on (Constraint) Logic Programming (WLP 2016).</p>
+        </div>
+    </div>
+
+    <div id="Summary-Applications-xsd" class="step slide summary applications skip-progress" data-x="5600" data-y="3000" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1>The Library <code>xsd</code></h1>
+
+            <p>A Declarative XML Schema Validator in Prolog.</p>
+
+            <ul>
+                <li>One of very few XSD v1.1 validators, supporting <code>&lt;xs:assert&gt;</code>, <code>&lt;xs:assertion&gt;</code>, and <code>&lt;xs:alternative&gt;</code></li>
+                <li>Handles XPath expressions as internal DSL</li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-wlp-xsd.png">
+
+            <p>Falco Nogatz, Jona Kalkus, and Dietmar Seipel. <b>Declarative XML Schema Validation with SWI-Prolog: System Description</b>. In Proc. 31st Workshop on (Constraint) Logic Programming (WLP 2017).</p>
+        </div>
+    </div>
+
+    <div id="Summary-Prolog-CHRjs" class="step slide summary prolog skip-progress" data-x="3500" data-y="5200" data-z="0" data-transition-duration="500">
+        <div class="left-col">
+            <h1>CHR.js</h1>
+
+            <p>The other way around: CHR's embedding into JavaScript.</p>
+
+            <ul>
+                <li>Q: Is it possible to embed (a subset of) Prolog as a DSL into another language?</li>
+                <li>Constraint Handling Rules (CHR) as an external DSL in JavaScript</li>
+                <li>Use of JavaScript's <i>tagged template strings</i> like SWI-Prolog's quasi-quotations</li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-ruleml-chrjs.png">
+
+            <p>Falco Nogatz, Thom Frühwirth, and Dietmar Seipel. <b>CHR.js: A CHR Implementation in JavaScript</b>. In Rules and Reasoning (RuleML+RR 2018), volume 11092, pages 131–146. Springer, 2018.</p>
+        </div>
+    </div>
+
+    <div id="Summary-Prolog-plammar" class="step slide summary prolog skip-progress" data-rel-x="0" data-rel-y="1100" data-z="0" data-transition-duration="500">
+        <ul class="shortcuts">
+            <li><a href="#Covington-Coding-Guidelines">Covington Guidelines</a></li>
+            <li><a href="#Applied-Covington-Guidelines">Applied Guidelines</a></li>
+            <li><a href="#Covington-Community-Report">Results Community Analysis</a></li>
+        </ul>
+
+        <div class="left-col">
+            <h1>A Linter for Prolog</h1>
+
+            <p>Enforcing Covington's Coding Guidelines.</p>
+
+            <ul>
+                <li>Uses <code>plammar</code> for source-to-source transformations</li>
+                <li>Empirical study with analysis of community packages</li>
+                <li>Real-world test for ISO compliance and performance of <code>plammar</code></li>
+            </ul>
+        </div>
+
+        <div class="paper">
+            <img src="images/paper-iclp-coding-guidelines.png">
+
+            <p>Falco Nogatz, Philipp Körner, and Sebastian Krings. <b>Prolog Coding Guidelines: Status and Tool Support</b>. In Technical Communications of the 35th International Conference on Logic Programming (ICLP 2019).</p>
+        </div>
+    </div>
+
+    <div id="Summary-Prolog-Advances" class="step slide summary prolog skip-progress" data-x="5600" data-y="5200" data-z="0" data-transition-duration="500">
+        <div style="float:left; width:48%;">
+            <h1>Open-Source Packages</h1>
+            <ul>
+                <li><code>dcg4pt</code></li>
+                <li><code>plammar</code></li>
+                <li><code>xsd</code></li>
+                <li><code>graphql</code></li>
+                <li><code>alexa</code></li>
+                <li class="substep" data-substep-order="1"><code>race</code></li>
+                <li class="substep" data-substep-order="1"><code>date_time</code></li>
+                <li class="substep" data-substep-order="1"><code>cli_table</code></li>
+                <li class="substep" data-substep-order="1"><code>tap</code></li>
+            </ul>
+        </div>
+
+        <div style="float:right; width:48%;" class="substep" data-substep-order="2">
+            <h1>Advance Prolog</h1>
+
+            <ul>
+                <li>Test Anything Protocol</li>
+                <li>SWI-Prolog Version Manager <code>swivm</code></li>
+                <li>Extensions for Prolog</li>
+                <li>Study on package ecosystem</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Contributions" class="step skip-progress" data-x="2600" data-y="4650" data-scale="4.5" data-transition-duration="1500">
+        <!-- Intentionally left blank -->
+    </div>
+
+    <div id="Conclusion" class="step slide" data-x="1580" data-y="4750" data-scale="1" data-transition-duration="1500"  data-goto-prev="Summary-Segue">
+        <div style="float: left; width: 48%;">
+            <h1 style="text-align: left;">Conclusion</h1>
+
+            <ul style="font-size: 32px;">
+                <li>Used Prolog as host language for <em>external</em> and <em>internal</em> DSLs</li>
+                <li>Improved and developed tools: interactive web-tracer as well as <code>dcg4pt</code> for automatic parse tree generation in <em>external</em> DSLs, <code>plammar</code> for automatic inference of operator definitions and language extensions in <em>internal</em> DSLs</li>
+                <li>Created real-world applications for <em>external</em> DSLs (GraphQL, XML, Prolog) and <em>internal</em> DSLs (GraphQL, If-then-Rules, XPath)</li>
+                <li>Built a flexible, efficient, ISO-conforming Prolog parser and transpiler</li>
+            </ul>
+        </div>
+
+        <div class="substep" style="float: right; width: 48%;">
+            <h1 style="text-align: left;">Future Work</h1>
+
+            <ul style="font-size: 32px;">
+                <li>Use <code>plammar</code> for software engineering tasks that are for granted in other languages: syntax highlighting, code formatting, linting, program transformations</li>
+                <li>Improve automatic DCG transformations: tail call optimisations, factoring out common prefixes, ensuring logical purity via attributed variables</li>
+                <li>Dissemination of proposed language extensions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="End" class="step skip-progress" data-x="2600" data-y="4650" data-scale="4.5" data-transition-duration="1500">
+        <!-- Intentionally left blank -->
+    </div>
+
+
+    <!--
+        ##################
+        #     Backup     #
+        ##################
+    -->
+
+    <div id="Overview" class="step backup" data-x="6300" data-y="2000" data-scale="11" style="pointer-events: none;">
+        <!-- Intentionally left blank -->
+    </div>
+
+    <div id="Backup-Overview" class="step backup" data-x="6300" data-y="14000" data-scale="10" style="pointer-events: none;">
+        <!-- Intentionally left blank -->
+    </div>
+
+    <div id="Backup" class="step slide segue skip skip-progress" data-x="-2200" data-y="10000" data-z="
+    0">
+        <h1>Backup Slides: Prolog</h1>
+    </div>
+
+    <div id="DSL-Definition" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <blockquote style="font-size: 72px; padding: 30px 90px 0 90px;">
+        A <b>domain-specific language</b> (DSL) is a programming language or executable specification language that offers, through appropriate notations and abstractions, expressive power focussed on, and usually restricted to, a particular problem domain.
+        <p style="text-align: right; font-size: 26px;">Arie van Deursen, Paul Klint, and Joost Visser. Domain-Specific Languages: An Annotated Bibliography. ACM SIGPLAN Notices, 35(6):26–36, 2000.</p>
+        </blockquote>
+    </div>
+
+    <div id="Recursions" class="step slide backup" data-rel-x="2100">
+<pre data-lang="Prolog" style="float: left; width: 32%; margin-right: 1%;"><code>:- op(700, xfx, are).
+mammals are animals.
+elephants are mammals.
+tigers are mammals.
+As are Cs :- Bs are Cs, As are Bs.
+</code></pre>
+
+            <pre style="float: left; width: 31%; margin-right: 1%;" data-lang="Toplevel"><code>?- are(What, animals).
+What = mammals ;
+What = elephants ;
+What = tigers ;
+<span class="hljs-comment">% wait forever</span>
+</code></pre>
+
+            <pre data-lang="Toplevel with CHR" style="float: left; width: 34%;"><code>?- mammals are animals,
+   elephants are mammals, tigers are mammals.
+tigers are animals,
+tigers are mammals,
+elephants are animals,
+elephants are mammals,
+mammals are animals.
+</code></pre>
+
+        <div style="clear: both; float: left; width: 49%;">
+            <h1>Transitive Closure</h1>
+            <pre data-lang="Prolog"><code>As are_somehow Bs :- As are Bs.
+As are_somehow Cs :- As are Bs, Bs are_somehow Cs.</code></pre>
+        </div>
+
+        <div style="float: right; width: 47%;">
+            <h1>CHR</h1>
+            <pre data-lang="CHR"><code>:- use_module(library(chr)).
+:- chr_constraint are/2.
+As are Bs, Bs are Cs ==> As are Cs.</code></pre>
+        </div>
+
+        <div style="clear: both; float: left; width: 49%;">
+            <h1>Tabling</h1>
+            <pre data-lang="Prolog"><code>:- table are/2.
+As are Cs :- As are Bs, Bs are Cs.</code></pre>
+        </div>
+
+        <div style="float: right; width: 47%;">
+            <h1>ASP</h1>
+            <pre data-lang="ASP"><code>As are Cs :-
+  As are Bs,
+  Bs are Cs.</code></pre>
+        </div>
+    </div>
+
+    <div id="Operator-Tables" class="step slide backup" data-rel-x="2100">
+        <div style="float: left; width: 48%;">
+            <h1>Operator Table ISO</h1>
+            <img src="images/operator-table.png" style="width:100%;">
+        </div>
+        <div style="float: right; width: 48%;">
+            <h1>Operator Table SWI</h1>
+            <img src="images/operator-table-swi.png" style="width:100%;">
+        </div>
+    </div>
+
+    <div id="Dicts" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Dicts</h1>
+
+        <pre data-lang="SWI-Prolog" style="float: left; width: 59%;"><code>% Tag{ Key1: Value1, Key2: Value2, ... }
+% person(1, [firstName='Alice', birth=1986]).
+% person(1, _{ firstName: 'Alice', birth: 1986 }).
+%
+% Usage:
+% - Dict.Key
+% - Dict.get(Key) with +Dict.get(?Key)
+% - Unification via :&lt; (is a subset of)
+% - Unification via &gt;:&lt; (all keys appear in both and unify)
+%
+% Note: breaks with classical list notation via ./2
+</code></pre>
+
+        <pre data-lang="SWI-Prolog Toplevel" style="float: right; width: 39%;"><code style="padding-top: 30px;">?- p{ a: 1, b: 2 } = P{ a: A, b: B }.
+P = p, A = 1, B = 2 .
+
+?- p{ a: 1, b: 2 } = P{ a: A }.
+false .
+
+?- P{ a: A } :< p{ a: 1, b: 2 }.
+P = p, A = 1 .
+
+?- p{ a: 1, b: 2 } :< P{ a: A }.
+false .
+
+?- p{ a: 1, b: 2 } >:< P{ a: A, c: 3 }.
+P = p, A = 1 .</code></pre>
+    </div>
+
+    <div id="Attributed-Variables-Motivation" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Attributed Variables: Motivation</h1>
+
+        <pre data-lang="Prolog" style="float: left; width: 42%;"><code>?- domain(Prec, [600, 601, 602], D0),
+domain(D0, [603, 604], D1).
+false .
+
+?- domain(Prec, [600, 601, 602], D0),
+   domain(D0, [601, 602, 603, 604], D1).
+D0 = var_candidates(Prec, [600, 601, 602]),
+D1 = var_candidates(Prec, [601, 602]) .
+% Prec remains free as there are multiple
+%   solutions in D1
+
+?- domain(Prec, [600, 601, 602], D0),
+   domain(D0, [602, 603, 604], D1).
+Prec = 602,
+D0 = var_candidates(602, [600, 601, 602]),
+D1 = var_candidates(602, [602]) .</code></pre>
+
+        <pre data-lang="Prolog" style="float: right; width: 54%;"><code>%% domain(+Term, +Ordset, -Domain)
+domain(Prec, Ordset, var_candidates(Prec,Ordset)) :-
+  var(Prec), !,
+  test_for_single(Prec, Ordset).
+domain(var_candidates(Prec,L0), Ordset,
+    var_candidates(Prec,LN)) :-
+  ord_intersection(L0, Ordset, LN),
+  test_for_single(Prec, LN).
+
+%% test_for_single(-Var, +List)
+% empty list: inconsistency
+test_for_single(_, []) :- !, false.
+% single element: bind
+test_for_single(Prec, [Prec]) :- !.
+% otherwise: continue
+test_for_single(_, _).</code></pre>
+    </div>
+
+    <div id="Attributed-Variables" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Attributed Variables</h1>
+
+        <div style="float: left; width: 46%;">
+        <pre data-lang="Toplevel"><code style="padding-top: 30px;">?- put_attr(X, some, 1), put_attr(X, other, 2).
+put_attr(X, some, 1),
+put_attr(X, other, 2) .</code></pre>
+
+        <pre data-lang="Toplevel"><code style="padding-top: 30px;">?- domain(Prec, [600, 601, 602]),
+   domain(Prec, [601, 602, 603]).
+Prec in [601, 602] . % 601..602</code></pre>
+        </div>
+
+        <div style="float: right; width: 50%;">
+        <pre data-lang="Prolog"><code style="font-size: 24px;">%% domain(+Term, +Ordset)
+domain(Prec, Ordset) :-
+  put_attr(Y, candidates, Ordset), Prec = Y.
+
+attr_unify_hook(Domain, Y) :-
+  ( get_attr(Y, candidates, Domain_Y) ->
+    % Y is an attributed variable in the same module
+    ord_intersection(Domain, Domain_Y, New_Domain),
+    put_attr(Y, candidates, New_Domain),
+    test_for_single(Y, New_Domain)
+  ; var(Y) ->
+    % Y is a variable, possibly with attributes in other modules
+    put_attr(Y, candidates, Domain)
+  ; otherwise ->
+    % Y is not a variable
+    ord_memberchk(Y, Domain) ).
+
+:- op(500, xfy, in).
+attribute_goals(X, [X in Domain|Rest], Rest) :-
+  get_attr(X, candidates, Domain).</code></pre>
+        </div>
+    </div>
+
+    <div id="CLPFD" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Constraint Logic Programming over Finite Domains (CLPFD)</h1>
+
+        <pre data-lang="Toplevel"><code>?- use_module(library(clpfd)). % load CLP(FD)
+true .
+
+?- 601 #=< Prec, Prec #=< 603.
+Prec in 601..603 .
+
+?- 601 #=< Prec, Prec #=< 603, label([Prec]).
+Prec = 601 ;
+Prec = 602 ;
+Prec = 603 .
+</code></pre>
+
+        Application in <code>plammar</code>'s DCGs:
+        <pre data-lang="Prolog"><code>arg --> { P #< 1000 }, term(P).</code></pre>
+    </div>
+
+
+    <div id="Backup-dcg4pt" class="step slide segue skip skip-progress" data-rel-y="1100" data-rel-to="Backup">
+        <h1>Backup Slides: dcg4pt</h1>
+    </div>
+
+    <div id="Parse-Tree-with-Pushback-Lists" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Library-dcg4pt">Library dcg4pt</a></li>
+        </ul>
+
+        <h1 style="font-size: 1.2em;">DCG Extension...</h1>
+        <img src="images/dcg-extension-pushback.png" style="width:80%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="dcg4pt-Implementation" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Library-dcg4pt">Library dcg4pt</a></li>
+        </ul>
+
+        <img src="images/dcg4pt-transformation.png" style="float: right; height:100%;">
+        <h1 style="font-size: 1.2em;">Library <code>dcg4pt</code>'s Internals</h1>
+    </div>
+
+    <div id="Sequences-and-Optionals" class="step slide backup" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Library-dcg4pt">Library dcg4pt</a></li>
+        </ul>
+
+        <h1 style="font-size: 1.2em;">Sequences and Optionals in Library <code>dcg4pt</code></h1>
+        <img src="images/sequences-optionals.png" style="width:90%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="Term-Expansions" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Program Transformations via Term Expansions</h1>
+
+        When loading code into SWI-Prolog, its compiler calls <code>expand_term/2</code> on each term read from the input. This leads to four preprocessing steps, until a fixpoint is reached:
+
+        <ol class="small">
+            <li>Handling of conditional compilation directives.
+                <pre data-lang="SWI-Prolog"><code>:- if(Goal).
+% platform dependent code
+:- endif.</code></pre>
+            </li>
+            <li>Execution of user-defined term expansions.
+                <pre data-lang="SWI-Prolog"><code>% term_expansion(+Term1,-Term2)</code></pre>
+            </li>
+            <li>Call expansion for DCGs.</li>
+            <li>Execution of goal expansions in all rule bodies.
+                <pre data-lang="SWI-Prolog"><code>% goal_expansion(+Term1,-Term2)</code></pre>
+            </li>
+        </ol>
+    </div>
+
+    <div id="Quasi-Quotations" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Quasi-Quotations</h1>
+
+        <pre data-lang="SWI-Prolog"><code>% {|Tag||Content|}
+:- use_module(library(quasi_quotations)).
+:- quasi_quotation_syntax(<span style="font-style: italic;">TagName</span>).
+TagName(+ContentHandle,+SyntaxArgs,+Vars,-Result) :- % ...
+  % ... user-defined processing of the content to create Result
+  % usually based on a grammar, for instance DCGs
+  %
+  % - Tag =.. [TagName|SyntaxArgs], length(SyntaxArgs, TagArity)
+  % - ContentHandle is an opaque term that carries the content of the
+  %   quasi-quoted text and position information about the source code and its layout
+  % - Vars provides access to variables of the quasi-quotation's outside-world context.
+  %
+  % phrase_from_quasi_quotation/2
+  %
+  % {|html(doc)||&lt;p&gt;Hello, Name!&lt;/p&gt;|} becomes
+  % html('&lt;p&gt;Hello, Name!&lt;/p&gt;', [doc], ['Name' := 'Alice'], Result)
+</code></pre>
+    </div>
+
+    <div id="Backup-plammar" class="step slide segue skip skip-progress" data-rel-y="1100" data-rel-to="Backup-dcg4pt">
+        <h1>Backup Slides: plammar</h1>
+    </div>
+
+    <div id="Tokens-Example" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Library-plammar">Library plammar</a></li>
+            <li><a href="#Parse-Tree-Example">Parse Tree Example</a></li>
+            <li><a href="#AST-Example">AST Example</a></li>
+        </ul>
+
+        <div style="float: left; width: 48%;">
+            <h1 style="font-size: 1.2em;">Tokenisation Example</code></h1>
+
+            <pre data-lang="Prolog"><code style="padding-top: 30px;">%% append(?List1, ?List2, ?List1_then_List2)
+append([], Y, Y).
+append([E|X], Y, [E|Z]) :-
+  append(X, Y, Z).</code></pre>
+        </div>
+        <img src="images/tokenisation-append.png" style="width:50%; float: right;">
+    </div>
+
+    <div id="Parse-Tree-Example" class="step slide backup" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Library-plammar">Library plammar</a></li>
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+            <li><a href="#AST-Example">AST Example</a></li>
+        </ul>
+
+        <div style="float: left; width: 48%;">
+            <h1 style="font-size: 1.2em;">Parse Tree Example</code></h1>
+
+            <pre data-lang="Prolog"><code style="padding-top: 30px;">%% append(?List1, ?List2, ?List1_then_List2)
+append([], Y, Y).
+append([E|X], Y, [E|Z]) :-
+  append(X, Y, Z).</code></pre>
+        </div>
+        <img src="images/parsing-append.png" style="width:50%; float: right;">
+    </div>
+
+    <div id="AST-Example" class="step slide backup" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Library-plammar">Library plammar</a></li>
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+            <li><a href="#Parse-Tree-Example">Parse Tree Example</a></li>
+        </ul>
+
+        <div style="float: left; width: 48%;">
+            <h1 style="font-size: 1.2em;">Abstract Syntax Tree Example</code></h1>
+
+            <pre data-lang="Prolog"><code style="padding-top: 30px;">%% append(?List1, ?List2, ?List1_then_List2)
+append([], Y, Y).
+append([E|X], Y, [E|Z]) :-
+  append(X, Y, Z).</code></pre>
+        </div>
+        <img src="images/ast-append.png" style="width:50%; float: right;">
+    </div>
+
+    <div id="Covington-Coding-Guidelines" class="step slide backup" data-rel-x="2100" style="background-image: url(images/paper-coding-guidelines.png); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #ededed;">
+        <ul class="shortcuts">
+            <li><a href="#Library-plammar">Library plammar</a></li>
+        </ul>
+    </div>
+
+    <div id="Applied-Covington-Guidelines" class="step slide backup" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Summary-Prolog-plammar">Paper</a></li>
+            <li><a href="#Covington-Community-Report">Results Community Analysis</a></li>
+        </ul>
+
+        <h1>Implemented Covington Rules</h1>
+
+        <img src="images/covington-table.png" style="width:80%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="Covington-Community-Report" class="step slide backup" data-rel-x="2100">
+        <ul class="shortcuts">
+            <li><a href="#Summary-Prolog-plammar">Paper</a></li>
+        </ul>
+
+        <h1 style="font-size: 1.2em;">Community Evaluation of Adherence to Covington</h1>
+
+        <div style="float: left; width: 48%;">
+            Setup for Empirical Study:
+            <ul class="small">
+                <li>Analysed all of SWI-Prolog's “batteries-included” packages (~700 files from 34 packages, ~150.000 LOC)</li>
+                <li>Analysed all of SWI-Prolog's community packages (~4000 files from ~250 packages, ~400.000 LOC)</li>
+                <li>Discarded Prolog files that:
+                    <ul class="small">
+                        <li>consisted only of facts,</li>
+                        <li>were larger than 1 MB,</li>
+                        <li>had more than 20.000 LOC,</li>
+                        <li>contained inconsistent operator definitions,</li>
+                        <li>were invalid (e.g. using deprecated operator definitions), or</li>
+                        <li>took more than 5s to parse</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 48%;">
+            Basic sense of best practice, e.g.
+            <ul class="small">
+                <li>only 4% of LOC are longer than 80 characters (Cov 2.3), but in 30% of all files</li>
+                <li>only 0.5% / 14% in batteries-included</li>
+                <li>sane limitations wrt. number of clauses and number of subgoals</li>
+                <li>with ~95% of all files could be analysed (test without quasi-quotations, nested bracketed comments, operators <code>[]</code> and <code>{}</code>, Unicode support; missing powerful package system)</li>
+            </ul>
+        </div>
+
+        <div style="float: right; width: 48%;">
+            Community vs. Batteries-included:
+            <ul class="small">
+                <li>space after comma in arg_list: 55% vs. 82%</li>
+                <li>linebreak after <code>:-/2</code>: 94% vs. 99%</li>
+                <li>linebreak after subgoal: 93% vs. 99.5%</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Covington-Community-Report-Results" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Community Evaluation of Adherence to Covington <small>(cont.)</small></h1>
+
+        <img src="images/covington-results.png" style="width:65%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="Infer-Operators-Example" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">Example II: <code>infer_operators</code></h1>
+
+        <img src="images/infer-operators-example.png" style="width:72%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="plammar-options" class="step slide backup" data-rel-x="2100" data-rel-y="1100" data-rel-to="Backup-plammar">
+        <h1 style="font-size: 1.2em;"><code>plammar</code>'s Options</h1>
+
+        <ul class="small">
+            <li><code class="black">ops</code>: <code>[op(...), ...]</code></li>
+            <li><code class="black">infer_operators</code>: possibly open list</li>
+            <li>All language extensions, e.g. <code class="black">allow_unicode</code></li>
+            <li><code class="black">targets</code>: <code>[iso, swi, swi(8), swi(7), swi(6), swi(5)]</code></li>
+            <li><code class="black">style</code>:
+                <ul class="small">
+                    <li><code class="black">indent</code></li>
+                    <li><code class="black">max_rule_lines</code></li>
+                    <li><code class="black">max_subgoals</code></li>
+                    <li><code class="black">max_line_length</code></li>
+                    <li>All <code class="black">allow_*</code> language extensions, e.g. <code class="black">digit_groups</code></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="AST-Explorer" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Integration of <code>plammar</code> into AST Explorer</h1>
+
+        <img src="images/astexplorer.png" style="width:62%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="Finite-State-Machine-Numbers" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Library-plammar">Library plammar</a></li>
+            <li><a href="#Tokens-Example">Tokenisation Example</a></li>
+            <li><a href="#Parse-Tree-Example">Parse Tree Example</a></li>
+        </ul>
+
+        <h1 style="font-size: 1.2em;"><code>plammar</code>'s Finite-State Machine for Numbers</h1>
+        <img src="images/finite-state-machine-numbers.png" style="width:72%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="Finite-State-Machine-Justification" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <ul class="shortcuts">
+            <li><a href="#Context-Grammar-plammar">Context in Plammar</a></li>
+        </ul>
+
+        <h1 style="font-size: 1.2em;">Reasons for <code>plammar</code>'s Finite-State Machine</h1>
+
+        <div style="float: left; width: 48%;">
+            What is good about the DCG approach?
+            <ul class="small" style="font-size: 40px;">
+                <li>Logically pure</li>
+                <li>Steadfastness</li>
+                <li>Short and maintainable code</li>
+            </ul>
+        </div>
+
+        <div style="float: left; width: 50%;">
+            What is bad about the DCG approach?
+            <ul class="small" style="font-size: 40px;">
+                <li>Many common DCG prefixes<br>e.g. numbers <code>12.3e5</code></li>
+                <li>Subject to backtracking</li>
+                <li>No need for backtracking</li>
+                <li>Context matters! (cf. tokens)</li>
+                <li>Term expansion not subject to <i>tail-call optimisations</i></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Context-Grammar-plammar" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Context Matters: Conditions in ISO</h1>
+
+        <pre data-lang="Prolog"><code>%% "A token shall not be followed by characters such that
+%%   concatenating the characters of the token with these
+%%   characters forms a valid token as specified by the above
+%%   Syntax." (6.4)
+token(In, Out) :-
+  token_(In, Out),
+  ( % empty rest list
+    Out = []
+  ; Out = [_One_More_Element|Rests],
+    % consuming one element does not succeed
+    \+ token_(In, Rests) ).</code></pre>
+    </div>
+
+    <div id="Logical-Purity" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Achieving Logical Purity in <code>plammar</code></h1>
+
+        <pre data-lang="Prolog"><code>%% call_sequence_ground(DCGBody, Ref, Rest, PTs, A, Z)
+:- meta_predicate call_sequence_ground(//, ?, ?, ?, ?, ?).
+call_sequence_ground(DCGBody, V, V1, V0, A, Z) :-
+  nonvar(V0), !, % parse tree bound
+  append(V, V1, V0),
+  phrase(DCGBody, A, Z).
+call_sequence_ground(DCGBody, V, V1, V0, A, Z) :-
+  ( nonvar(A) % difference list bound
+  ; attvar(A), get_attr(A, pure_input, _PIO)), !, % or lazy list
+  phrase(DCGBody, A, Z),
+  append(V, V1, V0).</code></pre>
+    </div>
+
+    <div id="Backup-Evaluation" class="step slide segue skip skip-progress" data-rel-y="2200" data-rel-to="Backup-plammar">
+        <h1>Backup Slides: Evaluation</h1>
+    </div>
+
+    <div id="Extensions-Motivations" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Language Extensions: Examples</h1>
+
+        <pre data-lang="SWI-Prolog" style="float: left; width: 49%;"><code>:- set_prolog_flag(
+     allow_variable_name_as_functor, true).
+:- op(1000, xfy, ∧).
+:- op(1100, xfy, ∨).
+:- op(1200, xfx, ←).
+
+Path(a, c) ← Edge(a, c) ∨ Edge(a, b) ∧ Path(b, c).
+</code></pre>
+        <pre data-lang="SWI-Prolog" style="float: right; width: 49%;"><code>:- set_prolog_flag(
+     allow_variable_name_as_functor, true).
+:- op(100, xf, {}).
+:- op(100, xf, []).
+:- op(500, xf, ;).
+:- op(600, xfx, ∈).
+:- op(600, fx, while)
+:- op(500, fx, function).
+
+function print_list_of_lists() {
+  while (X ∈ [[a, b], [1, 2, 3]]) {
+    writeln(LENGTH(X));
+    writeln(X[0]);
+  }
+}.
+</code></pre>
+    </div>
+
+    <div id="Extensions-Tokenisation" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Language Extensions: Tokenisation Level</h1>
+
+        <div style="width: 46%; float: left;">
+            Alphabet:
+            <ul class="small">
+                <li><code class="black">allow_unicode</code>: <code>∈</code></li>
+                <li><code class="black">allow_symbolic_no_output_char_c</code>: <code>\c</code></li>
+                <li><code class="black">allow_symbolic_escape_char_e</code>: <code>\e</code></li>
+                <li><code class="black">allow_symbolic_space_char_s</code>: <code>\s</code></li>
+            </ul>
+        </div>
+        <div style="width: 50%; float: left;">
+            Refined Tokens:
+            <ul class="small">
+                <li><code class="black">allow_digit_groups_with_space</code>: <code>1 000</code></li>
+                <li><code class="black">allow_digit_groups_with_underscore</code>: <code>1_000</code></li>
+                <li><code class="black">allow_integer_exponential_notation</code>: <code>1e3</code></li>
+                <li><code class="black">rational_syntax</code>: <code>1r3</code></li>
+                <li><code class="black">var_prefix</code>: <code>Atom</code></li>
+            </ul>
+        </div>
+        
+        <div style="clear: both;">
+            New Tokens:
+            <ul class="small">
+                <li><code class="black">allow_missing_closing_backslash_in_character_escape</code>: <code>\xa</code></li>
+                <li><code class="black">back_quoted_text</code>: <code>`example`</code></li>
+                <li><code class="black">allow_single_quote_char_in_character_code_constant</code>: <code>0''</code></li>
+                <li><code class="black">allow_newline_as_quote_char</code>: <code>0'&lt;newline&gt;</code></li>
+                <li><code class="black">allow_tab_as_quote_char</code>: <code>0'&lt;tab&gt;</code></li>
+                <li><code class="black">allow_shebang</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="Extensions-Parsing" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">Language Extensions: Parsing Level</h1>
+
+        <ul class="small">
+            <li><code class="black">allow_infix_and_postfix_op</code></li>
+            <li><code class="black">allow_compounds_with_zero_arguments</code>: <code>a()</code></li>
+            <li><code class="black">allow_empty_atom</code>: <code>()</code></li>
+            <li><code class="black">allow_curly_block_op</code>: <code>a { b }</code></li>
+            <li><code class="black">allow_square_block_op</code>: <code>a [ b ]</code></li>
+            <li><code class="black">dicts</code>: <code>some{ key: value }</code></li>
+            <li><code class="black">allow_operator_as_operand</code></li>
+            <li><code class="black">allow_arg_precedence_geq_1000</code></li>
+            <li><code class="black">allow_variable_name_as_functor</code>: <code>Hello(World)</code></li>
+            <li><code class="black">allow_unquoted_comma</code>: <code>a(,, ,)</code></li>
+            <li><code class="black">allow_dot_in_atom</code>: <code>tigers are.somehow animals</code></li>
+            <li><code class="black">allow_implicit_end</code></li>
+        </ul>
+    </div>
+
+    <div id="Backup-Applications" class="step slide segue skip skip-progress" data-rel-y="1100" data-rel-to="Backup-Evaluation">
+        <h1>Backup Slides: Applications</h1>
+    </div>
+
+    <div id="GraphQL-Query" class="step slide backup" data-rel-x="2100" data-rel-y="0">
+        <h1 style="font-size: 1.2em;">GraphQL: Query Example</h1>
+        <img src="images/graphql-query.png" style="width:72%; display: block; margin: 0 auto;">
+    </div>
+
+    <div id="GraphQL-Types" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">GraphQL: Type Definitions</h1>
+            <pre data-lang="GraphQL" style="float:left; width: 30%;"><code style="font-size: 24px;">type Query {
+  person(name: String!): Person,
+  book(title: String!): Book,
+  books(filter: String): [Book]
+}
+
+type Book {
+  title:   String!,
+  authors: [Person]
+}
+
+type Person {
+  name: String!,
+  age: Integer,
+  friends: [Person],
+  books(favourite: Boolean): [Book]
+}</code></pre>
+            <pre data-lang="SWI-Prolog" style="float:right; width: 65%;"><code style="font-size: 24px;">:- use_module(library(quasi_quotations)).
+:- quasi_quotation_syntax(type).
+type(ContentHandle, _SyntaxArgs, Vars, Res) :-
+  phrase_from_quasi_quotation(gql_type(Vars, Res), ContentHandle).
+
+gql_type(Env, Type) -->
+  #, type_definitions(Env, Definitions), #,
+  { Type = object{}.put(description, _).put(fields, Definitions) }.
+
+type_definitions(Env, Definitions) --> % base case
+  type_definition(Env, Name, Type),
+  { Definitions = _{}.put(Name, Type) }.
+            </code></pre>
+
+            <ul style="float: right; width: 65%;" class="small">
+                <li>50 nonterminals to parse queries</li>
+                <li>Entire DCG more than 600 LOC</li> 
+            </ul>
+    </div>
+
+    <div id="GraphQL-Resolvers" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">GraphQL: Prolog Resolvers</h1>
+            <pre data-lang="Toplevel SWI-Prolog"><code style="font-size: 24px;">?- Person = {|type|| friends: [Person], ... |}.
+Person = object{
+  fields: _{
+    name: field{ type: string, nonNull: true, resolve: _ },
+    age: field{ type: integer, resolve: _ },
+    friends: list{ kind: field{ type: Person }, resolve: _ },
+    books: list{
+             arguments: _{ favourite: field{ type: boolean } },
+             kind: field{ type: Book }, resolve: _ },
+  },
+  resolve: _ % not yet bound
+}</code></pre>
+    </div>
+
+    <div id="GraphQL-as-Internal-DSL" class="step slide backup" data-rel-x="2100">
+        <h1 style="font-size: 1.2em;">GraphQL as an Internal DSL</h1>
+        <pre data-lang="SWI-Prolog" style="width: 45%; float: left; margin-top: 20px;"><code style="font-size: 24px;">:- set_prolog_flag(var_prefix, true).
+:- op(100, fx, type), op(600, xfy, :).
+:- op(500, xf, !).   % allow_operator_as_operand
+:- op(400, xfy, {}). % allow_curly_block_op
+:- op(200, xf, {}).  % allow_infix_and_postfix_op
+schema(_schema) :- _schema =
+    type Query {
+      person(name: String!): Person,
+      book(title: String!):  Book,
+      books(filter: String): [Book]
+    }
+    type Book {
+      title:   String!,
+      authors: [Person]
+    }
+    type Person {
+      name:    String!,
+      age:     Integer,
+      books(favourite: Boolean): [Book],
+      friends: [Person]
+    }.</code></pre>
+        <pre data-lang="Toplevel" style="width: 45%; float: right; margin-top: 20px;"><code style="font-size: 24px;">?- schema(_s), write_canonical(_s).
+{}({ ','(:(person(:(name, !(String))), Person),
+','(:(book(:(title, !(String))), Book), ...</code></pre>
+    </div>
+
+    <div id="Meta-Interpreter" class="step slide backup" data-rel-x="2100">
+        <h1>Vanilla Meta-Interpreter</h1>
+        <pre data-lang="Prolog"><code>%% mi(:Goal)
+mi(true).                    % for facts
+mi((A , B)) :- mi(A), mi(B). % conjunction
+mi(A ; B) :- mi(A) ; mi(B).  % disjunction
+mi(A = B) :- A = B.          % unification
+mi(A) :-
+  A \= true, A \= (_ , _), A \=
+  clause(A, B),
+  mi(B).</code></pre>
+    </div>
+
+    <div id="Meta-Interpreter-If-then-Rules" class="step slide backup" data-rel-x="2100">
+        <h1>Meta-Interpreter for If-then-Rules</h1>
+        <pre data-lang="Prolog"><code>%% mi(:Goal)
+mi(true).                    % for facts
+mi(A and B) :- mi(A), mi(B). % conjunction
+mi(A or B) :- mi(A) ; mi(B). % disjunction
+mi(A = B) :- A = B.          % unification
+mi(A) :-
+  A \= true, A \= (_ = _),
+  ( clause(A, B)      % there is a Prolog clause A :- B
+  ; (if B then A) ),  % or there is a fact then(if(B),A)
+  mi(B).</code></pre>
+    </div>
+
+
+</div>
+
+<div id="impress-toolbar"></div>
+
+<div class="impress-progressbar"><div></div></div>
+<div class="impress-progress"></div>
+
+<div id="impress-help"></div>
+
+<script type="text/javascript" src="../../extras/highlight/highlight.pack.js"></script>
+<!--
+    To make all described above really work, you need to include impress.js in the page.
+    You also need to call a `impress().init()` function to initialize impress.js presentation.
+    And you should do it in the end of your document.
+-->
+<script type="text/javascript" src="../../js/impress.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>

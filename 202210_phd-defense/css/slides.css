@@ -1,0 +1,1044 @@
+@import url(fonts.css);
+
+.fallback-message {
+    font-family: sans-serif;
+    line-height: 1.3;
+
+    width: 780px;
+    padding: 10px 10px 0;
+    margin: 20px auto;
+
+    border: 1px solid #E4C652;
+    border-radius: 10px;
+    background: #EEDC94;
+}
+.fallback-message p {
+    margin-bottom: 10px;
+}
+.impress-supported .fallback-message {
+    display: none;
+}
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    min-height: 740px;
+
+    background: #000;
+    color: #797979;
+}
+
+/*
+    Now let's style the presentation steps.
+*/
+
+.step {
+    position: relative;
+    width: 1800px;
+    padding: 60px;
+    margin: 60px auto;
+
+    box-sizing: border-box;
+
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 60px;
+    line-height: 1.5;
+}
+/*
+    Make inactive steps a little bit transparent.
+*/
+.impress-enabled .step {
+    margin: 0;
+    opacity: 0.3;
+    transition:         opacity 1s;
+}
+
+.impress-enabled .step.active { opacity: 1 }
+
+/*
+    These 'slide' step styles were heavily inspired by HTML5 Slides:
+    http://html5slides.googlecode.com/svn/trunk/styles.css
+
+    Note that we also use a background image, again just to facilitate a common
+    feature from PowerPoint and LibreOffice worlds. In this case the background
+    image is just the impress.js favicon - as if it were a company logo or something.
+
+*/
+.slide {
+    display: block;
+
+    width: 1850px;
+    height: 1000px;
+    padding: 40px 60px;
+
+    background-color: white;
+    border-radius: 10px;
+
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 45px;
+    letter-spacing: -2px;
+}
+
+
+.slide h1,
+.slide h2,
+.slide h3 {
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
+    text-align: center;
+    color: #515151;
+}
+
+.slide p {
+    text-align: center;
+    margin: 0.7em;
+}
+
+.slide li {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+/* Highlight.js used for coloring pre > code blocks. */
+.slide pre > code {
+    font-size: 30px;
+    text-shadow: 0 0 0 rgba(0, 0, 0, 0);
+}
+
+.slide input {
+    font-size: 1em;
+}
+
+/* Inline code, no Highlight.js */
+code {
+    font-family: "Cutive mono","Courier New", monospace;
+}
+
+
+a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0 0.1em;
+    background: rgba(200,200,200,0.2);
+    text-shadow: -2px 2px 4px rgba(100,100,100,0.9);
+    border-radius: 0.2em;
+    border-bottom: 3px solid rgba(100,100,100,0.2);
+    border-left:   3px solid rgba(100,100,100,0.2);
+
+    transition:         0.5s;
+}
+a:hover,
+a:focus {
+    background: rgba(200,200,200,1);
+    text-shadow: -2px 2px 3px rgba(100,100,100,0.5);
+}
+
+blockquote {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: 400;
+}
+
+em {
+    text-shadow: 0 6px 6px rgba(0, 0, 0, .3);
+}
+
+strong {
+    text-shadow: -3px 3px 6px rgba(100,100,100,0.5);
+}
+
+q {
+    font-family: 'PT Serif';
+    font-style: italic;
+    font-weight: 400;
+    text-shadow: 0 6px 6px rgba(0, 0, 0, .3);
+}
+
+strike {
+    opacity: 0.7;
+}
+
+small {
+    font-size: 0.4em;
+}
+
+td {
+    padding: 0.2em;
+}
+
+.slide .right {
+    float: right;
+    margin-left:  60px;
+    margin-right:   0px;
+    margin-top:    40px;
+    margin-bottom: 40px;
+}
+.slide .left {
+    float: left;
+    margin-right: 60px;
+    margin-left:    0px;
+    margin-top:    40px;
+    margin-bottom: 40px;
+}
+.slide .top {
+    position: absolute;
+    top: 40px;
+    margin-bottom:  40px;
+    margin-top:      0px;
+}
+.slide .bottom {
+    position: absolute;
+    bottom: 40px;
+    margin-bottom:   0px;
+    margin-top:     40px;
+}
+
+/*
+    Specific styles for: .title slides
+*/
+
+.slide.title::after {
+  position: absolute;
+  content: "";
+  display: block;
+  background: url(../images/siegel.png) no-repeat 1050px 330px;
+  opacity: 0.1;
+  height: 100%;
+  bottom: 0;
+  right: 0px;
+  width: 100%;
+  left: auto;
+  z-index: -1;
+}
+
+.title h1,
+.title h2,
+.title h3 {
+    position: absolute;
+    left: 90px; /* slide width is 1800px, so this is like a 5% margin on both sides */
+    width: 90%;
+    text-align: left;
+    line-height: 1.3;
+}
+.title h3 { top: 800px; }
+
+.slide.title h1 {
+  top: 400px;
+}
+.slide.title h2 {
+  top: 760px;
+  font-size: 1em;
+  color: #797979;
+  font-weight: 400;
+}
+
+aside.gdbar {
+  position: absolute;
+  left: 0;
+  top: 125px;
+  padding: 18px 24px 0px 100px;
+  border-radius: 0 10px 10px 0;
+  background: #e6e6e6;
+}
+aside.gdbar.right {
+  right: 0;
+  left: initial;
+  top: 254px;
+  /* 96 is height of gray icon bar */
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+aside.gdbar.right img {
+  -webkit-transform: rotateZ(180deg);
+  -moz-transform: rotateZ(180deg);
+  -ms-transform: rotateZ(180deg);
+  -o-transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
+}
+aside.gdbar.bottom {
+  top: initial;
+  bottom: 60px;
+}
+
+.uni-red {
+  color: #A32638;
+}
+.uni-blue {
+  color: #1F5394;
+}
+
+.impress-enabled .impress-progressbar {
+  border: 2px solid #1F5394;
+  bottom: 11px;
+  left: 200px;
+  right: 340px;
+}
+.impress-progressbar div {
+  background: #1F5394;
+  height: 10px;
+}
+.impress-enabled .impress-progress {
+  /*color: #6daeff;*/
+  color: #fff;
+  opacity: 1.0;
+  font-size: 20pt;
+  font-weight: bold;
+  width: 125px;
+  text-align: center;
+  background: #000;
+  border-radius: 8px 8px 0 0;
+}
+
+.impress-console-preview .impress-progress,
+.impress-console-preview .impress-progressbar,
+.impress-console-preview #impress-toolbar {
+  display: none;
+}
+
+/* Styles for animating the contents of a slide, such as a img, p, li or span element. ********/
+
+/*
+ fly-in class starts from a position outside the slide, then flies into it's correct position.
+*/
+.future .fly-in {
+    transform: translateY(-2100px);
+    opacity: 0.0; /* Make it invisible, just so it doesn't clutter some other slide that might be in the position where we moved it */
+}
+.present .fly-in {
+    transform:         translateY(0px);
+    opacity: 1.0;
+    transition:         2s;
+}
+.past .fly-out {
+    transform:         translateY(2100px);
+    opacity: 0.0;
+    transition:         2s;
+}
+
+/*
+   Fade-in/out is a straightforward fade. Give it enough seconds that all browsers render it clearly.
+*/
+.future .fade-in {
+    opacity: 0.0;
+}
+.present .fade-in {
+    opacity: 1.0;
+    transition: 3s;
+}
+.past .fade-out {
+    opacity: 0.0;
+    transition: 3s;
+}
+/*
+    Zoom-in.
+*/
+.future  .zoom-in {
+    transform:        scale(10);
+    opacity: 0.0;
+}
+.present .zoom-in {
+    transform:         scale(1);
+    opacity: 1.0;
+    transition: 3s;
+}
+.past  .zoom-out {
+    transform:        scale(10);
+    opacity: 0.0;
+}
+
+/*
+    Styles for specific slides.
+*/
+
+/* The bar graph for Acme Inc profits */
+
+#acme-graph-bottom {
+    position: absolute;
+    bottom: 100px;
+    right: 200px;
+    background-color: black;
+    width: 900px;
+    height: 3px;
+}
+
+/* height: is set from javascript */
+#acme-graph-q1,
+#acme-graph-q2,
+#acme-graph-q3,
+#acme-graph-q4 {
+    border: solid 1px black;
+    width: 140px;
+    margin-left: 30px;
+    position: absolute;
+    bottom: 100px;
+}
+
+#acme-graph-q1 {
+    background-color: red;
+    right: 900px;
+}
+
+#acme-graph-q2 {
+    background-color: blue;
+    right: 700px;
+}
+
+#acme-graph-q3 {
+    background-color: green;
+    right: 500px;
+}
+
+#acme-graph-q4 {
+    background-color: purple;
+    left: 750px;
+    right: 300px;
+}
+
+/*
+    And as the last thing there is a workaround for quite strange bug.
+    It happens a lot in Chrome. I don't remember if I've seen it in Firefox.
+
+    Sometimes the element positioned in 3D (especially when it's moved back
+    along Z axis) is not clickable, because it falls 'behind' the <body>
+    element.
+
+    To prevent this, I decided to make <body> non clickable by setting
+    pointer-events property to `none` value.
+    Value if this property is inherited, so to make everything else clickable
+    I bring it back on the #impress element.
+
+    If you want to know more about `pointer-events` here are some docs:
+    https://developer.mozilla.org/en/CSS/pointer-events
+
+    There is one very important thing to notice about this workaround - it makes
+    everything 'unclickable' except what's in #impress element.
+
+    So use it wisely ... or don't use at all.
+*/
+.impress-enabled                          { pointer-events: none }
+.impress-enabled #impress                 { pointer-events: auto }
+.impress-enabled #impress-toolbar         { pointer-events: auto }
+.impress-enabled #impress-console-button  { pointer-events: auto }
+
+/* Hexagones */
+
+.hexagons {
+  font-size: 0;
+  --s: 340px;
+  --m: 4px;
+  --f: calc(var(--s) * 1.732 + 4 * var(--m) - 1px);
+  width: calc((var(--s) + 2 * var(--m)) * 3);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -100px;
+  transition: width 1s 200ms !important;
+}
+.hexagons div {
+  position: relative;
+  width: var(--s);
+  margin-left: var(--m);
+  margin-right: var(--m);
+  margin-top: var(--m);
+  background: red;
+  height: calc(var(--s) * 1.1547);
+  display: inline-block;
+  font-size: initial;
+  clip-path: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+  margin-bottom: calc(var(--m) - var(--s) * 0.2885);
+  background-position: center;
+  background-size: calc(var(--s) + 2 * var(--m)) calc(var(--s) * 1.1547 + 2 * var(--m));
+  transition: margin-left 1s 200ms, margin-right 1s 200ms, opacity 1s !important;
+}
+.hexagons div span.language {
+  position: absolute;
+  width: calc(var(--s) * 0.8);
+  transform: rotate(30deg);
+  left: 50%;
+  background: #ccc;
+  text-align: center;
+  margin-top: calc(var(--s) / 7.2);
+  margin-left: -60px;
+  font-size: 32px;
+  font-variant: small-caps;
+  border-bottom: 1px solid #444;
+}
+.hexagons div:nth-child(1),
+.hexagons div:nth-child(6) {
+  margin-left: calc(var(--s) / 2 + 2 * var(--m));
+}
+
+.hexagons.splitted {
+  width: calc((var(--s) + 2 * var(--m)) * 3 + 200px);
+}
+.hexagons.splitted div:nth-child(2),
+.hexagons.splitted div:nth-child(5),
+.hexagons.splitted div:nth-child(7) {
+  margin-left: 100px;
+}
+.hexagons.splitted div:nth-child(1),
+.hexagons.splitted div:nth-child(3),
+.hexagons.splitted div:nth-child(6) {
+  margin-right: 100px;
+}
+
+span.language {
+  background: #ccc;
+  color: #444;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+#Programming-Languages {
+  padding: 0;
+}
+#Programming-Languages.past {
+  opacity: 1.0;
+}
+
+#dsl-img, #gpl-img {
+  position: absolute;
+  width: 350px;
+  top: 440px;
+  opacity: 0;
+  transition: opacity 1s !important;
+}
+.present #dsl-img,
+.present #gpl-img {
+  opacity: 1;
+}
+
+
+.left-col, .right-col {
+  width: 50%;
+}
+.left-col h1, .right-col h1 {
+  text-align: left;
+}
+.left-col {
+  float: left;
+}
+.right-col {
+  float: right;
+}
+
+.ribbon {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  position: absolute;
+}
+.ribbon span,
+.ribbon a {
+  position: absolute;
+  display: block;
+  width: 488px;
+  padding: 22px 0;
+  background-color: #9ac93be3;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 20;
+  text-shadow: 1px 1px #679903;
+  font-size: 38px;
+  line-height: 36px;
+}
+.ribbon.small {
+  width: 200px;
+  height: 200px;
+}
+.ribbon.small span {
+  width: 300px;
+}
+.ribbon-top-left {
+  top: -10px;
+  left: -10px;
+}
+.ribbon-top-left span,
+.ribbon-top-left a {
+  right: -45px;
+  top: 60px;
+  transform: rotate(-45deg);
+}
+
+.ribbon-top-right {
+  top: -15px;
+  right: -15px;
+}
+.ribbon-top-right span,
+.ribbon-top-right a {
+  left: -60px;
+  top: 90px;
+  transform: rotate(45deg);
+}
+.ribbon-top-right.small span {
+  left: -37px;
+  top: 48px;
+  font-size: 24px;
+  line-height: 10px;
+  background-color: #ef8327e0;
+  text-shadow: 1px 1px #994703;
+}
+
+.ribbon.wrapup span {
+  background-color: #8c64ffbf;
+}
+
+ul li code {
+  margin: 0 5px;
+}
+
+pre {
+  border: 1px solid #f8f8f8;
+}
+pre[data-lang],
+pre[data-text] {
+  position: relative;
+}
+pre[data-lang]:after {
+  content: attr(data-lang);
+  background-color: darkgrey;
+  right: -1px;
+  top: -1px;
+  position: absolute;
+  font-size: 16pt;
+  color: white;
+  padding: 2px 25px;
+  text-transform: uppercase;
+}
+pre[data-text]:before {
+  content: attr(data-text);
+  background-color: #57a2ff;
+  right: -1px;
+  top: -1px;
+  position: absolute;
+  font-size: 16pt;
+  color: white;
+  padding: 2px 25px;
+  text-transform: uppercase;
+}
+pre[data-lang][data-text]:after {
+  right: 214px;
+}
+pre.border {
+  border: 1px solid #bbb;
+}
+
+pre .ribbon {
+  font-family: 'Open Sans', Arial, sans-serif
+}
+
+code,
+.bg {
+  background-repeat: no-repeat !important;
+}
+
+.slide.segue {
+  background: #1F5394 !important;
+  color: white;
+}
+.slide.segue:after {
+  content: '';
+  position: absolute;
+  background: url(../images/siegel.png) no-repeat 1050px 330px;
+  opacity: 0.2;
+  height: 100%;
+  bottom: 0;
+  right: 0px;
+  width: 100%;
+  left: auto;
+  z-index: -1;
+}
+
+.slide.segue h1,
+.slide.segue h2 {
+  color: #fff;
+  text-align: left;
+}
+
+.slide.segue h1 {
+  font-size: 144px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 60px;
+}
+.slide.segue h2 {
+  font-size: 100px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 320px 60px 0 60px;
+}
+
+.impress-on-Overview .step,
+.impress-on-Overview .step .substep,
+.impress-on-Backup-Overview .step,
+.impress-on-Backup-Overview .step .substep,
+.impress-on-Overview-2 .step,
+.impress-on-Overview-2 .step .substep,
+.impress-on-Backup-Overview-2 .step,
+.impress-on-Backup-Overview-2 .step .substep {
+  opacity: 1.0 !important;
+}
+.impress-on-Recap-EBNF-Example .step,
+.impress-on-Recap-EBNF-Example .step .substep,
+.impress-on-Combine-EBNF-dcg4pt .step,
+.impress-on-Combine-EBNF-dcg4pt .step .substep,
+.impress-on-EBNF-dcg4pt-Fragments #Combine-EBNF-dcg4pt,
+.impress-on-EBNF-dcg4pt-Fragments #Combine-EBNF-dcg4pt .substep,
+.impress-on-Recap-If-then-Example #If-then-Example,
+.impress-on-Recap-If-then-Example #If-then-Example .substep {
+  opacity: 1.0 !important;
+}
+
+#EBNF-dcg4pt-Fragments {
+  height: 1000px;
+}
+#EBNF-dcg4pt-Fragments pre {
+  margin-top: 0;
+}
+#EBNF-dcg4pt-Fragments h1 {
+  color: #fff;
+  position: absolute;
+  font-size: 1.2em;
+  bottom: 50px;
+  right: 60px;
+}
+
+.impress-on-EBNF-dcg4pt-Fragments #EBNF-Example,
+.impress-on-EBNF-dcg4pt-Fragments #Library-dcg4pt,
+.impress-on-Combine-EBNF-dcg4pt #EBNF-dcg4pt-Fragments,
+.impress-on-Combine-EBNF-dcg4pt #EBNF-dcg4pt-Fragments .substep {
+  opacity: 0.0 !important;
+}
+
+ul.small,
+ol.small {
+  font-size: 30px;
+  padding: 0;
+}
+ul.small li code,
+ol.small li code {
+  margin-left: 5px;
+  margin-right: 2px;
+  font-size: 28px;
+}
+
+.paper {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  padding: 0;
+  position: relative;
+  width: 41%;
+  float: right;
+}
+.paper:before, .paper:after {
+  content: "";
+  height: 98%;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+}
+.paper:before {
+  background: #fafafa;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  left: -5px;
+  top: 4px;
+  transform: rotate(-2.5deg);
+}
+.paper:after {
+  background: #f6f6f6;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  right: -3px;
+  top: 1px;
+  transform: rotate(1.4deg);
+}
+.paper img {
+  width: 100%;
+}
+.paper p {
+  position: absolute;
+  font-size: 18px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #333;
+  bottom: 0;
+  background: #eeeeeed6;
+  border-top: 1px solid #ccc;
+  margin: 0;
+  padding: 5px;
+}
+
+.summary {
+  padding-left: 240px;
+}
+.summary.slide {
+  background-color: inherit;
+}
+
+.summary .left-col {
+  float: left;
+  width: 50%;
+}
+.summary .left-col h1 {
+  font-size: 1.9em;
+  line-height: 1.3em;
+}
+.summary .left-col p {
+  font-size: 40px;
+  text-align: left;
+  margin: 0.7em 0;
+}
+.summary .left-col ul {
+  padding: 10px 0 0 38px;
+  font-size: 38px;
+  list-style: circle;
+}
+.summary .left-col ul li {
+  margin-right: 0;
+  margin-left: 0;
+}
+
+
+.impress-on-Summary-External-dcg4pt,
+.impress-on-Summary-External-Tracer,
+.impress-on-Summary-Internal-If-then,
+.impress-on-Summary-Internal-CNL,
+.impress-on-Summary-Applications-Alexa,
+.impress-on-Summary-Applications-GraphQL,
+.impress-on-Summary-Applications-xsd,
+.impress-on-Summary-Prolog-CHRjs,
+.impress-on-Summary-Prolog-plammar,
+.impress-on-Summary-Prolog-Advances,
+.impress-on-Contributions,
+.impress-on-End {
+  background-color: #fff;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: auto 100vh;
+}
+.impress-on-Summary-External-dcg4pt,
+.impress-on-Summary-External-Tracer {
+  background-image: url(../images/bg-external-dsl.png);
+}
+.impress-on-Summary-Internal-If-then,
+.impress-on-Summary-Internal-CNL {
+  background-image: url(../images/bg-internal-dsl.png);
+}
+.impress-on-Summary-Applications-Alexa,
+.impress-on-Summary-Applications-GraphQL,
+.impress-on-Summary-Applications-xsd {
+  background-image: url(../images/bg-applications.png);
+}
+.impress-on-Summary-Prolog-CHRjs,
+.impress-on-Summary-Prolog-plammar,
+.impress-on-Summary-Prolog-Advances {
+  background-image: url(../images/bg-prolog.png);
+}
+
+#Summary-Prolog-Advances h1 {
+  font-size: 1.5em;
+  text-align: left;
+}
+#Summary-Prolog-Advances ul {
+  font-size: 0.8em;
+}
+#Summary-Prolog-Advances ul li {
+  margin: 0.1em 1em;
+}
+
+#Contributions {
+  opacity: 0.0;
+}
+.impress-on-Contributions #Contributions,
+.impress-on-End #Contributions {
+  opacity: 1.0 !important;
+}
+
+.impress-on-Contributions:has(#Contributions.present),
+.impress-on-End:has(#End.present) {
+  background-image: url(../images/contributions.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.impress-on-End:has(#End.present) {
+  background-image: url(../images/contributions-empty.png);
+}
+.impress-on-Contributions .slide.summary,
+.impress-on-End .slide.summary {
+  opacity: 1.0 !important;
+  border-radius: 10px;
+}
+.impress-on-Contributions .slide.summary .substep,
+.impress-on-End .slide.summary .substep {
+  opacity: 1.0 !important;
+}
+.impress-on-Contributions .slide:not(.summary),
+.impress-on-End .slide:not(.summary) {
+  opacity: 0.0 !important;
+}
+.impress-on-Overview .slide.summary {
+  border-radius: 10px;
+  background: #fff;
+}
+.impress-on-Overview #Summary-External-dcg4pt,
+.impress-on-Overview #Summary-External-Tracer {
+  background-image: url(../images/bg-external-dsl.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.impress-on-Overview #Summary-Internal-If-then,
+.impress-on-Overview #Summary-Internal-CNL {
+  background-image: url(../images/bg-internal-dsl.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.impress-on-Overview #Summary-Applications-Alexa,
+.impress-on-Overview #Summary-Applications-GraphQL,
+.impress-on-Overview #Summary-Applications-xsd {
+  background-image: url(../images/bg-applications.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.impress-on-Overview #Summary-Prolog-CHRjs,
+.impress-on-Overview #Summary-Prolog-plammar,
+.impress-on-Overview #Summary-Prolog-Advances {
+  background-image: url(../images/bg-prolog.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#Recursions h1 {
+  font-size: 1.2em;
+  text-align: left;
+  margin: 0.1em 0;
+}
+#Recursions pre > code {
+  font-size:  24px;
+}
+
+.hljs-keyword {
+  font-weight: normal;
+}
+
+.shortcuts {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  color: #fff;
+  opacity: 0.0;
+  transform: opacity 1s;
+  z-index: 100;
+}
+.shortcuts:hover {
+  opacity: 1.0;
+}
+ul.shortcuts {
+  padding: 0;
+  margin: 0;
+  list-style: circle;
+}
+ul.shortcuts li {
+  margin: 0;
+}
+
+body:has(.step.active.present .substep:not(.substep-visible)) .impress-progress {
+  color: #ffc457 !important;
+}
+
+#Operator-Notation ul li {
+  margin-left: 1em;
+}
+
+#halloween:before {
+  content: "";
+  position: absolute;
+  top: 70px;
+  right: -90px;
+  width: 120px;
+  height: 120px;
+  background: url(../images/halloween-2.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+}
+
+.black {
+  color: #000;
+}
+
+.impress-console-current #impress .step .substep:not(.substep-visible) {
+  opacity: 1.0;
+  position: relative;
+}
+.impress-console-current #impress .step .substep:not(.substep-visible):before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content: "";
+  border: 5px solid red;
+}
+.impress-console-current #impress .step .substep:not(.substep-visible):after {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  left: -30px;
+  top: -30px;
+  font-size: 40px;
+  text-align: center;
+  background-color: red;
+  color: #fff;
+  font-weight: bold;
+  content: attr(data-substep-order);
+  border-radius: 30px;
+  padding: 0;
+}
+
+.impress-on-Recap-EBNF-Example.impress-console-current #impress #EBNF-Example.step .substep:not(.substep-visible):before,
+.impress-on-Recap-EBNF-Example.impress-console-current #impress #EBNF-Example.step .substep:not(.substep-visible):after {
+  display: none;
+}
+
+body.impress-console-current:has(.step.active.present .substep:not(.substep-visible)) .impress-progress {
+  color: red !important;
+  font-weight: bold;
+}
+
+#Conclusion {
+  opacity: 0.0;
+}
+.impress-on-Conclusion #Conclusion,
+.impress-on-End #Conclusion {
+  opacity: 1.0 !important;
+}
+.impress-on-End #Conclusion {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transform:  translate(-50%, -50%) translate3d(1580px, 4750px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1.3) !important;
+}
+.impress-on-End #Conclusion .substep {
+  opacity: 1.0 !important;  
+}
+
+sup {
+  color: red;
+  font-size: 60%;
+}
+
+#Addressed-Problems #image-holder {
+  width: 100%;
+  height: 100%;
+  background-image: url(../images/addressed-problems.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#Addressed-Problems #image-holder:has(.substep.substep-visible) {
+  background-image: url(../images/addressed-problems-talk.png);
+}
