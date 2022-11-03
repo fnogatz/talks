@@ -17,13 +17,13 @@ A little collection of talks I gave.
 
 [Related Paper](http://www.imn.htwk-leipzig.de/~schwarz/wlp16/wlp2016_pre-proceedings_paper_5.pdf)
 
-## [Prolog Crashkurs](http://fnogatz.github.io/talks/ss16-uniwue-prolog-intro)
+## [Beyond Tellerrand: Post-Relational Databases](http://fnogatz.github.io/talks/201607_uniwue-postrelational-dbs)
+
+*University of Würzburg, 7/20/2017*.
+
+## [Prolog Crashkurs](http://fnogatz.github.io/talks/201604_uniwue-prolog-crashkurs)
 
 *University of Würzburg, 4/28/2016*.
-
-## [Seminareinführung: Advanced Database and Logic Programming Concepts](http://fnogatz.github.io/talks/ss16-uniwue-seminar) (2016)
-
-*University of Würzburg, 4/14/2016*.
 
 ## [CHR.js: Compiling Constraint Handling Rules to JavaScript](http://fnogatz.github.io/talks/master-thesis)
 
