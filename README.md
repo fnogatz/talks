@@ -7,36 +7,52 @@ A little collection of talks I gave.
 
 *University of Würzburg, 10/31/2022*.
 
-## [WLP'17: Declarative XML Schema Validation with SWI–Prolog](http://fnogatz.github.io/talks/wflp17-lib-xsd) (2017)
+## [CHR.js: A CHR Implementation in JavaScript](https://fnogatz.github.io/talks/201809_ruleml-chrjs)
 
-*Workshop on (Constraint) Logic Programming (WLP), University of Würzburg, 9/20/2017*.
+*Rules and Reasoning - Second International Joint Conference (RuleML+RR'18), Luxembourg, 9/21/2018*.
 
-## [WLP'16: Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](http://fnogatz.github.io/talks/wlp16-graphql) (2016)
+## [Web-based Visualisation for Definite Clause Grammars using Prolog Meta-Interpreters](https://fnogatz.github.io/talks/201809_ppdp18-dcg-visualiser)
 
-*Workshop on (Constraint) Logic Programming (WLP), HTWK Leipzig, 9/12/2016*.
+*20th International Symposium on Principles and Practice of Declarative Programming (PPDP'18), Frankfurt/Main, 9/4/2018*.
 
-[Related Paper](http://www.imn.htwk-leipzig.de/~schwarz/wlp16/wlp2016_pre-proceedings_paper_5.pdf)
+## [How to win #dbhackathon twice and still fail](https://fnogatz.github.io/talks/201807_db-summercamp)
 
-## [Beyond Tellerrand: Post-Relational Databases](http://fnogatz.github.io/talks/201607_uniwue-postrelational-dbs)
+*DB Summercamp, DB mindbox Berlin, 7/27/2018*.
+
+## [A Prolog Grammar written in Prolog](https://fnogatz.github.io/talks/201801_prolog-grammar/)
+
+*University of Würzburg, 1/31/2018*
+
+## [Declarative XML Schema Validation with SWI–Prolog](https://fnogatz.github.io/talks/wflp17-lib-xsd)
+
+*Workshop on (Constraint) Logic Programming (WLP'17), University of Würzburg, 9/20/2017*.
+
+## [Beyond Tellerrand: Post-Relational Databases](https://fnogatz.github.io/talks/201607_uniwue-postrelational-dbs)
 
 *University of Würzburg, 7/20/2017*.
 
-## [Prolog Crashkurs](http://fnogatz.github.io/talks/201604_uniwue-prolog-crashkurs)
+## [Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](https://fnogatz.github.io/talks/wlp16-graphql)
+
+*Workshop on (Constraint) Logic Programming (WLP'16), HTWK Leipzig, 9/12/2016*.
+
+[Related Paper](http://www.imn.htwk-leipzig.de/~schwarz/wlp16/wlp2016_pre-proceedings_paper_5.pdf)
+
+## [Prolog Crashkurs](https://fnogatz.github.io/talks/201604_uniwue-prolog-crashkurs)
 
 *University of Würzburg, 4/28/2016*.
 
-## [CHR.js: Compiling Constraint Handling Rules to JavaScript](http://fnogatz.github.io/talks/master-thesis)
+## [CHR.js: Compiling Constraint Handling Rules to JavaScript](https://fnogatz.github.io/talks/master-thesis)
 
 *University of Ulm, 12/01/2015. Presentation of my Master Thesis.*
 
 Related Links:
-- [Master Thesis](http://www.informatik.uni-ulm.de/pm/fileadmin/pm/home/fruehwirth/drafts/Nogatz-CHR-Javascript-Masterthesis.pdf)
-- [CHR.js](http://github.com/fnogatz/CHR.js), JIT Compiler
-- [chrjs.net](http://chrjs.net/), Online Playground for CHR.js
-- [CHR.js-website](http://github.com/fnogatz/CHR.js-website), source code of chrjs.net
-- [CHR-Benchmarks](http://github.com/fnogatz/CHR-Benchmarks), benchmark suite for CHR systems
+- [Master Thesis](https://www.informatik.uni-ulm.de/pm/fileadmin/pm/home/fruehwirth/drafts/Nogatz-CHR-Javascript-Masterthesis.pdf)
+- [CHR.js](https://github.com/fnogatz/CHR.js), JIT Compiler
+- [chrjs.net](https://chrjs.net/), Online Playground for CHR.js
+- [CHR.js-website](https://github.com/fnogatz/CHR.js-website), source code of chrjs.net
+- [CHR-Benchmarks](https://github.com/fnogatz/CHR-Benchmarks), benchmark suite for CHR systems
 
-## Repetitorium: Paradigmen der Programmierung (2015)
+## Repetitorium: Paradigmen der Programmierung
 
 *University of Ulm, 7/10/2015 - 7/14/2015*
 
@@ -50,7 +66,7 @@ Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-15/exercises.html)
 
 *University of Ulm, 2 June 2015*
 
-## Repetitorium: Paradigmen der Programmierung (2014)
+## Repetitorium: Paradigmen der Programmierung
 
 *University of Ulm, 7/26/2014 - 7/31/2014*
 
@@ -60,7 +76,7 @@ Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-14/prolog-chr/) |
 
 Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-14/exercises.html)
 
-## Repetitorium: Paradigmen der Programmierung (2013)
+## Repetitorium: Paradigmen der Programmierung
 
 *University of Ulm, 7/19/2013 - 7/21/2013*
 
@@ -74,7 +90,7 @@ Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-13/exercises.html)
 
 *University of Ulm, 1/31/2013, Web Engineering lecture.*
 
-## Repetitorium: Paradigmen der Programmierung (2012)
+## Repetitorium: Paradigmen der Programmierung
 
 *University of Ulm, 7/24/2012 - 7/26/2012 and 9/25/2012 - 9/27/2012*
 
