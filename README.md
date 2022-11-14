@@ -41,7 +41,7 @@ A little collection of talks I gave.
 
 *University of Würzburg, 4/28/2016*.
 
-## [CHR.js: Compiling Constraint Handling Rules to JavaScript](https://fnogatz.github.io/talks/master-thesis)
+## [CHR.js: Compiling Constraint Handling Rules to JavaScript](https://fnogatz.github.io/talks/201512_master-thesis_chrjs)
 
 *University of Ulm, 12/01/2015. Presentation of my Master Thesis.*
 
