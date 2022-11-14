@@ -31,7 +31,7 @@ A little collection of talks I gave.
 
 *University of Würzburg, 7/20/2017*.
 
-## [Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](https://fnogatz.github.io/talks/wlp16-graphql)
+## [Implementing GraphQL as a Query Language for Deductive Databases in SWI–Prolog Using DCGs, Quasi Quotations, and Dicts](https://fnogatz.github.io/talks/201609_wlp16-graphql)
 
 *Workshop on (Constraint) Logic Programming (WLP'16), HTWK Leipzig, 9/12/2016*.
 
