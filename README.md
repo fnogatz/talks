@@ -23,7 +23,7 @@ A little collection of talks I gave.
 
 *University of Würzburg, 1/31/2018*
 
-## [Declarative XML Schema Validation with SWI–Prolog](https://fnogatz.github.io/talks/wflp17-lib-xsd)
+## [Declarative XML Schema Validation with SWI–Prolog](https://fnogatz.github.io/talks/201709_wflp17-lib-xsd)
 
 *Workshop on (Constraint) Logic Programming (WLP'17), University of Würzburg, 9/20/2017*.
 
