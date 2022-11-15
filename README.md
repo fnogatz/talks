@@ -62,7 +62,7 @@ Prolog & CHR: [Skript](https://fnogatz.github.io/talks/pdp-rep-15/prolog-chr/) |
 
 Mixed: [Übungen](https://fnogatz.github.io/talks/pdp-rep-15/exercises.html)
 
-## [Project Demo: CHR.js](https://fnogatz.github.io/talks/ss15-projekt-chr/)
+## [Project Demo: CHR.js](https://fnogatz.github.io/talks/201506_ss15-projekt-chr/)
 
 *University of Ulm, 2 June 2015*
 
