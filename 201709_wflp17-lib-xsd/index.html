@@ -96,7 +96,7 @@ URL: https://code.google.com/p/io-2012-slides
     <article>
       <ul class="large">
         <li>SWI has good XML support</li>
-        <li>Little tools with XSD 1.1 support</li>
+        <li>Few tools with XSD 1.1 support</li>
         <li>Existing implementations little declarative</li>
         <li>Typical needs: pattern matching, DOM tree traversal, backtracking</li> 
       </ul>
@@ -275,11 +275,12 @@ element( <span class="tag important">person</span>,
 &lt;/xs:schema&gt;
 </pre>
 
-      <pre class="prettyprint build" data-lang="Prolog" style="clear: both;">
-<span class="pln important">?- element(_Parent_ID, S_ID, <span class="tag important">simpleType</span>),</span><span class="pln important">
-   attribute($S_ID, <span class="atn important">name</span>, <span class="atv important">id</span>),
-   element(S_ID, R_ID, <span class="tag important">restriction</span>),
-   attribute(R_ID, <span class="atn important">base</span>, <span class="atv important">Base_Type</span>).</span>
+      <pre class="prettyprint" data-lang="Prolog" style="clear: both;">
+<span class="pln important">?- attribute(D_ID, type, Type),
+   element(_Parent_ID, S_ID, simpleType),
+   element(S_ID, R_ID, restriction),
+   attribut(R_ID, base, BaseType),
+   ...
 </pre>
     </article>
 
@@ -564,7 +565,7 @@ node_attribute(xsd, [0, 1, 0], base, 'xs:int').
       <ul class="build">
         <li>Unification</li>
         <li>Backtracking</li>
-        <li>Tabling</li>
+        <li>Memoisation</li>
         <li>Third-party modules like <code>library(regex)</code> and <code>library(tap)</code></li>
         <li>Test-driven development</li>
         <li>Quasi-quotations, term expansions</li>
@@ -573,7 +574,7 @@ node_attribute(xsd, [0, 1, 0], base, 'xs:int').
     <aside class="note">
       <ul>
         <li>Unification: find the right element</li>
-        <li>Backtracking: finde the right alternative</li>
+        <li>Backtracking: find the right alternative</li>
         <li>Tabling: avoid recalculation using memoisation</li>
         <li>regex: <code>restriction base="string"</code> with <code>pattern</code>, XSD pre-defined types</li>
       </ul>
@@ -721,7 +722,7 @@ node_attribute(xsd, [0, 1, 0], base, 'xs:int').
       <br /> <br /> <br />
 
       <pre class="prettyprint questions" data-lang="prolog" >
-?- ask(falco, Question, Answer).
+?- ask(falco, +Question, -Answer).
       </pre>
 
   <br/> <br/> <br/>
